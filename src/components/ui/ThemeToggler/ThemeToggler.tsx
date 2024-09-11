@@ -3,7 +3,7 @@ import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useState } from "react";
 import Button from "../button/Button";
 import { getFromStorage, saveToStorage } from "@/utils/darkMode";
-function ThemeToggler() {
+function ThemeToggler({className}:{className?:string}) {
   const [theme, setTheme] = useState<string | null>(null);
   useEffect(() => {
     const storedTheme = getFromStorage("theme") || "dark";
@@ -19,12 +19,12 @@ function ThemeToggler() {
     document.documentElement.classList.add(newtheme);
   };
   return (
-    <Button type="button" size="xl" className="hidden lg:flex  " onClick={themeHandler}>
+    <Button type="button" size="xl" className={` !px-0 ${className}`} onClick={themeHandler}>
       <SunIcon
-        className={`${theme === "light" ? "hidden" : "inline-block"}  w-full h-full  `}
+        className={`${theme === "light" ? "hidden" : "inline-block"}  !w-7 !h-7 mx-auto `}
       />
       <MoonIcon
-        className={`${theme === "dark" ? "hidden" : "inline-block "}  w-full h-full `}
+        className={`${theme === "dark" ? "hidden" : "inline-block "}  !w-7 !h-7 mx-auto `}
       />
     </Button>
   );
