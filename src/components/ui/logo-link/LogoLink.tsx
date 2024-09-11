@@ -7,6 +7,7 @@ function LogoLink() {
     <div className="lg:ml-8">
                 <Link href={"/"} className='block'>
                 <ResponsiveImage
+                sizes='h-12  w-[73px]'
                 className='h-12  w-[73px] !bg-transparent'
                 imageStyles='object-cover !bg-transparent'
                 alt='سبزلرن'
