@@ -51,6 +51,31 @@
   .bg-conic-gradient {
     background-image: conic-gradient(from 90deg, var(--tw-gradient-stops));
   }
+  .only-icon {
+    aspect-ratio: 1 / 1;
+    padding-left: 0;
+    padding-right: 0;
+}
+.button-lg, .button-xl {
+  -moz-column-gap: .625rem;
+  column-gap: .625rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  font-size: 1rem;
+  line-height: 1.75rem;
+}
+.button-md{
+  height: 2rem;
+}
+.button-lg {
+  height: 3rem;
+}
+.button-xl {
+  height: 52px;
+}
+.button-2xl{
+  height: 64px;
+}
 }
 /* after shadow */
 

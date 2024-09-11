@@ -5,7 +5,7 @@ const config: Config = {
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
-  darkMode:"class",
+  darkMode: "class",
   theme: {
     screens: {
       xs: "320px",
@@ -14,6 +14,7 @@ const config: Config = {
       lg: `1024px`,
       xl: `1280px`,
       "2xl": `1366px`,
+      "3xl" :"1440px"
     },
     extend: {
       borderRadius: {
@@ -29,11 +30,10 @@ const config: Config = {
           sm: "0.625rem",
         },
       },
-      colors:{
-        grayTheme:"#242a38",
-        darker:"#242a38",//darker
-        baseColor:"#22c55e"
-
+      colors: {
+        grayTheme: "#242a38",
+        darker: "#242a38", //darker
+        baseColor: "#22c55e",
       },
       fontFamily: {
         Dana: "Dana",
@@ -47,13 +47,16 @@ const config: Config = {
         light: "0 1px 60px rgba(0,0,0,5%)",
       },
       spacing: {
+        "def-size": "1920px",
+        4.5: "1.5rem",
+        5.5:"1.375rem",
         25: "6.25rem",
-        4.5 : "1.5rem"
+        13:"3.25rem"
       },
     },
   },
   plugins: [
-    function ({ addVariant }:{addVariant:any}) {
+    function ({ addVariant }: { addVariant: any }) {
       addVariant(`child`, `&>*`);
       addVariant(`child-hover`, `&>*:hover`);
     },
