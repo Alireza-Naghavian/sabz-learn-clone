@@ -1,19 +1,62 @@
 import type { Config } from "tailwindcss";
-
 const config: Config = {
   content: [
     "./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/components/**/*.{js,ts,jsx,tsx,mdx}",
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
   ],
+  darkMode:"class",
   theme: {
+    screens: {
+      xs: "320px",
+      sm: `640px`,
+      md: `768px`,
+      lg: `1024px`,
+      xl: `1280px`,
+      "2xl": `1366px`,
+    },
     extend: {
-      colors: {
-        background: "var(--background)",
-        foreground: "var(--foreground)",
+      borderRadius: {
+        "4xl": "2rem",
+      },
+      letterSpacing: {
+        tightest: "-0.065em",
+      },
+      container: {
+        center: true,
+        padding: {
+          DEFAULT: "1rem",
+          sm: "0.625rem",
+        },
+      },
+      colors:{
+        grayTheme:"#242a38",
+        darker:"#242a38",//darker
+        baseColor:"#22c55e"
+
+      },
+      fontFamily: {
+        Dana: "Dana",
+        DanaMedium: "Dana Medium",
+        DanaBold: "Dana DemiBold",
+        MorabbaLight: "Morabba Light",
+        MorabbaMedium: "Morabba Medium",
+        Morabba_bold: "Morabba Bold",
+      },
+      boxShadow: {
+        light: "0 1px 60px rgba(0,0,0,5%)",
+      },
+      spacing: {
+        25: "6.25rem",
+        4.5 : "1.5rem"
       },
     },
   },
-  plugins: [],
+  plugins: [
+    function ({ addVariant }:{addVariant:any}) {
+      addVariant(`child`, `&>*`);
+      addVariant(`child-hover`, `&>*:hover`);
+    },
+  ],
 };
 export default config;
