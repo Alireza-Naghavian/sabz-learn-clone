@@ -4,10 +4,14 @@ import SecondaryBtn from "@/components/ui/button/SecondaryBtn";
 import Link from "next/link";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
+import CourseCard from "@/components/shared/ProductCard/ProductCard";
+
 
 function HomePage() {
   return (
     <ClientLayout>
+      {/* hero header */}
       <section className="lg:mt-12 relative">
         <div className="container ">
           <div
@@ -70,6 +74,70 @@ function HomePage() {
                 />
               </div>
             </div>
+          </div>
+        </div>
+      </section>
+      {/* latest courses  */}
+      <section className="mt-25 sm:mt-40">
+        <div className="container">
+          <SectionTitle
+            title="آخرین دوره های سبزلرن"
+            subTitle="سکوی پرتاب شما به سمت موفقیت"
+            iconColor="bg-amber-400 "
+            link="/courses"
+            linkTitle="مشاهده همه دوره ها "
+          />
+          {/* section content */}
+          <div className="grid grid-rows-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
+            <CourseCard>
+              <CourseCard.Header
+                alt="دوره next js "
+                title="دوره next js"
+                src="/images/next.webp"
+                target=""
+              />
+              <CourseCard.Body
+              target=""
+                title="آموزش الگوریتم و ساختمان داده به زبان ساده"
+                desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
+              />
+              <CourseCard.Footer
+              isFree={false}
+              isOff={false}
+              member={322}
+              percent={10}
+              price={1150000}
+              score={5}
+              teacher="رضا دولتی"
+
+
+              />
+            </CourseCard>
+            <CourseCard>
+              <CourseCard.Header
+                alt="دوره next js "
+                title="دوره next js"
+                src="/images/next.webp"
+                target=""
+              />
+              <CourseCard.Body
+              target=""
+                title="آموزش الگوریتم و ساختمان داده به زبان ساده"
+                desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
+              />
+              <CourseCard.Footer
+              isFree={true}
+              isOff={true}
+              member={322}
+              percent={10}
+              price={1150000}
+              score={5}
+              teacher="رضا دولتی"
+
+
+              />
+            </CourseCard>
+          
           </div>
         </div>
       </section>
