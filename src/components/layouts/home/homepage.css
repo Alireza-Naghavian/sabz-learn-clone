@@ -1,0 +1,8 @@
+/* .Main_Banner:is(:where(.dark) .dark\:hidden)  {
+  @apply hidden ;
+} */
+.Main_Banner {
+  @apply lg:absolute left-0 right-0 
+  lg:!right-auto !top-8 lg:!top-0 !mx-auto 
+  lg:!w-[280px] xl!w-auto 3xl:!w-[46px];
+}

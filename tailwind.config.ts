@@ -14,7 +14,7 @@ const config: Config = {
       lg: `1024px`,
       xl: `1280px`,
       "2xl": `1366px`,
-      "3xl" :"1440px"
+      "3xl": "1440px",
     },
     extend: {
       borderRadius: {
@@ -34,6 +34,7 @@ const config: Config = {
         grayTheme: "#242a38",
         darker: "#242a38", //darker
         baseColor: "#22c55e",
+        secondary: "#0ea5e9",
       },
       fontFamily: {
         Dana: "Dana",
@@ -49,9 +50,9 @@ const config: Config = {
       spacing: {
         "def-size": "1920px",
         4.5: "1.5rem",
-        5.5:"1.375rem",
+        5.5: "1.375rem",
         25: "6.25rem",
-        13:"3.25rem"
+        13: "3.25rem",
       },
     },
   },
