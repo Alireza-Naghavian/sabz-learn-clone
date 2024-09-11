@@ -1,8 +1,10 @@
 "use client";
 import Button from "@/components/ui/button/Button";
 import LogOutBtn from "@/components/ui/button/LogOutBtn";
+import Overlay from "@/components/ui/Overlay/Overlay";
 import SideBarItem from "@/components/ui/SideBarItem/SideBarItem";
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
+import useDisclosure from "@/hooks/useDisclosure";
 import { UserPanelOpType } from "@/types/consts.t";
 import { userPanelOptions } from "@/utils/constants";
 import {
@@ -12,18 +14,21 @@ import {
 import Link from "next/link";
 
 function UserDataDropDown() {
+  const [isDropOpen,{close,toggle}]= useDisclosure();
   return (
+ <>
+ <Overlay  onClose={()=>close()} openCondition={isDropOpen} />
     <div className="relative group">
       {/* <!-- User Picture --> */}
-      <Button size="xl" type="button">
-        <UserIcon className="w-6 h-6" />
+      <Button size="xl" type="button"  className={isDropOpen? "!relative !z-50":""}  onClick={()=>toggle()}>
+        <UserIcon className={` w-6 h-6`}  />
       </Button>
 
       {/* <!-- When Click Box Showing --> */}
-      <div className="absolute left-0 top-full pt-4 z-10 transition-all ">
+      <div className="absolute left-0 top-full pt-4 transition-all duration-300 z-50 ">
         <div
-          className="w-[278px] bg-white dark:bg-darker border
-         border-neutral-100 dark:border-0 p-5 pb-3.5 rounded-xl"
+          className={isDropOpen ? ` w-[278px] bg-white dark:bg-darker border
+         border-neutral-100 dark:border-0 p-5 pb-3.5 rounded-xl` : "hidden"}
         >
           {/* <!-- User Info --> */}
           <div
@@ -76,6 +81,7 @@ function UserDataDropDown() {
         </div>
       </div>
     </div>
+ </>
   );
 }
 

@@ -19,12 +19,12 @@ function ThemeToggler() {
     document.documentElement.classList.add(newtheme);
   };
   return (
-    <Button type="button" size="xl" className="hidden lg:flex  " onClick={themeHandler}>
+    <Button type="button" size="xl" className="hidden lg:flex !px-0  " onClick={themeHandler}>
       <SunIcon
-        className={`${theme === "light" ? "hidden" : "inline-block"}  w-full h-full  `}
+        className={`${theme === "light" ? "hidden" : "inline-block"}  !w-7 !h-7 mx-auto `}
       />
       <MoonIcon
-        className={`${theme === "dark" ? "hidden" : "inline-block "}  w-full h-full `}
+        className={`${theme === "dark" ? "hidden" : "inline-block "}  !w-7 !h-7 mx-auto `}
       />
     </Button>
   );
