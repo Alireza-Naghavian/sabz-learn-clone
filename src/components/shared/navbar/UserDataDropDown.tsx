@@ -35,6 +35,7 @@ function UserDataDropDown() {
                 alt="user-sample"
                 src={"/images/user_sample.png"}
                 loading="lazy"
+                sizes="w-14 h-14"
                 className="w-14 h-14  inline-block"
                 imageStyles="object-cover rounded-full"
               />
@@ -50,9 +51,10 @@ function UserDataDropDown() {
             </div>
           </div>
           {/* <!-- Dashboard Links --> */}
-          {userPanelOptions.map((item: UserPanelOpType) => {
+          {userPanelOptions.map((item: UserPanelOpType,index:number) => {
             return (
               <SideBarItem
+              key={index}
                 variant={item.variant}
                 Icon={() => <item.Icon />}
                 title={item.title}
