@@ -1,0 +1,20 @@
+.navBar__header_wrapper {
+  @apply flex items-center justify-between mx-auto
+    max-w-def-size h-[84px] md:h-25 px-4 lg:px-12;
+}
+
+.navBar__Item_Wrapper {
+  @apply  absolute right-0 top-full pt-7 transition-all z-10;
+}
+
+.navBar__subItem_link{
+    @apply hover:text-baseColor;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    --tw-text-opacity: 1;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(.4,0,.2,1);
+    transition-duration: .15s;
+
+}
