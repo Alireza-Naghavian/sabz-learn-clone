@@ -11,7 +11,7 @@ const [isBoxOpen,{open,close}] = useDisclosure();
     <Overlay onClose={()=>close()} openCondition={isBoxOpen} />
       <div className="relative group hidden lg:block">
         <div className="xl:block hidden">
-        <SearchForm  placeholder="جی میخوای یاد بگیری؟"/>
+        <SearchForm className="hidden lg:block"  placeholder="جی میخوای یاد بگیری؟"/>
         </div>
         <div className="block xl:hidden">
           {/* lg trigger */}
@@ -21,7 +21,7 @@ const [isBoxOpen,{open,close}] = useDisclosure();
 
           {/* lg render form ? */}
           <div className={ `absolute -left-24 top-full mt-6  transition-all ${isBoxOpen ? 'z-50 ' : "hidden"}` }>
-            <SearchForm placeholder="جستجوی دوره ها" />
+            <SearchForm className="hidden lg:block" placeholder="جستجوی دوره ها" />
           </div>
         </div>
       </div>
@@ -29,9 +29,9 @@ const [isBoxOpen,{open,close}] = useDisclosure();
   );
 }
 
-const SearchForm = ({placeholder}:{placeholder:string}) => {
+export const SearchForm = ({placeholder,className}:{placeholder:string,className:string}) => {
   return (
-    <form className="hidden lg:block">
+    <form className={className}>
       <label className={"relative h-13 block"}>
         <input
           type="text"

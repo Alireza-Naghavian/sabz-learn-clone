@@ -4,17 +4,21 @@
 }
 
 .navBar__Item_Wrapper {
-  @apply  absolute right-0 top-full pt-7 transition-all z-10;
+  @apply absolute right-0 top-full pt-7 transition-all z-10;
 }
 
-.navBar__subItem_link{
-    @apply hover:text-baseColor;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-    --tw-text-opacity: 1;
-    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
-    transition-timing-function: cubic-bezier(.4,0,.2,1);
-    transition-duration: .15s;
-
+.navBar__subItem_link {
+  @apply hover:text-baseColor;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  --tw-text-opacity: 1;
+  transition-property: color, background-color, border-color,
+    text-decoration-color, fill, stroke;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition-duration: 0.15s;
+}
+.navBar__Mobile_wrapper {
+  @apply flex items-center justify-between pb-6 
+  relative border-b border-b-neutral-200 dark:border-b-white/10;
 }
