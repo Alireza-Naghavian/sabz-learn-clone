@@ -41,6 +41,9 @@
   }
 }
 @layer utilities {
+  .container {
+    @apply xl:max-w-[1280px] sm:px-[.625rem] xl:px-0
+  }
   .box-center {
     @apply flex justify-center items-center;
   }
@@ -75,6 +78,12 @@
 }
 .button-2xl{
   height: 64px;
+}
+.button-secondary {
+  --tw-bg-opacity: 1;
+  background-color: #0ea5e9;
+  --tw-text-opacity: 1;
+  color: rgb(255 255 255 );
 }
 }
 /* after shadow */

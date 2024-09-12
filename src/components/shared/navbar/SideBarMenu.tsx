@@ -21,7 +21,7 @@ function SideBarMenu() {
         <Bars3Icon className="!w-6 !h-6 text-slate-500 dark:text-white" />
       </Button>
       <div className={`lg:hidden bg-white dark:bg-darker
-        sm:w-[calc(100vw-500px)] w-72 overflow-y-auto 
+        sm:w-[calc(100vw-400px)] w-64 overflow-y-auto 
         fixed top-0 bottom-0 right-0 z-50 p-4.5 transition-all
          duration-300 transform 
          ${isMenuOpen ? "translate-x-0" : "translate-x-[40rem]"} `}>
