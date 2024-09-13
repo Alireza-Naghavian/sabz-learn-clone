@@ -19,7 +19,7 @@ function RoadMap() {
           >
             <Link
               title={item.title}
-              className="box-center flex-col  h-full"
+              className="box-center text-white flex-col  h-full"
               href={item.target}
             >
               <item.Icon className="w-10 sm:w-12 sm:h-12" />

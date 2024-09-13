@@ -9,8 +9,8 @@ const Slider = ({nextClass,prevClass}:Nav_BtnsType) => {
     <div className="!relative !w-full">
       <Swiper
         navigation={{
-          nextEl: `.${nextClass}`,
-          prevEl: `.${prevClass}`,
+          nextEl: `#${nextClass}`,
+          prevEl: `#${prevClass}`,
         }}
         autoplay={{ pauseOnMouseEnter: true, delay: 3000 }}
         modules={[Autoplay, Navigation]}

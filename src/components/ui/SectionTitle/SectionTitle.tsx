@@ -8,6 +8,8 @@ export type SectionTitleType = {
   link?: string;
   linkTitle?: string;
   navigationBtn?: boolean;
+  nextClass?:string
+prevClass?:string
 };
 const SectionTitle = ({
   title,
@@ -16,6 +18,8 @@ const SectionTitle = ({
   link,
   linkTitle,
   navigationBtn,
+  nextClass,
+prevClass,
 }: SectionTitleType) => {
   return (
     <div
@@ -54,8 +58,8 @@ const SectionTitle = ({
       {navigationBtn && (
         <div className="!hidden sm:!block">
           <Nav_Btns
-          nextClass="left-navigation-btn"
-          prevClass="right-navigation-btn"
+          nextClass={nextClass as string}
+          prevClass={prevClass as string}
           />
         </div>
       )}
