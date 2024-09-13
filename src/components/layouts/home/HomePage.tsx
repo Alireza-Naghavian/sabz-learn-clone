@@ -9,6 +9,8 @@ import Image from "next/image";
 import Link from "next/link";
 import ClientLayout from "../ClientLayout/ClientLayout";
 import Nav_Btns from "@/components/ui/button/Nav_Btns";
+import { slogensOptions } from "@/utils/constants";
+import Slogens from "@/components/ui/Slogens/Slogens";
 
 function HomePage() {
   return (
@@ -23,7 +25,7 @@ function HomePage() {
                        lg:!justify-between gap-y-10 text-center lg:text-right"
           >
             {/* right header side */}
-            <div className="relative w-full mt-8 lg:mt-0 sm:w-auto !order-2 lg:!order-1">
+            <div className="relative w-full mt-8 lg:mt-0 xs:w-auto !order-2 lg:!order-1">
               <h1 className=" font-[800] xs:text-[1.625rem]/[40px]  sm:text-[2.625rem]/[70px] 3xl:text-5xl/normal">
                 آکادمی آموزش
                 <br />
@@ -82,7 +84,7 @@ function HomePage() {
         </div>
       </section>
       {/* latest courses  */}
-      <section className="mt-25 sm:mt-40">
+      <section className="mt-25 xs:mt-40">
         <div className="container">
           <SectionTitle
             title="آخرین دوره های سبزلرن"
@@ -92,7 +94,7 @@ function HomePage() {
             linkTitle="مشاهده همه دوره ها "
           />
           {/* section content */}
-          <div className="grid grid-rows-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
+          <div className="grid grid-rows-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 xs:gap-7">
             <CourseCard>
               <CourseCard.Header
                 alt="دوره next js "
@@ -153,7 +155,7 @@ function HomePage() {
         </div>
       </section>
       {/* most popular swiper  */}
-      <section className="mt-25 sm:mt-40">
+      <section className="mt-25 xs:mt-40">
         <div className="container relative">
           <ColorShade className="bg-baseColor left-0" />
           <ColorShade className="bg-sky-500 -right-16" />
@@ -173,6 +175,32 @@ function HomePage() {
              nextClass="left-navigation-btn"
              prevClass="right-navigation-btn"
             />
+          </div>
+        </div>
+      </section>
+
+      {/* our slogens */}
+      <section className="mt-25 xs:mt-40">
+        <div className="container">
+          <SectionTitle
+          title="ما چه کمکی میتونیم بهت بکنیم"
+          subTitle="از شروع مسیر کنارتیم نمیذاریم آب تو دلت تکون بخوره"
+          iconColor="bg-sky-500"
+
+          />
+          <div className="grid grid-rows-2 md:grid-cols-2 xs:gap-7 cursor-default">
+            {slogensOptions.map((option,index:number)=>{
+              return(
+                <Slogens
+                Icon={option.Icon}
+                Sl_color={option.Sl_color}
+                subTitle={option.subTitle}
+                title={option.title}
+                Icon_Color={option.Icon_Color}
+                key={index}
+                />
+              )
+            })}
           </div>
         </div>
       </section>
