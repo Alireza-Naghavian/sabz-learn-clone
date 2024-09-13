@@ -41,6 +41,11 @@
   }
 }
 @layer utilities {
+  @media screen and (min-width: 475px) and (max-width: 640px) {
+    .container {
+      min-width: 475px;
+    }
+  }
   .container {
     @apply xl:max-w-[1280px] sm:px-[.625rem] xl:px-0
   }

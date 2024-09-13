@@ -21,7 +21,7 @@ const ResponsiveImage: React.FC<Props> = (props) => {
         className={imageStyles}
         placeholder="blur"
         blurDataURL={blurDataURL ? 'data:image/png;base64,' + blurDataURL : customeBlurDataURL}
-        quality="100"
+        quality={100}
         fill
         {...restProps}
       />
