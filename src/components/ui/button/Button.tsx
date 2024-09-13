@@ -20,12 +20,12 @@ dark:bg-white/5 dark:text-white rounded-full
     },
   }
 );
-function Button({
+const  Button = ({
   children,
   className = "",
   size = "lg",
   ...props
-}: ButtonProps) {
+}: ButtonProps)=> {
   return (
     <button className={btnStyle({ size, className })} {...props}>
       {children}

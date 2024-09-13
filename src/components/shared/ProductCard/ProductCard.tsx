@@ -17,7 +17,7 @@ function CourseCard({ children }: ChildrenProps) {
     </div>
   );
 }
-function CardHeader({ src, alt, title, target, badge }: CardHeaderType) {
+function CardHeader({ src, alt, title, target, badge}: CardHeaderType) {
   return (
     <div className="relative h-42 group  ">
       <Link className="block w-full h-full"  href={target}>
@@ -50,7 +50,6 @@ const CardFooter = ({
   isOff,
   isFree,
   member,
-  percent,
   price,
   score,
   teacher,
@@ -111,7 +110,7 @@ const CardFooter = ({
          
           ) : (
             <span className="text-baseColor font-DanaBold text-lg">
-              رایگان!
+              رایگان! 
             </span>
           )}
         </div>
