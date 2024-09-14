@@ -1,0 +1,4 @@
+.badge {
+  @apply absolute right-5 top-5 flex items-center justify-center w-13 h-7 bg-baseColor
+     text-white font-DanaMedium text-sm rounded-full;
+}
