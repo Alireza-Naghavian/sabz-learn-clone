@@ -6,7 +6,7 @@ import { PlayIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
 import CourseCard from "@/components/shared/ProductCard/ProductCard";
-
+import RoadMap from "@/components/ui/RoadMap/RoadMap";
 
 function HomePage() {
   return (
@@ -97,20 +97,18 @@ function HomePage() {
                 target=""
               />
               <CourseCard.Body
-              target=""
+                target=""
                 title="آموزش الگوریتم و ساختمان داده به زبان ساده"
                 desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
               />
               <CourseCard.Footer
-              isFree={false}
-              isOff={false}
-              member={322}
-              percent={10}
-              price={1150000}
-              score={5}
-              teacher="رضا دولتی"
-
-
+                isFree={false}
+                isOff={false}
+                member={322}
+                percent={10}
+                price={1150000}
+                score={5}
+                teacher="رضا دولتی"
               />
             </CourseCard>
             <CourseCard>
@@ -121,24 +119,33 @@ function HomePage() {
                 target=""
               />
               <CourseCard.Body
-              target=""
+                target=""
                 title="آموزش الگوریتم و ساختمان داده به زبان ساده"
                 desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
               />
               <CourseCard.Footer
-              isFree={true}
-              isOff={true}
-              member={322}
-              percent={10}
-              price={1150000}
-              score={5}
-              teacher="رضا دولتی"
-
-
+                isFree={true}
+                isOff={true}
+                member={322}
+                percent={10}
+                price={1150000}
+                score={5}
+                teacher="رضا دولتی"
               />
             </CourseCard>
-          
           </div>
+        </div>
+      </section>
+
+      {/* road map */}
+      <section className="mt-25">
+        <div className="container">
+          <SectionTitle
+            subTitle="نقشه راه برای شروع اصولی یادگیری"
+            title="نقشه راه"
+            iconColor="bg-fuchsia-500"
+          />
+          <RoadMap/>
         </div>
       </section>
     </ClientLayout>
