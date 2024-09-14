@@ -12,3 +12,5 @@ export type RoeadMapType = {
   Icon: IconType;
   title: string;
 };
+
+export type SlogengType =Pick<RoeadMapType,"title"|"Icon">&{subTitle:string,Sl_color:string,Icon_Color:string}
