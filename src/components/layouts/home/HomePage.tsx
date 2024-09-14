@@ -1,16 +1,16 @@
 import CourseCard from "@/components/shared/ProductCard/ProductCard";
-import Slider from "@/components/shared/slider/Slider";
+import CourseSlider from "@/components/shared/slider/CourseSlider";
 import SecondaryBtn from "@/components/ui/button/SecondaryBtn";
 import ColorShade from "@/components/ui/greenShade/GreenShade";
 import RoadMap from "@/components/ui/RoadMap/RoadMap";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
+import Slogens from "@/components/ui/Slogens/Slogens";
+import { slogensOptions } from "@/utils/constants";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import ClientLayout from "../ClientLayout/ClientLayout";
-import Nav_Btns from "@/components/ui/button/Nav_Btns";
-import { slogensOptions } from "@/utils/constants";
-import Slogens from "@/components/ui/Slogens/Slogens";
+import BlogCard from "@/components/shared/BlogsCard/BlogCard";
 
 function HomePage() {
   return (
@@ -156,51 +156,64 @@ function HomePage() {
       </section>
       {/* most popular swiper  */}
       <section className="mt-25 xs:mt-40">
-        <div className="container relative">
-          <ColorShade className="bg-baseColor left-0" />
-          <ColorShade className="bg-sky-500 -right-16" />
-          <SectionTitle
-            navigationBtn={true}
-            iconColor="bg-baseColor"
-            subTitle="دوره های محبوب و پروژه محور سبزلرن"
-            title="پرطرفدار ترین دوره ها"
-          />
-          <Slider  nextClass="left-navigation-btn"  prevClass="right-navigation-btn" />
-          <div
-            className="sm:!hidden !flex !relative child:left-0 
-        child:right-0 child:w-full child:!justify-center
-         items-center !mx-auto child:!py-6 "
-          >
-            <Nav_Btns  
-             nextClass="left-navigation-btn"
-             prevClass="right-navigation-btn"
-            />
-          </div>
-        </div>
+        <CourseSlider
+          iconColor="bg-baseColor"
+          title="پرطرفدار ترین دوره ها"
+          subTitle="دوره های محبوب و پروژه محور سبزلرن"
+          navigationBtn={true}
+        />
       </section>
 
       {/* our slogens */}
       <section className="mt-25 xs:mt-40">
         <div className="container">
           <SectionTitle
-          title="ما چه کمکی میتونیم بهت بکنیم"
-          subTitle="از شروع مسیر کنارتیم نمیذاریم آب تو دلت تکون بخوره"
-          iconColor="bg-sky-500"
-
+            title="ما چه کمکی میتونیم بهت بکنیم"
+            subTitle="از شروع مسیر کنارتیم نمیذاریم آب تو دلت تکون بخوره"
+            iconColor="bg-sky-500"
           />
           <div className="grid grid-rows-2 md:grid-cols-2 xs:gap-7 cursor-default">
-            {slogensOptions.map((option,index:number)=>{
-              return(
+            {slogensOptions.map((option, index: number) => {
+              return (
                 <Slogens
-                Icon={option.Icon}
-                Sl_color={option.Sl_color}
-                subTitle={option.subTitle}
-                title={option.title}
-                Icon_Color={option.Icon_Color}
-                key={index}
+                  Icon={option.Icon}
+                  Sl_color={option.Sl_color}
+                  subTitle={option.subTitle}
+                  title={option.title}
+                  Icon_Color={option.Icon_Color}
+                  key={index}
                 />
-              )
+              );
             })}
+          </div>
+        </div>
+      </section>
+
+      {/* latest courses */}
+      <section className="mt-25 xs:mt-40">
+        <CourseSlider
+          iconColor="bg-baseColor"
+          title="جدیدترین دوره ها"
+          subTitle="یادگیری و رشد توسعه فردی"
+          navigationBtn={true}
+        />
+      </section>
+
+      {/* blogs */}
+      <section className="mt-25 xs:mt-40">
+        <div className="container">
+          <SectionTitle
+            title="وبلاگ آموزشی سبزلرن"
+            subTitle="مقالات بروز آموزشی"
+            link="/blogs"
+            iconColor="bg-amber-500"
+            linkTitle="مشاهده همه مقالات"
+          />
+          <div className="grid grid-rows-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
+            <BlogCard/>
+            <BlogCard/>
+            <BlogCard/>
+            <BlogCard/>
           </div>
         </div>
       </section>

@@ -16,7 +16,8 @@ const Nav_Btns = ({nextClass,prevClass}:Nav_BtnsType) => {
       <Button
         size="lg"
         type="button"
-        className={`${styles.section_Title_Nav_Btn} box-center group ${prevClass} `}
+        id={prevClass}
+        className={`${styles.section_Title_Nav_Btn} box-center group  `}
       >
         <ChevronRightIcon
           className={`group-hover:text-white  ${styles.section_Title_Nav_Icon}`}
@@ -24,8 +25,9 @@ const Nav_Btns = ({nextClass,prevClass}:Nav_BtnsType) => {
       </Button>
       <Button
         size="lg"
+        id={nextClass}
         type="button"
-        className={`${styles.section_Title_Nav_Btn} box-center group ${nextClass} `}
+        className={`${styles.section_Title_Nav_Btn} box-center group  `}
       >
         <ChevronLeftIcon
           className={`group-hover:text-white  ${styles.section_Title_Nav_Icon}`}
