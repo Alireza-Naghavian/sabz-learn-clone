@@ -201,7 +201,9 @@ function HomePage() {
 
       {/* blogs */}
       <section className="mt-25 xs:mt-40">
-        <div className="container">
+        <div className="container relative">
+        <ColorShade className="bg-baseColor left-0" />
+        <ColorShade className="bg-sky-500 -right-40 top-40" />
           <SectionTitle
             title="وبلاگ آموزشی سبزلرن"
             subTitle="مقالات بروز آموزشی"
@@ -214,6 +216,42 @@ function HomePage() {
             <BlogCard/>
             <BlogCard/>
             <BlogCard/>
+          </div>
+        </div>
+      </section>
+      {/* most pupolar courses */}
+      <section className="mt-25 sm:mt-40">
+        <div className="container relative">
+        <SectionTitle
+            title="محبوب ترین دوره ها"
+
+            subTitle="پرمخاطب ترین دوره های رایگان سبزلرن"
+            link="/"
+            iconColor="bg-sky-500"
+            linkTitle="مشاهده همه دوره ها"
+          />  
+          <div className="grid grid-rows-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 xs:gap-7">
+          <CourseCard>
+              <CourseCard.Header
+                alt="دوره next js "
+                title="دوره next js"
+                src="/images/next.webp"
+                target=""
+              />
+              <CourseCard.Body
+                target=""
+                title="آموزش الگوریتم و ساختمان داده به زبان ساده"
+              />
+              <CourseCard.Footer
+                isFree={true}
+                isOff={true}
+                member={322}
+                percent={10}
+                price={1150000}
+                score={5}
+                teacher="رضا دولتی"
+              />
+            </CourseCard>
           </div>
         </div>
       </section>
