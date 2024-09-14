@@ -1,0 +1,8 @@
+.section_Title_Nav_Btn{
+    @apply !bg-transparent border border-baseColor 
+    !pl-0 !pr-0   transition-colors 
+     hover:!bg-baseColor 
+}
+.section_Title_Nav_Icon{
+    @apply text-baseColor h-6 w-6 mx-auto  transition-colors
+}

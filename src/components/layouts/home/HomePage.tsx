@@ -1,12 +1,14 @@
-import React from "react";
-import ClientLayout from "../ClientLayout/ClientLayout";
+import CourseCard from "@/components/shared/ProductCard/ProductCard";
+import Slider from "@/components/shared/slider/Slider";
 import SecondaryBtn from "@/components/ui/button/SecondaryBtn";
-import Link from "next/link";
+import ColorShade from "@/components/ui/greenShade/GreenShade";
+import RoadMap from "@/components/ui/RoadMap/RoadMap";
+import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
-import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
-import CourseCard from "@/components/shared/ProductCard/ProductCard";
-import RoadMap from "@/components/ui/RoadMap/RoadMap";
+import Link from "next/link";
+import ClientLayout from "../ClientLayout/ClientLayout";
+import Nav_Btns from "@/components/ui/button/Nav_Btns";
 
 function HomePage() {
   return (
@@ -14,6 +16,8 @@ function HomePage() {
       {/* hero header */}
       <section className="lg:mt-12 relative">
         <div className="container ">
+          <ColorShade className="bg-baseColor -right-0 top-96" />
+          <ColorShade className="bg-sky-500 -right-16" />
           <div
             className="box-center flex-col  lg:flex-row 
                        lg:!justify-between gap-y-10 text-center lg:text-right"
@@ -139,13 +143,37 @@ function HomePage() {
 
       {/* road map */}
       <section className="mt-25">
-        <div className="container">
+        <div className="container ">
           <SectionTitle
             subTitle="نقشه راه برای شروع اصولی یادگیری"
             title="نقشه راه"
             iconColor="bg-fuchsia-500"
           />
-          <RoadMap/>
+          <RoadMap />
+        </div>
+      </section>
+      {/* most popular swiper  */}
+      <section className="mt-25 sm:mt-40">
+        <div className="container relative">
+          <ColorShade className="bg-baseColor left-0" />
+          <ColorShade className="bg-sky-500 -right-16" />
+          <SectionTitle
+            navigationBtn={true}
+            iconColor="bg-baseColor"
+            subTitle="دوره های محبوب و پروژه محور سبزلرن"
+            title="پرطرفدار ترین دوره ها"
+          />
+          <Slider  nextClass="left-navigation-btn"  prevClass="right-navigation-btn" />
+          <div
+            className="sm:!hidden !flex !relative child:left-0 
+        child:right-0 child:w-full child:!justify-center
+         items-center !mx-auto child:!py-6 "
+          >
+            <Nav_Btns  
+             nextClass="left-navigation-btn"
+             prevClass="right-navigation-btn"
+            />
+          </div>
         </div>
       </section>
     </ClientLayout>

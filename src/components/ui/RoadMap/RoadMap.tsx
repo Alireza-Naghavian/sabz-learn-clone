@@ -1,12 +1,13 @@
 import { Roadmaps } from "@/utils/constants";
 import Link from "next/link";
-// its nesseccary for rendering gradient colors from array
-const roadMapStyle = [
+/* eslint-disable @typescript-eslint/no-unused-vars */
+const  roadMapStyle = [
   { style: "from-[#FFB535] to-[#F2295B]" },
   { style: " from-[#2E9EFF] to-[#9C33F7]" },
   { style: " from-[#30c5e4] to-[#2ae558]" },
   { style: " from-[#FF3571] to-[#880175] " },
 ];
+/* eslint-enable @typescript-eslint/no-unused-vars */
 function RoadMap() {
   return (
     <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-6 sm:gap-7">

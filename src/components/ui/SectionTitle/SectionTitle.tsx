@@ -1,20 +1,22 @@
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
-import React from "react";
-type SectionTitleType = {
+import Nav_Btns from "../button/Nav_Btns";
+export type SectionTitleType = {
   title: string;
   subTitle: string;
   iconColor: string;
   link?: string;
   linkTitle?: string;
+  navigationBtn?: boolean;
 };
-function SectionTitle({
+const SectionTitle = ({
   title,
   subTitle,
   iconColor,
   link,
   linkTitle,
-}: SectionTitleType) {
+  navigationBtn,
+}: SectionTitleType) => {
   return (
     <div
       className="box-center sm:justify-between 
@@ -49,8 +51,16 @@ function SectionTitle({
           <ArrowLeftIcon className="w-6 h-6" />
         </Link>
       ) : null}
+      {navigationBtn && (
+        <div className="!hidden sm:!block">
+          <Nav_Btns
+          nextClass="left-navigation-btn"
+          prevClass="right-navigation-btn"
+          />
+        </div>
+      )}
     </div>
   );
-}
+};
 
 export default SectionTitle;
