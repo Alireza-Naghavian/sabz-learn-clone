@@ -3,7 +3,7 @@ import { TrashIcon, XCircleIcon } from '@heroicons/react/24/outline'
 import SideBarFilter from '../aside/SideBarFilter'
 import useScrollLocker from '@/hooks/useScrollLocker'
 
-function FilterMobile({isOpen,setIsOpen}:Filter_section_type) {
+function FilterMobile({isOpen,setIsOpen,qs=true}:Filter_section_type) {
     useScrollLocker(isOpen)
   return (
     <div className={`${isOpen ? "filter filter--open " : "filter"} overflow-y-auto`}>
@@ -20,7 +20,7 @@ function FilterMobile({isOpen,setIsOpen}:Filter_section_type) {
 
         </div>
        <div className="filter__body h-full ">
-       <SideBarFilter className=' relative py-6 flex flex-col gap-y-4 h-full '>
+       <SideBarFilter qs={qs} className=' relative py-6 flex flex-col gap-y-4 h-full '>
             <button className='filter__submit-btn  '>اعمال فیلتر</button>
             </SideBarFilter>
        </div>

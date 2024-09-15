@@ -21,4 +21,4 @@ export type Size = "md" | "lg" | "xl"|"xxl";
     setSort:SetState<{label:string,title:string}>
     
   }
-  export type Filter_section_type = Pick<Btn_sheet_type,"isOpen"|"setIsOpen">
+  export type Filter_section_type = Pick<Btn_sheet_type,"isOpen"|"setIsOpen">&{qs?:boolean}

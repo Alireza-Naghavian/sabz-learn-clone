@@ -20,7 +20,7 @@ type SM_SortBtnType = Omit<SortBtnType, "setSort" | "sort" | "label"> & {
   isOpen: boolean;
 };
 
-function SortBtns() {
+function SortBtns({qs=true}:{qs?:boolean}) {
   const [sort, setSort] = useState<SortType>(SortOption[0]);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
@@ -32,7 +32,7 @@ function SortBtns() {
         setSort={setSort}
         sort={sort}
       />
-      <FilterMobile setIsOpen={setIsFilterOpen} isOpen={isFilterOpen} />
+      <FilterMobile qs={qs} setIsOpen={setIsFilterOpen} isOpen={isFilterOpen} />
       <div className="flex md:hidden items-center gap-3.5 mb-7">
         <SM_SortBtn
           setIsOpen={setIsFilterOpen}

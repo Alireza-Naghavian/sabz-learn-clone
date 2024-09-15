@@ -5,10 +5,9 @@ import "./aside.css";
 import CategorySelector from "./CategorySelector";
 import React from "react";
 import { ChildrenProps } from "@/types/global.t";
-const SideBarFilter: React.FC<Partial<ChildrenProps> & { className: string }> = ({
-  className,
-  children,
-}) => {
+const SideBarFilter: React.FC<
+  Partial<ChildrenProps> & { className: string; qs?: boolean }
+> = ({ className, children, qs = true }) => {
   const {
     register,
     handleSubmit,
@@ -48,7 +47,7 @@ const SideBarFilter: React.FC<Partial<ChildrenProps> & { className: string }> = 
             label="دوره های خریداری شده"
             type="checkbox"
           />
-          <CategorySelector register={register} />
+          {qs && <CategorySelector register={register} />}
         </div>
         {/* mobile sort */}
         {children}
