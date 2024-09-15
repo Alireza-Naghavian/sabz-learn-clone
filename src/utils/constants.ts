@@ -1,4 +1,4 @@
-import { RoeadMapType, SlogengType, UserPanelOpType } from "@/types/consts.t";
+import { RoeadMapType, SlogengType, SortType, UserPanelOpType } from "@/types/consts.t";
 import {
   BookOpenIcon,
   ChartBarIcon,
@@ -100,3 +100,23 @@ export const slogensOptions: SlogengType[] = [
         Icon_Color:"text-red-500"
   },
 ];
+
+
+export const SortOption:SortType[] = [
+{
+  title:"همه دوره ها",
+  label:"normal"
+},
+{
+  title:"ارزان ترین",
+  label:"cheapest"
+},
+{
+  title:"گرانترین",
+  label:"expensive"
+},
+{
+  title:"پر مخاطب",
+  label:"popular"
+},
+]
