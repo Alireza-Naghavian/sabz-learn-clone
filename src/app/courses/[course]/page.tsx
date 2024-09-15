@@ -1,10 +1,11 @@
-import Category from '@/components/layouts/courses/Category'
+import Course from '@/components/layouts/course/Course'
+import React from 'react'
 
 function page() {
   return (
     <main className='max-w-[1920px] mx-auto overflow-x-hidden'>
-<Category/>
-</main>
+        <Course/>
+    </main>
   )
 }
 

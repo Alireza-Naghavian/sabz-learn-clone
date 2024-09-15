@@ -1,0 +1,26 @@
+.courseHeader__wrapper {
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-y-4.5
+    gap-x-6 sm:gap-x-7 lg:items-center xl:items-stretch 
+    mt-8 sm:mt-10 rounded-2xl p-4.5 lg:p-0 bg-white
+     dark:bg-darker lg:!bg-transparent border
+      border-neutral-100 dark:border-none 
+      lg:border-none;
+}
+
+.topic{
+    @apply dark:bg-dark bg-gray-100 overflow-hidden rounded-lg
+}
+.topic__head{
+    @apply md:py-4 py-[.875rem] px-4 transition-all duration-150 flex cursor-pointer items-center justify-between gap-x-5 
+}
+/* label is active ? */
+.topic__head--active{
+  @apply bg-baseColor text-white  
+}
+
+.topic__body{
+    @apply overflow-hidden transition-all duration-150
+}
+.topic__body__item{
+    @apply flex items-start justify-between gap-x-5 gap-y-3 flex-wrap lg:flex-nowrap px-4 py-5 
+}

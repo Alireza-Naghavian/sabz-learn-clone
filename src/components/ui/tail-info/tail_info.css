@@ -1,0 +1,6 @@
+.Tail_Wrapper {
+  @apply flex flex-col md:flex-row items-center text-center
+    md:text-right  justify-center sm:justify-start 
+    gap-x-3 
+ rounded-xl;
+}
