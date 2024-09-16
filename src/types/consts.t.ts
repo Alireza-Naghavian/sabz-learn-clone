@@ -4,7 +4,7 @@ export type UserPanelOpType = {
   target: string;
   title: string;
   Icon: IconType;
-  variant: "hoverMode" | "casual";
+  variant: {hoverMode:"hoverMode",casual:"casual"};
 };
 export type RoeadMapType = {
   gr_colors: string;

@@ -7,7 +7,7 @@ const logoutStyle = cva(`flex items-center rounded-lg`, {
       variant: {
         hoverMode:
           "hover:text-white hover:bg-red-500 px-2.5 h-12  gap-x-2.5 w-full transition-colors   ",
-        casual: " gap-x-2.5 h-10 px-3",
+        casual: " gap-x-2.5 h-10 px-3  w-full",
       },
     },
     defaultVariants: {

@@ -17,25 +17,25 @@ export const userPanelOptions: UserPanelOpType[] = [
   {
     target: "",
     title: "پیشخوان",
-    variant: "hoverMode",
+    variant: {hoverMode:"hoverMode",casual:"casual"},
     Icon: HomeIcon,
   },
   {
     target: "",
     title: "دوره های من",
-    variant: "hoverMode",
+    variant: {hoverMode:"hoverMode",casual:"casual"},
     Icon: FolderOpenIcon,
   },
   {
     target: "",
     title: "تیکت ها",
-    variant: "hoverMode",
+    variant: {hoverMode:"hoverMode",casual:"casual"},
     Icon: ChatBubbleLeftRightIcon,
   },
   {
     target: "",
     title: "جزئیات حساب",
-    variant: "hoverMode",
+    variant: {hoverMode:"hoverMode",casual:"casual"},
     Icon: UserIcon,
   },
 ];
