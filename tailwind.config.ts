@@ -31,6 +31,7 @@ const config: Config = {
         },
       },
       colors: {
+        dark:"#333c4c",
         grayTheme: "#242a38",
         darker: "#242a38", //darker
         baseColor: "#22c55e",
