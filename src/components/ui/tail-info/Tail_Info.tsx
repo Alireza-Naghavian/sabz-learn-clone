@@ -6,6 +6,7 @@ type Tail_Info_type = {
   title: string | number;
   subTitle: string;
   Icon: IconType;
+  IconColor?:string
   variant: "mainInfo" | "sideInfo";
 } & React.ComponentProps<"div">;
 const tail_Style = cva("Tail_Wrapper", {
@@ -25,12 +26,13 @@ function Tail_Info({
   variant,
   className,
   subTitle,
+  IconColor="text-green-500",
   title,
   ...props
 }: Tail_Info_type) {
   return (
     <div className={tail_Style({ className, variant })} {...props}>
-     <Icon className="w-10 sm:w-11 h-10 sm:h-11 text-green-500"/>
+     <Icon className={`w-10 sm:w-11 h-10 sm:h-11 ${IconColor}`}/>
       <div className="space-y-0.5 sm:space-y-1">
         <span className="block font-danaBold text-sm sm:text-base">
           {title}

@@ -24,8 +24,8 @@ function CourseHeader() {
         {/* buy course ? */}
         <div className="space-y-4 lg:space-y-8 mt-4  md:mt-24">
           <div
-            className="flex justify-center xl:items-center lg:justify-between
-             flex-wrap-reverse gap-y-4 gap-x-6"
+            className="flex justify-center items-center lg:justify-between
+             flex-wrap-reverse gap-y-4 gap-x-8 lg:gap-x-6"
           >
             <div className="flex items-end gap-x-1">
               <UserIcon className="size-8" />
@@ -36,7 +36,7 @@ function CourseHeader() {
               variant="fill"
               type="button"
               className=" text-lg font-DanaMedium 
-                flex items-center   lg:w-56"
+                flex items-center px-6  lg:w-56"
             >
               <BookOpenIcon className="size-6" />
               <span className="mt-1">مشاهده دوره</span>

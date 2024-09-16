@@ -2,6 +2,9 @@
   @apply dark:bg-darker bg-white flex items-center  overflow-y-hidden h-13 overflow-x-auto 
     rounded-xl border border-[#f5f5f5] dark:border-none;
 }
+.breadcrumb::-webkit-scrollbar {
+  display: none;
+}
 .breadcrumb__item {
   @apply relative flex  h-full flex-shrink-0 items-center font-Dana;
 }
