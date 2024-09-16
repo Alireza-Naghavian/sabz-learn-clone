@@ -4,11 +4,12 @@ import Link from "next/link";
 import React from "react";
 type ContentListType = {
   title: string;
+  children:React.ReactNode;
   link?: string;
 };
-function ContentList({ title, link }: ContentListType) {
+function ContentList({ title, link,children }: ContentListType) {
   return (
-    <div>
+    <div className="max-h-[600px] overflow-y-auto">
       <div className="bg-white dark:bg-gray-800 p-3.5 md:p-4.5 rounded-2xl">
         <div className="flex justify-between items-center 
         pb-3.5 md:pb-4.5 mb-6 md:mb-7
@@ -28,10 +29,8 @@ function ContentList({ title, link }: ContentListType) {
         )}
           </div>
         <div className="">
-            <ContentItem status="بسته شده" target="" title="باز نشده ویدئو"/>
-            <ContentItem status="بسته شده" target="" title="باز نشده ویدئو"/>
-            <ContentItem status="بسته شده" target="" title="باز نشده ویدئو"/>
-    
+            
+    {children}
         </div>
       </div>
     </div>

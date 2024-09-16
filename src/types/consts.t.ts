@@ -4,7 +4,7 @@ export type UserPanelOpType = {
   target: string;
   title: string;
   Icon: IconType;
-  variant: {hoverMode:"hoverMode",casual:"casual"};
+  variant: { hoverMode: "hoverMode"; casual: "casual" };
 };
 export type RoeadMapType = {
   gr_colors: string;
@@ -13,9 +13,14 @@ export type RoeadMapType = {
   title: string;
 };
 
-export type SlogengType =Pick<RoeadMapType,"title"|"Icon">&{subTitle:string,Sl_color:string,Icon_Color:string}
+export type SlogengType = Pick<RoeadMapType, "title" | "Icon"> & {
+  subTitle: string;
+  Sl_color: string;
+  Icon_Color: string;
+};
 
-export type SortType ={
-  title:string,
-  label:string
-}
+export type SortType = {
+  title: string;
+  label: string;
+};
+export type DeptType = { value: string; label: string };

@@ -1,0 +1,10 @@
+.select{
+    @apply mt-3.5 md:mt-4 w-full p-3 sm:p-5 
+    font-Dana text-sm sm:text-base
+     tracking-tight text-zinc-700
+      dark:text-white bg-gray-100
+       dark:bg-gray-700 rounded-xl border border-transparent
+        focus:border-gray-300 dark:focus:border-slate-700
+         placeholder:text-slate-500 dark:placeholder:text-gray-500 
+         transition-all
+}

@@ -35,7 +35,7 @@ function LastSeen() {
 export const MiniCourseCard = () => {
   return (
     <div
-      className=" flex flex-col overflow-hidden
+      className=" flex flex-col overflow-hidden 
        bg-white dark:bg-dark/55 shadow-light 
       dark:shadow-none dark:border dark:border-gray-700
        rounded-2xl"
