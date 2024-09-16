@@ -1,18 +1,19 @@
 "use client";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import DarkShade from "@/components/ui/greenShade/DarkShade";
-import { IconType } from "@/types/icon.t";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
-import React, { useState } from "react";
-import CourseSessions from "./CourseSessions";
+import { useState } from "react";
+import TitleHeader from "./TitleHeader";
+
+
 
 function CourseDesc() {
   const [expand, setExpand] = useState(false);
   return (
     <>
     <div className="bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5 mt-8">
-    <TitleDesc title="توضیحات" Icon={DocumentTextIcon} className="bg-amber-400" IconColor="text-amber-400"/>
+    <TitleHeader title="توضیحات" Icon={DocumentTextIcon} className="bg-amber-400" IconColor="text-amber-400"/>
       {/* desc */}
       <div className="relative overflow-hidden">
         <div className={`${expand ? "h-auto max-h-[800px] overflow-y-auto" : "h-[400px]"}`}>
@@ -303,29 +304,11 @@ function CourseDesc() {
         <ChevronDownIcon className={`size-6 ${expand&& "rotate-180"}`} />
       </PrimaryBtn>
     </div>
-    <CourseSessions/>
     </>
 
   );
 }
 
 
-type TitleDesc={
-    Icon:IconType,
-    title:string,
-    className:string
-    IconColor:string
-}
-export const TitleDesc = ({Icon,title,className,IconColor}:TitleDesc)=>{
-    return(
-        <div className="flex items-center gap-x-2 mb-5 sm:mb-6 relative">
-        <span
-          className={`absolute -right-6 sm:-right-[26px] block 
-        w-1.5 h-[34px] md:h-9.5 ${className} rounded-r-sm `}
-        ></span>
-        <Icon className={`hidden md:inline-block ${IconColor} size-9`} />
-        <p className="font-DanaBold text-xl md:text-2xl">{title}</p>
-      </div>
-    )
-}
+
 export default CourseDesc;

@@ -4,6 +4,13 @@ import { BriefcaseIcon, CalendarDaysIcon, ClockIcon, InformationCircleIcon, User
 import ClientLayout from "../ClientLayout/ClientLayout";
 import CourseDesc from "./CourseDesc";
 import CourseHeader from "./CourseHeader";
+import CourseSessions from "./CourseSessions";
+import RelateCourse from "./RelateCourse";
+import CommentBox from "./CommentBox";
+import { UserGroupIcon } from "@heroicons/react/20/solid";
+import { StarIcon } from "@heroicons/react/16/solid";
+import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
+import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 
 function Course() {
   return (
@@ -72,7 +79,51 @@ function Course() {
                 </div>
                 {/* course description */}
              <CourseDesc/>
+             <CourseSessions/>
+             <RelateCourse/>
+              <CommentBox/>
             </div>
+            <aside className="col-span-12 lg:col-span-4 space-y-8">
+              <div className="bg-white dark:bg-darker rounded-2xl p-4.5  sm:p-5">
+                <div className="flex gap-x-4">
+                  <Tail_Info
+                  variant="sideInfo"
+                  Icon={UserGroupIcon}
+                  subTitle="دانشجو"
+                  title="۱۶۲۳"
+                  
+                  />
+                  <Tail_Info
+                  variant="sideInfo"
+                  Icon={StarIcon}
+                IconColor="text-amber-500"
+                  subTitle="رضایت"
+                  title="۵.۰"
+
+                  />
+                </div>
+                <div className="mt-3.5 sm:mt-5">
+                  <div className="flex items-center justify-between font-DanaBold text-sm sm:text-base mb-3">
+                    <span>درصد تکمیل دوره</span>
+                    <span>100%</span>
+
+                  </div>
+                  <progress value={100} max={100} className="bg-baseColor  h-[.625rem] py-[5px] w-full rounded-4xl"></progress>
+                </div>
+                <div className="bg-white dark:bg-darker rounded-2xl pt-6 px-4.5 pb-4.5 md:py-6 md:px-5 text-center">
+                  <ResponsiveImage
+                  src={"/images/user_sample.png"}
+                  alt="teacher"
+                  sizes=""
+                  className="w-24 h-24 box-center mx-auto"
+                  imageStyles="!relative !block mb-4 mx-auto !object-cover rounded-full"
+                  />
+                  <span className="font-DanaBold text-lg mb-2">محمد امین سعیدی راد| مدرس دوره</span>
+                  <p className="mt-6"></p>
+                  <PrimaryBtn className="px-6 mx-auto " size="xxl" variant="outline" type="button">مشاهده پروفایل من</PrimaryBtn>
+                </div>
+              </div>
+            </aside>
         </section>
       </div>
     </ClientLayout>

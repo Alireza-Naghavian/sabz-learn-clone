@@ -1,4 +1,12 @@
 import { Message, ValidationRule } from "react-hook-form";
+export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
+  React.ComponentProps<"textarea"> & {
+    variant: "outLine" | "freeMode";
+    size?: "medium" | "free";
+    required?: boolean;
+    validattionschema?: RegisterOptions;
+    readOnly?: boolean;
+  };
 
 export type RegisterOptions = Partial<{
   required?: Message | ValidationRule<boolean>;
@@ -21,5 +29,5 @@ export type TextFieldType = {
   register: any;
   errors: any;
   readOnly?: boolean;
-  wrapperStyle?:string
+  wrapperStyle?: string;
 } & React.ComponentProps<"input">;

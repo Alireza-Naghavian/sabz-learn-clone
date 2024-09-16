@@ -40,6 +40,26 @@
     font-display: swap;
   }
 }
+/* scroll bar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+@apply dark:bg-gray-500 bg-gray-200;
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+ @apply dark:bg-dark bg-gray-500
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  @apply bg-darker
+}
+/* scroll bar */
 @layer utilities {
   @media screen and (min-width: 475px) and (max-width: 640px) {
     .container {
