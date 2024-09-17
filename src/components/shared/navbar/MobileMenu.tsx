@@ -13,7 +13,7 @@ function MobileMenu({ close }: { close: () => void }) {
   return (
     <>
       <div className={styles.navBar__Mobile_wrapper}>
-        <LogoLink />
+        <LogoLink className="lg:ml-8" />
         <div className="flex gap-x-2 items-center">
           <ThemeToggler className="flex" />
         </div>

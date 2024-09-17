@@ -31,3 +31,20 @@ export type TextFieldType = {
   readOnly?: boolean;
   wrapperStyle?: string;
 } & React.ComponentProps<"input">;
+type Size = "mediumSize" | "largeSize";
+export type MainTextFieldType = {
+  label?: string;
+  type: string;
+  id: string;
+  placeHolder?: string;
+  name: string;
+  value?: string | number;
+  className?: string;
+  required?: boolean;
+  size: Size;
+  variant: "outLine" | "borderFill" | "rounded";
+  register: any;
+  errors: any;
+  validattionschema?: RegisterOptions;
+  readOnly?: boolean;
+};

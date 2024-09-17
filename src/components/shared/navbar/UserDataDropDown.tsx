@@ -60,7 +60,7 @@ function UserDataDropDown() {
             return (
               <SideBarItem
               key={index}
-                variant={item.variant}
+                variant={item.variant.hoverMode}
                 Icon={() => <item.Icon />}
                 title={item.title}
                 target={item.target}

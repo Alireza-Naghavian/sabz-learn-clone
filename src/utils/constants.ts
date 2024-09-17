@@ -1,4 +1,10 @@
-import { RoeadMapType, SlogengType, SortType, UserPanelOpType } from "@/types/consts.t";
+import {
+  DeptType,
+  RoeadMapType,
+  SlogengType,
+  SortType,
+  UserPanelOpType,
+} from "@/types/consts.t";
 import {
   BookOpenIcon,
   ChartBarIcon,
@@ -17,25 +23,25 @@ export const userPanelOptions: UserPanelOpType[] = [
   {
     target: "",
     title: "پیشخوان",
-    variant: "hoverMode",
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: HomeIcon,
   },
   {
     target: "",
     title: "دوره های من",
-    variant: "hoverMode",
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: FolderOpenIcon,
   },
   {
     target: "",
     title: "تیکت ها",
-    variant: "hoverMode",
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: ChatBubbleLeftRightIcon,
   },
   {
     target: "",
     title: "جزئیات حساب",
-    variant: "hoverMode",
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: UserIcon,
   },
 ];
@@ -73,7 +79,7 @@ export const slogensOptions: SlogengType[] = [
     subTitle:
       "هرجا سوالی داشتی به مشکل خوردی بچه های تیم آمادن که مشکلت رو حل کنن تلاشمون اینه بدون نگرانی دوره رو کامل کنی.",
     Sl_color: "bg-amber-50 dark:bg-amber-400/20",
-    Icon_Color:"text-amber-400"
+    Icon_Color: "text-amber-400",
   },
   {
     Icon: BookOpenIcon,
@@ -81,7 +87,7 @@ export const slogensOptions: SlogengType[] = [
     subTitle:
       "بزار خیالت راحت کنم توی دوره هامون به ریز ترین موارد پرداختیم بعداز دیدن این دوره نیاز به هیچ آموزش دیگه ای نداری.",
     Sl_color: "bg-sky-50 dark:bg-sky-600/20",
-      Icon_Color:"text-sky-600"
+    Icon_Color: "text-sky-600",
   },
   {
     Icon: ChartBarIcon,
@@ -89,7 +95,7 @@ export const slogensOptions: SlogengType[] = [
     subTitle:
       "کل تمرکز ما رو این هستش بعداز تموم شدن دوره شخص بتونه با اعتماد به نفس کامل پروژه بزنه واقدام کنه برای کسب درآمد.",
     Sl_color: "bg-green-50 dark:bg-green-500/20",
-        Icon_Color:"text-green-500"
+    Icon_Color: "text-green-500",
   },
   {
     Icon: ClipboardDocumentCheckIcon,
@@ -97,26 +103,32 @@ export const slogensOptions: SlogengType[] = [
     subTitle:
       "به جرعت میتونم بگم سخت گیرترین شرایط جذب مدرس داریم چون برامون مهمه محتوا خیلی ساده و روان بیان بشه که توی یادگیری به مشکل نخورید.",
     Sl_color: "bg-red-50 dark:bg-red-500/20",
-        Icon_Color:"text-red-500"
+    Icon_Color: "text-red-500",
   },
 ];
 
+export const SortOption: SortType[] = [
+  {
+    title: "همه دوره ها",
+    label: "normal",
+  },
+  {
+    title: "ارزان ترین",
+    label: "cheapest",
+  },
+  {
+    title: "گرانترین",
+    label: "expensive",
+  },
+  {
+    title: "پر مخاطب",
+    label: "popular",
+  },
+];
 
-export const SortOption:SortType[] = [
-{
-  title:"همه دوره ها",
-  label:"normal"
-},
-{
-  title:"ارزان ترین",
-  label:"cheapest"
-},
-{
-  title:"گرانترین",
-  label:"expensive"
-},
-{
-  title:"پر مخاطب",
-  label:"popular"
-},
-]
+export const deptList: DeptType[] = [
+  {label:"دپارتمان مورد نظر" ,value:""},
+  { label: "مالی", value: "financial" },
+  { label: "پشتیبانی", value: "support" },
+  { label: "مشاوره", value: "counseling" },
+];

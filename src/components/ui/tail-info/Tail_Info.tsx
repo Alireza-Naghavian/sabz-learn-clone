@@ -2,7 +2,7 @@ import { IconType } from "@/types/icon.t";
 import { cva } from "class-variance-authority";
 import React from "react";
 import "./Tail_info.css";
-type Tail_Info_type = {
+export type Tail_Info_type = {
   title: string | number;
   subTitle: string;
   Icon: IconType;
