@@ -38,7 +38,13 @@ function layout({children}:ChildrenProps) {
             <UserDataDropDown/>
         </div>
     </header>
+    <div className="px-5 md:px-0">
+    <h3 className="md:hidden font-DanaBold text-zinc-700 dark:text-white mb-7">
+    علیرضا نقویان عزیز؛ خوش اومدی 🙌
+    </h3>
     {children}
+    </div>
+
       </section>
       <Overlay onClose={()=>close()} openCondition={isMenuOpen}/>
     </div>
