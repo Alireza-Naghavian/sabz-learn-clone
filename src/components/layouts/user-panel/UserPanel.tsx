@@ -6,7 +6,7 @@ import {
   TicketIcon,
 } from "@heroicons/react/24/outline";
 import LastSeen from "./LastSeen";
-import ContentList from "./ContentList";
+import ContentList, { ContentItem } from "./ContentList";
 
 function UserPanel() {
   return (
@@ -49,8 +49,14 @@ function UserPanel() {
       >
         <LastSeen />
         <div className="space-y-7">
-          <ContentList title="تیکت های اخیر" link="/my-account/courses" />
-          <ContentList title="پرسش های اخیر" />
+          <ContentList title="تیکت های اخیر" link="/my-account/tickets">
+            <ContentItem status="بسته شده" target="" title="باز نشده ویدئو" />
+            <ContentItem status="بسته شده" target="" title="باز نشده ویدئو" />
+            <ContentItem status="بسته شده" target="" title="باز نشده ویدئو" />
+          </ContentList>
+          <ContentList title="پرسش های اخیر">
+            <ContentItem status="بسته شده" target="" title="باز نشده ویدئو" />
+          </ContentList>
         </div>
       </div>
     </>
