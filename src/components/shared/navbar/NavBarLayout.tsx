@@ -18,7 +18,7 @@ function NavBarLayout() {
         {/* navbar section */}
         <nav className="flex items-center h-13">
           {/* app logo */}
-          <LogoLink />
+          <LogoLink className="lg:ml-8" />
           {/* mobile menu */}
         
           {/* main menu */}

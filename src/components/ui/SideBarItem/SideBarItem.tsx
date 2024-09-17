@@ -6,7 +6,7 @@ const sideBarStyle = cva(`flex items-center rounded-lg`, {
     variant: {
       hoverMode:
         "hover:text-white hover:bg-green-500 px-2.5 h-12 gap-x-2.5   transition-colors ",
-      casual: " gap-x-2.5 h-10 px-3",
+      casual: " gap-x-2.5 h-12 px-3",
     },
   },
   defaultVariants: {
