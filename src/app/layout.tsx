@@ -12,7 +12,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="fa-IR" dir="rtl" className="scroll-smooth ">
+    <html lang="fa-IR" dir="rtl" className="scroll-smooth dark ">
       <body
         className="font-Dana text-gray-900 dark:text-white
        bg-gray-100 dark:bg-gray-900"
