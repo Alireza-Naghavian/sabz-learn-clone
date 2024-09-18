@@ -1,10 +1,10 @@
 import React from "react";
 type HeaderType = {
   qs: boolean;
-  coursesAmount: number;
+  totalAmount: number|string;
   mainTitle: string;
 };
-function CoursesHeader({ qs, coursesAmount, mainTitle }: HeaderType) {
+function CoursesHeader({ qs, totalAmount, mainTitle }: HeaderType) {
   return (
     <div
       className="flex flex-col sm:flex-row gap-y-2 items-center 
@@ -17,9 +17,9 @@ function CoursesHeader({ qs, coursesAmount, mainTitle }: HeaderType) {
           <span>{mainTitle}</span>
         </h2>
       </div>
-      <span className="sm:text-xl flex gap-x-1 font-DanaMedium text-slate-500">
-        <span>{coursesAmount}</span>
-        <span>عنوان آموزشی</span>
+      <span className="sm:text-xl  font-DanaMedium text-slate-500">
+        <span>{totalAmount}</span>
+       
       </span>
     </div>
   );

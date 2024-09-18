@@ -27,7 +27,7 @@ const config: Config = {
         center: true,
         padding: {
           DEFAULT: "1rem",
-          sm: "0.625rem",
+          xs: "0.625rem",
         },
       },
       colors: {

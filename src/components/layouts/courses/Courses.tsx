@@ -11,7 +11,7 @@ function Courses() {
         <CoursesHeader
         mainTitle='فرانت اند'
         qs={true}
-        coursesAmount={24}
+        totalAmount={`${24} عنوان آموزشی`}
         />
         <section className='grid  grid-rows-1 lg:grid-cols-3 xl:grid-cols-4 
         gap-3.5 sm:gap-5 mt-9 sm:mt-25'>
