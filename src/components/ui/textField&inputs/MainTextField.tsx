@@ -37,11 +37,12 @@ function MainTextField({
 }: MainTextFieldType) {
   return (
     <div className="flex flex-col gap-y-2">
+      {label &&
       <label htmlFor={id} className={"relative font-DanaMedium pb-1"}>
-        <span className={"font-Shabnam_B"}>{label}</span>
+      <span className={"font-Shabnam_B"}>{label}</span>
 
-        {required && <span className="text-red-500">*</span>}
-      </label>
+      {required && <span className="text-red-500">*</span>}
+    </label>}
       <input
         {...register(name, validattionschema)}
         id={id}
