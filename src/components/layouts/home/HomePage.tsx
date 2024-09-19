@@ -1,3 +1,4 @@
+import BlogCard from "@/components/shared/BlogsCard/BlogCard";
 import CourseCard from "@/components/shared/ProductCard/ProductCard";
 import CourseSlider from "@/components/shared/slider/CourseSlider";
 import SecondaryBtn from "@/components/ui/button/SecondaryBtn";
@@ -10,7 +11,6 @@ import { PlayIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import ClientLayout from "../ClientLayout/ClientLayout";
-import BlogCard from "@/components/shared/BlogsCard/BlogCard";
 
 function HomePage() {
   return (
