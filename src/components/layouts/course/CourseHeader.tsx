@@ -1,8 +1,14 @@
 import React from "react";
 import "./course.css";
-import { BookOpenIcon, UserIcon } from "@heroicons/react/24/outline";
+import {
+  AcademicCapIcon,
+  BookOpenIcon,
+  UserIcon,
+} from "@heroicons/react/24/outline";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import CourseBanner from "./CourseBanner";
+import { TomanIcon } from "@/utils/Icons";
+import CountDowntimer from "@/components/ui/CountDowntimer/CountDowntimer";
 function CourseHeader() {
   return (
     <section className="courseHeader__wrapper">
@@ -21,32 +27,79 @@ function CourseHeader() {
             بصورت پروژه محور و عملی یاد می‌گیرین.
           </p>
         </div>
+
         {/* buy course ? */}
-        <div className="space-y-4 lg:space-y-8 mt-4  md:mt-24">
-          <div
-            className="flex justify-center items-center lg:justify-between
-             flex-wrap-reverse gap-y-4 gap-x-8 lg:gap-x-6"
-          >
-            <div className="flex items-end gap-x-1">
-              <UserIcon className="size-8" />
-              <p className="font-DanaMedium text-lg">شمادانشجوی دوره هستید</p>
-            </div>
-            <PrimaryBtn
-              size="xxl"
-              variant="fill"
-              type="button"
-              className=" text-lg font-DanaMedium 
-                flex items-center px-6  lg:w-56"
-            >
-              <BookOpenIcon className="size-6" />
-              <span className="mt-1">مشاهده دوره</span>
-            </PrimaryBtn>
-          </div>
+        <div className="space-y-4 lg:space-y-8 mt-4  md:mt-16">
+          {/* <AcessBox/> */}
+          <BuyBtn isOffer />
         </div>
       </div>
-      <CourseBanner/>
+      <CourseBanner />
     </section>
   );
 }
 
+// buy this course ?
+const AcessBox = () => {
+  return (
+    <div
+      className="flex justify-center items-center lg:justify-between
+     flex-wrap-reverse gap-y-4 gap-x-8 lg:gap-x-6"
+    >
+      <div className="flex items-end gap-x-1">
+        <UserIcon className="size-8" />
+        <p className="font-DanaMedium text-lg">شمادانشجوی دوره هستید</p>
+      </div>
+      <PrimaryBtn
+        size="xxl"
+        variant="fill"
+        type="button"
+        className=" text-lg font-DanaMedium 
+        flex items-center px-6  lg:w-56"
+      >
+        <BookOpenIcon className="size-6" />
+        <a href="#sessions" className="mt-1">
+          مشاهده دوره
+        </a>
+      </PrimaryBtn>
+    </div>
+  );
+};
+
+// have buy first
+const BuyBtn = ({ isOffer }: { isOffer: boolean }) => {
+  return (
+    <>
+      {/* countDown ? */}
+      <CountDowntimer date={new Date("dec 25, 2024 16:37:52")} percent={50} />
+      <div
+        className="flex justify-center xl:items-center
+      lg:justify-between flex-wrap-reverse gap-y-4 gap-x-6"
+      >
+        <PrimaryBtn
+          type="button"
+          variant="fill"
+          size="xl"
+          className="flex text-lg items-center px-4 !py-2"
+        >
+          <AcademicCapIcon className="size-6" />
+          افزودن به سبد خرید
+        </PrimaryBtn>
+        <div className="flex items-end gap-x-2.5">
+          {/* offer ? */}
+          {isOffer && (
+            <span className="text-slate-500 dark:text-white/70 text-xl line-through">
+              720,000
+            </span>
+          )}
+          {/* price*/}
+          <span className="font-DanaBold text-2xl flex items-center gap-x-1 ">
+            <span>360,000</span>
+            <TomanIcon className="size-6" />
+          </span>
+        </div>
+      </div>
+    </>
+  );
+};
 export default CourseHeader;

@@ -8,7 +8,7 @@ import "./course.css";
 import TitleHeader from "./TitleHeader";
 function CourseSessions() {
   return (
-    <div className="bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5 mt-8">
+    <div id="sessions" className="bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5 mt-8">
       <TitleHeader
         title="سرفصل ها"
         Icon={AcademicCapIcon}
@@ -48,11 +48,11 @@ export const CourseTopic = ({
         </span>
         <div className="flex items-center gap-x-2.5 shrink-0">
           <div
-            className="topic__time  items-center
-             gap-x-1.5 font-nunito text-sm
+            className="topic__time flex  items-center
+             gap-x-1.5 font-DanaMedium text-sm
              text-slate-500 dark:text-white child:transition-colors" dir="rtl"
           >
-            <span className="text-base font-DanaMedium hidden lg:flex">{topicTime}</span>
+            <span className="text-base font-DanaMedium hidden lg:inline">{topicTime}</span>
             {/* seperator */}
             <span
               className="topic__time-dot hidden lg:block size-1 bg-slate-500/50
