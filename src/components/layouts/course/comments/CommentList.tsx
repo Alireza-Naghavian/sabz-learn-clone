@@ -1,10 +1,11 @@
+"use client"
 import Button from "@/components/ui/button/Button";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
 import { ArrowUturnLeftIcon, ChevronDownIcon } from "@heroicons/react/24/outline";
 import React from "react";
 
-function CommentList({ open }: { open: () => void }) {
+function CommentList({ open }: { open?: () => void }) {
   return (
     <section className="comments_wrap space-y-4.5 sm:space-y-5">
       <Comment isReply={true} className="bg-gray-100 dark:bg-dark" open={open}>
@@ -14,10 +15,12 @@ function CommentList({ open }: { open: () => void }) {
       </Comment>
       <div className="w-full box-center">
 
+     {open &&
       <PrimaryBtn className="px-8" size="xl" variant="fill" type="button">
-        <span className="font-DanaMedium">مشاهده بیشتر</span>
-        <ChevronDownIcon className="size-6"/>
-      </PrimaryBtn>
+      <span className="font-DanaMedium">مشاهده بیشتر</span>
+      <ChevronDownIcon className="size-6"/>
+    </PrimaryBtn>
+     }
       </div>
     </section>
   );
@@ -54,8 +57,8 @@ const Comment = ({
               imageStyles="!relative !w-full !h-full !object-cover rounded-full"
               />
           </div>
-          <div className="flex flex-col gap-1">
-            <div className="flex items-center gap-x-1 ">
+          <div className="flex flex-col ml-auto gap-1">
+            <div className="flex items-center   gap-x-1 ">
               <span className="inline-block max-w-40 truncate">
                 klfjsdkljfsdlk
               </span>
@@ -67,7 +70,7 @@ const Comment = ({
             <span className="font-Dana text-sm opacity-70">1403/06/21</span>
           </div>
         {
-            isReply &&
+            isReply &&open &&
             <Button
             size="lg"
             type="button"

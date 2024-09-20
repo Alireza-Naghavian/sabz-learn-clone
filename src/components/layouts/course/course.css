@@ -1,5 +1,5 @@
 .courseHeader__wrapper {
-  @apply grid grid-cols-1 lg:grid-cols-2 gap-y-4.5
+  @apply grid grid-cols-1 lg:grid-cols-2 gap-y-4.5 
     gap-x-6 sm:gap-x-7 lg:items-center xl:items-stretch 
     mt-8 sm:mt-10 rounded-2xl p-4.5 lg:p-0 bg-white
      dark:bg-darker lg:!bg-transparent border
