@@ -30,7 +30,7 @@ function layout({children}:ChildrenProps) {
         fixed top-0 bottom-0 right-0 z-50 p-4.5 transition-all
          duration-300 transform 
          ${isMenuOpen ? "translate-x-0" : "translate-x-[40rem]"} `}>
-          <UserPanel_SideBar sm/>
+          <UserPanel_SideBar sm />
       </div>
         </div>
         <div className="flex gap-x-3.5 md:gap-x-7">

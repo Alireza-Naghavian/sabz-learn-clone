@@ -7,12 +7,23 @@ import {
 } from "@/types/consts.t";
 import {
   BookOpenIcon,
+  CalendarDaysIcon,
   ChartBarIcon,
+  ChatBubbleBottomCenterIcon,
   ChatBubbleLeftRightIcon,
   ClipboardDocumentCheckIcon,
+  CodeBracketSquareIcon,
+  DocumentTextIcon,
+  FolderIcon,
+  FolderMinusIcon,
   FolderOpenIcon,
   HomeIcon,
+  ListBulletIcon,
+  PercentBadgeIcon,
+  TicketIcon,
   UserIcon,
+  UsersIcon,
+  VideoCameraIcon,
 } from "@heroicons/react/24/outline";
 import { Front_Icon, PythonIcon, SecurityIcon, SoftSkillIcon } from "./Icons";
 
@@ -127,8 +138,83 @@ export const SortOption: SortType[] = [
 ];
 
 export const deptList: DeptType[] = [
-  {label:"دپارتمان مورد نظر" ,value:""},
+  { label: "دپارتمان مورد نظر", value: "" },
   { label: "مالی", value: "financial" },
   { label: "پشتیبانی", value: "support" },
   { label: "مشاوره", value: "counseling" },
+];
+
+export const AdminDashboardNavItems:UserPanelOpType[] = [
+  {
+   variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "نمای کلی",
+    Icon: HomeIcon,
+    target: "/admin",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "کاربران",
+    Icon: UsersIcon,
+    target: "/admin/users",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "دوره ها",
+    Icon: CodeBracketSquareIcon,
+    target: "/admin/courses",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "جلسات",
+    Icon: VideoCameraIcon,
+    target: "/admin/sessions",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "دسته بندی",
+    Icon: FolderOpenIcon,
+    target: "/admin/categories",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "کامنت ها",
+    Icon: ChatBubbleBottomCenterIcon,
+    target: "/admin/comments",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "منو ها",
+    Icon: ListBulletIcon,
+    target: "/admin/menus",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "مقالات",
+    Icon: DocumentTextIcon,
+    target: "/admin/blogs",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "پیام ها",
+    Icon: ChatBubbleLeftRightIcon,
+   target: "/admin/messages",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "تیکت ها",
+    Icon: TicketIcon,
+   target: "/admin/tickets",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "تخفیفات",
+    Icon: PercentBadgeIcon,
+    target: "/admin/discount",
+  },
+  {
+    variant:{hoverMode:"hoverMode",casual:"casual"},
+    title: "ایجاد کمپین",
+    Icon: CalendarDaysIcon,
+    target: "/admin/campaign",
+  },
 ];
