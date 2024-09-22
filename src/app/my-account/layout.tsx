@@ -1,7 +1,7 @@
 "use client"
 import UserPanel_SideBar from '@/components/layouts/user-panel/UserPanel_SideBar'
 import React from 'react'
-import "./userpanel.css"
+import styles from "./userpanel.module.css"
 import ThemeToggler from '@/components/ui/ThemeToggler/ThemeToggler'
 import UserDataDropDown from '@/components/shared/navbar/UserDataDropDown'
 import { ChildrenProps } from '@/types/global.t'
@@ -14,7 +14,7 @@ function layout({children}:ChildrenProps) {
     <div className='flex  gap-x-10 2xl:gap-x-14 lg:px-8 xl:px-14 2xl:px-25 lg:py-7'>
       <UserPanel_SideBar/>
       <section className="w-full max-w-[1432px] mx-auto bg-gray-300/55 dark:bg-darker md:p-10 lg:rounded-4xl">
-    <header className='header__layout'>
+    <header className={`${styles.header__layout}`}>
         <h3 className="hidden md:block font-DanaBold 
         text-2xl text-zinc-700 dark:text-white">
 علیرضا نقویان عزیز؛ خوش اومدی 🙌

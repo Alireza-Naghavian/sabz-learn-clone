@@ -3,7 +3,7 @@ import SideBar from "@/components/layouts/admin/SideBar/SideBar";
 import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
 import { ChildrenProps } from "@/types/global.t";
 import { Bars3BottomRightIcon } from "@heroicons/react/24/outline";
-import "../my-account/userPanel.css";
+import styles from "@/app/my-account/userpanel.module.css"
 import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
 function layout({ children }: ChildrenProps) {
@@ -21,7 +21,7 @@ function layout({ children }: ChildrenProps) {
         className="w-full 
         mx-auto bg-gray-100/55 dark:bg-gray-800 lg:dark:bg-dark md:p-10 lg:rounded-4xl"
       >
-        <header className="header__layout bg-gray-300 dark:bg-darker !p-4 sm:rounded-xl !mb-0">
+        <header className={`bg-gray-300 dark:bg-darker !p-4 sm:rounded-xl !mb-0 ${styles.header__layout}`}>
           <h3
             className="hidden lg:block font-DanaBold 
               text-2xl text-zinc-700 dark:text-white"
