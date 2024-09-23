@@ -1,0 +1,22 @@
+.ck.ck-reset.ck-editor.ck-rounded-corners .ck-editor__editable {
+    @apply h-48 text-slate-500 dark:text-gray-500
+     focus:text-zinc-700
+      dark:focus:text-white
+       bg-gray-100 
+
+       dark:bg-dark outline-none 
+        border-none   dark:focus:border-slate-600 
+        rounded-xl;
+  
+  }
+  .ck-toolbar_grouping{
+    @apply rounded-t-xl
+  }
+  .ck.ck-reset.ck-editor.ck-rounded-corners .ck-toolbar {
+      @apply text-slate-500 dark:text-gray-500 
+    focus:text-zinc-700 dark:focus:text-white
+    bg-gray-100 dark:bg-slate-400 outline-none 
+     border-none dark:focus:border-slate-600 rounded-t-xl;
+  }
+  
+  

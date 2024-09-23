@@ -10,15 +10,15 @@ function layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
   return (
     <main
-      className="md:bg-white md:dark:bg-gray-800 flex 
+      className="md:bg-white md:dark:bg-gray-800 flex max-w-[1920px]
      md:px-8
      lg:py-7"
     >
-      <div className="lg:block hidden sm:w-[25%] w-64">
+      <div className="lg:block hidden lg:w-[20%] ">
         <SideBar />
       </div>
       <section
-        className="w-full 
+        className="lg:w-[80%] w-full
         mx-auto bg-gray-100/55 dark:bg-gray-800 lg:dark:bg-dark md:p-10 lg:rounded-4xl"
       >
         <header className={`bg-gray-300 dark:bg-darker !p-4 sm:rounded-xl !mb-0 ${styles.header__layout}`}>
@@ -50,7 +50,7 @@ function layout({ children }: ChildrenProps) {
             <ThemeToggler />
           </div>
         </header>
-        <div className="px-5 md:px-0">
+        <div className="px-5 md:px-0 ">
        
           {children}
         </div>

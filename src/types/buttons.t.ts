@@ -7,7 +7,7 @@ export type SelectType<T> = {
   onChange: ChangeEventHandler<any>;
   className?: string;
   optionClassName?: string;
-  selectTitle: string;
+  selectTitle?: string;
   options: { value: T; label: string }[];
 };
 export type Size = "md" | "lg" | "xl" | "xxl";
