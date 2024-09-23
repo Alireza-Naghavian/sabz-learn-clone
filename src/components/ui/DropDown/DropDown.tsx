@@ -6,7 +6,7 @@ import React from "react";
 const DropDown: React.FC<DropDownType> = ({
   label,
   className,
-  icon,
+  Icon,
   children,
   isOpen,
   id,
@@ -17,10 +17,10 @@ const DropDown: React.FC<DropDownType> = ({
     <div className="">
       {/* toggler */}
       <div
-        className={`flex justify-between items-center
+        className={`flex ${!Icon ?"justify-between":"px-2.5 h-12 gap-x-2"} items-center
              duration-200 transition-all  ${className}  w-full `}
       >
-        {icon ? icon : null}
+        {Icon && <Icon className="size-6" /> }
         <Link
           href={""}
           onClick={() => close()}
@@ -32,7 +32,7 @@ const DropDown: React.FC<DropDownType> = ({
         <div
           onClick={() => toggle(id)}
           className={`duration-200 transition-all bg-baseColor/35
-         rounded-full px-1.5 py-1.5 box-center
+         rounded-full px-1.5 py-1.5 box-center mr-auto
         ${isOpen ? "rotate-180 !bg-baseColor  " : "rotate-0"}`}
         >
           <ChevronDownIcon className="w-5 h-5" />

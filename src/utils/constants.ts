@@ -151,12 +151,7 @@ export const deptList: DeptType[] = [
 ];
 
 export const AdminDashboardNavItems: UserPanelOpType[] = [
-  {
-    variant: { hoverMode: "hoverMode", casual: "casual" },
-    title: "نمای کلی",
-    Icon: HomeIcon,
-    target: "/admin",
-  },
+
   {
     variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "کاربران",
