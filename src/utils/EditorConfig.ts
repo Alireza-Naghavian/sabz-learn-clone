@@ -27,6 +27,7 @@ import {
 	Link,
 	LinkImage,
 	List,
+  AutoMediaEmbed,
 	ListProperties,
 	MediaEmbed,
 	Paragraph,
@@ -41,7 +42,7 @@ import {
 	TableToolbar,
 	TextTransformation,
 	Underline,
-	Undo
+	Undo,
 } from 'ckeditor5';
 import {
   AIAssistant,
@@ -64,14 +65,12 @@ import {
             '|',
             'link',
             'insertImage',
-            'ckbox',
             'mediaEmbed',
             'insertTable',
             'blockQuote',
             '|',
             'bulletedList',
             'numberedList',
-            'todoList',
             'outdent',
             'indent'
         ],
@@ -101,6 +100,7 @@ import {
         ImageTextAlternative,
         ImageToolbar,
         ImageUpload,
+        AutoMediaEmbed,
         Indent,
         IndentBlock,
         Italic,
@@ -127,7 +127,7 @@ import {
     ],
     language:"fa",
     balloonToolbar: ['aiAssistant', '|', 'bold', 'italic', '|', 'link', 'insertImage', '|', 'bulletedList', 'numberedList'],
-
+  
     heading: {
         options: [
           { model: 'paragraph', title: 'Paragraph', class: 'text-base leading-relaxed text-gray-700' },
@@ -166,9 +166,30 @@ import {
             reversed: true
         }
     },
+    mediaEmbed: {
+      previewsInData: true,
+      providers: [
+        {
+          name: 'custom',
+          url: /^(https:\/\/tech\.sabzlearn\.ir\/uploads\/.+\.mp4)(\?.*)?$/,
+          html: (match:any) => {
+            const url = match[1];
+            return (
+              `<video controls style="max-width: 100%; height: auto;">
+                <source src="${url}" type="video/mp4">
+                Your browser does not support the video tag.
+              </video>`
+            );
+          }
+        }
+      ]
+    },
     placeholder: 'توضیحات مربوط به دوره...',
     table: {
         contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
     }
+
 };
 export default editorConfig
+
+

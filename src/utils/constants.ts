@@ -250,3 +250,8 @@ export const AdminDashBoardDropDown: AdminDropDownType[] = [
     id:"blogs"
   },
 ];
+
+export const suppurtOptions = [
+  { value: "", label: "روش پشتیبانی" },
+  { value: "online", label: "آنلاین" },
+];

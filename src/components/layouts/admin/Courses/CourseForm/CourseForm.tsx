@@ -10,7 +10,8 @@ import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import dynamic from "next/dynamic";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-import "./course_form.css"
+import styles from "./course_form.module.css"
+import { suppurtOptions } from "@/utils/constants";
 const TextEditor = dynamic(() => import("@/components/utils-components/textEditor/TextEditor"), {
   ssr: false,
 });
@@ -20,10 +21,7 @@ const fakeCategory = [
   { value: "front", label: "فرانت اند" },
   { value: "security", label: "امنیت" },
 ];
-const suppurtOptions = [
-  { value: "", label: "روش پشتیبانی" },
-  { value: "online", label: "آنلاین" },
-];
+
 function CourseForm() {
   const {
     register,
@@ -44,7 +42,7 @@ function CourseForm() {
       className="flex flex-col gap-y-6   relative py-6 container"
     >
       {/* input group */}
-      <div className="input_group">
+      <div className={`${styles.input_group}`}>
         <MainTextField
           register={register}
           name="title"
@@ -66,7 +64,7 @@ function CourseForm() {
         />
       </div>
       {/* input group */}
-      <div className="input_group">
+      <div className={`${styles.input_group}`}>
         <MainTextField
           register={register}
           name="cover"
@@ -105,7 +103,7 @@ function CourseForm() {
         </div>
       </div>
       {/* input group */}
-      <div className="input_group">
+      <div className={`${styles.input_group}`}>
         <MainTextField
           register={register}
           name="price"
@@ -125,7 +123,7 @@ function CourseForm() {
         />
       </div>
       {/* input group */}
-      <div className="input_group xl:mt-2 ">
+      <div className={`${styles.input_group} xl:mt-2`}>
         <TextAriaField
           register={register}
           name="shortDesc"
@@ -140,7 +138,7 @@ function CourseForm() {
 
       </div>
       {/* input group */}
-      <div className="input_group xl:mt-2 ">
+      <div className={`${styles.input_group} xl:mt-2`}>
         <div className="w-1/4 flex items-center gap-x-2">
           <SimpleCheckBox
           register={register}
