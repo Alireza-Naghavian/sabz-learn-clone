@@ -8,25 +8,25 @@ const DropDown: React.FC<DropDownType> = ({
   className,
   icon,
   children,
-isOpen,
-id,
+  isOpen,
+  id,
   toggle,
-  close
+  close,
 }) => {
-
-
   return (
     <div className="">
       {/* toggler */}
       <div
         className={`flex justify-between items-center
-             duration-200 transition-all  ${className}  w-full `}>
+             duration-200 transition-all  ${className}  w-full `}
+      >
         {icon ? icon : null}
         <Link
           href={""}
-          onClick={()=>close()}
+          onClick={() => close()}
           className={`block  p-0 
-            ${isOpen ? "text-baseColor" : "dark:text-white"}`}>
+            ${isOpen ? "text-baseColor" : "dark:text-white"}`}
+        >
           {label}
         </Link>
         <div

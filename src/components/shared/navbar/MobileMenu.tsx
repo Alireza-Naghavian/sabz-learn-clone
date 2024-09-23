@@ -34,7 +34,7 @@ function MobileMenu({ close }: { close: () => void }) {
         label="فرانت اند"
       >
         <ul className="flex flex-col gap-y-4 w-full my-4 ">
-          <NavItem onClick={() => close()} target="/" title="آموزش html" />
+          <NavItem  onClick={() => close()} target="/" title="آموزش html" />
           <NavItem onClick={() => close()} target="" title="js course" />
           <NavItem onClick={() => close()} target="" title="js course" />
           <NavItem onClick={() => close()} target="" title="js course" />

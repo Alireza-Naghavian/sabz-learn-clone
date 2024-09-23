@@ -1,4 +1,5 @@
 import {
+  AdminDropDownType,
   DeptType,
   RoeadMapType,
   SlogengType,
@@ -6,6 +7,8 @@ import {
   UserPanelOpType,
 } from "@/types/consts.t";
 import {
+  AdjustmentsVerticalIcon,
+  Bars4Icon,
   BookOpenIcon,
   CalendarDaysIcon,
   ChartBarIcon,
@@ -13,6 +16,8 @@ import {
   ChatBubbleLeftRightIcon,
   ClipboardDocumentCheckIcon,
   CodeBracketSquareIcon,
+  DocumentIcon,
+  DocumentPlusIcon,
   DocumentTextIcon,
   FolderIcon,
   FolderMinusIcon,
@@ -20,6 +25,7 @@ import {
   HomeIcon,
   ListBulletIcon,
   PercentBadgeIcon,
+  PlusIcon,
   TicketIcon,
   UserIcon,
   UsersIcon,
@@ -144,77 +150,103 @@ export const deptList: DeptType[] = [
   { label: "مشاوره", value: "counseling" },
 ];
 
-export const AdminDashboardNavItems:UserPanelOpType[] = [
+export const AdminDashboardNavItems: UserPanelOpType[] = [
   {
-   variant:{hoverMode:"hoverMode",casual:"casual"},
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "نمای کلی",
     Icon: HomeIcon,
     target: "/admin",
   },
   {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "کاربران",
     Icon: UsersIcon,
     target: "/admin/users",
   },
+
   {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
-    title: "دوره ها",
-    Icon: CodeBracketSquareIcon,
-    target: "/admin/courses",
-  },
-  {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
-    title: "جلسات",
-    Icon: VideoCameraIcon,
-    target: "/admin/sessions",
-  },
-  {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "دسته بندی",
     Icon: FolderOpenIcon,
     target: "/admin/categories",
   },
   {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "کامنت ها",
     Icon: ChatBubbleBottomCenterIcon,
     target: "/admin/comments",
   },
+
   {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
-    title: "منو ها",
-    Icon: ListBulletIcon,
-    target: "/admin/menus",
-  },
-  {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
-    title: "مقالات",
-    Icon: DocumentTextIcon,
-    target: "/admin/blogs",
-  },
-  {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
-    title: "پیام ها",
-    Icon: ChatBubbleLeftRightIcon,
-   target: "/admin/messages",
-  },
-  {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "تیکت ها",
     Icon: TicketIcon,
-   target: "/admin/tickets",
+    target: "/admin/tickets",
   },
   {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "تخفیفات",
     Icon: PercentBadgeIcon,
     target: "/admin/discount",
   },
   {
-    variant:{hoverMode:"hoverMode",casual:"casual"},
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "ایجاد کمپین",
     Icon: CalendarDaysIcon,
     target: "/admin/campaign",
+  },
+];
+export const AdminDashBoardDropDown: AdminDropDownType[] = [
+  {
+    variant: { hoverMode: "hoverMode", casual: "casual" },
+    title: "دوره ها",
+    subLabel: "افزودن",
+    subLabel_2: "مدیریت دوره ها",
+    subTargetLink: "/admin/courses/new-course",
+    subTargetLink_2: "/admin/courses/list",
+    subIcon: PlusIcon,
+    subIcon_2: AdjustmentsVerticalIcon,
+    Icon: CodeBracketSquareIcon,
+    targetLink: "/admin/courses",
+    id:"courses"
+  },
+  {
+    variant: { hoverMode: "hoverMode", casual: "casual" },
+    title: "جلسات",
+    subLabel: "افزودن",
+    subTargetLink: "/admin/sessions/add",
+    subTargetLink_2: "/admin/sessions/sessions-list",
+    subLabel_2: "مدیریت  جلسات",
+    subIcon: PlusIcon,
+    subIcon_2: AdjustmentsVerticalIcon,
+    Icon: VideoCameraIcon,
+    targetLink: "/admin/sessions",
+    id:"sessions"
+  },
+  {
+    variant: { hoverMode: "hoverMode", casual: "casual" },
+    title: "منو ها",
+    subLabel: "افزودن",
+    subTargetLink: "/admin/menus/add",
+    subTargetLink_2: "/admin/menus/menu-list",
+    subLabel_2: "مدیریت  منوها",
+    subIcon: DocumentPlusIcon,
+    subIcon_2: AdjustmentsVerticalIcon,
+    Icon: Bars4Icon,
+    targetLink: "/admin/menus",
+    id:"menus"
+  },
+  {
+    variant: { hoverMode: "hoverMode", casual: "casual" },
+    title: "مقالات",
+    subLabel: "افزودن",
+    subTargetLink: "/admin/blogs/add",
+    subTargetLink_2: "/admin/blogs/blog-list",
+    subLabel_2: "مدیریت  مقالات",
+    subIcon: PlusIcon,
+    subIcon_2: AdjustmentsVerticalIcon,
+    Icon: DocumentIcon,
+    targetLink: "/admin/blogs",
+    id:"blogs"
   },
 ];
