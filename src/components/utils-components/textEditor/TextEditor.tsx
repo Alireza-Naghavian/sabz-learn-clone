@@ -1,7 +1,6 @@
 "use client";
 import { CKEditor } from "@ckeditor/ckeditor5-react";
 import "ckeditor5-premium-features/ckeditor5-premium-features.css";
-import "ckeditor5/ckeditor5.css";
 import editorConfig from "@/utils/EditorConfig";
 import { ClassicEditor } from "ckeditor5";
 import "./textEditor.css";
