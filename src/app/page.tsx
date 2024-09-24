@@ -1,9 +1,14 @@
 import HomePage from "@/components/layouts/home/HomePage";
-
-export default function Home() {
-  return(
+import StoreProvider from "@/context/StoreProvider";
+import { getUser } from "@/utils/auth/auth";
+export default async function Home() {
+ const user = await getUser();
+  return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden min-h-screen">
-      <HomePage/>
+      <StoreProvider>
+
+      <HomePage  userData={user}  />
+      </StoreProvider>
     </main>
-  )
+  );
 }

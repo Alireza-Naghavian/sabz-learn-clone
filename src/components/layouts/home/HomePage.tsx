@@ -11,10 +11,11 @@ import { PlayIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import ClientLayout from "../ClientLayout/ClientLayout";
+import { UserType } from "@/types/services/authapi.t";
 
-function HomePage() {
+function HomePage({userData}:{userData:UserType}) {
   return (
-    <ClientLayout>
+    <ClientLayout userData={userData}>
       {/* hero header */}
       <section className="lg:mt-12 relative">
         <div className="container ">

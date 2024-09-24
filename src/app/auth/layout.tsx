@@ -1,10 +1,12 @@
 import ColorShade from "@/components/ui/greenShade/GreenShade";
 import LogoLink from "@/components/ui/logo-link/LogoLink";
+import StoreProvider from "@/context/StoreProvider";
 import { ChildrenProps } from "@/types/global.t";
 import Link from "next/link";
 
 function layout({ children }: ChildrenProps) {
   return (
+    <StoreProvider >
     <main className="box-center flex-col  relative px-4 py-6 min-h-screen overflow-x-hidden">
 
       <LogoLink className="flex items-center gap-x-3.5 mb-10" isIcon={true} />
@@ -26,6 +28,7 @@ function layout({ children }: ChildrenProps) {
         <ColorShade className="bg-amber-400 top-[70%] -right-20 " />
       </div>
     </main>
+    </StoreProvider>
   );
 }
 
