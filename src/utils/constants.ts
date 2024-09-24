@@ -188,7 +188,7 @@ export const AdminDashboardNavItems: UserPanelOpType[] = [
     variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "ایجاد کمپین",
     Icon: CalendarDaysIcon,
-    target: "/admin/campaign",
+    target: "/admin/compaign",
   },
 ];
 export const AdminDashBoardDropDown: AdminDropDownType[] = [
