@@ -1,6 +1,6 @@
 .header__layout {
   @apply flex items-center justify-between
-     bg-white dark:bg-darker md:bg-transparent
+       md:bg-transparent
       dark:border-b md:border-none
        border-b-gray-700 mb-6 md:mb-14 
        p-5 md:p-0;

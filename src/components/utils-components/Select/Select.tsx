@@ -9,7 +9,7 @@ function Select<T extends string | number | boolean>({
   optionClassName,
 }: SelectType<T>) {
   return (
-    <div className="flex flex-col gap-y-2 justify-end ">
+    <div className={`flex flex-col justify-end ${selectTitle?.length  && " gap-y-2 "} `}>
       <span className="text-sm  text-right text-dark_shade font-DanaMedium">
         <span className="hidden md:block">{selectTitle}</span>
       </span>
@@ -17,16 +17,16 @@ function Select<T extends string | number | boolean>({
         {options &&
           options.map((item: any, index: number) => {
             return (
-              <>
+          
               <option
-                key={index}
+                key={index as number}
                 value={item?.value}
                 className={`focus:outline-none focus:border-none 
-                  rounded-lg bg-dark  ${optionClassName}`}
+                  rounded-lg dark:bg-dark bg-gray-200  ${optionClassName}`}
                   >
                 {item.label}
               </option>
-                </>
+           
             );
           })}
       </select>

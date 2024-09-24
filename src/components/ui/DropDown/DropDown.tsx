@@ -6,33 +6,33 @@ import React from "react";
 const DropDown: React.FC<DropDownType> = ({
   label,
   className,
-  icon,
+  Icon,
   children,
-isOpen,
-id,
+  isOpen,
+  id,
   toggle,
-  close
+  close,
 }) => {
-
-
   return (
     <div className="">
       {/* toggler */}
       <div
-        className={`flex justify-between items-center
-             duration-200 transition-all  ${className}  w-full `}>
-        {icon ? icon : null}
+        className={`flex ${!Icon ?"justify-between":"px-2.5 h-12 gap-x-2"} items-center
+             duration-200 transition-all  ${className}  w-full `}
+      >
+        {Icon && <Icon className="size-6" /> }
         <Link
           href={""}
-          onClick={()=>close()}
+          onClick={() => close()}
           className={`block  p-0 
-            ${isOpen ? "text-baseColor" : "dark:text-white"}`}>
+            ${isOpen ? "text-baseColor" : "dark:text-white"}`}
+        >
           {label}
         </Link>
         <div
           onClick={() => toggle(id)}
           className={`duration-200 transition-all bg-baseColor/35
-         rounded-full px-1.5 py-1.5 box-center
+         rounded-full px-1.5 py-1.5 box-center mr-auto
         ${isOpen ? "rotate-180 !bg-baseColor  " : "rotate-0"}`}
         >
           <ChevronDownIcon className="w-5 h-5" />

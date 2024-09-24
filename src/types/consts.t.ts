@@ -6,6 +6,17 @@ export type UserPanelOpType = {
   Icon: IconType;
   variant: { hoverMode: "hoverMode"; casual: "casual" };
 };
+export type AdminDropDownType = Pick<UserPanelOpType, "Icon" | "title"|"variant"> & {
+  isMenuOpen?: boolean;
+  id:string,
+  targetLink: string;
+  subTargetLink: string;
+  subTargetLink_2: string;
+  subIcon: IconType;
+  subIcon_2: IconType;
+  subLabel: string;
+  subLabel_2: string;
+};
 export type RoeadMapType = {
   gr_colors: string;
   target: string;
