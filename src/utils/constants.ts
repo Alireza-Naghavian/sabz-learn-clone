@@ -182,7 +182,7 @@ export const AdminDashboardNavItems: UserPanelOpType[] = [
     variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "تخفیفات",
     Icon: PercentBadgeIcon,
-    target: "/admin/discount",
+    target: "/admin/offers",
   },
   {
     variant: { hoverMode: "hoverMode", casual: "casual" },
