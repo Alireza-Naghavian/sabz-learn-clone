@@ -1,4 +1,6 @@
 import { Message, ValidationRule } from "react-hook-form";
+import { SetState } from "./global.t";
+import { IconType } from "./icon.t";
 export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
   React.ComponentProps<"textarea"> & {
     variant: "outLine" | "freeMode";
@@ -47,4 +49,17 @@ export type MainTextFieldType = {
   errors: any;
   validattionschema?: RegisterOptions;
   readOnly?: boolean;
+};
+
+export type StatusBoxType = {
+  status: string;
+  setStatus: SetState<string>;
+  value: string;
+  title: string;
+  watch: any;
+  register:any
+  name:string;
+  Icon:IconType;
+  className?:string
+  wrapperStyles?:string
 };

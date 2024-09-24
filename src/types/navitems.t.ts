@@ -12,7 +12,7 @@ export type DropDownType = {
   bgColor?: string;
   activeBg?: string;
   close: () => void;
-  icon?: React.JSX.Element;
+  Icon?: IconType;
   className?: string;
   isOpen: boolean;
   id: string;
