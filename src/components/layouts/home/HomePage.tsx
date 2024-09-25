@@ -13,9 +13,9 @@ import Link from "next/link";
 import ClientLayout from "../ClientLayout/ClientLayout";
 import { UserType } from "@/types/services/authapi.t";
 
-function HomePage({userData}:{userData:UserType}) {
+function HomePage() {
   return (
-    <ClientLayout userData={userData}>
+    <ClientLayout>
       {/* hero header */}
       <section className="lg:mt-12 relative">
         <div className="container ">

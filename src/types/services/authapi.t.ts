@@ -6,11 +6,17 @@ export type UserType ={
   createdAt:Date,
   updatedAt:Date
 }
+export type GetmeType ={
+  user:UserType,
+  courses:[],
+  notfications:[]
+}
 export type CreateUserType = {
   email: string;
   username: string;
   password: string;
 };
+export type loginType = Pick<CreateUserType,"password">&{identifier:string}
 export type SignUpResultMsg = {
   user: CreateUserType;
   message:string

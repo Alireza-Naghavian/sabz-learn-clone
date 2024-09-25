@@ -1,16 +1,14 @@
 import LogoLink from "@/components/ui/logo-link/LogoLink";
 import SearchBox from "@/components/ui/SearchBox/SearchBox";
 import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
+import StoreProvider from "@/context/StoreProvider";
 import Bookmark from "./Bookmark";
 import DesktopMenu from "./DesktopMenu";
 import styles from "./navbar.module.css";
 import SideBarMenu from "./SideBarMenu";
-import UserDataDropDown from "./UserDataDropDown";
-import SecondaryBtn from "@/components/ui/button/SecondaryBtn";
-import { UserIcon } from "@heroicons/react/24/outline";
-import { UserType } from "@/types/services/authapi.t";
-function NavBarLayout({ userData }: { userData: UserType }) {
-  console.log(userData);
+import UserDataSection from "./UserDataSection";
+function NavBarLayout() {
+
   return (
     <header className="bg-white dark:bg-darker">
       <div className={styles.navBar__header_wrapper}>
@@ -35,16 +33,9 @@ function NavBarLayout({ userData }: { userData: UserType }) {
           <SearchBox />
           <ThemeToggler className="!hidden lg:!flex" />
           <Bookmark />
-          {userData ? (
-            <UserDataDropDown userData={userData} />
-          ) : (
-            <SecondaryBtn
-              className="hidden lg:flex items-center px-2 rounded-full"
-              target="/auth/login"
-              title="ورود|عضویت"
-              Icon={() => <UserIcon className="h-6 w-6" />}
-            />
-          )}
+          <StoreProvider>
+            <UserDataSection />
+          </StoreProvider>
         </div>
       </div>
     </header>

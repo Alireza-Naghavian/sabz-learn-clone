@@ -1,4 +1,8 @@
-import { CreateUserType, SignUpResultMsg } from "@/types/services/authapi.t";
+import {
+  CreateUserType,
+  loginType,
+  SignUpResultMsg,
+} from "@/types/services/authapi.t";
 import apiSlice from "../baseApi";
 import { userApiSlice } from "./useApiSlice";
 
@@ -9,13 +13,27 @@ export const authApiSlice = apiSlice.injectEndpoints({
         url: "/auth/register",
         method: "POST",
         headers: {
-            'Content-Type': 'application/json'
-          },
-        credentials:"include",
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
         body: { email, username, password },
       }),
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return baseQueryReturnValue.data
+      },
       invalidatesTags: ["user"],
+    }),
+    login: builder.mutation<SignUpResultMsg, loginType>({
+      query: ({ identifier, password }) => ({
+        url: "/auth/login",
+        method: "POST",
+        credentials: "include",
+        body: { identifier, password },
+      }),transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return baseQueryReturnValue.data
+      },
+      invalidatesTags: ["user"]
     }),
   }),
 });
-export const { useSignUpMutation } = authApiSlice;
+export const { useSignUpMutation,useLoginMutation } = authApiSlice;
