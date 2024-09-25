@@ -3,15 +3,14 @@ import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import Loader from "@/components/ui/loader/Loader";
 import MainTextField from "@/components/ui/textField&inputs/MainTextField";
 import { useAlert } from "@/context/AlertProvider";
-import { useLoginMutation } from "@/services/auth/authApiSlice";
-import { useGetMeQuery } from "@/services/auth/useApiSlice";
+import { useGetMeQuery, useLoginMutation } from "@/services/auth/authApiSlice";
 import { loginType } from "@/types/services/authapi.t";
 import { getFromStorage } from "@/utils/darkMode";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 function Login() {
@@ -23,7 +22,7 @@ function Login() {
   const { replace } = useRouter();
   const { showAlert } = useAlert();
   const [login, { isLoading }] = useLoginMutation();
-  const { refetch}  = useGetMeQuery()
+  const { refetch } = useGetMeQuery();
   useEffect(() => {
     const storedTheme = getFromStorage("theme") || "dark";
     if (storedTheme == "dark") {
@@ -35,7 +34,7 @@ function Login() {
       const { identifier, password } = data;
       const result = await login({ identifier, password }).unwrap();
       showAlert("success", result.message);
-      refetch();
+    await  refetch();
       replace("/");
     } catch (error) {
       const fetchError = error as FetchBaseQueryError;

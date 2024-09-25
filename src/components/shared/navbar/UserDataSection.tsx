@@ -1,12 +1,12 @@
 "use client";
 import SecondaryBtn from "@/components/ui/button/SecondaryBtn";
-import { useGetMeQuery } from "@/services/auth/useApiSlice";
 import { UserIcon } from "@heroicons/react/24/outline";
 import UserDataDropDown from "./UserDataDropDown";
 import Loader from "@/components/ui/loader/Loader";
+import { useGetMeQuery } from "@/services/auth/authApiSlice";
 
 function UserDataSection() {
-  const { data: userData, isLoading } = useGetMeQuery();
+  const { data: userData, isLoading, isError } = useGetMeQuery();
   if (isLoading)
     return (
       <Loader
@@ -16,20 +16,17 @@ function UserDataSection() {
         loadingCondition={isLoading}
       />
     );
-  return (
-    <div>
-      {userData ? (
-        <UserDataDropDown isLoading={isLoading} userData={userData.user} />
-      ) : (
-        <SecondaryBtn
-          className="hidden lg:flex items-center px-2 rounded-full"
-          target="/auth/login"
-          title="ورود|عضویت"
-          Icon={() => <UserIcon className="h-6 w-6" />}
-        />
-      )}
-    </div>
-  );
+  if (isError || !userData) {
+    return (
+      <SecondaryBtn
+        className="hidden lg:flex items-center px-2 rounded-full"
+        target="/auth/login"
+        title="ورود|عضویت"
+        Icon={() => <UserIcon className="h-6 w-6" />}
+      />
+    );
+  }
+  return <UserDataDropDown userData={userData.user} isLoading={isLoading} />;
 }
 
 export default UserDataSection;
