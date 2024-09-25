@@ -46,6 +46,7 @@ export type MainTextFieldType = {
   size: Size;
   variant: "outLine" | "borderFill" | "rounded";
   register: any;
+  Icon?:IconType
   errors: any;
   validattionschema?: RegisterOptions;
   readOnly?: boolean;

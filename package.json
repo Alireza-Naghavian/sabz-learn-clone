@@ -15,6 +15,7 @@
     "ckeditor5": "^43.1.0",
     "ckeditor5-premium-features": "^43.1.0",
     "class-variance-authority": "^0.7.0",
+    "jsonwebtoken": "^9.0.2",
     "next": "14.2.9",
     "react": "^18",
     "react-dom": "^18",
@@ -25,6 +26,7 @@
     "swiper": "^11.1.12"
   },
   "devDependencies": {
+    "@types/jsonwebtoken": "^9.0.7",
     "@types/node": "^20",
     "@types/react": "^18",
     "@types/react-dom": "^18",

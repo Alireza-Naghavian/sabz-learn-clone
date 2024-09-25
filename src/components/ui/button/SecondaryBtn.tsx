@@ -4,9 +4,9 @@ import React from "react";
 
 function SecondaryBtn({ Icon, target, title, className }: LinkType) {
   return (
-    <Link href={target} className={`buton-xl button-secondary ${className}`}>
-      {title}
+    <Link href={target} className={`button-xl button-secondary ${className}`}>
        {Icon &&  <Icon className="h-6 w-6"/> }
+      {title}
     </Link>
   );
 }
