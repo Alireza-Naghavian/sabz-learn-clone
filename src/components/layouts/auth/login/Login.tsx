@@ -1,23 +1,52 @@
 "use client";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import Loader from "@/components/ui/loader/Loader";
 import MainTextField from "@/components/ui/textField&inputs/MainTextField";
+import { useAlert } from "@/context/AlertProvider";
+import { useLoginMutation } from "@/services/auth/authApiSlice";
+import { useGetMeQuery } from "@/services/auth/useApiSlice";
+import { loginType } from "@/types/services/authapi.t";
 import { getFromStorage } from "@/utils/darkMode";
 import { EnvelopeIcon, LockClosedIcon } from "@heroicons/react/24/outline";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import React, { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 function Login() {
   const {
     register,
+    handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<loginType>();
+  const { replace } = useRouter();
+  const { showAlert } = useAlert();
+  const [login, { isLoading }] = useLoginMutation();
+  const { refetch}  = useGetMeQuery()
   useEffect(() => {
     const storedTheme = getFromStorage("theme") || "dark";
     if (storedTheme == "dark") {
       document.documentElement.classList.add("dark");
     } else document.documentElement.classList.remove("dark");
   }, []);
+  const loginHandler = async (data: loginType) => {
+    try {
+      const { identifier, password } = data;
+      const result = await login({ identifier, password }).unwrap();
+      showAlert("success", result.message);
+      refetch();
+      replace("/");
+    } catch (error) {
+      const fetchError = error as FetchBaseQueryError;
+      const errorMessage = (fetchError as { message?: string })?.message;
+      if (errorMessage) {
+        showAlert("error", errorMessage);
+      } else {
+        showAlert("error", "خطایی رخ داده است");
+      }
+    }
+  };
   return (
     <div>
       <h4 className="font-DanaBold text-xl mb-4 sm:mb-4.5">ورود</h4>
@@ -27,20 +56,31 @@ function Login() {
           ثبت نام کنید
         </Link>
       </p>
-      <form className="space-y-5" autoComplete="on">
+      <form
+        onSubmit={handleSubmit(loginHandler)}
+        className="space-y-5"
+        autoComplete="on"
+      >
         <div className="relative">
           <MainTextField
             placeHolder="آدرس ایمیل"
-            name="email"
-            id="email"
+            name="identifier"
+            id="identifier"
             type="email"
             register={register}
             errors={errors}
             variant="rounded"
+            Icon={EnvelopeIcon}
+            validattionschema={{
+              required: { value: true, message: "ایمیل الزامی می باشد" },
+              pattern: {
+                value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
+                message: "ایمیل وارد شده معتبر نمی باشد",
+              },
+            }}
             size="largeSize"
             required={false}
           />
-          <EnvelopeIcon className="size-5 text-[#64748b] absolute left-3.5 top-[35%] " />
         </div>
         <div className="relative">
           <MainTextField
@@ -50,15 +90,19 @@ function Login() {
             type="password"
             register={register}
             errors={errors}
+            Icon={LockClosedIcon}
             variant="rounded"
+            validattionschema={{
+              required: { value: true, message: "کلمه عبور الزامی می باشد" },
+              minLength: { value: 8, message: "حداقل ۸ کاراکتر" },
+            }}
             size="largeSize"
             required={false}
           />
-          <LockClosedIcon className="size-5 text-[#64748b] absolute left-3.5 top-[35%] " />
         </div>
 
         <PrimaryBtn variant="fill" size="xl" type="submit" className="w-full">
-          ورود
+          {isLoading ? <Loader loadingCondition={isLoading} /> : "ورود"}
         </PrimaryBtn>
       </form>
     </div>

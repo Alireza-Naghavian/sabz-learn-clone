@@ -4,6 +4,7 @@ import Loader from "@/components/ui/loader/Loader";
 import MainTextField from "@/components/ui/textField&inputs/MainTextField";
 import { useAlert } from "@/context/AlertProvider";
 import { useSignUpMutation } from "@/services/auth/authApiSlice";
+import { useGetMeQuery } from "@/services/auth/useApiSlice";
 import { CreateUserType } from "@/types/services/authapi.t";
 import { getFromStorage } from "@/utils/darkMode";
 import {
@@ -23,7 +24,8 @@ function SignUp() {
     handleSubmit,
     formState: { errors },
   } = useForm<CreateUserType>();
-  const [SignUp, { isLoading, error }] = useSignUpMutation();
+  const [SignUp, { isLoading }] = useSignUpMutation();
+  const { refetch}  = useGetMeQuery()
   const { showAlert } = useAlert();
   const {replace} = useRouter()
   useEffect(() => {
@@ -33,16 +35,21 @@ function SignUp() {
     } else document.documentElement.classList.remove("dark");
   }, []);
   const singUpHandler = async (data: CreateUserType) => {
-    const { email, password, username } = data;
-    await SignUp({ email, password, username }).then((res) => {
-      showAlert("success", res.data?.message as string);
-      replace("/")
-    });
-    if (error && "data" in error) {
-      const fetchError = error as FetchBaseQueryError;
-      const errorMessage = (fetchError.data as { message?: string })?.message;
-      if (errorMessage) showAlert("error", errorMessage);
-    }
+ try {
+  const { email, password, username } = data;
+  const result =  await SignUp({ email, password, username }).unwrap();
+  showAlert("success",result.message);
+  refetch();
+  replace("/")
+ } catch (error) {
+  const fetchError = error as FetchBaseQueryError;
+  const errorMessage = (fetchError as { message?: string })?.message;
+  if (errorMessage) {
+    showAlert("error", errorMessage);
+  } else {
+    showAlert("error", "خطایی رخ داده است");
+  }
+ }
   };
   return (
     <div>

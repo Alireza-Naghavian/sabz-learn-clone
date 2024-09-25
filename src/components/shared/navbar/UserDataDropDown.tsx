@@ -1,6 +1,7 @@
 "use client";
 import Button from "@/components/ui/button/Button";
 import LogOutBtn from "@/components/ui/button/LogOutBtn";
+import Loader from "@/components/ui/loader/Loader";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import SideBarItem from "@/components/ui/SideBarItem/SideBarItem";
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
@@ -11,7 +12,13 @@ import { userPanelOptions } from "@/utils/constants";
 import { LockOpenIcon, PowerIcon, UserIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 
-function UserDataDropDown({ userData }: { userData: UserType }) {
+function UserDataDropDown({
+  userData,
+  isLoading,
+}: {
+  userData: UserType;
+  isLoading: boolean;
+}) {
   const [isDropOpen, { close, toggle }] = useDisclosure();
   return (
     <>
@@ -24,7 +31,11 @@ function UserDataDropDown({ userData }: { userData: UserType }) {
           className={isDropOpen ? "!relative !z-50" : ""}
           onClick={() => toggle()}
         >
-          <UserIcon className={` w-6 h-6`} />
+          {isLoading ? (
+            <Loader loadingCondition={isLoading} />
+          ) : (
+            <UserIcon className={` w-6 h-6`} />
+          )}
         </Button>
 
         {/* <!-- When Click Box Showing --> */}
@@ -55,7 +66,7 @@ function UserDataDropDown({ userData }: { userData: UserType }) {
 
               <div className="mr-3.5 flex flex-col gap-y-3 overflow-hidden">
                 <span className="font-DanaBold inline-block truncate">
-                  {userData.username}
+                  {userData?.username}
                 </span>
                 <span className="text-sm font-DanaMedium text-baseColor inline-block">
                   موجودی: 0&nbsp;
@@ -75,7 +86,7 @@ function UserDataDropDown({ userData }: { userData: UserType }) {
                 />
               );
             })}
-            {userData.role === "ADMIN" && (
+            {userData?.role === "ADMIN" && (
               <SideBarItem
                 variant={"hoverMode"}
                 Icon={() => <LockOpenIcon />}
