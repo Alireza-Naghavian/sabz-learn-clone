@@ -11,6 +11,7 @@ function Categories() {
     <CategoryForm/>
     </HeaderAdminLayout>
     <HeaderAdminLayout title='لیست دست بندی ها'>
+      
      <CategoryTable/>
     </HeaderAdminLayout>
     </div>

@@ -15,7 +15,17 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    getAllCat: builder.query<CatBodytype[], void>({
+      query: () => ({
+        url: "/category",
+        method: "GET",
+      }),
+      providesTags: ["categories"],
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return baseQueryReturnValue.data;
+      },
+    }),
   }),
 });
 
-export const { useAddCatMutation } = courseApiSlice;
+export const { useAddCatMutation ,useGetAllCatQuery} = courseApiSlice;
