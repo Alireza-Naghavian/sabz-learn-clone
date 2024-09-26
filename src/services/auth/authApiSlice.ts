@@ -1,11 +1,11 @@
 import {
   CreateUserType,
+  GetmeType,
   loginType,
+  LogoutMsg,
   SignUpResultMsg,
 } from "@/types/services/authapi.t";
 import apiSlice from "../baseApi";
-import { userApiSlice } from "./useApiSlice";
-
 export const authApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     signUp: builder.mutation<SignUpResultMsg, CreateUserType>({
@@ -19,7 +19,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         body: { email, username, password },
       }),
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return baseQueryReturnValue.data
+        return baseQueryReturnValue.data;
       },
       invalidatesTags: ["user"],
     }),
@@ -29,11 +29,39 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         credentials: "include",
         body: { identifier, password },
-      }),transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        return baseQueryReturnValue.data
+      }),
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return baseQueryReturnValue.data;
       },
-      invalidatesTags: ["user"]
+      invalidatesTags: ["user"],
+    }),
+    getMe: builder.query<GetmeType, void>({
+      query: () => ({
+        url: "/auth/me",
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        credentials: "include",
+      }),
+      providesTags: ["user"],
+    }),
+    logout: builder.mutation<LogoutMsg, void>({
+      query: () => ({
+        url: "/auth/logout",
+        method: "POST",
+        credentials: "include",
+      }),
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return baseQueryReturnValue.data;
+      },
+      invalidatesTags: ["user"],
     }),
   }),
 });
-export const { useSignUpMutation,useLoginMutation } = authApiSlice;
+export const {
+  useSignUpMutation,
+  useLoginMutation,
+  useGetMeQuery,
+  useLogoutMutation,
+} = authApiSlice;

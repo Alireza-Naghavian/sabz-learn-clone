@@ -3,8 +3,7 @@ import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import Loader from "@/components/ui/loader/Loader";
 import MainTextField from "@/components/ui/textField&inputs/MainTextField";
 import { useAlert } from "@/context/AlertProvider";
-import { useSignUpMutation } from "@/services/auth/authApiSlice";
-import { useGetMeQuery } from "@/services/auth/useApiSlice";
+import { useGetMeQuery, useSignUpMutation } from "@/services/auth/authApiSlice";
 import { CreateUserType } from "@/types/services/authapi.t";
 import { getFromStorage } from "@/utils/darkMode";
 import {
@@ -15,7 +14,7 @@ import {
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
 function SignUp() {
@@ -25,9 +24,9 @@ function SignUp() {
     formState: { errors },
   } = useForm<CreateUserType>();
   const [SignUp, { isLoading }] = useSignUpMutation();
-  const { refetch}  = useGetMeQuery()
+  const { refetch } = useGetMeQuery();
   const { showAlert } = useAlert();
-  const {replace} = useRouter()
+  const { replace } = useRouter();
   useEffect(() => {
     const storedTheme = getFromStorage("theme") || "dark";
     if (storedTheme == "dark") {
@@ -35,21 +34,21 @@ function SignUp() {
     } else document.documentElement.classList.remove("dark");
   }, []);
   const singUpHandler = async (data: CreateUserType) => {
- try {
-  const { email, password, username } = data;
-  const result =  await SignUp({ email, password, username }).unwrap();
-  showAlert("success",result.message);
-  refetch();
-  replace("/")
- } catch (error) {
-  const fetchError = error as FetchBaseQueryError;
-  const errorMessage = (fetchError as { message?: string })?.message;
-  if (errorMessage) {
-    showAlert("error", errorMessage);
-  } else {
-    showAlert("error", "خطایی رخ داده است");
-  }
- }
+    try {
+      const { email, password, username } = data;
+      const result = await SignUp({ email, password, username }).unwrap();
+      showAlert("success", result.message);
+    await  refetch();
+      replace("/");
+    } catch (error) {
+      const fetchError = error as FetchBaseQueryError;
+      const errorMessage = (fetchError as { message?: string })?.message;
+      if (errorMessage) {
+        showAlert("error", errorMessage);
+      } else {
+        showAlert("error", "خطایی رخ داده است");
+      }
+    }
   };
   return (
     <div>
