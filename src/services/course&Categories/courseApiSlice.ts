@@ -1,4 +1,4 @@
-import { CatBodytype, CreateCatMgs } from "@/types/services/course&category.t";
+import { CatBodytype, CreateCatMgs, RemoveCatBody, RemoveCatMgs } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
 
 export const courseApiSlice = apiSlice.injectEndpoints({
@@ -25,7 +25,19 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    removeCat: builder.mutation<RemoveCatMgs,RemoveCatBody>({
+        query:({_id})=>({
+            url:`/category/${_id}`,
+            method:"DELETE",
+            credentials:"include",
+            
+        }),
+        invalidatesTags:["categories"],
+        transformErrorResponse(baseQueryReturnValue, meta, arg) {
+            return baseQueryReturnValue.data;
+          },
+    })
   }),
 });
 
-export const { useAddCatMutation ,useGetAllCatQuery} = courseApiSlice;
+export const { useAddCatMutation ,useGetAllCatQuery,useRemoveCatMutation} = courseApiSlice;

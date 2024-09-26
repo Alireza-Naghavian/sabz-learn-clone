@@ -37,6 +37,7 @@ function CategoryTable() {
             return (
               <SmCatTRow
                 key={index as number}
+                _id={item._id}
                 link={item.link}
                 title={item.title}
               />
@@ -46,6 +47,7 @@ function CategoryTable() {
             return (
               <LgCatTRow
               index={index}
+              _id={item._id}
                 key={item._id}
                 link={item.link}
                 title={item.title}
