@@ -33,10 +33,12 @@ function MainTextField({
   required = true,
   validattionschema,
   errors,
+  Icon,
   readOnly = false,
 }: MainTextFieldType) {
   return (
-    <div className="flex flex-col gap-y-2">
+    <>
+    <div className="flex flex-col gap-y-2 relative">
       {label &&
       <label htmlFor={id} className={"relative font-DanaMedium pb-1"}>
       <span className={"font-Shabnam_B"}>{label}</span>
@@ -53,12 +55,14 @@ function MainTextField({
         placeholder={placeHolder}
         className={inputGroup({ variant, className, size })}
       />
+      {Icon&& <Icon className="     size-5 text-[#64748b] absolute left-3.5  top-[35%] "/>}
+    </div>
       {errors && errors[name] && (
-        <span className="text-red-500 block text-sm mt-1">
+        <span className="text-red-500 h-full block text-right text-sm mt-2">
           {errors[name]?.message}
         </span>
       )}
-    </div>
+    </>
   );
 }
 

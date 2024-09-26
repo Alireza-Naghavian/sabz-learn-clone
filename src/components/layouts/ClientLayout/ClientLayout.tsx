@@ -5,7 +5,7 @@ import React from 'react'
 function ClientLayout({children}:{children:React.ReactNode}) {
   return (
     <>
-    <NavBarLayout/>
+    <NavBarLayout />
     {children}
     <Footer/>
     </>
