@@ -35,6 +35,8 @@ function MainTextField({
   errors,
   Icon,
   readOnly = false,
+  onChange,
+  ...props
 }: MainTextFieldType) {
   return (
     <>
@@ -49,11 +51,13 @@ function MainTextField({
         {...register(name, validattionschema)}
         id={id}
         value={value}
+        onChange={onChange}
         name={name}
         type={type}
         readOnly={readOnly}
         placeholder={placeHolder}
         className={inputGroup({ variant, className, size })}
+        {...props}
       />
       {Icon&& <Icon className="     size-5 text-[#64748b] absolute left-3.5  top-[35%] "/>}
     </div>

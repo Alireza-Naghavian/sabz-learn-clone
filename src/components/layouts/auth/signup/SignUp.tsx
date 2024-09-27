@@ -5,7 +5,7 @@ import MainTextField from "@/components/ui/textField&inputs/MainTextField";
 import { useAlert } from "@/context/AlertProvider";
 import { useGetMeQuery, useSignUpMutation } from "@/services/auth/authApiSlice";
 import { CreateUserType } from "@/types/services/authapi.t";
-import { getFromStorage } from "@/utils/darkMode";
+import { getFromStorage } from "@/utils/utils";
 import {
   EnvelopeIcon,
   LockClosedIcon,

@@ -250,3 +250,8 @@ export const suppurtOptions = [
   { value: "", label: "روش پشتیبانی" },
   { value: "online", label: "آنلاین" },
 ];
+export const rareOption ={
+  label:"دسته بندی را انتخاب کنید",
+  value:""
+
+}

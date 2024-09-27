@@ -1,6 +1,6 @@
 import { SelectType } from "@/types/buttons.t";
 import "./select.css"
-function Select<T extends string | number | boolean>({
+function Select<T extends string | number|boolean >({
   value,
   onChange,
   options,

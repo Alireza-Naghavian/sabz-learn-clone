@@ -1,6 +1,8 @@
-import { Message, ValidationRule } from "react-hook-form";
+import { Message, UseFormGetValues, UseFormSetValue, ValidationRule } from "react-hook-form";
 import { SetState } from "./global.t";
 import { IconType } from "./icon.t";
+import React, { ChangeEventHandler } from "react";
+import { CourseBodyType } from "./services/course&category.t";
 export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
   React.ComponentProps<"textarea"> & {
     variant: "outLine" | "freeMode";
@@ -49,12 +51,11 @@ export type MainTextFieldType = {
   Icon?:IconType
   errors: any;
   validattionschema?: RegisterOptions;
+  onChange?:ChangeEventHandler<HTMLInputElement>
   readOnly?: boolean;
-};
+}
 
 export type StatusBoxType = {
-  status: string;
-  setStatus: SetState<string>;
   value: string;
   title: string;
   watch: any;
@@ -62,5 +63,8 @@ export type StatusBoxType = {
   name:string;
   Icon:IconType;
   className?:string
-  wrapperStyles?:string
+  wrapperStyles?:string,
+  setValue:UseFormSetValue<CourseBodyType>
+  getValues:UseFormGetValues<CourseBodyType>
+  validattionschema?:RegisterOptions
 };
