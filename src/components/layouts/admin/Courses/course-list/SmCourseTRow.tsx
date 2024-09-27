@@ -1,11 +1,38 @@
 import Table from '@/components/ui/Table/Table'
+import { useAlert } from '@/context/AlertProvider'
+import { useRemoveCoursesMutation } from '@/services/course&Categories/courseApiSlice'
 import { CourseDataTable } from '@/types/services/course&category.t'
 import { PencilSquareIcon } from '@heroicons/react/24/outline'
 import { TrashIcon } from '@heroicons/react/24/solid'
-import React from 'react'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
+import React, { useState } from 'react'
+import DeleteModal from '../../modals/DeleteModal'
 
-function SmCourseTRow({categoryID,creator
-  ,name,price,status,registers}: CourseDataTable) {
+function SmCourseTRow(
+  {creator,
+  _id,
+  name,price,
+  status,registers}
+  : CourseDataTable) {
+    const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+    const [removeCourse, { isLoading }] = useRemoveCoursesMutation();
+    const { showAlert } = useAlert();
+    const removeHandler = async () => {
+      try {
+        const result = await removeCourse({ _id } as { _id: string }).unwrap();
+        showAlert("success", result.message);
+      } catch (error) {
+        const fetchError = error as FetchBaseQueryError;
+        const errorMessage = (fetchError as { message?: string })?.message;
+        if (errorMessage) {
+          showAlert("error", errorMessage);
+        } else {
+          showAlert("error", "خطایی رخ داده است");
+        }
+      } finally {
+        setIsDeleteOpen(false);
+      }
+    };
   return (
 
 
@@ -28,10 +55,10 @@ function SmCourseTRow({categoryID,creator
          my-auto gap-x-2  !mb-2"
         >
           <button
-            // onClick={() => setIsDeleteOpen(true)}
+            onClick={() => setIsDeleteOpen(true)}
             className="mr-auto  my-auto h-full text-2xl text-red-500  
              w-fit flex justify-center">
-            <TrashIcon className='size-5 text-red-500'/>
+            <TrashIcon className='size-6 text-red-500'/>
           </button>
         </span>
       </td>
@@ -80,6 +107,16 @@ function SmCourseTRow({categoryID,creator
           </span>
         </span>
       </td>
+      {_id !== undefined && (
+        <DeleteModal
+          identifier={_id}
+          removeHandler={removeHandler}
+          isLoading={isLoading}
+          isDeleteOpen={isDeleteOpen}
+          setIsDeleteOpen={() => setIsDeleteOpen(false)}
+          subjectTitle="دوره"
+        />
+      )}
     </Table.Row>
   
  

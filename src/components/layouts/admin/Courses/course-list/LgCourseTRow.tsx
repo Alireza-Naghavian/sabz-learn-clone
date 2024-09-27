@@ -1,11 +1,36 @@
 import Table from '@/components/ui/Table/Table'
+import { useAlert } from '@/context/AlertProvider';
+import { useRemoveCoursesMutation } from '@/services/course&Categories/courseApiSlice';
 import { CourseBodyType, CourseDataTable } from '@/types/services/course&category.t'
 import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid'
-import React from 'react'
+import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
+import React, { useState } from 'react'
+import DeleteModal from '../../modals/DeleteModal';
 
-function LgCourseTRow({categoryID,cover,creator
-  ,name,price,status,index,registers}: CourseDataTable&{index:number}) {
-
+function LgCourseTRow(
+  {categoryID,creator
+  ,name,price,status
+  ,index,registers,_id}:
+   CourseDataTable&{index:number}) {
+    const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+    const [removeCourse, { isLoading }] = useRemoveCoursesMutation();
+    const { showAlert } = useAlert();
+    const removeHandler = async () => {
+      try {
+        const result = await removeCourse({ _id } as { _id: string }).unwrap();
+        showAlert("success", result.message);
+      } catch (error) {
+        const fetchError = error as FetchBaseQueryError;
+        const errorMessage = (fetchError as { message?: string })?.message;
+        if (errorMessage) {
+          showAlert("error", errorMessage);
+        } else {
+          showAlert("error", "خطایی رخ داده است");
+        }
+      } finally {
+        setIsDeleteOpen(false);
+      }
+    };
   return (
 
     <Table.Row variant='singleHead' 
@@ -20,7 +45,17 @@ function LgCourseTRow({categoryID,cover,creator
       <td className='bg-baseColor p-1 rounded-xl'>{status === "inProgress" ? "درحال برگزاری":"پیش فروش"}</td>
       <td>{categoryID.title}</td>
       <td><PencilSquareIcon className='text-secondary size-6 cursor-pointer'/></td>
-      <td><TrashIcon className=' text-red-500 size-6 cursor-pointer'/></td>
+      <td><TrashIcon onClick={()=>setIsDeleteOpen(true)} className=' text-red-500 size-6 cursor-pointer'/></td>
+      {_id !== undefined && (
+        <DeleteModal
+          identifier={_id}
+          removeHandler={removeHandler}
+          isLoading={isLoading}
+          isDeleteOpen={isDeleteOpen}
+          setIsDeleteOpen={() => setIsDeleteOpen(false)}
+          subjectTitle="دوره"
+        />
+      )}
     </Table.Row>
 
 

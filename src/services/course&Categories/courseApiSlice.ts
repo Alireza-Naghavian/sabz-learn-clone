@@ -3,7 +3,7 @@ import {
   CourseBodyType,
   CourseDataTable,
   CreateCatMgs,
-  RemoveCatBody,
+  RemoveQuery,
   ResultMsg,
 } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
@@ -32,7 +32,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
-    removeCat: builder.mutation<ResultMsg, RemoveCatBody>({
+    removeCat: builder.mutation<ResultMsg, RemoveQuery>({
       query: ({ _id }) => ({
         url: `/category/${_id}`,
         method: "DELETE",
@@ -75,29 +75,44 @@ export const courseApiSlice = apiSlice.injectEndpoints({
           shortName,
           status,
           preReq,
-          support
+          support,
         },
       }),
-      invalidatesTags: ["courses","course"],
+      invalidatesTags: ["courses", "course"],
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         console.log(baseQueryReturnValue);
         return baseQueryReturnValue.data;
       },
     }),
-    getCourses:builder.query<CourseDataTable[],void>({
-      query:()=>({
-        url:"/courses",
-        method:"GET"
+    getCourses: builder.query<CourseDataTable[], void>({
+      query: () => ({
+        url: "/courses",
+        method: "GET",
       }),
-      providesTags:["courses"],
+      providesTags: ["courses"],
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return baseQueryReturnValue.data;
       },
-    })
+    }),
+    removeCourses: builder.mutation<ResultMsg, RemoveQuery>({
+      query: ({ _id }) => ({
+        url: `/courses/${_id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["course", "courses"],
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return baseQueryReturnValue.data;
+      },
+    }),
   }),
 });
 
-export const { useAddCatMutation, useGetAllCatQuery
-  , useRemoveCatMutation,useCreateCourseMutation,useGetCoursesQuery
-} =
-  courseApiSlice;
+export const {
+  useAddCatMutation,
+  useGetAllCatQuery,
+  useRemoveCatMutation,
+  useCreateCourseMutation,
+  useGetCoursesQuery,
+  useRemoveCoursesMutation
+} = courseApiSlice;

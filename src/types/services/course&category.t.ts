@@ -7,7 +7,7 @@ export type CreateCatMgs = {
   message: string;
   data: CatBodytype;
 };
-export type RemoveCatBody = { _id: string };
+export type RemoveQuery = { _id: string };
 export type ResultMsg = Pick<CreateCatMgs, "message">;
 
 export type CourseBodyType = {

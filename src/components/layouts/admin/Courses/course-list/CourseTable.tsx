@@ -8,7 +8,7 @@ import TextLoader from '@/components/ui/loader/TextLoader'
 
 function CourseTable() {
   const {data,isLoading} = useGetCoursesQuery();
-  console.log(data);
+
   if (isLoading)
     return (
       <TextLoader
