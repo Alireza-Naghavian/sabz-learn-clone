@@ -5,24 +5,25 @@ import SimpleCheckBox from "@/components/ui/textField&inputs/SimpleCheckBox";
 import StatusBox from "@/components/ui/textField&inputs/StatusBox";
 import TextAriaField from "@/components/ui/textField&inputs/TextAriaField";
 import Select from "@/components/utils-components/Select/Select";
+import { useAlert } from "@/context/AlertProvider";
+import { useGetMeQuery } from "@/services/auth/authApiSlice";
+import { useCreateCourseMutation, useGetAllCatQuery } from "@/services/course&Categories/courseApiSlice";
+import { CourseBodyType } from "@/types/services/course&category.t";
+import { rareOption, suppurtOptions } from "@/utils/constants";
+import { formatPriceNumber } from "@/utils/utils";
 import { BookOpenIcon } from "@heroicons/react/16/solid";
 import { ShoppingBagIcon } from "@heroicons/react/24/solid";
 import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./course_form.module.css";
-import { rareOption, suppurtOptions } from "@/utils/constants";
-import { useCreateCourseMutation, useGetAllCatQuery } from "@/services/course&Categories/courseApiSlice";
-import { formatPriceNumber } from "@/utils/utils";
-import { useAlert } from "@/context/AlertProvider";
-import { CourseBodyType } from "@/types/services/course&category.t";
-import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+import Loader from "@/components/ui/loader/Loader";
 const TextEditor = dynamic(
   () => import("@/components/utils-components/textEditor/TextEditor"),{ssr: false,}
 );
 function CourseForm() {
-  const {register,reset,handleSubmit,watch,setValue,getValues,formState: { errors },} = useForm<CourseBodyType>();
+  const {register,reset,handleSubmit,watch,setValue,getValues,formState: { errors }} = useForm<CourseBodyType>();
   const { data: categories } = useGetAllCatQuery();
   const {data:userData} = useGetMeQuery();
   const catOptions = categories?.map((category) => {
@@ -38,12 +39,12 @@ function CourseForm() {
   const createHandler = async (data: CourseBodyType) => {
     try {
       const {inProgress,preOrder,...filteredData} = data
-      const courseBody:CourseBodyType = {...filteredData,categoryID:category.value
+      const courseBody = {...filteredData,categoryID:category.value
         ,creator:userData?.user._id as string
         ,longDesc
-        ,price:Number(price.replace(/,/g,"")) 
+        ,price:Number(price.replace(/,/g,"")) ,
+        preReq:getValues("preReq")
       }
-        
         const result = await createCourse(courseBody).unwrap();
         showAlert("success",result.message)
         setCategory(rareOption)
@@ -55,7 +56,7 @@ function CourseForm() {
       const fetchError = error as FetchBaseQueryError;
       const errorMessage = (fetchError as { message?: string })?.message;
       if (errorMessage) {
-        showAlert("error", errorMessage);
+        showAlert("error",errorMessage|| errorMessage[0]);
       } else {
         showAlert("error", "خطایی رخ داده است");
       }
@@ -182,17 +183,15 @@ function CourseForm() {
       </div>
        <div className={`${styles.input_group} xl:mt-2`}>
        <MainTextField
-          register={register}
-          name="preReq"
-          id="preReq"
-          type="text"
-          errors={errors}
-          variant="rounded"
-          size="largeSize"
-          value={price}
-          onChange={handlePriceChange}
-          className="w-full"
-          placeHolder="پیشنیاز دوره"
+        register={register}
+        name="preReq" 
+        id="preReq"
+        type="text"
+        errors={errors}
+        variant="rounded"
+        size="largeSize"
+        className="w-full"
+        placeHolder="پیشنیاز دوره"
         />
         <div className=""/>
       </div>
@@ -237,7 +236,7 @@ function CourseForm() {
         role="button"
         className="mr-auto w-full md:w-[140px] rounded-xl px-6 py-2"
       >
-        افزودن
+        {isLoading ? <Loader loadingCondition={isLoading}/> : "افزودن"}
       </PrimaryBtn>
     </form>
   );

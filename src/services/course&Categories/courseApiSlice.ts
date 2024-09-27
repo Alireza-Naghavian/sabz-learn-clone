@@ -1,6 +1,7 @@
 import {
   CatBodytype,
   CourseBodyType,
+  CourseDataTable,
   CreateCatMgs,
   RemoveCatBody,
   ResultMsg,
@@ -55,6 +56,8 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         price,
         shortName,
         status,
+        preReq,
+        support,
       }) => ({
         url: "/courses",
         method: "POST",
@@ -71,15 +74,30 @@ export const courseApiSlice = apiSlice.injectEndpoints({
           price,
           shortName,
           status,
+          preReq,
+          support
         },
       }),
-      invalidatesTags: ["courses"],
+      invalidatesTags: ["courses","course"],
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        console.log(baseQueryReturnValue);
         return baseQueryReturnValue.data;
       },
     }),
+    getCourses:builder.query<CourseDataTable[],void>({
+      query:()=>({
+        url:"/courses",
+        method:"GET"
+      }),
+      providesTags:["courses"],
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return baseQueryReturnValue.data;
+      },
+    })
   }),
 });
 
-export const { useAddCatMutation, useGetAllCatQuery, useRemoveCatMutation,useCreateCourseMutation } =
+export const { useAddCatMutation, useGetAllCatQuery
+  , useRemoveCatMutation,useCreateCourseMutation,useGetCoursesQuery
+} =
   courseApiSlice;

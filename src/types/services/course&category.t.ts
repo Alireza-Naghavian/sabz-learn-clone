@@ -12,7 +12,8 @@ export type ResultMsg = Pick<CreateCatMgs, "message">;
 
 export type CourseBodyType = {
   name: string;
-  categoryID: string;
+  _id?:string
+  categoryID:string;
   cover: string;
   status: string;
   shortName: string;
@@ -26,4 +27,6 @@ export type CourseBodyType = {
   preReq: string;
   inProgress?: string;
   preOrder?: string;
+  registers?:number
 };
+export type CourseDataTable = Omit<CourseBodyType,"categoryID">&{categoryID:{title:string,_id?:string}}
