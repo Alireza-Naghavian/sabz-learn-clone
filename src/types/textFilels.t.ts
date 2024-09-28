@@ -56,15 +56,15 @@ export type MainTextFieldType = {
 }
 
 export type StatusBoxType = {
-  value: string;
+  value: "preOrder"|"inProgress"|"complete";
   title: string;
   watch: any;
   register:any
-  name:string;
+  name:"status";
   Icon:IconType;
   className?:string
   wrapperStyles?:string,
-  setValue:UseFormSetValue<CourseBodyType>
-  getValues:UseFormGetValues<CourseBodyType>
+  setStatus:SetState<string>;
+  status:string
   validattionschema?:RegisterOptions
 };

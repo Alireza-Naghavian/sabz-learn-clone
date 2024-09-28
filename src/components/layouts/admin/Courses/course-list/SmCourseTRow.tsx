@@ -7,14 +7,19 @@ import { TrashIcon } from '@heroicons/react/24/solid'
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import React, { useState } from 'react'
 import DeleteModal from '../../modals/DeleteModal'
+import EditModal from '../../modals/EditModal'
+import EditCourseForm from '../CourseForm/EditCourseForm'
+import useDisclosure from '@/hooks/useDisclosure'
 
 function SmCourseTRow(
   {creator,
   _id,
   name,price,
+  shortName,
   status,registers}
   : CourseDataTable) {
     const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
+    const [isEditOpen,{open,close}]  = useDisclosure();
     const [removeCourse, { isLoading }] = useRemoveCoursesMutation();
     const { showAlert } = useAlert();
     const removeHandler = async () => {
@@ -99,7 +104,7 @@ function SmCourseTRow(
           <span className="">
             <span>ویرایش:</span>
             <button
-              //   onClick={() => setIsRoleOpen(true)}
+                onClick={() => open()}
               className="text-2xl text-blue-500"
             >
             <PencilSquareIcon className='text-secondary size-6 cursor-pointer'/>
@@ -117,6 +122,15 @@ function SmCourseTRow(
           subjectTitle="دوره"
         />
       )}
+          <EditModal
+        className="!h-auto sm:!w-[60%]"
+        modalTitle="ویرایش دوره"
+    
+        isOpen={isEditOpen}
+        setIsOpen={() => close()}
+      >
+        <EditCourseForm shortName={shortName} _id={_id as string}/>
+      </EditModal>
     </Table.Row>
   
  

@@ -2,12 +2,13 @@ import {
   CatBodytype,
   CourseBodyType,
   CourseDataTable,
+  CourseQuery,
   CreateCatMgs,
   RemoveQuery,
   ResultMsg,
+  SingleCourseData,
 } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
-
 export const courseApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addCat: builder.mutation<CreateCatMgs, CatBodytype>({
@@ -80,7 +81,6 @@ export const courseApiSlice = apiSlice.injectEndpoints({
       }),
       invalidatesTags: ["courses", "course"],
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
-        console.log(baseQueryReturnValue);
         return baseQueryReturnValue.data;
       },
     }),
@@ -90,6 +90,57 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["courses"],
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        return baseQueryReturnValue.data;
+      },
+    }),
+    getCourse: builder.query<SingleCourseData, CourseQuery>({
+      query: ({ shortName }) => ({
+        url: `/courses/${shortName}`,
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["course"],
+      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+        console.log(baseQueryReturnValue);
+        return baseQueryReturnValue.data;
+      },
+    }),
+    updateCourse: builder.mutation<ResultMsg, SingleCourseData>({
+      query: ({
+        _id,
+        name,
+        description,
+        shortName,
+        categoryID,
+        price,
+        status,
+        cover,
+        discount,
+        isComplete,
+        duration,
+        creator,
+        isFree,
+      }) => ({
+        url: `/courses/${_id}`,
+        method: "PATCH",
+        credentials: "include",
+        body: {
+          name,
+          description,
+          shortName,
+          categoryID,
+          price,
+          status,
+          cover,
+          creator,
+          discount,
+          isComplete,
+          duration,
+          isFree,
+        },
+      }),
+      invalidatesTags: ["courses","course"],
       transformErrorResponse(baseQueryReturnValue, meta, arg) {
         return baseQueryReturnValue.data;
       },
@@ -114,5 +165,7 @@ export const {
   useRemoveCatMutation,
   useCreateCourseMutation,
   useGetCoursesQuery,
-  useRemoveCoursesMutation
+  useRemoveCoursesMutation,
+  useGetCourseQuery,
+  useUpdateCourseMutation,
 } = courseApiSlice;

@@ -26,16 +26,29 @@ function CourseForm() {
   const {register,reset,handleSubmit,watch,setValue,getValues,formState: { errors }} = useForm<CourseBodyType>();
   const { data: categories } = useGetAllCatQuery();
   const {data:userData} = useGetMeQuery();
-  const catOptions = categories?.map((category) => {
-      return { label: category.title as String, value: category._id as string };
-    }).concat(rareOption).reverse();
+  const { showAlert } = useAlert();
+  const [createCourse,{isLoading}] = useCreateCourseMutation();
 
+    // State for form fields
   const [category, setCategory] = useState(rareOption);
   const [support, setSupport] = useState("");
   const [price, setPrice] = useState<string>("");
   const [longDesc, setLongDes] = useState("");
-  const { showAlert } = useAlert();
-  const [createCourse,{isLoading}] = useCreateCourseMutation();
+  const [status,setStatus] = useState("inProgress")
+
+  // generate category options 
+  const catOptions = categories?.map((category) => {
+    return { label: category.title as String, value: category._id as string };
+  }).concat(rareOption).reverse();
+
+    // Handle price change and format it
+    const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      const formattedPrice = formatPriceNumber(e.target.value);
+      setPrice(formattedPrice);
+    };
+
+
+    // Submit handler for course creation
   const createHandler = async (data: CourseBodyType) => {
     try {
       const {inProgress,preOrder,...filteredData} = data
@@ -43,7 +56,8 @@ function CourseForm() {
         ,creator:userData?.user._id as string
         ,longDesc
         ,price:Number(price.replace(/,/g,"")) ,
-        preReq:getValues("preReq")
+        preReq:getValues("preReq"),
+        status:status
       }
         const result = await createCourse(courseBody).unwrap();
         showAlert("success",result.message)
@@ -63,10 +77,19 @@ function CourseForm() {
       reset();
     }
   };
-  const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const formattedPrice = formatPriceNumber(e.target.value);
-    setPrice(formattedPrice);
-  };
+  const renderTextField = (name: keyof CourseBodyType, placeholder: string, type = "text") => (
+    <MainTextField
+      register={register}
+      name={name}
+      id={name}
+      errors={errors}
+      placeHolder={placeholder}
+      variant="rounded"
+      type={type}
+      size="largeSize"
+      className="w-full"
+    />
+  );
   return (
     <form
       onSubmit={handleSubmit(createHandler)}
@@ -75,17 +98,7 @@ function CourseForm() {
     >
       {/* input group */}
       <div className={`${styles.input_group}`}>
-        <MainTextField
-          register={register}
-          name="name"
-          id="name"
-          errors={errors}
-          placeHolder="عنوان دوره ..."
-          variant="rounded"
-          type="text"
-          size="largeSize"
-          className="w-full"
-        />
+      {renderTextField("name", "عنوان دوره ...")}
         <Select
           options={catOptions as { label: string; value: string }[]}
           onChange={(e) =>
@@ -97,36 +110,26 @@ function CourseForm() {
       </div>
       {/* input group */}
       <div className={`${styles.input_group}`}>
-        <MainTextField
-          register={register}
-          name="cover"
-          id="cover"
-          type="url"
-          errors={errors}
-          variant="rounded"
-          size="largeSize"
-          className="w-full"
-          placeHolder="لینک کاور دوره"
-        />
+      {renderTextField("cover", "لینک کاور دوره", "url")}
         <div className="flex">
           <StatusBox
+          status={status}
+          setStatus={setStatus}
             register={register}
-            name="preOrder"
+            name="status"
             Icon={ShoppingBagIcon}
             value="preOrder"
             watch={watch}
-            getValues={getValues}
-            setValue={setValue}
             title="پیش فروش"
             className="child:md:!text-lg child:!text-sm border-l"
             wrapperStyles="rounded-r-xl "
           />
           <StatusBox
+               status={status}
+               setStatus={setStatus}
             register={register}
-            name="inProgress"
+            name="status"
             Icon={BookOpenIcon}
-            setValue={setValue}
-            getValues={getValues}
             value="inProgress"
             watch={watch}
             title="درحال برگزاری"
@@ -136,28 +139,8 @@ function CourseForm() {
       </div>
       {/* input group */}
       <div className={`${styles.input_group}`}>
-        <MainTextField
-          register={register}
-          name="shortName"
-          id="shortName"
-          type="text"
-          errors={errors}
-          variant="rounded"
-          size="largeSize"
-          className="w-full"
-          placeHolder="لیبل دوره"
-        />
-        <MainTextField
-          register={register}
-          name="duration"
-          id="duration"
-          type="text"
-          errors={errors}
-          variant="rounded"
-          size="largeSize"
-          className="w-full"
-          placeHolder="زمان دوره"
-        />
+      {renderTextField("shortName", "لیبل دوره")}
+      {renderTextField("duration", "زمان دوره")}
       </div>
       {/* input group */}
       <div className={`${styles.input_group}`}>
@@ -182,17 +165,7 @@ function CourseForm() {
         />
       </div>
        <div className={`${styles.input_group} xl:mt-2`}>
-       <MainTextField
-        register={register}
-        name="preReq" 
-        id="preReq"
-        type="text"
-        errors={errors}
-        variant="rounded"
-        size="largeSize"
-        className="w-full"
-        placeHolder="پیشنیاز دوره"
-        />
+       {renderTextField("preReq", "پیشنیاز دوره")}
         <div className=""/>
       </div>
       {/* input group */}

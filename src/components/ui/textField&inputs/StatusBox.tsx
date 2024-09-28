@@ -10,19 +10,17 @@ function StatusBox({
   name,
   className,
   validattionschema,
-  getValues,
-  setValue,
+  status,
+  setStatus,
   wrapperStyles
 }: StatusBoxType) {
   return (
     <div className={`basis-[50%] h-[50px] 
       overflow-hidden relative ${wrapperStyles}`}>
       <div
-        onClick={() => {
-          setValue("status",value)
-        }}
+       onClick={() => setStatus(value)} 
         className={` absolute transition-all duration-300 inset-0 z-20 ${
-                    getValues("status") == value ? "bg-baseColor" : "dark:bg-dark bg-gray-200"
+          status == value ? "bg-baseColor" : "dark:bg-dark bg-gray-200"
                   }  ${className}`}
       >
         <label
@@ -38,12 +36,11 @@ function StatusBox({
         </label>
       </div>
       <input
-        checked={watch(name) === value}
+       checked={watch(name) ===value}
         type="radio"
         name={name}
         id={name}
         value={value}
-        onChange={() => setValue("status", value)} 
         {...register(name,validattionschema)}
         className="flex  w-full h-full absolute invisible z-10"
       />

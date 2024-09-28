@@ -1,19 +1,23 @@
-import Table from '@/components/ui/Table/Table'
+import Table from '@/components/ui/Table/Table';
 import { useAlert } from '@/context/AlertProvider';
+import useDisclosure from '@/hooks/useDisclosure';
 import { useRemoveCoursesMutation } from '@/services/course&Categories/courseApiSlice';
-import { CourseBodyType, CourseDataTable } from '@/types/services/course&category.t'
-import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid'
+import { CourseDataTable } from '@/types/services/course&category.t';
+import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid';
 import { FetchBaseQueryError } from '@reduxjs/toolkit/query';
-import React, { useState } from 'react'
+import { useState } from 'react';
 import DeleteModal from '../../modals/DeleteModal';
+import EditModal from '../../modals/EditModal';
+import EditCourseForm from '../CourseForm/EditCourseForm';
 
 function LgCourseTRow(
   {categoryID,creator
-  ,name,price,status
+  ,name,price,status,shortName
   ,index,registers,_id}:
    CourseDataTable&{index:number}) {
     const [isDeleteOpen, setIsDeleteOpen] = useState<boolean>(false);
     const [removeCourse, { isLoading }] = useRemoveCoursesMutation();
+    const [isEditOpen,{open,close}]  = useDisclosure();
     const { showAlert } = useAlert();
     const removeHandler = async () => {
       try {
@@ -44,7 +48,7 @@ function LgCourseTRow(
       <td>{registers} نفر</td>
       <td className='bg-baseColor p-1 rounded-xl'>{status === "inProgress" ? "درحال برگزاری":"پیش فروش"}</td>
       <td>{categoryID.title}</td>
-      <td><PencilSquareIcon className='text-secondary size-6 cursor-pointer'/></td>
+      <td><PencilSquareIcon onClick={()=>open()} className='text-secondary size-6 cursor-pointer'/></td>
       <td><TrashIcon onClick={()=>setIsDeleteOpen(true)} className=' text-red-500 size-6 cursor-pointer'/></td>
       {_id !== undefined && (
         <DeleteModal
@@ -56,6 +60,15 @@ function LgCourseTRow(
           subjectTitle="دوره"
         />
       )}
+       <EditModal
+        className="!h-auto sm:!w-[60%]"
+        modalTitle="ویرایش دوره"
+    
+        isOpen={isEditOpen}
+        setIsOpen={() => close()}
+      >
+        <EditCourseForm shortName={shortName} _id={_id as string}/>
+      </EditModal>
     </Table.Row>
 
 

@@ -1,3 +1,4 @@
+
 export type CatBodytype = {
   _id?: string;
   title: string;
@@ -8,14 +9,15 @@ export type CreateCatMgs = {
   data: CatBodytype;
 };
 export type RemoveQuery = { _id: string };
+export type CourseQuery = {shortName:string}
 export type ResultMsg = Pick<CreateCatMgs, "message">;
 
 export type CourseBodyType = {
   name: string;
-  _id?:string
-  categoryID:string;
+  _id?: string;
+  categoryID: string;
   cover: string;
-  status: string;
+  status: string; 
   shortName: string;
   duration: string;
   price: number;
@@ -27,6 +29,16 @@ export type CourseBodyType = {
   preReq: string;
   inProgress?: string;
   preOrder?: string;
-  registers?:number
+  registers?: number;
 };
-export type CourseDataTable = Omit<CourseBodyType,"categoryID">&{categoryID:{title:string,_id?:string}}
+
+export type CourseDataTable = Omit<CourseBodyType, "categoryID"> & {
+  categoryID: { title: string; _id?: string };
+};
+export interface SingleCourseData extends CourseDataTable{
+  comments:[],
+  sessions:[],
+  courseStudentsCount:number,
+  discount:number,
+  isComplete:boolean,
+}
