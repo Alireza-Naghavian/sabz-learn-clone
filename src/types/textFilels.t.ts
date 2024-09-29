@@ -56,12 +56,12 @@ export type MainTextFieldType = {
   wrapperStyles?:string
 }
 
-export type StatusBoxType = {
-  value: "preOrder"|"inProgress"|"complete"|"free" |"paid";
+export type StatusBoxType<Value,Name> = {
+  value: Value;
   title: string;
   watch: any;
   register:any
-  name:"status";
+  name:Name;
   Icon:IconType;
   className?:string
   wrapperStyles?:string,

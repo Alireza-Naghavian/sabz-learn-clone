@@ -1,7 +1,7 @@
 import { StatusBoxType } from "@/types/textFilels.t";
 import React from "react";
 
-function StatusBox({
+function StatusBox<Value,Name>({
   value,
   title,
   watch,
@@ -13,18 +13,18 @@ function StatusBox({
   status,
   setStatus,
   wrapperStyles
-}: StatusBoxType) {
+}: StatusBoxType<Value,Name>) {
   return (
     <div className={`basis-[50%] h-[50px] 
       overflow-hidden relative ${wrapperStyles}`}>
       <div
-       onClick={() => setStatus(value)} 
+       onClick={() => setStatus(value as string)} 
         className={` absolute transition-all duration-300 inset-0 z-20 ${
           status == value ? "bg-baseColor" : "dark:bg-dark bg-gray-200"
                   }  ${className}`}
       >
         <label
-          htmlFor={name}
+          htmlFor={name as string}
           className="flex items-center  justify-center gap-y-1 w-full h-full"
         >
           <div className="w-1/2">

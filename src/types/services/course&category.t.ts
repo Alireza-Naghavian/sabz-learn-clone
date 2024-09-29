@@ -1,3 +1,4 @@
+import { SessionBodyType } from "./sessions&Topics.t";
 
 export type CatBodytype = {
   _id?: string;
@@ -9,7 +10,7 @@ export type CreateCatMgs = {
   data: CatBodytype;
 };
 export type RemoveQuery = { _id: string };
-export type CourseQuery = {shortName:string}
+export type CourseQuery = { shortName: string };
 export type ResultMsg = Pick<CreateCatMgs, "message">;
 
 export type CourseBodyType = {
@@ -17,7 +18,7 @@ export type CourseBodyType = {
   _id?: string;
   categoryID: string;
   cover: string;
-  status: string; 
+  status: string;
   shortName: string;
   duration: string;
   price: number;
@@ -29,16 +30,22 @@ export type CourseBodyType = {
   preReq: string;
   inProgress?: string;
   preOrder?: string;
+  topics?: {
+    _id?: string;
+    title: string;
+    course: string;
+    session: SessionBodyType[];
+  }[];
   registers?: number;
 };
 
 export type CourseDataTable = Omit<CourseBodyType, "categoryID"> & {
   categoryID: { title: string; _id?: string };
 };
-export interface SingleCourseData extends CourseDataTable{
-  comments:[],
-  sessions:[],
-  courseStudentsCount:number,
-  discount:number,
-  isComplete:boolean,
+export interface SingleCourseData extends CourseDataTable {
+  comments: [];
+  sessions: [];
+  courseStudentsCount: number;
+  discount: number;
+  isComplete: boolean;
 }

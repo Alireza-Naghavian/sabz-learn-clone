@@ -66,7 +66,7 @@ function TopicForm() {
             variant="rounded"
             type="text"
             size="largeSize"
-            wrapperStyles="flex flex-col h-[50px]"
+            wrapperStyles="flex flex-col xl:h-[50px]"
             className="w-full "
             validattionschema={{
               required: { value: true, message: "عنوان الزامی است" },
