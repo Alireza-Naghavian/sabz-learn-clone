@@ -36,10 +36,11 @@ function MainTextField({
   Icon,
   readOnly = false,
   onChange,
+  wrapperStyles,
   ...props
 }: MainTextFieldType) {
   return (
-    <>
+    <div className={wrapperStyles}>
     <div className="flex flex-col gap-y-2 relative">
       {label &&
       <label htmlFor={id} className={"relative font-DanaMedium pb-1"}>
@@ -66,7 +67,7 @@ function MainTextField({
           {errors[name]?.message}
         </span>
       )}
-    </>
+    </div>
   );
 }
 

@@ -16,6 +16,7 @@ const apiSlice = createApi({
     "menu",
     "comments",
     "comment",
+    "topics"
   ],
   endpoints: (builder) => ({}),
 });

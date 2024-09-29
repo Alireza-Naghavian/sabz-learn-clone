@@ -58,7 +58,7 @@ function SessionForm() {
           <div className="flex">
           <StatusBox
             register={register}
-            name="free"
+            name="status"
             Icon={PlayCircleIcon}
             setStatus={setStatus}
             status={status}
@@ -70,7 +70,7 @@ function SessionForm() {
           />
           <StatusBox
             register={register}
-            name="paid"
+            name="status"
             Icon={CurrencyDollarIcon}
             setStatus={setStatus}
             status={status}

@@ -53,10 +53,11 @@ export type MainTextFieldType = {
   validattionschema?: RegisterOptions;
   onChange?:ChangeEventHandler<HTMLInputElement>
   readOnly?: boolean;
+  wrapperStyles?:string
 }
 
 export type StatusBoxType = {
-  value: "preOrder"|"inProgress"|"complete";
+  value: "preOrder"|"inProgress"|"complete"|"free" |"paid";
   title: string;
   watch: any;
   register:any
