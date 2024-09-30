@@ -1,10 +1,26 @@
+"use client"
 import HeaderAdminLayout from '@/components/shared/Headers/HeaderAdminLayout'
 import Table from '@/components/ui/Table/Table'
 import React from 'react'
 import LgMenuTRow from './LgMenuTRow'
 import SmMenuTRow from './SmMenuTRow'
+import { useGetAllMenusQuery } from '@/services/menu&subMenus/menuApiSlice'
+import TextLoader from '@/components/ui/loader/TextLoader'
 
 function MenusTable() {
+  const {data,isLoading} = useGetAllMenusQuery();
+  const submenus = data?.map(menu=>{
+    return menu.submenus
+  }).flat()
+  const menus = data?.concat(submenus as [])
+
+  if (isLoading)
+    return (
+      <TextLoader
+        className="!h-[380px] overflow-y-auto px-2"
+        loadingCondition={isLoading}
+      />
+    );
   return (
     <HeaderAdminLayout title='لیست منو ها'>
 
@@ -26,8 +42,20 @@ function MenusTable() {
            variant='singleHead'
         className='child:md:grid-cols-6 grid-cols-2'
     >
-   <LgMenuTRow/>
-   <SmMenuTRow/>
+        {menus?.map((menu, index) => {
+              return (
+                <LgMenuTRow
+                  key={index as number}
+                  {...menu}
+                  index={index + 1}
+                />
+              );
+            })}
+        {menus?.map((menu) => {
+              return (
+                <SmMenuTRow key={menu._id} {...menu} />
+              );
+            })}
     </Table.Body>
 </Table>
     </div>

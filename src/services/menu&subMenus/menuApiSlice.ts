@@ -1,6 +1,6 @@
-import { ResultMsg } from "@/types/services/course&category.t";
+import { RemoveQuery, ResultMsg } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
-import { MenuBodyType } from "@/types/services/menu.t";
+import { MenuBodyType, MenuTableData } from "@/types/services/menu.t";
 
 export const menuSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -16,18 +16,33 @@ export const menuSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
-    getAllMenus:builder.query<MenuBodyType[],void>({
-      query:()=>({
-        url:"/menus",
-        method:"GET",
-        credentials:"include"
+    getAllMenus: builder.query<MenuTableData[], void>({
+      query: () => ({
+        url: "/menus",
+        method: "GET",
+        credentials: "include",
       }),
-      providesTags:["menu"],
+      providesTags: ["menu"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
-    })
+    }),
+    removeMenus: builder.mutation<ResultMsg, RemoveQuery>({
+      query: ({ _id }) => ({
+        url: `/menus/${_id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["menu"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
   }),
 });
 
-export const {useCreateMenuMutation,useGetAllMenusQuery} = menuSlice
+export const {
+  useCreateMenuMutation,
+  useGetAllMenusQuery,
+  useRemoveMenusMutation,
+} = menuSlice;
