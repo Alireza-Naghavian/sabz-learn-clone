@@ -19,7 +19,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         body: { link, title },
       }),
       invalidatesTags: ["categories"],
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),
@@ -29,7 +29,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["categories"],
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),
@@ -40,7 +40,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
       }),
       invalidatesTags: ["categories"],
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),
@@ -80,7 +80,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         },
       }),
       invalidatesTags: ["courses", "course"],
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),
@@ -90,7 +90,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         method: "GET",
       }),
       providesTags: ["courses"],
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),
@@ -101,7 +101,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
       }),
       providesTags: ["course"],
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         console.log(baseQueryReturnValue);
         return baseQueryReturnValue.data;
       },
@@ -141,7 +141,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         },
       }),
       invalidatesTags: ["courses","course"],
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),
@@ -152,7 +152,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
       }),
       invalidatesTags: ["course", "courses"],
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),

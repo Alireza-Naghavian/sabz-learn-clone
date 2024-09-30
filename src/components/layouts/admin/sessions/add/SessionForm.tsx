@@ -65,7 +65,6 @@ function SessionForm() {
         video: data.video,
         isFree: sessionStatus,
       };
-      console.log(sessionBody);
       const result = await createSession(sessionBody).unwrap();
       showAlert("success", result.message);
     } catch (error:any) {

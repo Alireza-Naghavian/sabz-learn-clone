@@ -13,12 +13,12 @@ const apiSlice = createApi({
     "course",
     "blogs",
     "blog",
-    "menu",
     "comments",
     "comment",
     "topics",
     "sessions",
-    "session"
+    "session",
+    "menu",
   ],
   endpoints: (builder) => ({}),
 });
