@@ -9,3 +9,4 @@ export type SessionBodyType = TopicBody & {
   time: string;
   _id?:string
 };
+export type SessionTableData =Omit<SessionBodyType,"course">&{course:{name:string,_id?:string}}

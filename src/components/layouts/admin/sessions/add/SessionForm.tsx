@@ -15,7 +15,6 @@ import {
   CurrencyDollarIcon,
   PlayCircleIcon,
 } from "@heroicons/react/24/outline";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 function SessionForm() {
@@ -26,59 +25,64 @@ function SessionForm() {
     watch,
     formState: { errors },
   } = useForm<SessionBodyType>();
-  
+
   // static states
   const [topic, setTopic] = useState({ label: "", value: "" });
   const [course, setCourse] = useState({ label: "", value: "" });
   const [status, setStatus] = useState("free");
-  const {showAlert} = useAlert();
+  const { showAlert } = useAlert();
   // select data
-const {data:courses} = useGetCoursesQuery();
-const [createSession,{isLoading}] = useCreateSessionMutation();
-const courseOptions = courses?.map((course)=>{
-  return {label:course.name,value:course._id}
-}).concat({label:"انتخاب دوره",value:""}).reverse();
+  const { data: courses } = useGetCoursesQuery();
+  const [createSession, { isLoading }] = useCreateSessionMutation();
+  const courseOptions = courses
+    ?.map((course) => {
+      return { label: course.name, value: course._id };
+    })
+    .concat({ label: "انتخاب دوره", value: "" })
+    .reverse();
 
-const TopicOptions = courses?.map((courseItem)=>{
- return courseItem.topics?.filter((topic)=>{
-  return   topic.course == course?.value
-})
-}).flat().map(item=>({label:item?.title,value:item?._id}))
-.concat({label:"انتخاب تاپیک",value:""}).reverse();
-
-
+  const TopicOptions = courses
+    ?.map((courseItem) => {
+      return courseItem.topics?.filter((topic) => {
+        return topic.course == course?.value;
+      });
+    })
+    .flat()
+    .map((item) => ({ label: item?.title, value: item?._id }))
+    .concat({ label: "انتخاب تاپیک", value: "" })
+    .reverse();
 
   // create new session
-  const createHandler = async(data:SessionBodyType)=>{
+  const createHandler = async (data: SessionBodyType) => {
     try {
-      let sessionStatus = status === "free"
+      let sessionStatus = status === "free";
 
-      const sessionBody = 
-      {...data,course:course.value,
-        _id:course.value,
-        topic:topic.value,video:data.video,
-        isFree:sessionStatus }
-        console.log(data.video[0]);
-        const result = await createSession(sessionBody).unwrap();
-        showAlert("success",result.message)
-        reset();
-    } catch (error) {
-      console.log(error);
-      const fetchError = error as FetchBaseQueryError;
-      const errorMessage = (fetchError as { message?: string })?.message;
-      if (errorMessage  ) {
-        showAlert("error",errorMessage|| errorMessage[0]);
-      } else {
-        showAlert("error", "خطایی رخ داده است");
-      }
+      const sessionBody = {
+        ...data,
+        course: course.value,
+        _id: course.value,
+        topic: topic.value,
+        video: data.video,
+        isFree: sessionStatus,
+      };
+      console.log(sessionBody);
+      const result = await createSession(sessionBody).unwrap();
+      showAlert("success", result.message);
+    } catch (error:any) {
+      error?.message.forEach((err:any)=>{
+        return showAlert("error",err.message)
+      })
+    }finally{
+      reset();
     }
-    reset();
-  }
+  };
+
+
   const renderTextField = (
     name: keyof SessionBodyType,
     placeholder: string,
     type = "text",
-    validattionschema?:RegisterOptions
+    validattionschema?: RegisterOptions
   ) => (
     <MainTextField
       register={register}
@@ -88,7 +92,9 @@ const TopicOptions = courses?.map((courseItem)=>{
       placeHolder={placeholder}
       variant="rounded"
       type={type}
-      validattionschema={{required:{value:true,message:"پر کردن این فیلد الزامی است"}}}
+      validattionschema={{
+        required: { value: true, message: "پر کردن این فیلد الزامی است" },
+      }}
       size="largeSize"
       className="w-full"
       wrapperStyles="flex flex-col xl:h-[55px]"
@@ -97,14 +103,14 @@ const TopicOptions = courses?.map((courseItem)=>{
   return (
     <HeaderAdminLayout title="افزودن جلسه">
       <form
-      onSubmit={handleSubmit(createHandler)}
+        onSubmit={handleSubmit(createHandler)}
         className="flex flex-col gap-y-6   relative py-6 container"
         autoComplete="on"
       >
         <div className={`${styles.input_group}`}>
           {renderTextField("title", "عنوان جلسه ...")}
           <Select
-            options={courseOptions as {label:string,value:string}[]}
+            options={courseOptions as { label: string; value: string }[]}
             value={course.value}
             onChange={(e) =>
               setCourse({ value: e.target.value, label: topic.label })
@@ -114,7 +120,7 @@ const TopicOptions = courses?.map((courseItem)=>{
         </div>
         <div className={`${styles.input_group}`}>
           <Select
-            options={TopicOptions  as {label:string,value:string}[] }
+            options={TopicOptions as { label: string; value: string }[]}
             value={topic.value}
             onChange={(e) =>
               setTopic({ value: e.target.value, label: topic.label })
@@ -158,7 +164,7 @@ const TopicOptions = courses?.map((courseItem)=>{
           type="submit"
           className="mr-auto w-full md:w-[100px] rounded-xl px-6 py-2"
         >
-          {isLoading ?  <Loader loadingCondition={isLoading}/> : "افزودن"}
+          {isLoading ? <Loader loadingCondition={isLoading} /> : "افزودن"}
         </PrimaryBtn>
       </form>
     </HeaderAdminLayout>

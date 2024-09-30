@@ -65,15 +65,11 @@ function CourseForm() {
         setSupport("")
         setPrice("")
         setLongDes("")
-        reset();
-    } catch (error) {
-      const fetchError = error as FetchBaseQueryError;
-      const errorMessage = (fetchError as { message?: string })?.message;
-      if (errorMessage) {
-        showAlert("error",errorMessage|| errorMessage[0]);
-      } else {
-        showAlert("error", "خطایی رخ داده است");
-      }
+    } catch (error:any) {
+      error?.message.forEach((err:any)=>{
+        return showAlert("error",err.message)
+      })
+    }finally{
       reset();
     }
   };

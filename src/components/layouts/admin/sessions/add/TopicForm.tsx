@@ -8,10 +8,9 @@ import { useAlert } from "@/context/AlertProvider";
 import { useGetCoursesQuery } from "@/services/course&Categories/courseApiSlice";
 import { useCreateTopicsMutation } from "@/services/sessions&topics/sesisonSlice";
 import { TopicBody } from "@/types/services/sessions&Topics.t";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
-const DefaultCourseValue = { value: "", label: "انتخاب  دوره" }
+const DefaultCourseValue = { value: "", label: "انتخاب  دوره" };
 function TopicForm() {
   const {
     register,
@@ -19,7 +18,7 @@ function TopicForm() {
     handleSubmit,
     formState: { errors },
   } = useForm<TopicBody>();
-  const { data} = useGetCoursesQuery();
+  const { data } = useGetCoursesQuery();
   const courseOptions = data
     ?.map((course) => {
       return { label: course.name, value: course._id };
@@ -33,20 +32,18 @@ function TopicForm() {
   const [createTopic, { isLoading }] = useCreateTopicsMutation();
   const createHandler = async (data: TopicBody) => {
     try {
-     const result =  await createTopic({title:data.title,course:course.value}).unwrap();
-      showAlert("success",result.message)
-    } catch (error) {
-      const fetchError = error as FetchBaseQueryError;
-      const errorMessage = (fetchError as { message?: string })?.message;
-      reset()
-      setCourse(DefaultCourseValue)
-      if (errorMessage) {
-        showAlert("error",errorMessage|| errorMessage[0]);
-      } else {
-        showAlert("error", "خطایی رخ داده است");
-      }
+      const result = await createTopic({
+        title: data.title,
+        course: course.value,
+      }).unwrap();
+      showAlert("success", result.message);
+    } catch (error: any) {
+      error?.message.forEach((err: any) => {
+        return showAlert("error", err.message);
+      });
+    } finally {
+      setCourse(DefaultCourseValue);
       reset();
-      setCourse(DefaultCourseValue)
     }
   };
   return (
@@ -74,7 +71,7 @@ function TopicForm() {
             }}
           />
           <Select
-            options={courseOptions as {value:string,label:string}[]}
+            options={courseOptions as { value: string; label: string }[]}
             value={course.value}
             onChange={(e) =>
               setCourse({ value: e.target.value, label: course.label })

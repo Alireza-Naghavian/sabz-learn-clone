@@ -1,6 +1,10 @@
-import { ResultMsg } from "@/types/services/course&category.t";
+import { RemoveQuery, ResultMsg } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
-import { SessionBodyType, TopicBody } from "@/types/services/sessions&Topics.t";
+import {
+  SessionBodyType,
+  SessionTableData,
+  TopicBody,
+} from "@/types/services/sessions&Topics.t";
 
 export const sessionSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -11,7 +15,7 @@ export const sessionSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { title, course },
       }),
-      invalidatesTags: ["topics"],
+      invalidatesTags: ["topics", "session", "sessions"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
@@ -25,17 +29,37 @@ export const sessionSlice = apiSlice.injectEndpoints({
         formData.append("course", course);
         formData.append("topic", topic);
         const videoFile = video[0];
-        formData.append("video", videoFile); 
+        formData.append("video", videoFile);
 
-     
-   
         return {
           url: `/courses/${_id}/sessions`,
           method: "POST",
           credentials: "include",
-          body:  formData ,
+          body: formData,
         };
       },
+      invalidatesTags: ["session", "sessions"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
+    getAllSessions: builder.query<SessionTableData[], void>({
+      query: () => ({
+        url: "/courses/sessions",
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["sessions"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
+    removeSession: builder.mutation<ResultMsg, RemoveQuery>({
+      query: ({ _id }) => ({
+        url: `/courses/sessions/${_id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
       invalidatesTags: ["session", "sessions"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
@@ -44,5 +68,9 @@ export const sessionSlice = apiSlice.injectEndpoints({
   }),
 });
 
-export const { useCreateTopicsMutation, useCreateSessionMutation } =
-  sessionSlice;
+export const {
+  useCreateTopicsMutation,
+  useCreateSessionMutation,
+  useGetAllSessionsQuery,
+  useRemoveSessionMutation,
+} = sessionSlice;

@@ -27,14 +27,10 @@ function CategoryForm() {
       }).unwrap();
       showAlert("success", result.message);
       reset();
-    } catch (error) {
-      const fetchError = error as FetchBaseQueryError;
-      const errorMessage = (fetchError as { message?: string })?.message;
-      if (errorMessage) {
-        showAlert("error", errorMessage);
-      } else {
-        showAlert("error", "خطایی رخ داده است");
-      }
+    } catch (error:any) {
+      error?.message.forEach((err:any)=>{
+        return showAlert("error",err.message)
+      })
     }
   };
   return (

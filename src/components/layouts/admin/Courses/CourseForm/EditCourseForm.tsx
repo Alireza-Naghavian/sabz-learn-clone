@@ -104,15 +104,10 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
       const result = await updateCourse(updateBody).unwrap();
       showAlert("success", result.message);
       refresh();
-    } catch (error) {
-        console.log(error);
-      const fetchError = error as FetchBaseQueryError;
-      const errorMessage = (fetchError as { message?: string })?.message;
-      if (errorMessage) {
-        showAlert("error", errorMessage || errorMessage[0]);
-      } else {
-        showAlert("error", "خطایی رخ داده است");
-      }
+    } catch (error:any) {
+      error?.message.forEach((err:any)=>{
+        return showAlert("error",err.message)
+      })
     }
   };
   if (isCourseLoading) return <TextLoader loadingCondition={isCourseLoading} />;
