@@ -1,10 +1,21 @@
+"use client"
 import HeaderAdminLayout from '@/components/shared/Headers/HeaderAdminLayout'
 import Table from '@/components/ui/Table/Table'
 import React from 'react'
 import LgBlogTRow from './LgBlogTRow'
 import SmBlogTRow from './SmBlogTRow'
+import { useGetAllBlogsQuery } from '@/services/articles/articlesApiSlice'
+import TextLoader from '@/components/ui/loader/TextLoader'
 
 function BlogsTable() {
+  const {data,isLoading} = useGetAllBlogsQuery();
+  if (isLoading)
+    return (
+      <TextLoader
+        className="!h-[380px] overflow-y-auto px-2"
+        loadingCondition={isLoading}
+      />
+    );
   return (
     <HeaderAdminLayout title='لیست مقالات'>
 
@@ -25,8 +36,20 @@ function BlogsTable() {
            variant='singleHead'
         className='child:md:grid-cols-5 grid-cols-2'
     >
-     <LgBlogTRow/>
-     <SmBlogTRow/>
+         {data?.map((blog, index) => {
+              return (
+                <LgBlogTRow
+                  key={index as number}
+                  {...blog}
+                  index={index + 1}
+                />
+              );
+            })}
+        {data?.map((blog) => {
+              return (
+                <SmBlogTRow key={blog._id} {...blog} />
+              );
+            })}
     </Table.Body>
 </Table>
     </div>

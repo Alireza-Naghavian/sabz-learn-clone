@@ -1,3 +1,5 @@
+import { UserType } from "./authapi.t";
+
 export type ArticlesBodyType = {
     _id?:string,
     title:string,
@@ -7,4 +9,9 @@ export type ArticlesBodyType = {
     cover:string,
     creator:string
     shortName:string
+}
+export type ArticleTableData=Omit<ArticlesBodyType,"categoryID"|"creator">&{
+    categoryID:{title:string,_id:string};
+    createdAt:Date
+    creator:UserType
 }
