@@ -39,7 +39,23 @@ export const userApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    removeUser: builder.mutation<ResultMsg, RemoveQuery>({
+      query: ({ _id }) => ({
+        url: `/users/${_id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["user", "users"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
   }),
 });
 
-export const { useGetUsersQuery, useChangeRoleMutation,useBanUserMutation } = userApiSlice;
+export const {
+  useGetUsersQuery,
+  useChangeRoleMutation,
+  useBanUserMutation,
+  useRemoveUserMutation,
+} = userApiSlice;

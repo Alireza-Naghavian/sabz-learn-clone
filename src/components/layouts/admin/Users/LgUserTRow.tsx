@@ -11,6 +11,10 @@ import { useState } from "react";
 import BanUser from "./BanUser";
 import ChangeUserRole from "./ChangeUserRole";
 import { initailSelectState } from "@/utils/constants";
+import DeleteModal from "../modals/DeleteModal";
+import { useRemoveUserMutation } from "@/services/users/userApiSlice";
+import { useAlert } from "@/context/AlertProvider";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 function LgUserTRow({
   username,
@@ -22,8 +26,29 @@ function LgUserTRow({
 }: UserType & { index: number }) {
   const [isEditOpen, { open, close }] = useDisclosure();
   const [isBanOpen, setIsBanOpen] = useState(false);
+  const [isDeleteOpen, setIsDeleteOpen] = useState(false);
   const [banUser, setBanUser] = useState<OptionType>(initailSelectState);
   const [userRole, setUserRole] = useState<OptionType>(initailSelectState);
+  const {showAlert} = useAlert();
+  // req to server
+  const [removeUser,{isLoading}] = useRemoveUserMutation();
+  // removeHandler
+  const removeHandler = async()=>{
+    try {
+      const result = await removeUser({_id} as {_id:string}).unwrap();
+      showAlert("success",result.message)
+    } catch (error) {
+      const fetchError = error as FetchBaseQueryError;
+      const errorMessage = (fetchError as { message?: string })?.message;
+      if (errorMessage) {
+        showAlert("error", errorMessage);
+      } else {
+        showAlert("error", "خطایی رخ داده است");
+      }
+    }finally{
+      setIsDeleteOpen(false)
+    }
+  }
   return (
     <Table.Row
       variant="singleHead"
@@ -47,7 +72,7 @@ function LgUserTRow({
         <NoSymbolIcon onClick={()=>setIsBanOpen(true)} className="size-6 text-red-500 cursor-pointer" />
       </td>
       <td>
-        <TrashIcon className="size-6 text-red-500 cursor-pointer" />
+        <TrashIcon onClick={()=>setIsDeleteOpen(true)} className="size-6 text-red-500 cursor-pointer" />
       </td>
       <ChangeUserRole
         _id={_id as string}
@@ -57,6 +82,16 @@ function LgUserTRow({
         setUserRole={setUserRole}
         userRole={userRole}
       />
+      {_id !==undefined &&
+          <DeleteModal
+          identifier={_id}
+          removeHandler={removeHandler}
+          isLoading={isLoading}
+          isDeleteOpen={isDeleteOpen}
+          setIsDeleteOpen={() => setIsDeleteOpen(false)}
+          subjectTitle={"کاربر"}
+        />
+      }
       <BanUser
         _id={_id as string}
         banUser={banUser}

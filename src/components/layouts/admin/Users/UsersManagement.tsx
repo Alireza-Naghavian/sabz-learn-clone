@@ -10,7 +10,6 @@ import TextLoader from '@/components/ui/loader/TextLoader'
 
 function UsersManagement() {
   const {data,isLoading} =useGetUsersQuery();
-  console.log(data);
   if (isLoading)
     return (
       <TextLoader
