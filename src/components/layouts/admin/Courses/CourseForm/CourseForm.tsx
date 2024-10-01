@@ -1,5 +1,6 @@
 "use client";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import Loader from "@/components/ui/loader/Loader";
 import MainTextField from "@/components/ui/textField&inputs/MainTextField";
 import SimpleCheckBox from "@/components/ui/textField&inputs/SimpleCheckBox";
 import StatusBox from "@/components/ui/textField&inputs/StatusBox";
@@ -17,13 +18,11 @@ import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./course_form.module.css";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
-import Loader from "@/components/ui/loader/Loader";
 const TextEditor = dynamic(
   () => import("@/components/utils-components/textEditor/TextEditor"),{ssr: false,}
 );
 function CourseForm() {
-  const {register,reset,handleSubmit,watch,setValue,getValues,formState: { errors }} = useForm<CourseBodyType>();
+  const {register,reset,handleSubmit,watch,getValues,formState: { errors }} = useForm<CourseBodyType>();
   const { data: categories } = useGetAllCatQuery();
   const {data:userData} = useGetMeQuery();
   const { showAlert } = useAlert();

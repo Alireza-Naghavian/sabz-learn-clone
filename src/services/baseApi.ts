@@ -6,6 +6,7 @@ const apiSlice = createApi({
     baseUrl: "http://localhost:4000/v1",
     timeout: 60000,
   }),
+  
   tagTypes: [
     "user",
     "courses",
@@ -19,6 +20,8 @@ const apiSlice = createApi({
     "sessions",
     "session",
     "menu",
+    "articles",
+    "article"
   ],
   endpoints: (builder) => ({}),
 });
