@@ -1,7 +1,7 @@
+import { OptionType } from "@/types/consts.t";
 import { UserType } from "@/types/services/authapi.t";
+import { RemoveQuery, ResultMsg } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
-import { ResultMsg } from "@/types/services/course&category.t";
-import { RoleType } from "@/types/consts.t";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -16,19 +16,30 @@ export const userApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
-    changeRole :builder.mutation<ResultMsg,RoleType&{_id:string}>({
-      query:({_id,value})=>({
-        url:"/users/role",
-        method:"PATCH",
-        credentials:"include",
-        body:{id:_id,role:value}
+    changeRole: builder.mutation<ResultMsg, OptionType & { _id: string }>({
+      query: ({ _id, value }) => ({
+        url: "/users/role",
+        method: "PATCH",
+        credentials: "include",
+        body: { id: _id, role: value },
       }),
-      invalidatesTags:["user","users"],
+      invalidatesTags: ["user", "users"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
-    })
+    }),
+    banUser: builder.mutation<ResultMsg, RemoveQuery>({
+      query: ({ _id }) => ({
+        url: `/users/ban/${_id}`,
+        method: "PUT",
+        credentials: "include",
+      }),
+      invalidatesTags: ["user", "users"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
   }),
 });
 
-export const { useGetUsersQuery,useChangeRoleMutation } = userApiSlice;
+export const { useGetUsersQuery, useChangeRoleMutation,useBanUserMutation } = userApiSlice;

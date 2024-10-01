@@ -1,6 +1,6 @@
 import Table from "@/components/ui/Table/Table";
 import useDisclosure from "@/hooks/useDisclosure";
-import { RoleType } from "@/types/consts.t";
+import { OptionType } from "@/types/consts.t";
 import { UserType } from "@/types/services/authapi.t";
 import {
   NoSymbolIcon,
@@ -8,7 +8,9 @@ import {
   TrashIcon,
 } from "@heroicons/react/24/solid";
 import { useState } from "react";
+import BanUser from "./BanUser";
 import ChangeUserRole from "./ChangeUserRole";
+import { initailSelectState } from "@/utils/constants";
 
 function LgUserTRow({
   username,
@@ -19,10 +21,9 @@ function LgUserTRow({
   email,
 }: UserType & { index: number }) {
   const [isEditOpen, { open, close }] = useDisclosure();
-  const [userRole, setUserRole] = useState<RoleType>({
-    label: "",
-    value: role,
-  });
+  const [isBanOpen, setIsBanOpen] = useState(false);
+  const [banUser, setBanUser] = useState<OptionType>(initailSelectState);
+  const [userRole, setUserRole] = useState<OptionType>(initailSelectState);
   return (
     <Table.Row
       variant="singleHead"
@@ -43,18 +44,25 @@ function LgUserTRow({
         />
       </td>
       <td>
-        <NoSymbolIcon className="size-6 text-red-500 cursor-pointer" />
+        <NoSymbolIcon onClick={()=>setIsBanOpen(true)} className="size-6 text-red-500 cursor-pointer" />
       </td>
       <td>
         <TrashIcon className="size-6 text-red-500 cursor-pointer" />
       </td>
       <ChangeUserRole
-      _id={_id as string}
+        _id={_id as string}
         close={close}
         isEditOpen={isEditOpen}
         open={open}
         setUserRole={setUserRole}
         userRole={userRole}
+      />
+      <BanUser
+        _id={_id as string}
+        banUser={banUser}
+        setBanUser={setBanUser}
+        isBanOpen={isBanOpen}
+        setIsBanOpen={setIsBanOpen}
       />
     </Table.Row>
   );

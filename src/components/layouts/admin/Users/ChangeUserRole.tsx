@@ -3,19 +3,19 @@ import EditModal from "../modals/EditModal";
 import Select from "@/components/utils-components/Select/Select";
 import { roleOptions } from "@/utils/constants";
 import { SetState } from "@/types/global.t";
-import { RoleType } from "@/types/consts.t";
+import { OptionType } from "@/types/consts.t";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import { useChangeRoleMutation } from "@/services/users/userApiSlice";
 import Loader from "@/components/ui/loader/Loader";
 import { useAlert } from "@/context/AlertProvider";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useForm } from "react-hook-form";
-type UserRoleType = {
+export type UserRoleType = {
   isEditOpen: boolean;
   open: () => void;
   close: () => void;
-  userRole: RoleType;
-  setUserRole: SetState<RoleType>;
+  userRole: OptionType;
+  setUserRole: SetState<OptionType>;
   _id:string
 };
 function ChangeUserRole({close,isEditOpen,setUserRole,_id, userRole}: UserRoleType) {

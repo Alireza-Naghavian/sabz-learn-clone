@@ -1,14 +1,18 @@
 import Table from "@/components/ui/Table/Table";
+import useDisclosure from "@/hooks/useDisclosure";
+import { OptionType } from "@/types/consts.t";
 import { UserType } from "@/types/services/authapi.t";
 import { NoSymbolIcon, PencilSquareIcon, TrashIcon } from "@heroicons/react/24/solid";
-import React, { useState } from "react";
+import { useState } from "react";
 import ChangeUserRole from "./ChangeUserRole";
-import useDisclosure from "@/hooks/useDisclosure";
-import { RoleType } from "@/types/consts.t";
+import { initailSelectState } from "@/utils/constants";
+import BanUser from "./BanUser";
 
 function SmUserTRow({email,username,role,_id,userCourse}: UserType) {
   const [isEditOpen, { open, close }] = useDisclosure();
-  const [userRole, setUserRole] = useState<RoleType>({
+  const [isBanOpen, setIsBanOpen] = useState(false);
+  const [banUser, setBanUser] = useState<OptionType>(initailSelectState);
+  const [userRole, setUserRole] = useState<OptionType>({
     label: "",
     value: role,
   });
@@ -69,7 +73,7 @@ function SmUserTRow({email,username,role,_id,userCourse}: UserType) {
           <span className="">
             <span>بن کردن:</span>
             <button
-              //   onClick={() => setIsRoleOpen(true)}
+            onClick={()=>setIsBanOpen(true)}
               className="text-2xl text-blue-500"
             >
               <NoSymbolIcon className="size-6 text-red-500 cursor-pointer" />
@@ -93,6 +97,13 @@ function SmUserTRow({email,username,role,_id,userCourse}: UserType) {
         open={open}
         setUserRole={setUserRole}
         userRole={userRole}
+      />
+          <BanUser
+        _id={_id as string}
+        banUser={banUser}
+        setBanUser={setBanUser}
+        isBanOpen={isBanOpen}
+        setIsBanOpen={setIsBanOpen}
       />
     </Table.Row>
   );
