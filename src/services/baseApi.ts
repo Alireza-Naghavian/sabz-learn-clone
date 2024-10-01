@@ -9,6 +9,7 @@ const apiSlice = createApi({
   
   tagTypes: [
     "user",
+    "users",
     "courses",
     "categories",
     "course",

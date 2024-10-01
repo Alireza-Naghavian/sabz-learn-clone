@@ -21,7 +21,7 @@ const Modal: React.FC<ModalType> = (props) => {
   }, [isShow, onClose]);
 
   //styles
-  const modalStyle = cva("bg-gray-100 dark:bg-darker dark:text-white text-gray-800 rounded-xl ", {
+  const modalStyle = cva("bg-gray-100 dark:bg-darker shadow-lg dark:text-white text-gray-800 rounded-xl ", {
     variants: {
       effect: {
         bottom_to_top: `${

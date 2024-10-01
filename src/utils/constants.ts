@@ -2,6 +2,7 @@ import {
   AdminDropDownType,
   DeptType,
   RoeadMapType,
+  RoleType,
   SlogengType,
   SortType,
   UserPanelOpType,
@@ -253,5 +254,9 @@ export const suppurtOptions = [
 export const rareOption ={
   label:"دسته بندی را انتخاب کنید",
   value:""
-
 }
+
+export const roleOptions:RoleType[] = [
+  {label:"ادمین",value:"ADMIN"},
+  {label:"کاربر",value:"USER"},
+]

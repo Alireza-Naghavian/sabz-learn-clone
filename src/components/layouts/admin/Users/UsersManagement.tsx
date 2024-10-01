@@ -1,11 +1,23 @@
+"use client"
 import HeaderAdminLayout from '@/components/shared/Headers/HeaderAdminLayout'
 import Table from '@/components/ui/Table/Table'
 import React from 'react'
 import LgUserTRow from './LgUserTRow'
 import SmUserTRow from './SmUserTRow'
+import { useGetUsersQuery } from '@/services/users/userApiSlice'
+import TextLoader from '@/components/ui/loader/TextLoader'
 
 
 function UsersManagement() {
+  const {data,isLoading} =useGetUsersQuery();
+  console.log(data);
+  if (isLoading)
+    return (
+      <TextLoader
+        className="!h-[380px] overflow-y-auto px-2"
+        loadingCondition={isLoading}
+      />
+    );
   return (
   <HeaderAdminLayout title='لیست کاربران'>
 <div className="h-[480px] overflow-y-auto px-2">
@@ -17,7 +29,7 @@ function UsersManagement() {
             <th>شماره</th>
             <th>نام</th>
             <th>ایمیل</th>
-            <th>تراکنش ها</th>
+            <th>دوره ها</th>
             <th>نقش</th>
             <th>تغییر سطح</th>
             <th>بن کردن</th>
@@ -28,8 +40,21 @@ function UsersManagement() {
         variant='singleHead'
         className='child:md:grid-cols-8 grid-cols-2'
         >
-            <LgUserTRow/>
-            <SmUserTRow/>
+         {data?.map((user, index) => {
+              return (
+                <LgUserTRow
+                  key={index as number}
+                  {...user}
+                  index={index + 1}
+                />
+              );
+            })}
+        {data?.map((user) => {
+              return (
+                <SmUserTRow key={user._id} {...user} />
+              );
+            })}
+    
         </Table.Body>
     </Table>
 </div>
