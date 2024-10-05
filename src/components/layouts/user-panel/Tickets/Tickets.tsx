@@ -7,7 +7,6 @@ import {
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import ContentList from "../ContentList";
-import Badge from "@/components/ui/Badge/Badge";
 
 function Tickets() {
   return (

@@ -1,12 +1,27 @@
+"use client";
+import TextLoader from "@/components/ui/loader/TextLoader";
 import Table from "@/components/ui/Table/Table";
-import React from "react";
+import { useGetAllCodesQuery } from "@/services/offer-codes/offerSlice";
 import LgOfferTRow from "./LgOfferTRow";
 import SmOfferTRow from "./SmOfferTRow";
+import dynamic from "next/dynamic";
+const DynamicTable = dynamic(() => import("@/components/ui/Table/Table"), {
+  ssr: false,
+});
 
 function OffersTable() {
+  const { data, isLoading, isError, currentData } = useGetAllCodesQuery();
+  if (isLoading)
+    return (
+      <TextLoader
+        className="!h-[380px] overflow-y-auto px-2"
+        loadingCondition={isLoading}
+      />
+    );
+
   return (
     <div className="h-[480px] overflow-y-auto px-2">
-      <Table variant="singleHead">
+      <DynamicTable variant="singleHead">
         <Table.Header className="hidden lg:block" variant="singleHead">
           <tr
             className="grid grid-cols-8 rounded-lg  child:text-center p-4
@@ -15,10 +30,10 @@ function OffersTable() {
             <th>ردیف</th>
             <th>کد تخفیف</th>
             <th>درصد</th>
+            <th>دوره</th>
             <th>استفاده شده</th>
             <th>باقی مانده</th>
             <th>تاریخ ساخت</th>
-            <th>ویرایش</th>
             <th>حذف</th>
           </tr>
         </Table.Header>
@@ -26,10 +41,18 @@ function OffersTable() {
           variant="singleHead"
           className="child:md:grid-cols-8 grid-cols-2"
         >
-            <LgOfferTRow/>
-            <SmOfferTRow/>
+          {(data || [])?.map((offer, index) => {
+            if (currentData !== undefined && !isError) {
+              return <LgOfferTRow key={index} {...offer} index={index + 1} />;
+            }
+          })}
+          {data?.map((offer) => {
+            if (currentData !== undefined && !isError) {
+              return <SmOfferTRow key={offer._id} {...offer} />;
+            }
+          })}
         </Table.Body>
-      </Table>
+      </DynamicTable>
     </div>
   );
 }

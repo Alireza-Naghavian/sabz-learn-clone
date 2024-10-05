@@ -35,9 +35,12 @@ function MainTextField({
   errors,
   Icon,
   readOnly = false,
+  wrapperStyles,
+  require,
+  ...props
 }: MainTextFieldType) {
   return (
-    <>
+    <div className={wrapperStyles}>
     <div className="flex flex-col gap-y-2 relative">
       {label &&
       <label htmlFor={id} className={"relative font-DanaMedium pb-1"}>
@@ -48,12 +51,14 @@ function MainTextField({
       <input
         {...register(name, validattionschema)}
         id={id}
-        value={value}
+        value={value && value}
         name={name}
         type={type}
         readOnly={readOnly}
         placeholder={placeHolder}
+        required={require}
         className={inputGroup({ variant, className, size })}
+        {...props}
       />
       {Icon&& <Icon className="     size-5 text-[#64748b] absolute left-3.5  top-[35%] "/>}
     </div>
@@ -62,7 +67,7 @@ function MainTextField({
           {errors[name]?.message}
         </span>
       )}
-    </>
+    </div>
   );
 }
 

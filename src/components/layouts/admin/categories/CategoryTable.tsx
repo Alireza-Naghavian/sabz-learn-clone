@@ -1,9 +1,20 @@
+"use client";
 import Table from "@/components/ui/Table/Table";
 import React from "react";
 import SmCatTRow from "./SmCatTRow";
 import LgCatTRow from "./LgCatTRow";
+import { useGetAllCatQuery } from "@/services/course&Categories/courseApiSlice";
+import TextLoader from "@/components/ui/loader/TextLoader";
 
 function CategoryTable() {
+  const { data, isLoading, currentData, isError } = useGetAllCatQuery();
+  if (isLoading)
+    return (
+      <TextLoader
+        className="!h-[380px] overflow-y-auto px-2"
+        loadingCondition={isLoading}
+      />
+    );
   return (
     <div className="h-[480px] overflow-y-auto px-2">
       <Table variant="singleHead">
@@ -22,8 +33,31 @@ function CategoryTable() {
           variant="singleHead"
           className="child:md:grid-cols-4 grid-cols-2"
         >
-            <SmCatTRow/>
-            <LgCatTRow/>
+          {data?.map((item, index) => {
+            if (currentData !== undefined && !isError) {
+              return (
+                <SmCatTRow
+                  key={index as number}
+                  _id={item._id}
+                  link={item.link}
+                  title={item.title}
+                />
+              );
+            }
+          })}
+          {data?.map((item, index) => {
+            if (currentData !== undefined && !isError) {
+              return (
+                <LgCatTRow
+                  index={index}
+                  _id={item._id}
+                  key={item._id}
+                  link={item.link}
+                  title={item.title}
+                />
+              );
+            }
+          })}
         </Table.Body>
       </Table>
     </div>

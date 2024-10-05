@@ -1,3 +1,4 @@
+import React, { ChangeEventHandler } from "react";
 import { Message, ValidationRule } from "react-hook-form";
 import { SetState } from "./global.t";
 import { IconType } from "./icon.t";
@@ -17,7 +18,7 @@ export type RegisterOptions = Partial<{
   maxLength?: ValidationRule<number | string>;
   minLength?: ValidationRule<number | string>;
   pattern?: ValidationRule<RegExp>;
-  validate?: Record<string, any>;
+  validate: Record<string, string|number|boolean>;
 }>;
 export type TextFieldType = {
   label?: string;
@@ -48,19 +49,24 @@ export type MainTextFieldType = {
   register: any;
   Icon?:IconType
   errors: any;
+  require?:boolean
   validattionschema?: RegisterOptions;
   readOnly?: boolean;
-};
-
-export type StatusBoxType = {
-  status: string;
-  setStatus: SetState<string>;
-  value: string;
+  wrapperStyles?:string
+}
+export type PriceTextFieldType = MainTextFieldType&{
+  onChange?:ChangeEventHandler<HTMLInputElement>
+}
+export type StatusBoxType<Value,Name> = {
+  value: Value;
   title: string;
   watch: any;
   register:any
-  name:string;
+  name:Name;
   Icon:IconType;
   className?:string
-  wrapperStyles?:string
+  wrapperStyles?:string,
+  setStatus:SetState<string>;
+  status:string
+  validattionschema?:RegisterOptions
 };

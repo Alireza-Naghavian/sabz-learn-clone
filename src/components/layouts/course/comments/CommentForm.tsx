@@ -11,7 +11,6 @@ type CommentFormType = {
 function CommentForm({ isBoxOpen, close }: CommentFormType) {
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm();
   return (
