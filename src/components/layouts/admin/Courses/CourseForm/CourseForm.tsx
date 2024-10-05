@@ -1,3 +1,4 @@
+/* eslint-disable-next-line padded-blocks */
 "use client";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import Loader from "@/components/ui/loader/Loader";
@@ -37,7 +38,7 @@ function CourseForm() {
 
   // generate category options 
   const catOptions = categories?.map((category) => {
-    return { label: category.title as String, value: category._id as string };
+    return { label: category.title as string, value: category._id as string };
   }).concat(rareOption).reverse();
 
     // Handle price change and format it

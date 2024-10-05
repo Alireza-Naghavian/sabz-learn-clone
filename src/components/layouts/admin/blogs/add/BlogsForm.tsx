@@ -37,7 +37,7 @@ const [createArticle,{isLoading}] = useCreateArticlesMutation();
   // cat options
   const catOptions = categories
     ?.map((category) => {
-      return { label: category.title as String, value: category._id as string };
+      return { label: category.title as string, value: category._id as string };
     })
     .concat(rareOption)
     .reverse();

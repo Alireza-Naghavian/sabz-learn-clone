@@ -7,7 +7,7 @@ import styles from "@/app/my-account/userpanel.module.css";
 import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import StoreProvider from "@/context/StoreProvider";
-function layout({ children }: ChildrenProps) {
+function Layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
   return (
     <StoreProvider>
@@ -65,4 +65,4 @@ function layout({ children }: ChildrenProps) {
   );
 }
 
-export default layout;
+export default Layout;

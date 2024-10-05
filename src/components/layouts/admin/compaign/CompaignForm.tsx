@@ -3,15 +3,12 @@ import React, { useState } from 'react'
 import { useForm } from 'react-hook-form';
 import styles from "@/components/layouts/admin/Courses/CourseForm/course_form.module.css"
 import MainTextField from '@/components/ui/textField&inputs/MainTextField';
-import { fakeCategory } from '../sessions/add/TopicForm';
 import Select from '@/components/utils-components/Select/Select';
 import PrimaryBtn from '@/components/ui/button/PrimaryBtn';
 
 function CompaignForm() {
     const {
         register,
-        handleSubmit,
-        watch,
         formState: { errors },
       } = useForm();
       const [categories,setCategories] = useState({value:"",label:""})
@@ -33,7 +30,7 @@ function CompaignForm() {
             className="w-full"
           />
           <Select
-            options={fakeCategory}
+            options={[]}
             selectTitle='دسته بندی مورد نظر'
             value={categories.value}
             onChange={(e) =>

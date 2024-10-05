@@ -10,7 +10,7 @@ import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { UserType } from "@/types/services/authapi.t";
-function layout({ children }: ChildrenProps) {
+function Layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
   const { data, isLoading } = useGetMeQuery();
   return (
@@ -60,4 +60,4 @@ function layout({ children }: ChildrenProps) {
   );
 }
 
-export default layout;
+export default Layout;

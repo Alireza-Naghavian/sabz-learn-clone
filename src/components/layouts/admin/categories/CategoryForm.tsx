@@ -16,7 +16,7 @@ function CategoryForm() {
     formState: { errors },
   } = useForm<CatBodytype>();
   const { showAlert } = useAlert();
-  const [addCategory, { isLoading,isSuccess }] = useAddCatMutation();
+  const [addCategory, { isLoading }] = useAddCatMutation();
   const addCatHandler = async (data: CatBodytype) => {
     try {
       const result = await addCategory({

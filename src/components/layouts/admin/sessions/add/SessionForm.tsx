@@ -55,7 +55,7 @@ function SessionForm() {
   // create new session
   const createHandler = async (data: SessionBodyType) => {
     try {
-      let sessionStatus = status === "free";
+      const sessionStatus = status === "free";
 
       const sessionBody = {
         ...data,
@@ -81,7 +81,6 @@ function SessionForm() {
     name: keyof SessionBodyType,
     placeholder: string,
     type = "text",
-    validattionschema?: RegisterOptions
   ) => (
     <MainTextField
       register={register}

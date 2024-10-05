@@ -102,7 +102,6 @@ export const courseApiSlice = apiSlice.injectEndpoints({
       }),
       providesTags: ["course"],
       transformErrorResponse(baseQueryReturnValue) {
-        console.log(baseQueryReturnValue);
         return baseQueryReturnValue.data;
       },
     }),

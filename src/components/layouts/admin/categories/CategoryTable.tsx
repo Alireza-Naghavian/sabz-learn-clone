@@ -7,7 +7,7 @@ import { useGetAllCatQuery } from "@/services/course&Categories/courseApiSlice";
 import TextLoader from "@/components/ui/loader/TextLoader";
 
 function CategoryTable() {
-  const { data, isLoading } = useGetAllCatQuery();
+  const { data, isLoading, currentData, isError } = useGetAllCatQuery();
   if (isLoading)
     return (
       <TextLoader
@@ -34,27 +34,30 @@ function CategoryTable() {
           className="child:md:grid-cols-4 grid-cols-2"
         >
           {data?.map((item, index) => {
-            return (
-              <SmCatTRow
-                key={index as number}
-                _id={item._id}
-                link={item.link}
-                title={item.title}
-              />
-            );
+            if (currentData !== undefined && !isError) {
+              return (
+                <SmCatTRow
+                  key={index as number}
+                  _id={item._id}
+                  link={item.link}
+                  title={item.title}
+                />
+              );
+            }
           })}
-          {data?.map((item,index) => {
-            return (
-              <LgCatTRow
-              index={index}
-              _id={item._id}
-                key={item._id}
-                link={item.link}
-                title={item.title}
-              />
-            );
+          {data?.map((item, index) => {
+            if (currentData !== undefined && !isError) {
+              return (
+                <LgCatTRow
+                  index={index}
+                  _id={item._id}
+                  key={item._id}
+                  link={item.link}
+                  title={item.title}
+                />
+              );
+            }
           })}
-    
         </Table.Body>
       </Table>
     </div>

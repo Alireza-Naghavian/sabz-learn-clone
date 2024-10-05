@@ -18,7 +18,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { email, username, password },
       }),
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
       invalidatesTags: ["user"],
@@ -30,7 +30,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { identifier, password },
       }),
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
       invalidatesTags: ["user"],
@@ -52,7 +52,7 @@ export const authApiSlice = apiSlice.injectEndpoints({
         method: "POST",
         credentials: "include",
       }),
-      transformErrorResponse(baseQueryReturnValue, meta, arg) {
+      transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
       invalidatesTags: ["user"],

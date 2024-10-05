@@ -1,3 +1,4 @@
+/* eslint-disable-next-line padded-blocks */
 "use client";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import Loader from "@/components/ui/loader/Loader";
@@ -10,13 +11,12 @@ import Select from "@/components/utils-components/Select/Select";
 import { useAlert } from "@/context/AlertProvider";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import {
-    useGetAllCatQuery,
-    useGetCourseQuery,
-    useUpdateCourseMutation,
+  useGetAllCatQuery,
+  useGetCourseQuery,
+  useUpdateCourseMutation,
 } from "@/services/course&Categories/courseApiSlice";
 import { SingleCourseData } from "@/types/services/course&category.t";
 import { BookOpenIcon, ShoppingBagIcon } from "@heroicons/react/24/solid";
-import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
@@ -36,7 +36,7 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
       name: data?.name as string,
       description: data?.description as string,
       shortName: data?.shortName as string,
-      categoryID: data?.categoryID._id as {},
+      categoryID: data?.categoryID?._id as any,
       price: data?.price as number,
       status: data?.status as string,
       cover: data?.cover as string,
@@ -54,8 +54,8 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
   const { data: categories } = useGetAllCatQuery();
   const {refresh} = useRouter();
   const [category, setCategory] = useState({
-    label: data?.categoryID.title,
-    value: data?.categoryID._id as string,
+    label: data?.categoryID?.title,
+    value: data?.categoryID?._id as string,
   });
   useEffect(() => {
     if (data) {
@@ -63,7 +63,7 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
         name: data.name,
         description: data.description,
         shortName: data.shortName,
-        categoryID: data.categoryID._id as any,
+        categoryID: data.categoryID?._id as any,
         status: data.status,
         cover: data.cover,
         price: data.price,
@@ -75,8 +75,8 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
       setPrice(data.price.toString());
       setStatus(data.status);
       setCategory({
-        label: data.categoryID.title,
-        value: data.categoryID._id as string,
+        label: data.categoryID?.title,
+        value: data.categoryID?._id as string,
       });
     }
   }, [data, reset]);

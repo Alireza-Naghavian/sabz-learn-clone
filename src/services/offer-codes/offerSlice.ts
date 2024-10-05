@@ -1,7 +1,6 @@
-import { ResultMsg } from "@/types/services/course&category.t";
+import { RemoveQuery, ResultMsg } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
-import { OfferCodeBody } from "@/types/services/offercode.t";
-
+import { OfferCodeBody, OfferTableData } from "@/types/services/offercode.t";
 export const OfferSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createCode: builder.mutation<ResultMsg, OfferCodeBody>({
@@ -11,12 +10,38 @@ export const OfferSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { code, course, max: Number(max), percent: Number(percent) },
       }),
-      invalidatesTags:["offer","offers"],
+      invalidatesTags: ["offers"],
       transformErrorResponse(baseQueryReturnValue) {
-          return baseQueryReturnValue.data
+        return baseQueryReturnValue.data;
+      },
+    }),
+    getAllCodes: builder.query<OfferTableData[], void>({
+      query: () => ({
+        url: "/offs",
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["offers"], 
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
+    removeCode: builder.mutation<ResultMsg, RemoveQuery>({
+      query: ({ _id }) => ({
+        url: `/offs/${_id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["offers"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
       },
     }),
   }),
 });
 
-export const {useCreateCodeMutation} = OfferSlice
+export const {
+  useCreateCodeMutation,
+  useGetAllCodesQuery,
+  useRemoveCodeMutation,
+} = OfferSlice;

@@ -1,18 +1,20 @@
-"use client"
-import HeaderAdminLayout from '@/components/shared/Headers/HeaderAdminLayout'
-import Table from '@/components/ui/Table/Table'
-import React from 'react'
-import LgMenuTRow from './LgMenuTRow'
-import SmMenuTRow from './SmMenuTRow'
-import { useGetAllMenusQuery } from '@/services/menu&subMenus/menuApiSlice'
-import TextLoader from '@/components/ui/loader/TextLoader'
+"use client";
+import HeaderAdminLayout from "@/components/shared/Headers/HeaderAdminLayout";
+import Table from "@/components/ui/Table/Table";
+import React from "react";
+import LgMenuTRow from "./LgMenuTRow";
+import SmMenuTRow from "./SmMenuTRow";
+import { useGetAllMenusQuery } from "@/services/menu&subMenus/menuApiSlice";
+import TextLoader from "@/components/ui/loader/TextLoader";
 
 function MenusTable() {
-  const {data,isLoading} = useGetAllMenusQuery();
-  const submenus = data?.map(menu=>{
-    return menu.submenus
-  }).flat()
-  const menus = data?.concat(submenus as [])
+  const { data, isLoading, isError, currentData } = useGetAllMenusQuery();
+  const submenus = data
+    ?.map((menu) => {
+      return menu.submenus;
+    })
+    .flat();
+  const menus = data?.concat(submenus as []);
 
   if (isLoading)
     return (
@@ -22,45 +24,47 @@ function MenusTable() {
       />
     );
   return (
-    <HeaderAdminLayout title='لیست منو ها'>
-
-    <div className="h-[480px] overflow-y-auto px-2">
-    <Table  variant='singleHead'>
-    <Table.Header className='hidden lg:block'  variant='singleHead'>
-    <tr
-            className="grid grid-cols-6 rounded-lg  child:text-center p-4
-                    dark:bg-dark bg-gray-200 dark:text-white text-gray-800">
-            <th>ردیف</th>
-            <th>عنوان</th>
-            <th>لینک</th>
-            <th>نام منوی اصلی</th>
-            <th>لینک منوی اصلی</th>
-            <th>حذف</th>
-          </tr>
-    </Table.Header>
-    <Table.Body
-           variant='singleHead'
-        className='child:md:grid-cols-6 grid-cols-2'
-    >
-        {menus?.map((menu, index) => {
-              return (
-                <LgMenuTRow
-                  key={index as number}
-                  {...menu}
-                  index={index + 1}
-                />
-              );
+    <HeaderAdminLayout title="لیست منو ها">
+      <div className="h-[480px] overflow-y-auto px-2">
+        <Table variant="singleHead">
+          <Table.Header className="hidden lg:block" variant="singleHead">
+            <tr
+              className="grid grid-cols-6 rounded-lg  child:text-center p-4
+                    dark:bg-dark bg-gray-200 dark:text-white text-gray-800"
+            >
+              <th>ردیف</th>
+              <th>عنوان</th>
+              <th>لینک</th>
+              <th>نام منوی اصلی</th>
+              <th>لینک منوی اصلی</th>
+              <th>حذف</th>
+            </tr>
+          </Table.Header>
+          <Table.Body
+            variant="singleHead"
+            className="child:md:grid-cols-6 grid-cols-2"
+          >
+            {menus?.map((menu, index) => {
+              if (currentData !== undefined && !isError) {
+                return (
+                  <LgMenuTRow
+                    key={index as number}
+                    {...menu}
+                    index={index + 1}
+                  />
+                );
+              }
             })}
-        {menus?.map((menu) => {
-              return (
-                <SmMenuTRow key={menu._id} {...menu} />
-              );
+            {menus?.map((menu) => {
+              if (currentData !== undefined && !isError) {
+                return <SmMenuTRow key={menu._id} {...menu} />;
+              }
             })}
-    </Table.Body>
-</Table>
-    </div>
+          </Table.Body>
+        </Table>
+      </div>
     </HeaderAdminLayout>
-  )
+  );
 }
 
-export default MenusTable
+export default MenusTable;

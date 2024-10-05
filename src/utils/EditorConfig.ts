@@ -172,7 +172,7 @@ import {
         {
           name: 'custom',
           url: /^(https:\/\/tech\.sabzlearn\.ir\/uploads\/.+\.mp4)(\?.*)?$/,
-          html: (match:any) => {
+          html: (match:string) => {
             const url = match[1];
             return (
               `<video controls style="max-width: 100%; height: auto;">

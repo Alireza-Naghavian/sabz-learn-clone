@@ -11,7 +11,7 @@ const NoSSR = dynamic(() => import("@/components/ui/Table/Table"), {
 });
 
 function CourseTable() {
-  const { data, isLoading } = useGetCoursesQuery();
+  const { data, isLoading, isError, currentData } = useGetCoursesQuery();
 
   if (isLoading)
     return (
@@ -46,16 +46,20 @@ function CourseTable() {
             className="child:md:grid-cols-7 child:lg:grid-cols-9 grid-cols-2"
           >
             {data?.map((course, index) => {
-              return (
-                <LgCourseTRow
-                  key={index as number}
-                  {...course}
-                  index={index + 1}
-                />
-              );
+              if (currentData !== undefined && !isError) {
+                return (
+                  <LgCourseTRow
+                    key={index as number}
+                    {...course}
+                    index={index + 1}
+                  />
+                );
+              }
             })}
             {data?.map((course) => {
-              return <SmCourseTRow key={course._id} {...course} />;
+              if (currentData !== undefined && !isError) {
+                return <SmCourseTRow key={course._id} {...course} />;
+              }
             })}
           </Table.Body>
         </NoSSR>

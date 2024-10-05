@@ -1,4 +1,4 @@
- const generateAnchor = (body:any)=>{
+ const generateAnchor = (body:string)=>{
     const parser = new DOMParser();
     const doc = parser.parseFromString(body,"text/html");
     const headings= doc.querySelectorAll("h2");

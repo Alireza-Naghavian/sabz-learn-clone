@@ -47,7 +47,7 @@ function LgCourseTRow(
       <td>{price.toLocaleString("fa-Ir")} تومان</td>
       <td>{registers} نفر</td>
       <td className='bg-baseColor p-1 rounded-xl'>{status === "inProgress" ? "درحال برگزاری":"پیش فروش"}</td>
-      <td>{categoryID.title}</td>
+      <td>{categoryID?.title}</td>
       <td><PencilSquareIcon onClick={()=>open()} className='text-secondary size-6 cursor-pointer'/></td>
       <td><TrashIcon onClick={()=>setIsDeleteOpen(true)} className=' text-red-500 size-6 cursor-pointer'/></td>
       {_id !== undefined && (

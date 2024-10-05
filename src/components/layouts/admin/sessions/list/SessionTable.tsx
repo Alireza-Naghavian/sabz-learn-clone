@@ -8,7 +8,7 @@ import { useGetAllSessionsQuery } from "@/services/sessions&topics/sesisonSlice"
 import TextLoader from "@/components/ui/loader/TextLoader";
 
 function SessionTable() {
-  const { data, isLoading } = useGetAllSessionsQuery();
+  const { data, isLoading, currentData, isError } = useGetAllSessionsQuery();
   if (isLoading)
     return (
       <TextLoader
@@ -38,16 +38,20 @@ function SessionTable() {
             className="child:md:grid-cols-6 grid-cols-2"
           >
             {data?.map((session, index) => {
-              return (
-                <LgSessionTRow
-                  key={index as number}
-                  {...session}
-                  index={index + 1}
-                />
-              );
+              if (currentData !== undefined && !isError) {
+                return (
+                  <LgSessionTRow
+                    key={index as number}
+                    {...session}
+                    index={index + 1}
+                  />
+                );
+              }
             })}
             {data?.map((session) => {
-              return <SmSessionTRow key={session._id} {...session} />;
+              if (currentData !== undefined && !isError) {
+                return <SmSessionTRow key={session._id} {...session} />;
+              }
             })}
           </Table.Body>
         </Table>

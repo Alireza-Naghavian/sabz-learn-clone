@@ -1,8 +1,7 @@
-import { Message, UseFormGetValues, UseFormSetValue, ValidationRule } from "react-hook-form";
+import React, { ChangeEventHandler } from "react";
+import { Message, ValidationRule } from "react-hook-form";
 import { SetState } from "./global.t";
 import { IconType } from "./icon.t";
-import React, { ChangeEventHandler } from "react";
-import { CourseBodyType } from "./services/course&category.t";
 export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
   React.ComponentProps<"textarea"> & {
     variant: "outLine" | "freeMode";
@@ -19,7 +18,7 @@ export type RegisterOptions = Partial<{
   maxLength?: ValidationRule<number | string>;
   minLength?: ValidationRule<number | string>;
   pattern?: ValidationRule<RegExp>;
-  validate?: Record<string, any>;
+  validate: Record<string, string|number|boolean>;
 }>;
 export type TextFieldType = {
   label?: string;
