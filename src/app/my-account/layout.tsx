@@ -9,10 +9,11 @@ import { Bars3BottomRightIcon } from "@heroicons/react/20/solid";
 import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
-import { UserType } from "@/types/services/authapi.t";
-function Layout({ children }: ChildrenProps) {
+import { GetmeType, UserType } from "@/types/services/authapi.t";
+import StoreProvider from "@/context/StoreProvider";
+function layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
-  const { data, isLoading } = useGetMeQuery();
+
   return (
     <div className="flex  gap-x-10 2xl:gap-x-14 lg:px-8 xl:px-14 2xl:px-25 lg:py-7">
       <UserPanel_SideBar />
@@ -40,13 +41,9 @@ function Layout({ children }: ChildrenProps) {
               <UserPanel_SideBar sm />
             </div>
           </div>
-          <div className="flex gap-x-3.5 md:gap-x-7">
-            <ThemeToggler />
-            <UserDataDropDown
-              userData={data?.user as UserType}
-              isLoading={isLoading}
-            />
-          </div>
+          <StoreProvider>
+            <UserDataDropDownSec />
+          </StoreProvider>
         </header>
         <div className="px-5 md:px-0">
           <h3 className="md:hidden font-DanaBold text-zinc-700 dark:text-white mb-7">
@@ -60,4 +57,16 @@ function Layout({ children }: ChildrenProps) {
   );
 }
 
-export default Layout;
+const UserDataDropDownSec = () => {
+  const { data, isLoading } = useGetMeQuery();
+  return (
+    <div className="flex gap-x-3.5 md:gap-x-7">
+      <ThemeToggler />
+      <UserDataDropDown
+        userData={data?.user as UserType}
+        isLoading={isLoading}
+      />
+    </div>
+  );
+};
+export default layout;
