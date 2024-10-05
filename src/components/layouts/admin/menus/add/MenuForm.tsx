@@ -1,53 +1,95 @@
 "use client";
-import HeaderAdminLayout from "@/components/shared/Headers/HeaderAdminLayout";
-import React, { useState } from "react";
 import styles from "@/components/layouts/admin/Courses/CourseForm/course_form.module.css";
-import { useForm } from "react-hook-form";
+import HeaderAdminLayout from "@/components/shared/Headers/HeaderAdminLayout";
 import MainTextField from "@/components/ui/textField&inputs/MainTextField";
 import Select from "@/components/utils-components/Select/Select";
-import { fakeCategory } from "../../sessions/add/TopicForm";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import { MenuBodyType } from "@/types/services/menu.t";
+import { useAlert } from "@/context/AlertProvider";
+import Loader from "@/components/ui/loader/Loader";
+import {
+  useCreateMenuMutation,
+  useGetAllMenusQuery,
+} from "@/services/menu&subMenus/menuApiSlice";
 function MenuForm() {
   const {
     register,
+    reset,
     handleSubmit,
     formState: { errors },
-  } = useForm();
-  const [menu, setMenu] = useState({ label: "", value: "" });
+  } = useForm<MenuBodyType>();
+
+  // states
+  const [menu, setMenu] = useState({ label: "انتخاب منو اصلی", value: "" });
+  const { showAlert } = useAlert();
+  // reqs from server
+  const { data: menus, isLoading: isMenusLoading } = useGetAllMenusQuery();
+  const [createMenu, { isLoading }] = useCreateMenuMutation();
+  // menus options
+  const menuOptions = menus
+    ?.map((menu) => {
+      if (!isMenusLoading) {
+        return { label: menu.title, value: menu._id };
+      }
+    })
+    .concat({ label: "انتخاب منوی اصلی", value: "" })
+    .reverse();
+  const renderTextField = (
+    name: keyof MenuBodyType,
+    placeholder: string,
+    type = "text"
+  ) => (
+    <MainTextField
+      register={register}
+      name={name}
+      id={name}
+      errors={errors}
+      placeHolder={placeholder}
+      variant="rounded"
+      type={type}
+      validattionschema={{
+        required: { value: true, message: "پر کردن این فیلد الزامی است" },
+      }}
+      size="largeSize"
+      className="w-full"
+      wrapperStyles="flex flex-col xl:h-[55px]"
+    />
+  );
+
+  // create handler
+  const createHandler = async (data: MenuBodyType) => {
+    try {
+      const menuBody = {
+        ...data,
+        parent: menu.value.trim().length ? menu.value : undefined,
+      };
+      const result = await createMenu(menuBody).unwrap();
+      showAlert("success", result.message);
+    } catch (error: any) {
+      error?.message.forEach((err: any) => {
+        return showAlert("error", err.message);
+      });
+    } finally {
+      reset();
+    }
+  };
   return (
     <HeaderAdminLayout title="افزودن منو جدید">
       <form
+        onSubmit={handleSubmit(createHandler)}
         autoComplete="on"
         className="flex flex-col gap-y-6  
         relative py-6 container"
       >
         <div className={`${styles.input_group}`}>
-          <MainTextField
-            register={register}
-            name="title"
-            id="title"
-            errors={errors}
-            placeHolder="عنوان منو ..."
-            variant="rounded"
-            type="text"
-            size="largeSize"
-            className="w-full"
-          />
-          <MainTextField
-            register={register}
-            name="link"
-            id="link"
-            errors={errors}
-            placeHolder="لینک منو ..."
-            variant="rounded"
-            type="text"
-            size="largeSize"
-            className="w-full"
-          />
+          {renderTextField("title", "عنوان منو ...")}
+          {renderTextField("href", "لینک منو ...")}
         </div>
         <div className={`${styles.input_group}`}>
           <Select
-            options={fakeCategory}
+            options={menuOptions as { label: string; value: string }[]}
             onChange={(e) =>
               setMenu({ value: e.target.value, label: menu.label })
             }
@@ -64,7 +106,7 @@ function MenuForm() {
           variant="fill"
           size="lg"
         >
-          افزودن منو
+          {isLoading ? <Loader loadingCondition={isLoading} /> : "افزودن منو"}
         </PrimaryBtn>
       </form>
     </HeaderAdminLayout>

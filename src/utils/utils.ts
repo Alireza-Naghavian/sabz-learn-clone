@@ -6,3 +6,12 @@ export const getFromStorage = (key:string) => {
   const data = JSON.parse(localStorage.getItem(key) as string);
   return data;
 };
+
+export const  formatPriceNumber = (input:string)=>{
+let value = String(input?.replace(/\D/g,""))
+if(value){
+  value = String(value.replace(/\B(?=(\d{3})+(?!\d))/g, ","))
+
+}
+return value
+}

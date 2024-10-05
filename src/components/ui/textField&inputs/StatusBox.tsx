@@ -1,9 +1,7 @@
 import { StatusBoxType } from "@/types/textFilels.t";
 import React from "react";
 
-function StatusBox({
-  status,
-  setStatus,
+function StatusBox<Value,Name>({
   value,
   title,
   watch,
@@ -11,19 +9,22 @@ function StatusBox({
   Icon,
   name,
   className,
+  validattionschema,
+  status,
+  setStatus,
   wrapperStyles
-}: StatusBoxType) {
+}: StatusBoxType<Value,Name>) {
   return (
     <div className={`basis-[50%] h-[50px] 
       overflow-hidden relative ${wrapperStyles}`}>
       <div
-        onClick={() => setStatus(value)}
+       onClick={() => setStatus(value as string)} 
         className={` absolute transition-all duration-300 inset-0 z-20 ${
-                    status == value ? "bg-baseColor" : "dark:bg-dark bg-gray-200"
+          status == value ? "bg-baseColor" : "dark:bg-dark bg-gray-200"
                   }  ${className}`}
       >
         <label
-          htmlFor={name}
+          htmlFor={name as string}
           className="flex items-center  justify-center gap-y-1 w-full h-full"
         >
           <div className="w-1/2">
@@ -35,12 +36,12 @@ function StatusBox({
         </label>
       </div>
       <input
-        checked={watch(status) === value}
+       checked={watch(name) ===value}
         type="radio"
         name={name}
         id={name}
         value={value}
-        {...register(name, { required: true })}
+        {...register(name,validattionschema)}
         className="flex  w-full h-full absolute invisible z-10"
       />
     </div>

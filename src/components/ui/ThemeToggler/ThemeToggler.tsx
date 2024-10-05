@@ -2,7 +2,8 @@
 import { MoonIcon, SunIcon } from "@heroicons/react/24/outline";
 import React, { useEffect, useState } from "react";
 import Button from "../button/Button";
-import { getFromStorage, saveToStorage } from "@/utils/darkMode";
+import { getFromStorage, saveToStorage } from "@/utils/utils";
+
 function ThemeToggler({className}:{className?:string}) {
   const [theme, setTheme] = useState<string | null>(null);
   useEffect(() => {

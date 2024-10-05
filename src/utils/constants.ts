@@ -1,10 +1,11 @@
 import {
   AdminDropDownType,
   DeptType,
+  OptionType,
   RoeadMapType,
   SlogengType,
   SortType,
-  UserPanelOpType,
+  UserPanelOpType
 } from "@/types/consts.t";
 import {
   AdjustmentsVerticalIcon,
@@ -18,18 +19,14 @@ import {
   CodeBracketSquareIcon,
   DocumentIcon,
   DocumentPlusIcon,
-  DocumentTextIcon,
-  FolderIcon,
-  FolderMinusIcon,
   FolderOpenIcon,
   HomeIcon,
-  ListBulletIcon,
   PercentBadgeIcon,
   PlusIcon,
   TicketIcon,
   UserIcon,
   UsersIcon,
-  VideoCameraIcon,
+  VideoCameraIcon
 } from "@heroicons/react/24/outline";
 import { Front_Icon, PythonIcon, SecurityIcon, SoftSkillIcon } from "./Icons";
 
@@ -250,3 +247,20 @@ export const suppurtOptions = [
   { value: "", label: "روش پشتیبانی" },
   { value: "online", label: "آنلاین" },
 ];
+export const rareOption ={
+  label:"دسته بندی را انتخاب کنید",
+  value:""
+}
+
+export const roleOptions:OptionType[] = [
+  {label:"ادمین",value:"ADMIN"},
+  {label:"کاربر",value:"USER"},
+]
+export const BanStatusOptions :OptionType[] = [
+ {label:"بن کردن",value:"BAN"},
+ {label:"آزاد کردن",value:"Free"} 
+]
+export const initailSelectState = {
+  label: "",
+  value: "",
+};

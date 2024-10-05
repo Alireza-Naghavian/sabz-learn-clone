@@ -35,3 +35,5 @@ export type SortType = {
   label: string;
 };
 export type DeptType = { value: string; label: string };
+
+export type OptionType = {label:string,value:string}

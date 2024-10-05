@@ -5,6 +5,7 @@ export type UserType = {
   role: "ADMIN" | "USER";
   createdAt: Date;
   updatedAt: Date;
+  userCourse:[]
 };
 export type GetmeType = {
   user: UserType;
