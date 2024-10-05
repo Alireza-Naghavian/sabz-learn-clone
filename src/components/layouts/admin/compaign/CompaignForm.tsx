@@ -44,7 +44,6 @@ function CompaignForm() {
       const result = await startCompaign(data).unwrap();
       showAlert("success", result.message);
     } catch (error: any) {
-      console.log(error);
       error?.data?.message?.forEach((err: any) => {
         return showAlert("error", err.message);
       });

@@ -49,12 +49,14 @@ export type MainTextFieldType = {
   register: any;
   Icon?:IconType
   errors: any;
+  require?:boolean
   validattionschema?: RegisterOptions;
-  onChange?:ChangeEventHandler<HTMLInputElement>
   readOnly?: boolean;
   wrapperStyles?:string
 }
-
+export type PriceTextFieldType = MainTextFieldType&{
+  onChange?:ChangeEventHandler<HTMLInputElement>
+}
 export type StatusBoxType<Value,Name> = {
   value: Value;
   title: string;

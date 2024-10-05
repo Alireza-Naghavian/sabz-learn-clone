@@ -19,6 +19,7 @@ import dynamic from "next/dynamic";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
 import styles from "./course_form.module.css";
+import PriceTextField from "@/components/ui/textField&inputs/PriceTextField";
 const TextEditor = dynamic(
   () => import("@/components/utils-components/textEditor/TextEditor"),{ssr: false,}
 );
@@ -140,7 +141,7 @@ function CourseForm() {
       </div>
       {/* input group */}
       <div className={`${styles.input_group}`}>
-        <MainTextField
+        <PriceTextField
           register={register}
           name="price"
           id="price"

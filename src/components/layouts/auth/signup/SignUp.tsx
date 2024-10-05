@@ -4,7 +4,9 @@ import Loader from "@/components/ui/loader/Loader";
 import MainTextField from "@/components/ui/textField&inputs/MainTextField";
 import { useAlert } from "@/context/AlertProvider";
 import { useGetMeQuery, useSignUpMutation } from "@/services/auth/authApiSlice";
+import { IconType } from "@/types/icon.t";
 import { CreateUserType } from "@/types/services/authapi.t";
+import { RegisterOptions } from "@/types/textFilels.t";
 import { getFromStorage } from "@/utils/utils";
 import {
   EnvelopeIcon,
@@ -21,8 +23,8 @@ function SignUp() {
   const {
     register,
     handleSubmit,
-    formState: { errors },
-  } = useForm<CreateUserType>();
+    formState: { errors, dirtyFields, isValid },
+  } = useForm<CreateUserType>({ mode: "onChange" });
   const [SignUp, { isLoading }] = useSignUpMutation();
   const { refetch } = useGetMeQuery();
   const { showAlert } = useAlert();
@@ -38,7 +40,7 @@ function SignUp() {
       const { email, password, username } = data;
       const result = await SignUp({ email, password, username }).unwrap();
       showAlert("success", result.message);
-    await  refetch();
+      await refetch();
       replace("/");
     } catch (error) {
       const fetchError = error as FetchBaseQueryError;
@@ -50,6 +52,27 @@ function SignUp() {
       }
     }
   };
+  const renderTextField = (
+    name: keyof CreateUserType,
+    placeholder: string,
+    validattionschema?: RegisterOptions,
+    type = "text",
+    Icon?: IconType
+  ) => (
+    <MainTextField
+      register={register}
+      name={name}
+      id={name}
+      errors={errors}
+      placeHolder={placeholder}
+      variant="rounded"
+      type={type}
+      Icon={Icon}
+      validattionschema={validattionschema}
+      size="largeSize"
+      className="w-full"
+    />
+  );
   return (
     <div>
       <h4 className="font-DanaBold text-xl mb-4 sm:mb-4.5">عضویت</h4>
@@ -65,68 +88,53 @@ function SignUp() {
         className="space-y-5"
       >
         <div className="relative">
-          <MainTextField
-            placeHolder="نام کاربری"
-            name="username"
-            id="username"
-            type="text"
-            register={register}
-            errors={errors}
-            Icon={UserIcon}
-            variant="rounded"
-            size="largeSize"
-            validattionschema={{
+          {renderTextField(
+            "username",
+            "نام کاربری",
+            {
               required: { value: true, message: "نام کاربری الزامی می‌باشد" },
-            }}
-            required={false}
-          />
+            },
+            "text",
+            UserIcon
+          )}
         </div>
         <div className="relative">
-          <MainTextField
-            placeHolder="آدرس ایمیل"
-            name="email"
-            id="email"
-            className="relative"
-            type="email"
-            register={register}
-            Icon={EnvelopeIcon}
-            errors={errors}
-            validattionschema={{
+          {renderTextField(
+            "email",
+            "آدرس ایمیل",
+            {
               required: { value: true, message: "ایمیل الزامی می باشد" },
               pattern: {
                 value: /^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/,
                 message: "ایمیل وارد شده معتبر نمی باشد",
               },
-            }}
-            variant="rounded"
-            size="largeSize"
-            required={false}
-          />
+            },
+            "email",
+            EnvelopeIcon
+          )}
         </div>
         <div className="relative">
-          <MainTextField
-            placeHolder="رمز عبور"
-            name="password"
-            id="password"
-            type="password"
-            register={register}
-            errors={errors}
-            variant="rounded"
-            Icon={LockClosedIcon}
-            size="largeSize"
-            validattionschema={{
+          {renderTextField(
+            "password",
+            "رمز عبور",
+            {
               required: { value: true, message: "کلمه عبور الزامی می باشد" },
               minLength: { value: 8, message: "حداقل ۸ کاراکتر" },
-            }}
-            required={false}
-          />
+            },
+            "password",
+            LockClosedIcon
+          )}
         </div>
         <PrimaryBtn
-          disabled={isLoading}
+          disabled={isLoading || !isValid || !Object.keys(dirtyFields).length}
           variant="fill"
           size="xl"
           type="submit"
-          className="w-full"
+          className={`w-full transition-all duration-300 ${
+            !isValid || !Object.keys(dirtyFields).length
+              ? "opacity-50"
+              : "opacity-100"
+          }`}
         >
           {isLoading ? <Loader loadingCondition={isLoading} /> : "عضویت"}
         </PrimaryBtn>

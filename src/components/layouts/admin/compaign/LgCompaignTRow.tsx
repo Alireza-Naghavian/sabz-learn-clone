@@ -37,8 +37,10 @@ function LgCompaignTRow({endDate,index,title,_id,discount,active}:CompaignTableD
       <td>{title}</td>
       <td>{new Date(endDate).toLocaleDateString("fa-IR",{dateStyle:"full"})}</td>
       <td>{discount}%</td>
-      <td className={`${active? "bg-baseColor":"bg-secondary"} p-1 rounded-xl`}>{active ? "درحال برگزاری" : "به اتمام رسیده"}</td>
-      <td><TrashIcon onClick={()=>open()} className='text-red-500 cursor-pointer size-6'/></td>
+      <td className={`${active? "bg-baseColor":"bg-secondary"}
+       p-1 rounded-xl`}>{active ? "درحال برگزاری" : "به اتمام رسیده"}</td>
+      <td><TrashIcon onClick={()=>open()} className='text-red-500 
+      cursor-pointer size-6'/></td>
       {_id !== undefined && (
         <DeleteModal
           identifier={_id}

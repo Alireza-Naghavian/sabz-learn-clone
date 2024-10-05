@@ -4,6 +4,7 @@ import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import Loader from "@/components/ui/loader/Loader";
 import TextLoader from "@/components/ui/loader/TextLoader";
 import MainTextField from "@/components/ui/textField&inputs/MainTextField";
+import PriceTextField from "@/components/ui/textField&inputs/PriceTextField";
 import SimpleCheckBox from "@/components/ui/textField&inputs/SimpleCheckBox";
 import StatusBox from "@/components/ui/textField&inputs/StatusBox";
 import TextAriaField from "@/components/ui/textField&inputs/TextAriaField";
@@ -21,7 +22,13 @@ import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
-function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
+function EditCourseForm({
+  shortName,
+  _id,
+}: {
+  shortName: string;
+  _id: string;
+}) {
   const { data, isLoading: isCourseLoading } = useGetCourseQuery({ shortName });
   const { data: userData } = useGetMeQuery();
   const [updateCourse, { isLoading: isUpdating }] = useUpdateCourseMutation();
@@ -47,12 +54,10 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
     },
   });
   const { showAlert } = useAlert();
-  const [price, setPrice] = useState<string>(
-    data?.price?.toString() ||""
-  );
+  const [price, setPrice] = useState<string>(data?.price?.toString() || "");
   const [status, setStatus] = useState(data?.status as string);
   const { data: categories } = useGetAllCatQuery();
-  const {refresh} = useRouter();
+  const { refresh } = useRouter();
   const [category, setCategory] = useState({
     label: data?.categoryID?.title,
     value: data?.categoryID?._id as string,
@@ -81,9 +86,8 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
     }
   }, [data, reset]);
   const handlePriceChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const rawPrice = e.target.value.replace(/[^0-9]/g, '');
+    const rawPrice = e.target.value.replace(/[^0-9]/g, "");
     setPrice(rawPrice);
-
   };
   const catOptions = categories
     ?.map((category) => {
@@ -95,8 +99,8 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
     try {
       const updateBody: SingleCourseData = {
         ...data,
-        _id:_id,
-        categoryID:category.value as any,
+        _id: _id,
+        categoryID: category.value as any,
         creator: userData?.user._id as string,
         price: Number(price),
         status,
@@ -104,14 +108,19 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
       const result = await updateCourse(updateBody).unwrap();
       showAlert("success", result.message);
       refresh();
-    } catch (error:any) {
-      error?.message.forEach((err:any)=>{
-        return showAlert("error",err.message)
-      })
+    } catch (error: any) {
+      error?.message.forEach((err: any) => {
+        return showAlert("error", err.message);
+      });
     }
   };
   if (isCourseLoading) return <TextLoader loadingCondition={isCourseLoading} />;
-  const renderTextField = (name: keyof SingleCourseData, label: string, type = "text", placeholder = "") => (
+  const renderTextField = (
+    name: keyof SingleCourseData,
+    label: string,
+    type = "text",
+    placeholder = ""
+  ) => (
     <MainTextField
       register={register}
       name={name}
@@ -129,7 +138,7 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
       onSubmit={handleSubmit(updateHanlder)}
       className="flex flex-col gap-y-4 px-6 py-4 max-h-[480px] overflow-y-auto"
     >
-     {renderTextField("name", "عنوان دوره")}
+      {renderTextField("name", "عنوان دوره")}
       <Select
         options={catOptions as { label: string; value: string }[]}
         onChange={(e) =>
@@ -141,7 +150,7 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
         value={category.value !== undefined && category.value}
         className="  !gap-y-0 px-4  !py-3 !mt-0 focus:outline-none "
       />
-     {renderTextField("cover", "لینک کاور دوره", "url")}
+      {renderTextField("cover", "لینک کاور دوره", "url")}
       <div className="flex">
         <StatusBox
           status={status}
@@ -170,7 +179,7 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
       {renderTextField("shortName", "لیبل دوره")}
       {renderTextField("discount", "تخفیف دوره", "number")}
       {renderTextField("duration", "زمان دوره")}
-      <MainTextField
+      <PriceTextField
         register={register}
         name="price"
         id="price"
@@ -188,7 +197,6 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
         id="isFree"
         errors={errors}
         type="checkbox"
-       
         label="این دوره رایگان است"
         className="child:!text-lg w-fit"
         required={false}
@@ -199,7 +207,6 @@ function EditCourseForm({ shortName ,_id}: { shortName: string,_id:string }) {
         id="isComplete"
         errors={errors}
         type="checkbox"
-       
         label="این دوره تکمیل است "
         className="child:!text-lg w-fit"
         required={false}

@@ -35,8 +35,8 @@ function MainTextField({
   errors,
   Icon,
   readOnly = false,
-  onChange,
   wrapperStyles,
+  require,
   ...props
 }: MainTextFieldType) {
   return (
@@ -51,12 +51,12 @@ function MainTextField({
       <input
         {...register(name, validattionschema)}
         id={id}
-        value={value}
-        onChange={onChange}
+        value={value && value}
         name={name}
         type={type}
         readOnly={readOnly}
         placeholder={placeHolder}
+        required={require}
         className={inputGroup({ variant, className, size })}
         {...props}
       />
