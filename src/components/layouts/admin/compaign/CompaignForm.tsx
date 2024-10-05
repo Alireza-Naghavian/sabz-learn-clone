@@ -1,102 +1,90 @@
-"use client"
-import React, { useState } from 'react'
-import { useForm } from 'react-hook-form';
-import styles from "@/components/layouts/admin/Courses/CourseForm/course_form.module.css"
-import MainTextField from '@/components/ui/textField&inputs/MainTextField';
-import Select from '@/components/utils-components/Select/Select';
-import PrimaryBtn from '@/components/ui/button/PrimaryBtn';
-
+"use client";
+import styles from "@/components/layouts/admin/Courses/CourseForm/course_form.module.css";
+import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import Loader from "@/components/ui/loader/Loader";
+import MainTextField from "@/components/ui/textField&inputs/MainTextField";
+import { useAlert } from "@/context/AlertProvider";
+import { useStartCompaignMutation } from "@/services/compaigns/compaignSlice";
+import { CompaignBodyType } from "@/types/services/compaign.t";
+import { useForm } from "react-hook-form";
 function CompaignForm() {
-    const {
-        register,
-        formState: { errors },
-      } = useForm();
-      const [categories,setCategories] = useState({value:"",label:""})
+  const {
+    register,
+    reset,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<CompaignBodyType>();
+  const { showAlert } = useAlert();
+  const [startCompaign, { isLoading }] = useStartCompaignMutation();
+  const renderTextField = (
+    name: keyof CompaignBodyType,
+    label: string,
+    type: string,
+    placeHolder?: string
+  ) => {
+    return (
+      <MainTextField
+        register={register}
+        name={name}
+        id={name}
+        errors={errors}
+        label={label}
+        placeHolder={placeHolder}
+        variant="rounded"
+        type={type}
+        size="largeSize"
+        validattionschema={{ required: "این فیلد نمی تواند خالی باشد" }}
+        wrapperStyles="flex flex-col xl:h-[95px]"
+        className="w-full"
+      />
+    );
+  };
+  const createHanalder = async (data: CompaignBodyType) => {
+    try {
+      const result = await startCompaign(data).unwrap();
+      showAlert("success", result.message);
+    } catch (error: any) {
+      console.log(error);
+      error?.data?.message?.forEach((err: any) => {
+        return showAlert("error", err.message);
+      });
+    } finally {
+      reset();
+    }
+  };
   return (
-    <form   className="flex flex-col gap-y-6   relative py-6 container"
-    autoComplete="on">
-
-    <div className={`${styles.input_group}`}>
-    <MainTextField
-            register={register}
-            name="title"
-            id="title"
-            errors={errors}
-            label='عنوان کمپین'
-            placeHolder=" عنوان کمپین مورد نظر ..."
-            variant="rounded"
-            type="text"
-            size="largeSize"
-            className="w-full"
-          />
-          <Select
-            options={[]}
-            selectTitle='دسته بندی مورد نظر'
-            value={categories.value}
-            onChange={(e) =>
-                setCategories({ value: e.target.value, label: categories.label })
-            }
-            className="  !gap-y-0 px-4  !py-3 !mt-1.5 focus:outline-none "
-          />
-    </div>
-    <div className={`${styles.input_group}`}>
-    <MainTextField
-            register={register}
-            name="fixBanner"
-            id="fixBanner"
-            errors={errors}
-            label='بنر فیکس'
-            variant="rounded"
-            type="file"
-            size="largeSize"
-            className="w-full"
-          />
-           <MainTextField
-            register={register}
-            name="mainBanner"
-            id="mainBanner"
-            errors={errors}
-            label='بنر اصلی'
-            variant="rounded"
-            type="file"
-            size="largeSize"
-            className="w-full"
-          />
-    </div>
-    <div className={`${styles.input_group}`}>
-    <MainTextField
-            register={register}
-            name="eventTime"
-            id="eventTime"
-            errors={errors}
-            label='مدت زمان برگزاری'
-            variant="rounded"
-            type="datetime-local"
-            size="largeSize"
-            className="w-full"
-          />
-           <MainTextField
-            register={register}
-            name="eventpercent"
-            id="eventpercent"
-            errors={errors}
-            label='درصد تخفیف '
-            variant="rounded"
-            type="number"
-            size="largeSize"
-            className="w-full"
-          />
-    </div>
-    <PrimaryBtn
-          variant="fill"
-          size="lg"
-          type="submit"
-          className="mr-auto w-full md:w-[100px] rounded-xl px-6 py-2"
-        >
-          افزودن
-        </PrimaryBtn>
+    <form
+      onSubmit={handleSubmit(createHanalder)}
+      className="flex flex-col gap-y-6   relative py-6 container"
+      autoComplete="on"
+    >
+      <div className={`${styles.input_group}`}>
+        {renderTextField(
+          "title",
+          "عنوان کمپین",
+          "text",
+          "عنوان کمپین را وارد کنید"
+        )}
+      </div>
+      <div className={`${styles.input_group}`}>
+        {renderTextField("fixCover", "بنر فیکس", "file")}
+        {renderTextField("mainCover", "بنر اصلی", "file")}
+      </div>
+      <div className={`${styles.input_group}`}>
+        {renderTextField("endDate", "مدت زمان برگزاری", "datetime-local")}
+        {renderTextField("percent", "درصد تخفیف ", "number")}
+      </div>
+      <PrimaryBtn
+        variant="fill"
+        size="lg"
+        type="submit"
+        className="mr-auto w-full md:w-[100px]
+           rounded-xl px-6 py-2"
+      >
+        {isLoading ? <Loader loadingCondition={isLoading} /> : "افزودن"}
+      </PrimaryBtn>
     </form>
-  )
+  );
 }
 
-export default CompaignForm
+export default CompaignForm;
