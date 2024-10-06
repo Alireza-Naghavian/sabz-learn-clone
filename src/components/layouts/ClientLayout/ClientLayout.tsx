@@ -1,11 +1,11 @@
 import Footer from '@/components/shared/Footer/Footer'
 import NavBarLayout from '@/components/shared/navbar/NavBarLayout'
+import { MenuBodyType } from '@/types/services/menu.t'
 import React from 'react'
-
-function ClientLayout({children}:{children:React.ReactNode}) {
+function ClientLayout({children,menu}:{children:React.ReactNode,menu:MenuBodyType[]}) {
   return (
     <>
-    <NavBarLayout />
+    <NavBarLayout menu={menu} />
     {children}
     <Footer/>
     </>

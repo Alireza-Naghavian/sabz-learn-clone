@@ -4,6 +4,7 @@ export type CatBodytype = {
   _id?: string;
   title: string;
   link: string;
+  Courses?:CourseBodyType[];
 };
 export type CreateCatMgs = {
   message: string;
@@ -21,6 +22,7 @@ export type CourseBodyType = {
   status: string;
   shortName: string;
   duration: string;
+  courseAverageScore:number
   price: number;
   support: string;
   description: string;
@@ -30,6 +32,7 @@ export type CourseBodyType = {
   preReq: string;
   inProgress?: string;
   preOrder?: string;
+  discount?:number,
   topics?: {
     _id?: string;
     title: string;

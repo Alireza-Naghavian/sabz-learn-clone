@@ -22,6 +22,7 @@ export type RoeadMapType = {
   target: string;
   Icon: IconType;
   title: string;
+  courses?:[]
 };
 
 export type SlogengType = Pick<RoeadMapType, "title" | "Icon"> & {

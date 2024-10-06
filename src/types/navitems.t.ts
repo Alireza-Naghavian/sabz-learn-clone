@@ -3,6 +3,7 @@ import { IconType } from "./icon.t";
 export type NavItemType = {
   title: string;
   target: string;
+  subMenus?:[{title:string,href:string,_id?:string}]
   className?: string;
   onClick?: () => void;
 };

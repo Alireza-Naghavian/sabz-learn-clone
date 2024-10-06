@@ -5,8 +5,15 @@ import { SearchForm } from "@/components/ui/SearchBox/SearchBox";
 import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
 import { useState } from "react";
 import styles from "./navbar.module.css";
-function MobileMenu({ close }: { close: () => void }) {
-  const [openDropdown, setOpenDropdown] = useState<string | null>(null); 
+import { MenuBodyType } from "@/types/services/menu.t";
+function MobileMenu({
+  close,
+  menu,
+}: {
+  close: () => void;
+  menu: MenuBodyType[];
+}) {
+  const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toggleDropdown = (id: string) => {
     setOpenDropdown(openDropdown === id ? null : id);
   };
@@ -25,38 +32,32 @@ function MobileMenu({ close }: { close: () => void }) {
           placeholder="چی میخوای یاد بگیری؟"
         />
       </div>
-      <DropDown
-        id="frontend"
-        close={close}
-        isOpen={openDropdown === "frontend" }
-        toggle={toggleDropdown}
-        className="mt-6"
-        label="فرانت اند"
-      >
-        <ul className="flex flex-col gap-y-4 w-full my-4 ">
-          <NavItem  onClick={() => close()} target="/" title="آموزش html" />
-          <NavItem onClick={() => close()} target="" title="js course" />
-          <NavItem onClick={() => close()} target="" title="js course" />
-          <NavItem onClick={() => close()} target="" title="js course" />
-          <NavItem onClick={() => close()} target="" title="js course" />
-        </ul>
-      </DropDown>
-      <DropDown
-        id="backend"
-        close={close}
-        isOpen={openDropdown === "backend" }
-        toggle={toggleDropdown}
-        className="mt-6"
-        label="بک اند"
-      >
-        <ul className="flex flex-col gap-y-4 w-full  my-4">
-          <NavItem onClick={() => close()} target="/" title="آموزش html" />
-          <NavItem onClick={() => close()} target="" title="js course" />
-          <NavItem onClick={() => close()} target="" title="js course" />
-          <NavItem onClick={() => close()} target="" title="js course" />
-          <NavItem onClick={() => close()} target="" title="js course" />
-        </ul>
-      </DropDown>
+      {menu.map((menu, index) => {
+        return (
+          <DropDown
+            key={index}
+            id={menu.href}
+            close={close}
+            isOpen={openDropdown === menu.href}
+            toggle={toggleDropdown}
+            className="mt-6"
+            label={menu.title}
+          >
+            <ul className="flex flex-col gap-y-4 w-full my-4 ">
+              {menu.submenus.map((submenu) => {
+                return (
+                  <NavItem
+                    key={submenu._id}
+                    onClick={() => close()}
+                    target={`${submenu.href}`}
+                    title={submenu.title}
+                  />
+                );
+              })}
+            </ul>
+          </DropDown>
+        );
+      })}
     </>
   );
 }

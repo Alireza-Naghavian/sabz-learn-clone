@@ -7,7 +7,8 @@ import DesktopMenu from "./DesktopMenu";
 import styles from "./navbar.module.css";
 import SideBarMenu from "./SideBarMenu";
 import UserDataSection from "./UserDataSection";
-function NavBarLayout() {
+import { MenuBodyType } from "@/types/services/menu.t";
+function NavBarLayout({menu}:{menu:MenuBodyType[]}) {
 
   return (
     <header className="bg-white dark:bg-darker">
@@ -17,7 +18,7 @@ function NavBarLayout() {
           className={` only-icon  rounded-full box-center
            bg-gray-100 dark:bg-white/5  lg:hidden`}
         >
-          <SideBarMenu />
+          <SideBarMenu  menu={menu} />
         </div>
         {/* navbar section */}
         <nav className="flex items-center h-13">
@@ -26,7 +27,7 @@ function NavBarLayout() {
           {/* mobile menu */}
 
           {/* main menu */}
-          <DesktopMenu />
+          <DesktopMenu menu={menu} />
         </nav>
         {/* left side navbar */}
         <div className="flex  gap-x-6 h-13">

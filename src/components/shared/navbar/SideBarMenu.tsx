@@ -6,8 +6,9 @@ import MobileMenu from "./MobileMenu";
 import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import useScrollLocker from "@/hooks/useScrollLocker";
+import { MenuBodyType } from "@/types/services/menu.t";
 
-function SideBarMenu() {
+function SideBarMenu({menu}:{menu:MenuBodyType[]}) {
   const [isMenuOpen, { open, close }] = useDisclosure();
   useScrollLocker(isMenuOpen)
   return (
@@ -25,7 +26,7 @@ function SideBarMenu() {
         fixed top-0 bottom-0 right-0 z-50 p-4.5 transition-all
          duration-300 transform 
          ${isMenuOpen ? "translate-x-0" : "translate-x-[40rem]"} `}>
-        <MobileMenu  close={close}/>
+        <MobileMenu menu={menu}  close={close}/>
       </div>
     </>
   );

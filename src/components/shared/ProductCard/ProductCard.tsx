@@ -11,7 +11,7 @@ import styles from "./ProductCard.module.css";
 function CourseCard({ children }: ChildrenProps) {
   return (
     <div
-      className={`flex flex-col bg-white dark:bg-darker 
+      className={`flex flex-col h-[400px] bg-white dark:bg-darker 
      border-neutral-100 border dark:border-none  rounded-2xl`}>
       {children}
     </div>
@@ -19,7 +19,7 @@ function CourseCard({ children }: ChildrenProps) {
 }
 function CardHeader({ src, alt, title, target, badge}: CardHeaderType) {
   return (
-    <div className="relative h-42 group  ">
+    <div className="relative h-[164px] group  ">
       <Link className="block w-full h-full"  href={target}>
         <ResponsiveImage
           imageStyles="!relative !block !w-full !h-full !bg-darker    !object-cover rounded-2xl"
@@ -36,12 +36,12 @@ function CardHeader({ src, alt, title, target, badge}: CardHeaderType) {
 
 const CardBody  =({title,desc,target}: { title: string,desc?:string,target:string }) =>{
   return (
-    <div className="flex-grow px-4.5 pt-4 pb-3 dark:bg-darker ">
+    <div className="flex-grow  px-4.5 pt-4 pb-3 dark:bg-darker ">
       <h3 className="font-DanaMedium line-clamp-2 mb-3">
         <Link href={target}>{title}</Link>
       </h3>
       {/* desc */}
-      <p className="text-sm line-clamp-2 opacity-70">{desc}</p>
+      <p className="text-sm line-clamp-2 opacity-70 mt-auto ">{desc}</p>
     </div>
   );
 };
@@ -80,13 +80,13 @@ const CardFooter = ({
           <UsersIcon className="w-5 h-5" />
           <span>{member}</span>
         </span>
-        <div className="flex flex-col gap-y-2 my-1  ">
+        <div className="flex flex-col gap-y-2 my-1">
           {isOff && (
             <span
               className="text-sm text-slate-500 justify-self-end
             dark:text-white/70 -mb-1.5 line-through"
             >
-              {Number(2_300_000).toLocaleString("fa-IR")}
+              {Number(price).toLocaleString("fa-IR")}
             </span>
           )}
           {!isFree ? (

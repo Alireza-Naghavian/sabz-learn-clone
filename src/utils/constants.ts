@@ -63,25 +63,25 @@ export const Roadmaps: RoeadMapType[] = [
   {
     gr_colors: "from-[#30c5e4] to-[#2ae558]",
     Icon: SecurityIcon,
-    target: "امنیت",
+    target: "/security",
     title: "امنیت",
   },
   {
     gr_colors: "from-[#FFB535] to-[#F2295B]",
     Icon: Front_Icon,
-    target: "فرانت اند",
+    target: "/front-end",
     title: "فرانت اند",
   },
   {
     gr_colors: " from-[#2E9EFF] to-[#9C33F7]",
     Icon: PythonIcon,
-    target: "پایتون",
+    target: "/python",
     title: "پایتون",
   },
   {
     gr_colors: "from-[#FF3571] to-[#880175] ",
     Icon: SoftSkillIcon,
-    target: "مهارت های نرم",
+    target: "/skill-up",
     title: "مهارت های نرم",
   },
 ];
