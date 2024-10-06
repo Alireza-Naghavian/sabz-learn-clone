@@ -5,7 +5,7 @@ import styles from "./navbar.module.css"
 import NavItem from '@/components/ui/navItem/NavItem'
 import { NavItemType } from '@/types/navitems.t'
 
-function NavBarItem({target,title,className}:NavItemType) {
+function NavBarItem({target,title,className,subMenus}:NavItemType) {
   return (
     <li className={className}>
     <Link
@@ -25,11 +25,9 @@ function NavBarItem({target,title,className}:NavItemType) {
         border-neutral-100 dark:border-y
      dark:border-x-0 dark:border-baseColor 
      shadow-sm dark:shadow-none rounded-xl">
-        <NavItem target="#" title="اموزش  html" />
-        <NavItem target="" title="اموزش  html" />
-        <NavItem target="" title="اموزش  html" />
-        <NavItem target="" title="اموزش  html" />
-        <NavItem target="" title="اموزش  html" />
+      {subMenus?.map((menus,index)=>{
+        return    <NavItem key={index} target={menus.href} title={menus.title} />
+      })}
       </div>
     </div>
   </li>

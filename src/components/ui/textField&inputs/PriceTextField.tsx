@@ -56,8 +56,8 @@ function PriceTextField({
         <input
           {...register(name, validattionschema)}
           id={id}
-          // value={value}
-          // onChange={onChange}
+          value={value}
+          onChange={onChange}
           name={name}
           type={type}
           readOnly={readOnly}

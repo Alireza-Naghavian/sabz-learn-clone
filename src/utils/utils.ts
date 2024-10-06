@@ -7,7 +7,7 @@ export const getFromStorage = (key:string) => {
   return data;
 };
 
-export const  formatPriceNumber = (input:string)=>{
+export const  formatPriceNumber = (input:any)=>{
 let value = String(input?.replace(/\D/g,""))
 if(value){
   value = String(value.replace(/\B(?=(\d{3})+(?!\d))/g, ","))

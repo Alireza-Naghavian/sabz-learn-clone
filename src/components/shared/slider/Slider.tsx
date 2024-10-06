@@ -1,12 +1,19 @@
 "use client";
+import { Nav_BtnsType } from "@/components/ui/button/Nav_Btns";
+import { CourseBodyType } from "@/types/services/course&category.t";
+import { Suspense } from "react";
 import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import CourseCard from "../ProductCard/ProductCard";
+import Product_Skelton from "../ProductCard/skelton/Product_Skelton";
 import "./swiper-bundle.min.css";
-import { Nav_BtnsType } from "@/components/ui/button/Nav_Btns";
-const Slider = ({nextClass,prevClass}:Nav_BtnsType) => {
+type SliderType = Nav_BtnsType & {
+  sliderContent: CourseBodyType[];
+};
+const Slider = ({ nextClass, prevClass, sliderContent }: SliderType) => {
   return (
-    <div className="!relative !w-full">
+    <div className=" ">
+         <Suspense  fallback={<Product_Skelton count={8}/>}>
       <Swiper
         navigation={{
           nextEl: `#${nextClass}`,
@@ -34,128 +41,41 @@ const Slider = ({nextClass,prevClass}:Nav_BtnsType) => {
           },
         }}
       >
-        <SwiperSlide>
-          <CourseCard>
-            <CourseCard.Header
-              alt="دوره next js "
-              title="دوره next js"
-              src="/images/next.webp"
-              target=""
-            />
-            <CourseCard.Body
-              target=""
-              title="آموزش الگوریتم و ساختمان داده به زبان ساده"
-              desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
-            />
-            <CourseCard.Footer
-              isFree={true}
-              isOff={true}
-              member={322}
-              percent={10}
-              price={1150000}
-              score={5}
-              teacher="رضا دولتی"
-            />
-          </CourseCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CourseCard>
-            <CourseCard.Header
-              alt="دوره next js "
-              title="دوره next js"
-              src="/images/next.webp"
-              target=""
-            />
-            <CourseCard.Body
-              target=""
-              title="آموزش الگوریتم و ساختمان داده به زبان ساده"
-              desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
-            />
-            <CourseCard.Footer
-              isFree={true}
-              isOff={true}
-              member={322}
-              percent={10}
-              price={1150000}
-              score={5}
-              teacher="رضا دولتی"
-            />
-          </CourseCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CourseCard>
-            <CourseCard.Header
-              alt="دوره next js "
-              title="دوره next js"
-              src="/images/next.webp"
-              target=""
-            />
-            <CourseCard.Body
-              target=""
-              title="آموزش الگوریتم و ساختمان داده به زبان ساده"
-              desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
-            />
-            <CourseCard.Footer
-              isFree={true}
-              isOff={true}
-              member={322}
-              percent={10}
-              price={1150000}
-              score={5}
-              teacher="رضا دولتی"
-            />
-          </CourseCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CourseCard>
-            <CourseCard.Header
-              alt="دوره next js "
-              title="دوره next js"
-              src="/images/next.webp"
-              target=""
-            />
-            <CourseCard.Body
-              target=""
-              title="آموزش الگوریتم و ساختمان داده به زبان ساده"
-              desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
-            />
-            <CourseCard.Footer
-              isFree={true}
-              isOff={true}
-              member={322}
-              percent={10}
-              price={1150000}
-              score={5}
-              teacher="رضا دولتی"
-            />
-          </CourseCard>
-        </SwiperSlide>
-        <SwiperSlide>
-          <CourseCard>
-            <CourseCard.Header
-              alt="دوره next js "
-              title="دوره next js"
-              src="/images/next.webp"
-              target=""
-            />
-            <CourseCard.Body
-              target=""
-              title="آموزش الگوریتم و ساختمان داده به زبان ساده"
-              desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
-            />
-            <CourseCard.Footer
-              isFree={true}
-              isOff={true}
-              member={322}
-              percent={10}
-              price={1150000}
-              score={5}
-              teacher="رضا دولتی"
-            />
-          </CourseCard>
-        </SwiperSlide>
-        {/* {swiperInstance && <Nav_Btns swiper={swiperInstance} />} */}
+        <div className="grid grid-rows-2">
+
+        {sliderContent.map((slider: CourseBodyType, index) => {
+          return (
+            <SwiperSlide key={index}>
+              <CourseCard>
+                <CourseCard.Header
+                  alt={slider.name}
+                  title={slider.name}
+                  src={slider.cover}
+                  target={`/courses/${slider.shortName}`}
+                  />
+                <CourseCard.Body
+                  target={`/courses/${slider.shortName}`}
+                  title={slider.name}
+                  desc={slider.description}
+                  />
+                <CourseCard.Footer
+                  isFree={slider.isFree}
+                  isOff={slider.isFree ? true : false}
+                  member={slider.registers as number}
+                  percent={slider.discount as number}
+                  price={slider.price}
+                  score={slider.courseAverageScore}
+                  teacher={slider.creator}
+                  />
+              </CourseCard>
+            </SwiperSlide>
+                          
+       
+          );
+        })}
+        </div>
       </Swiper>
+      </Suspense>
     </div>
   );
 };

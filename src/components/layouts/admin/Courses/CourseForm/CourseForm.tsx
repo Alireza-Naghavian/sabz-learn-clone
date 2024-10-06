@@ -1,4 +1,3 @@
-/* eslint-disable-next-line padded-blocks */
 "use client";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import Loader from "@/components/ui/loader/Loader";

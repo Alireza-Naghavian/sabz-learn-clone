@@ -1,20 +1,42 @@
 import BlogCard from "@/components/shared/BlogsCard/BlogCard";
 import CourseCard from "@/components/shared/ProductCard/ProductCard";
 import CourseSlider from "@/components/shared/slider/CourseSlider";
-import SecondaryBtn from "@/components/ui/button/SecondaryBtn";
 import ColorShade from "@/components/ui/greenShade/GreenShade";
 import RoadMap from "@/components/ui/RoadMap/RoadMap";
 import SectionTitle from "@/components/ui/SectionTitle/SectionTitle";
 import Slogens from "@/components/ui/Slogens/Slogens";
+import { ArticleTableData } from "@/types/services/articles.t";
+import {
+  CatBodytype,
+  CourseBodyType,
+} from "@/types/services/course&category.t";
+import { MenuBodyType } from "@/types/services/menu.t";
 import { slogensOptions } from "@/utils/constants";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
 import ClientLayout from "../ClientLayout/ClientLayout";
-
-function HomePage() {
+import { Suspense } from "react";
+import Product_Skelton from "@/components/shared/ProductCard/skelton/Product_Skelton";
+function HomePage({
+  menu,
+  latestCoursesUpdated,
+  categories,
+  mostPopularCourses,
+  latestCourses,
+  latestArticles,
+  mostPopularFreeCourses,
+}: {
+  menu: MenuBodyType[];
+  mostPopularCourses: CourseBodyType[];
+  latestCoursesUpdated: CourseBodyType[];
+  categories: CatBodytype[];
+  latestCourses: CourseBodyType[];
+  mostPopularFreeCourses: CourseBodyType[];
+  latestArticles: ArticleTableData[];
+}) {
   return (
-    <ClientLayout>
+    <ClientLayout menu={menu}>
       {/* hero header */}
       <section className="lg:mt-12 relative">
         <div className="container ">
@@ -36,12 +58,13 @@ function HomePage() {
                 و پیشرفت کن
               </p>
               <div className="box-center flex-wrap lg:justify-start gap-4 sm:gap-6 mt-8 sm:mt-10">
-                <SecondaryBtn
-                  target="#category"
+                <a
+                  href="#category"
                   className="button-secondary button-xl rounded-full box-center
                    transition-all duration-300 hover:bg-secondary/75"
-                  title="از این مسیر ها شروع کن"
-                />
+                >
+                  از این مسیر ها شروع کن
+                </a>
                 <Link
                   className="box-center gap-x-2 group font-DanaMedium cursor-pointer"
                   href={"#freeCourses"}
@@ -95,63 +118,47 @@ function HomePage() {
           />
           {/* section content */}
           <div className="grid grid-rows-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 xs:gap-7">
-            <CourseCard>
-              <CourseCard.Header
-                alt="دوره next js "
-                title="دوره next js"
-                src="/images/next.webp"
-                target=""
-              />
-              <CourseCard.Body
-                target=""
-                title="آموزش الگوریتم و ساختمان داده به زبان ساده"
-                desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
-              />
-              <CourseCard.Footer
-                isFree={false}
-                isOff={false}
-                member={322}
-                percent={10}
-                price={1150000}
-                score={5}
-                teacher="رضا دولتی"
-              />
-            </CourseCard>
-            <CourseCard>
-              <CourseCard.Header
-                alt="دوره next js "
-                title="دوره next js"
-                src="/images/next.webp"
-                target=""
-              />
-              <CourseCard.Body
-                target=""
-                title="آموزش الگوریتم و ساختمان داده به زبان ساده"
-                desc="این دوره فرصتی فوق‌العاده برای ارتقاء مهارت‌های فرانت اند شماست. با یادگیری از جدیدترین تکنیک‌ها، انیمیشن‌ها ، ابزارهای پیشرفته و…"
-              />
-              <CourseCard.Footer
-                isFree={true}
-                isOff={true}
-                member={322}
-                percent={10}
-                price={1150000}
-                score={5}
-                teacher="رضا دولتی"
-              />
-            </CourseCard>
+            <Suspense fallback={<Product_Skelton count={12} />}>
+              {latestCoursesUpdated.slice(0, 12).map((course, index) => {
+                return (
+                  <CourseCard key={index}>
+                    <CourseCard.Header
+                      alt={course.name}
+                      title={course.name}
+                      src={course.cover}
+                      target={`/courses/${course.shortName}`}
+                    />
+                    <CourseCard.Body
+                      target={`/courses/${course.shortName}`}
+                      title={course.name}
+                      desc={course.description}
+                    />
+                    <CourseCard.Footer
+                      isFree={course.isFree}
+                      isOff={course.isFree ? true : false}
+                      member={course.registers as number}
+                      percent={course.discount as number}
+                      price={course.price}
+                      score={course.courseAverageScore}
+                      teacher={course.creator}
+                    />
+                  </CourseCard>
+                );
+              })}
+            </Suspense>
           </div>
         </div>
       </section>
 
       {/* road map */}
-      <section className="mt-25">
+      <section className="mt-25" id="category">
         <div className="container ">
           <SectionTitle
             subTitle="نقشه راه برای شروع اصولی یادگیری"
             title="نقشه راه"
             iconColor="bg-fuchsia-500"
           />
-          <RoadMap />
+          <RoadMap categories={categories} />
         </div>
       </section>
       {/* most popular swiper  */}
@@ -161,6 +168,7 @@ function HomePage() {
           title="پرطرفدار ترین دوره ها"
           subTitle="دوره های محبوب و پروژه محور سبزلرن"
           navigationBtn={true}
+          sliderContent={mostPopularCourses as CourseBodyType[]}
         />
       </section>
 
@@ -196,14 +204,15 @@ function HomePage() {
           title="جدیدترین دوره ها"
           subTitle="یادگیری و رشد توسعه فردی"
           navigationBtn={true}
+          sliderContent={latestCourses as CourseBodyType[]}
         />
       </section>
 
       {/* blogs */}
       <section className="mt-25 xs:mt-40">
         <div className="container relative">
-        <ColorShade className="bg-baseColor left-0" />
-        <ColorShade className="bg-sky-500 -right-40 top-40" />
+          <ColorShade className="bg-baseColor left-0" />
+          <ColorShade className="bg-sky-500 -right-40 top-40" />
           <SectionTitle
             title="وبلاگ آموزشی سبزلرن"
             subTitle="مقالات بروز آموزشی"
@@ -212,46 +221,53 @@ function HomePage() {
             linkTitle="مشاهده همه مقالات"
           />
           <div className="grid grid-rows-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 sm:gap-7">
-            <BlogCard/>
-            <BlogCard/>
-            <BlogCard/>
-            <BlogCard/>
+            <Suspense fallback={<Product_Skelton count={4} />}>
+              {latestArticles.map((article, index) => {
+                return <BlogCard key={index} {...article} />;
+              })}
+            </Suspense>
           </div>
         </div>
       </section>
       {/* most pupolar courses */}
       <section className="mt-25 sm:mt-40">
         <div className="container relative">
-        <SectionTitle
+          <SectionTitle
             title="محبوب ترین دوره ها"
-
             subTitle="پرمخاطب ترین دوره های رایگان سبزلرن"
             link="/"
             iconColor="bg-sky-500"
             linkTitle="مشاهده همه دوره ها"
-          />  
+          />
           <div className="grid grid-rows-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 xs:gap-7">
-          <CourseCard>
-              <CourseCard.Header
-                alt="دوره next js "
-                title="دوره next js"
-                src="/images/next.webp"
-                target=""
-              />
-              <CourseCard.Body
-                target=""
-                title="آموزش الگوریتم و ساختمان داده به زبان ساده"
-              />
-              <CourseCard.Footer
-                isFree={true}
-                isOff={true}
-                member={322}
-                percent={10}
-                price={1150000}
-                score={5}
-                teacher="رضا دولتی"
-              />
-            </CourseCard>
+            <Suspense fallback={<Product_Skelton count={12} />}>
+              {mostPopularFreeCourses.map((course, index) => {
+                return (
+                  <CourseCard key={index}>
+                    <CourseCard.Header
+                      alt={course.name}
+                      title={course.name}
+                      src={course.cover}
+                      target={`/courses/${course.shortName}`}
+                    />
+                    <CourseCard.Body
+                      target={`/courses/${course.shortName}`}
+                      title={course.name}
+                      desc={course.description}
+                    />
+                    <CourseCard.Footer
+                      isFree={course.isFree}
+                      isOff={course.isFree ? true : false}
+                      member={course.registers as number}
+                      percent={course.discount as number}
+                      price={course.price}
+                      score={course.courseAverageScore}
+                      teacher={course.creator}
+                    />
+                  </CourseCard>
+                );
+              })}
+            </Suspense>
           </div>
         </div>
       </section>
