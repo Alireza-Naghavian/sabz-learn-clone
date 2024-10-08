@@ -120,6 +120,7 @@ function HomePage({
           <div className="grid grid-rows-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 xs:gap-7">
             <Suspense fallback={<Product_Skelton count={12} />}>
               {latestCoursesUpdated.slice(0, 12).map((course, index) => {
+             
                 return (
                   <CourseCard key={index}>
                     <CourseCard.Header
@@ -140,7 +141,7 @@ function HomePage({
                       percent={course.discount as number}
                       price={course.price}
                       score={course.courseAverageScore}
-                      teacher={course.creator}
+                      teacher={course.creator.username}
                     />
                   </CourseCard>
                 );
@@ -262,7 +263,7 @@ function HomePage({
                       percent={course.discount as number}
                       price={course.price}
                       score={course.courseAverageScore}
-                      teacher={course.creator}
+                      teacher={course.creator.username}
                     />
                   </CourseCard>
                 );

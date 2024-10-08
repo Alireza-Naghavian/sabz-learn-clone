@@ -1,6 +1,7 @@
 import { TextFieldType } from "@/types/textFilels.t";
 import React from "react";
 import "./textFieldStyle.css";
+type CheckBoxesType =Omit<TextFieldType,"register">
 function CheckBoxes({
   className = "",
   type,
@@ -8,13 +9,13 @@ function CheckBoxes({
   label,
   placeHolder = "",
   name,
-  register,
+  onChange,
   required = true,
   errors,
   id,
   readOnly = false,
   wrapperStyle
-}: TextFieldType) {
+}: CheckBoxesType) {
   return (
     <div
       className={`px-7 h-[68px] shadow-light dark:shadow-none bg-white
@@ -34,7 +35,7 @@ function CheckBoxes({
             name={name}
             value={value}
             placeholder={placeHolder}
-            {...register(name)}
+            onChange={onChange}
           />
           {errors && errors[name] && (
             <span className="text-red-500 block text-sm mt-1">

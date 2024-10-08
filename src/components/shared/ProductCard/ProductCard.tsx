@@ -11,15 +11,16 @@ import styles from "./ProductCard.module.css";
 function CourseCard({ children }: ChildrenProps) {
   return (
     <div
-      className={`flex flex-col h-[400px] bg-white dark:bg-darker 
+      className={`flex flex-col lg:h-[400px] bg-white dark:bg-darker 
      border-neutral-100 border dark:border-none  rounded-2xl`}>
       {children}
     </div>
   );
 }
 function CardHeader({ src, alt, title, target, badge}: CardHeaderType) {
+  
   return (
-    <div className="relative h-[164px] group  ">
+    <div className="relative h-42 group  ">
       <Link className="block w-full h-full"  href={target}>
         <ResponsiveImage
           imageStyles="!relative !block !w-full !h-full !bg-darker    !object-cover rounded-2xl"
@@ -91,7 +92,7 @@ const CardFooter = ({
           )}
           {!isFree ? (
             <span className="text-baseColor flex  gap-x-1  font-DanaBold text-lg">
-              <span className="">{price}</span>
+              <span className="">{price.toLocaleString("fa-IR")}</span>
          
              <svg
                 xmlns="http://www.w3.org/2000/svg"

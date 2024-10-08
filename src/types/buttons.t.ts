@@ -2,6 +2,7 @@ import React, { ChangeEventHandler } from "react";
 import { NavItemType } from "./navitems.t";
 import { IconType } from "./icon.t";
 import { SetState } from "./global.t";
+import { CatBodytype } from "./services/course&category.t";
 export type SelectType<T> = {
   value: T;
   onChange: ChangeEventHandler<any>;
@@ -36,4 +37,4 @@ export type Btn_sheet_type = {
 export type Filter_section_type = Pick<
   Btn_sheet_type,
   "isOpen" | "setIsOpen"
-> & { qs?: boolean };
+> & { qs?: boolean ,categories:CatBodytype[]};

@@ -2,8 +2,17 @@ import { Btn_sheet_type } from "@/types/buttons.t";
 import { SortOption } from "@/utils/constants";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Overlay from "../Overlay/Overlay";
+import { useRouter, useSearchParams } from "next/navigation";
 
 function Btn_sort_sheet({ setSort, sort, isOpen, setIsOpen }: Btn_sheet_type) {
+  const searchParams = useSearchParams();
+  const urlSearchParams = new URLSearchParams(searchParams.toString());
+  const router = useRouter();
+  const sortHandler = (title:string,label:string)=>{
+    setSort({label,title})
+    urlSearchParams.set("sort",label);
+    router.replace(`/courses/?${urlSearchParams.toString()}`,{scroll:false})
+  }
   return (
     <>
     <Overlay onClose={()=>setIsOpen(false)} openCondition={isOpen}/>
@@ -19,7 +28,7 @@ function Btn_sort_sheet({ setSort, sort, isOpen, setIsOpen }: Btn_sheet_type) {
           return (
             <button
               key={index}
-              onClick={()=>setSort({title:option.title,label:option.label})}
+              onClick={()=>sortHandler(option.title,option.label)}
               className={`sort-select-btn bottom-sheet__item 
                     bottom-sheet__item--selected`}
             >

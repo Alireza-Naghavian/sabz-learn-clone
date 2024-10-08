@@ -28,7 +28,7 @@ export type CourseBodyType = {
   description: string;
   longDesc: string;
   isFree: boolean;
-  creator: string;
+  creator: {username:string,_id:string};
   preReq: string;
   inProgress?: string;
   preOrder?: string;
@@ -51,4 +51,17 @@ export interface SingleCourseData extends CourseDataTable {
   courseStudentsCount: number;
   discount: number;
   isComplete: boolean;
+}
+
+export type QueryStrings ={
+cat: string[],
+sort:string,
+isFree:string,
+preOrder:string
+}
+
+export type FilterCourseType ={
+  isFree:string,
+  preOrder:string,
+  // usreCourse:?
 }
