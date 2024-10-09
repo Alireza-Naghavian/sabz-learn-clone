@@ -1,5 +1,6 @@
 import BlogCard from "@/components/shared/BlogsCard/BlogCard";
 import CourseCard from "@/components/shared/ProductCard/ProductCard";
+import Product_Skelton from "@/components/shared/ProductCard/skelton/Product_Skelton";
 import CourseSlider from "@/components/shared/slider/CourseSlider";
 import ColorShade from "@/components/ui/greenShade/GreenShade";
 import RoadMap from "@/components/ui/RoadMap/RoadMap";
@@ -8,16 +9,15 @@ import Slogens from "@/components/ui/Slogens/Slogens";
 import { ArticleTableData } from "@/types/services/articles.t";
 import {
   CatBodytype,
-  CourseBodyType,
+  CourseBodyType
 } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
 import { slogensOptions } from "@/utils/constants";
 import { PlayIcon } from "@heroicons/react/24/outline";
 import Image from "next/image";
 import Link from "next/link";
-import ClientLayout from "../ClientLayout/ClientLayout";
 import { Suspense } from "react";
-import Product_Skelton from "@/components/shared/ProductCard/skelton/Product_Skelton";
+import ClientLayout from "../ClientLayout/ClientLayout";
 function HomePage({
   menu,
   latestCoursesUpdated,
@@ -35,6 +35,7 @@ function HomePage({
   mostPopularFreeCourses: CourseBodyType[];
   latestArticles: ArticleTableData[];
 }) {
+  console.log(mostPopularCourses);
   return (
     <ClientLayout menu={menu}>
       {/* hero header */}
@@ -120,6 +121,7 @@ function HomePage({
           <div className="grid grid-rows-2 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 xs:gap-7">
             <Suspense fallback={<Product_Skelton count={12} />}>
               {latestCoursesUpdated.slice(0, 12).map((course, index) => {
+             
                 return (
                   <CourseCard key={index}>
                     <CourseCard.Header
@@ -140,7 +142,7 @@ function HomePage({
                       percent={course.discount as number}
                       price={course.price}
                       score={course.courseAverageScore}
-                      teacher={course.creator}
+                      teacher={course.creator.username}
                     />
                   </CourseCard>
                 );
@@ -235,7 +237,7 @@ function HomePage({
           <SectionTitle
             title="محبوب ترین دوره ها"
             subTitle="پرمخاطب ترین دوره های رایگان سبزلرن"
-            link="/"
+            link="/courses?sort=popular"
             iconColor="bg-sky-500"
             linkTitle="مشاهده همه دوره ها"
           />
@@ -262,7 +264,7 @@ function HomePage({
                       percent={course.discount as number}
                       price={course.price}
                       score={course.courseAverageScore}
-                      teacher={course.creator}
+                      teacher={course.creator.username}
                     />
                   </CourseCard>
                 );

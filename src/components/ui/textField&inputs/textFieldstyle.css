@@ -41,13 +41,13 @@
     background-color: #32334d;
 }
 .toggle_input:checked  ~ .toggle_marker{
-    background-color: #0EA5E9 ;
+    background-color: #0EA5E9 !important ;
 }
 .toggle_input:checked ~ .toggle_marker::after{
     right: 26px;
 }
 .toggle_input:checked ~ :is(.dark .toggle_marker){
-    background-color: #4E81FB;
+    background-color: #4E81FB !important;
 }
 .toggle_input:checked ~ :is(.dark .toggle_marker)::after{
     background-color: #ffffff;
@@ -87,7 +87,7 @@
 }
 :is(:where(.dark) .checkbox__marker) {
  
-    background-color: rgb(51 60 76 ) ;
+    background-color: rgb(51 60 76 )  !important;
 }
 .checkbox__input:checked ~ .checkbox__marker {
 

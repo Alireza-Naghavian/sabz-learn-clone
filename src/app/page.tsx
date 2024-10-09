@@ -5,20 +5,20 @@ import dataParser from "@/utils/dataParser";
 export default async function Home() {
   const menus = await dataFetcher("menus", "omit", "force-cache");
   const allCourses = await dataFetcher(
-    "courses",
+    "courses/getInit",
     "omit",
     "force-cache",
     1800
   );
   const latestArticles = await dataFetcher("articles","omit","force-cache",1800)
   const categories = await dataFetcher("category", "omit", "no-store");
-  const mostPopularCourses = allCourses.sort((a: any, b: any) => {
+  const mostPopularCourses =  allCourses.sort((a: any, b: any) => {
     return b.registers - a.registers;
   }).slice(0,8)
   const latestCourses = allCourses.sort((a: any, b: any) => {
     return new Date(b.createdAt).getDate() - new Date(a.createdAt).getDate();
   }).slice(0,8)
-  const mostPopularFreeCourses = allCourses.filter((course:CourseBodyType)=>{
+  const mostPopularFreeCourses =  allCourses.filter((course:CourseBodyType)=>{
     return course.isFree
   }).slice(0,8)
   return (

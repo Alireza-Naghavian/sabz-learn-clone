@@ -65,7 +65,7 @@ const Slider = ({ nextClass, prevClass, sliderContent }: SliderType) => {
                   percent={slider.discount as number}
                   price={slider.price}
                   score={slider.courseAverageScore}
-                  teacher={slider.creator}
+                  teacher={slider.creator.username}
                   />
               </CourseCard>
             </SwiperSlide>
