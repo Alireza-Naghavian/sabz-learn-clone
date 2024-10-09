@@ -237,7 +237,7 @@ function HomePage({
           <SectionTitle
             title="محبوب ترین دوره ها"
             subTitle="پرمخاطب ترین دوره های رایگان سبزلرن"
-            link="/"
+            link="/courses?sort=popular"
             iconColor="bg-sky-500"
             linkTitle="مشاهده همه دوره ها"
           />

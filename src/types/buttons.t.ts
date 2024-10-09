@@ -33,6 +33,8 @@ export type Btn_sheet_type = {
   isOpen: boolean;
   sort: { label: string; title: string };
   setSort: SetState<{ label: string; title: string }>;
+directPath?:string
+  categoryName?:string
 };
 export type Filter_section_type = Pick<
   Btn_sheet_type,

@@ -12,7 +12,7 @@ const SideBarFilter: React.FC<
   Partial<ChildrenProps> & {
     className: string;
     qs?: boolean;
-    categories: CatBodytype[];
+    categories?: CatBodytype[];
   }
 > = ({ className, children, qs = true, categories }) => {
   const {
@@ -20,17 +20,21 @@ const SideBarFilter: React.FC<
     formState: { errors },
   } = useForm<FilterCourseType>();
   const path = usePathname();
-  const { data, isLoading } = useGetMeQuery();
-  const initCoursePath = path.split("/").at(1);
-  const [isFree, setIsFree] = useState(false);
-  const [preOrder, setPreOrder] = useState(false);
   const searchParams = useSearchParams();
   const router = useRouter();
   const urlSearchParams = new URLSearchParams(searchParams.toString());
+  const { data, isLoading } = useGetMeQuery();
+  const directPath = path.split("/").at(2);
+  const categoryName = path.split("/").at(3);
+  const [isFree, setIsFree] = useState(urlSearchParams.get("isFree") === "true"? true : false);
+  const [preOrder, setPreOrder] = useState(urlSearchParams.get("preOrder") === "true"? true : false);
   
   const filterOptions = (option: string, value: boolean) => {
     urlSearchParams.set(option, value ? "true" : "");
-    router.replace(`/courses/?${urlSearchParams.toString()}`, {
+    router.replace(
+      directPath === "category" ? `/courses/category/${categoryName}/?${urlSearchParams.toString()}`:
+       `/courses/?${urlSearchParams.toString()}`
+      , {
       scroll: false,
     });
   };
@@ -56,11 +60,11 @@ const SideBarFilter: React.FC<
             id="isFree"
             label="فقط دوره های رایگان"
             type="checkbox"
-            checked={isFree}
+            checked={isFree && urlSearchParams.get("isFree") == "true"}
             onChange={handleFreeChange}
           />
           <CheckBoxes
-            checked={preOrder}
+            checked={preOrder  && urlSearchParams.get("preOrder") == "true"}
             onChange={handlePreOrderChange}
             name="preOrder"
             errors={errors}
@@ -81,8 +85,8 @@ const SideBarFilter: React.FC<
               type="checkbox"
             />
           )}
-          {initCoursePath === "courses" && (
-            <CategorySelector categories={categories} register={register} />
+          {directPath !== "category" && (
+            <CategorySelector categories={categories!} register={register} />
           )}
         </div>
         {/* mobile sort */}

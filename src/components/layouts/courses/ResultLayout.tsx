@@ -13,7 +13,6 @@ function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
         return (
           <CourseCard key={index}>
             <CourseCard.Header
-            isBlur={true}
               alt={course.name}
               title={course.name}
               src={course.cover}

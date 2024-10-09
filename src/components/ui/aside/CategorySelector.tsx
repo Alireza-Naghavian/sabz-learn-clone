@@ -34,12 +34,7 @@ function CategorySelector({ register,categories }: { register: any,categories:Ca
     >
       <div
         className={`flex items-center justify-between ${
-          !isCatOpen
-            ? ` mb-5 pb-5 border-b
-         border-b-neutral-200/60 dark:border-b-white/10`
-            : ""
-        }
-         `}
+          !isCatOpen ? ` mb-5 pb-5 border-b border-b-neutral-200/60 dark:border-b-white/10`: ""}`}
       >
         <div className="flex items-center gap-x-2 font-DanaBold">
           <FolderOpenIcon className="size-7" />

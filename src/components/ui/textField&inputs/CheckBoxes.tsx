@@ -14,7 +14,8 @@ function CheckBoxes({
   errors,
   id,
   readOnly = false,
-  wrapperStyle
+  wrapperStyle,
+  ...props
 }: CheckBoxesType) {
   return (
     <div
@@ -36,6 +37,7 @@ function CheckBoxes({
             value={value}
             placeholder={placeHolder}
             onChange={onChange}
+            {...props}
           />
           {errors && errors[name] && (
             <span className="text-red-500 block text-sm mt-1">

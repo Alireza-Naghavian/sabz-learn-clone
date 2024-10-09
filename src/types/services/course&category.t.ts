@@ -60,7 +60,9 @@ export type FilterReqType ={
   allCourses:CourseBodyType[] 
 }
 
-
+export type CourseCatType = FilterReqType&{
+  category:CatBodytype[]
+}
 export type QueryStrings ={
 cat: string[],
 sort:string,
@@ -68,6 +70,8 @@ isFree:string,
 preOrder:string
 page:number
 limit:number
+directPath?:string
+categoryName?:string
 }
 
 export type FilterCourseType ={

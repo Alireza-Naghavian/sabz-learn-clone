@@ -2,16 +2,21 @@ import { Btn_sheet_type } from "@/types/buttons.t";
 import { SortOption } from "@/utils/constants";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
 import Overlay from "../Overlay/Overlay";
-import { useRouter, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
-function Btn_sort_sheet({ setSort, sort, isOpen, setIsOpen }: Btn_sheet_type) {
+function Btn_sort_sheet({ setSort, sort, isOpen, setIsOpen,categoryName,directPath }: Btn_sheet_type) {
   const searchParams = useSearchParams();
+
+  
   const urlSearchParams = new URLSearchParams(searchParams.toString());
   const router = useRouter();
   const sortHandler = (title:string,label:string)=>{
     setSort({label,title})
     urlSearchParams.set("sort",label);
-    router.replace(`/courses/?${urlSearchParams.toString()}`,{scroll:false})
+    router.replace(
+      directPath === "category" ? `/courses/category/${categoryName}/?${urlSearchParams.toString()}` : 
+      `/courses/?${urlSearchParams.toString()}`
+      ,{scroll:false})
   }
   return (
     <>

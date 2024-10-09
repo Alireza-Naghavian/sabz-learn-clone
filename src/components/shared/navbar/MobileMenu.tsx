@@ -49,7 +49,7 @@ function MobileMenu({
                   <NavItem
                     key={submenu._id}
                     onClick={() => close()}
-                    target={`${submenu.href}`}
+                    target={`/courses/courseData/course${submenu.href}`}
                     title={submenu.title}
                   />
                 );
