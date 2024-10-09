@@ -13,7 +13,6 @@ function SimpleCheckBox({
   ...props
 }: TextFieldType) {
   const [checked, setChecked] = useState(false);
-  console.log(checked);
   return (
     <>
       <label htmlFor={id} className={`checkbox ${className}`}>

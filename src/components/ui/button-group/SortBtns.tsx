@@ -1,20 +1,19 @@
 "use client";
+import ResultLayout from "@/components/layouts/courses/ResultLayout";
+import Product_Skelton from "@/components/shared/ProductCard/skelton/Product_Skelton";
+import CoursePaginBtn from "@/components/utils-components/pagination/CoursePaginBtn";
+import { useFilterCoursesQuery } from "@/services/course&Categories/coursesListApiSlice";
 import { SortType } from "@/types/consts.t";
 import { SetState } from "@/types/global.t";
+import { CatBodytype, CourseBodyType, FilterReqType } from "@/types/services/course&category.t";
 import { SortOption } from "@/utils/constants";
-import {
-  AdjustmentsHorizontalIcon,
-  FunnelIcon,
-} from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { AdjustmentsHorizontalIcon, FunnelIcon } from "@heroicons/react/24/outline";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useEffect, useMemo, useState } from "react";
+import EmptyResult from "../EmptyResult/EmptyResult";
 import { SearchForm } from "../SearchBox/SearchBox";
 import Btn_sort_sheet from "./Btn_sort_sheet";
 import FilterMobile from "./FilterMobile";
-import { CatBodytype, CourseBodyType } from "@/types/services/course&category.t";
-import ResultLayout from "@/components/layouts/courses/ResultLayout";
-import { useParams, useRouter, useSearchParams } from "next/navigation";
-import { useFilterCoursesQuery } from "@/services/course&Categories/coursesListApiSlice";
-import Product_Skelton from "@/components/shared/ProductCard/skelton/Product_Skelton";
 type SortBtnType = {
   setSort: SetState<SortType>;
   sort: SortType;
@@ -24,30 +23,49 @@ type SM_SortBtnType = Omit<SortBtnType, "setSort" | "sort" | "label"> & {
   setIsOpen: SetState<boolean>;
   isOpen: boolean;
 };
-
 function SortBtns({
   qs = true,
   allCourses,
   categories,
 }: {
   qs?: boolean;
-  allCourses: CourseBodyType[];
+  allCourses: FilterReqType;
   categories: CatBodytype[];
 }) {
-  const [sort, setSort] = useState<SortType>(SortOption[0]);
   const searchParams = useSearchParams();
   const sortParam = searchParams.get("sort")?.toString();
   const isFreeParam = searchParams.get("isFree")?.toString();
   const preOrderParam = searchParams.get("preOrder")?.toString();
   const CatParams = searchParams.getAll("cat")
+  
+  const [page,setPage] = useState(1);
+  const [sort, setSort] = useState<SortType>(SortOption[0]);
+  const [courses, setCourses] = useState<CourseBodyType[]>([]);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [isSortOpen, setIsSortOpen] = useState(false);
+
   const { data, isFetching } = useFilterCoursesQuery({
     sort: sortParam as string,
     isFree: isFreeParam as string,
     preOrder: preOrderParam as string,
-    cat:CatParams  
+    cat:CatParams,
+    page:page,
+    limit:3
   });
-  const [isFilterOpen, setIsFilterOpen] = useState(false);
-  const [isSortOpen, setIsSortOpen] = useState(false);
+  useEffect(() => {
+    if (data?.allCourses) {
+      setCourses((prevCourses) => {
+        const newCourses = data.allCourses.filter((newCourse) => {
+          return !prevCourses.some(prevCourse => prevCourse._id === newCourse._id);
+        });
+        return [...prevCourses, ...newCourses];
+      });
+    }
+  }, [data]);
+  useMemo(() => {
+    setPage(1);
+    setCourses([]);
+  }, [searchParams]); 
   return (
     <>
       <Btn_sort_sheet
@@ -106,14 +124,21 @@ function SortBtns({
         className="!w-full !relative md:hidden mb-8 child:bg-white/5 !rounded-lg "
         placeholder="جستجو بین دوره ها"
       />
-      <div className="posts_wrap grid grid-rows-1 sm:grid-cols-2 xl:grid-cols-3 gap-5">
-        {searchParams.size === 0 ? (
+      <div className=" grid  sm:grid-cols-2 xl:grid-cols-3 gap-5">
+        {(allCourses.allCourses.length ===0 || data?.allCourses?.length === 0 )?
+        <EmptyResult className="col-span-full" title={"دوره ای"}/> :
+        searchParams.size === 0 && page ===1 ? (
           <ResultLayout allCourses={allCourses} />
         ) : isFetching ? (
           <Product_Skelton count={12} />
         ) : (
-          <ResultLayout allCourses={data as CourseBodyType[]} />
+          <ResultLayout allCourses={{...data,allCourses:courses }as FilterReqType}   />
         )}
+      <div className=" mt-8 col-span-full flex justify-center">
+        {  data?.totalPages == data?.currentPage &&!isFetching  ? "تمامی دوره ها نمایش داده شد.":
+           <CoursePaginBtn   page={page} setPage={setPage} isFetching={isFetching}/>
+        }
+      </div>
       </div>
     </>
   );
@@ -146,7 +171,6 @@ export const SM_SortBtn = ({
   Icon,
   title,
   setIsOpen,
-  isOpen,
 }: SM_SortBtnType) => {
   return (
     <div

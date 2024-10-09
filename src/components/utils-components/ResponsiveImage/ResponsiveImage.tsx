@@ -11,9 +11,9 @@ interface Props extends Omit<ImageProps, 'placeholder' | 'quality' | 'layout'> {
 }
 
 const ResponsiveImage: React.FC<Props> = (props) => {
-  const [isLoading,setIsLoading]= useState(false)
   // ? Props
   const { dimensions, className, src, alt, imageStyles, blurDataURL, ...restProps } = props
+  const [isLoading,setIsLoading]= useState(false)
 
   // ? Render(s)
   return (
@@ -21,7 +21,7 @@ const ResponsiveImage: React.FC<Props> = (props) => {
       <Image
         src={src}
         alt={alt}
-        className={`${imageStyles} ${isLoading ? "" : "blur-sm"}`}
+        className={`${imageStyles} ${isLoading  ? "" : "blur-sm"}`}
         placeholder="blur"
         blurDataURL={blurDataURL ? 'data:image/png;base64,' + blurDataURL : customeBlurDataURL}
         quality={100}

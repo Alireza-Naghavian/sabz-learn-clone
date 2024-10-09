@@ -1,18 +1,19 @@
 "use client";
 import CourseCard from "@/components/shared/ProductCard/ProductCard";
-import { CourseBodyType } from "@/types/services/course&category.t";
+import { CourseBodyType, FilterReqType } from "@/types/services/course&category.t";
 import { usePathname } from "next/navigation";
 import React from "react";
 
-function ResultLayout({ allCourses }: { allCourses: CourseBodyType[] }) {
+function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
     const  path = usePathname();
-    const initCoursePath =path.split("/").at(1)
+    const initCoursePath =path.split("/").at(1);
   return (
     <>
-      {initCoursePath === "courses"&& allCourses.map((course, index) => {
+      {initCoursePath === "courses"&& allCourses?.allCourses.map((course, index) => {
         return (
           <CourseCard key={index}>
             <CourseCard.Header
+            isBlur={true}
               alt={course.name}
               title={course.name}
               src={course.cover}

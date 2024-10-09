@@ -53,11 +53,21 @@ export interface SingleCourseData extends CourseDataTable {
   isComplete: boolean;
 }
 
+export type FilterReqType ={
+  totalPages:number,
+  currentPage:number,
+  totalCourses:number,
+  allCourses:CourseBodyType[] 
+}
+
+
 export type QueryStrings ={
 cat: string[],
 sort:string,
 isFree:string,
 preOrder:string
+page:number
+limit:number
 }
 
 export type FilterCourseType ={

@@ -5,7 +5,7 @@ import React from "react";
 
 async function page() {
   const menus = await dataFetcher("menus", "omit", "force-cache");
-  const allCourses = await dataFetcher("courses", "omit", "force-cache", 1800);
+  const allCourses = await dataFetcher("courses", "omit", undefined, 1800);
   const categories = await dataFetcher("category", "omit", "force-cache");
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden">
