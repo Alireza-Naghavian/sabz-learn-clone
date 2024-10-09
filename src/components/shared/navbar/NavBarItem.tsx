@@ -26,7 +26,7 @@ function NavBarItem({target,title,className,subMenus}:NavItemType) {
      dark:border-x-0 dark:border-baseColor 
      shadow-sm dark:shadow-none rounded-xl">
       {subMenus?.map((menus,index)=>{
-        return    <NavItem key={index} target={menus.href} title={menus.title} />
+        return    <NavItem key={index} target={`/courses/course${menus.href}`} title={menus.title} />
       })}
       </div>
     </div>

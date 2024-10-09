@@ -10,22 +10,25 @@ function SimpleCheckBox({
   register,
   required = true,
   id,
+  ...props
 }: TextFieldType) {
   const [checked, setChecked] = useState(false);
   return (
     <>
       <label htmlFor={id} className={`checkbox ${className}`}>
         <input
-          className="checkbox__input"
+          className="opacity-0  absolute "
           name={name}
           id={id}
           required={required}
           onInput={() => setChecked((is) => !is)}
           {...register(name)}
           value={value}
+          {...props}
           type={type}
         />
         <span
+        id={id}
           className={`size-1  px-2 py-2 rounded-sm ${
             checked ? "bg-sky-500" : "dark:bg-white bg-gray-100"
           }`}

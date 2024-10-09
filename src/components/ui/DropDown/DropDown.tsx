@@ -13,6 +13,7 @@ const DropDown: React.FC<DropDownType> = ({
   toggle,
   close,
 }) => {
+  console.log(id);
   return (
     <div className="">
       {/* toggler */}
@@ -22,7 +23,7 @@ const DropDown: React.FC<DropDownType> = ({
       >
         {Icon && <Icon className="size-6" /> }
         <Link
-          href={""}
+          href={`/courses/category${id}`}
           onClick={() => close()}
           className={`block  p-0 
             ${isOpen ? "text-baseColor" : "dark:text-white"}`}

@@ -31,7 +31,7 @@ function RoadMap({ categories }: { categories: CatBodytype[] }) {
               <Link
                 title={item?.title}
                 className="box-center text-white flex-col  h-full"
-                href={`/courses?cat=${item?.target}` || ""}
+                href={`/courses/category/${item?.target}` || ""}
               >
                 {item && <item.Icon className="w-10 sm:w-12 sm:h-12" />}
                 <h3 className="font-DanaBold sm:text-lg sm:mb-1">

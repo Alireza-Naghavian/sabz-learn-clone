@@ -124,7 +124,7 @@ export const slogensOptions: SlogengType[] = [
 export const SortOption: SortType[] = [
   {
     title: "همه دوره ها",
-    label: "normal",
+    label: "",
   },
   {
     title: "ارزان ترین",
