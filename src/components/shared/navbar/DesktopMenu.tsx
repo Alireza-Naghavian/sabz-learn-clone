@@ -9,7 +9,7 @@ function DesktopMenu({ menu }: { menu: MenuBodyType[] }) {
             key={index}
             className="relative group"
             subMenus={menu.submenus}
-            target={`/courses/category${menu.href}`}
+            target={`/courses/category/${menu.href}`}
             title={menu.title}
           />
         );

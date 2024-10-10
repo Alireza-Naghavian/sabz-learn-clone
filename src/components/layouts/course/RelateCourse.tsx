@@ -3,12 +3,13 @@ import { ArrowLeftCircleIcon } from "@heroicons/react/20/solid";
 import { SparklesIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import TitleHeader from "./TitleHeader";
+import { CourseDataTable } from "@/types/services/course&category.t";
 type RealateCardType = {
   cover: string;
   title: string;
   target: string;
 };
-function RelateCourse() {
+function RelateCourse({ relateCourses }: { relateCourses: CourseDataTable[] }) {
   return (
     <section
       className=" hidden lg:block bg-white dark:bg-darker 
@@ -21,8 +22,16 @@ function RelateCourse() {
         title="دوره های مرتبط"
       />
       <div className="space-y-4 md:space-y-5">
-        <RelateCard title="آموزش جامع webpack" cover="/images/next.webp" target=""/>
-        <RelateCard title="آموزش جامع webpack" cover="/images/next.webp" target=""/>
+        {relateCourses.map((course, index) => {
+          return (
+            <RelateCard
+              key={index}
+              title={course.name}
+              cover={course.cover}
+              target={`/courses/course/${course.shortName}`}
+            />
+          );
+        })}
       </div>
     </section>
   );
@@ -45,11 +54,14 @@ export const RelateCard = ({ cover, title, target }: RealateCardType) => {
           {title}
         </Link>
       </div>
-      <Link href={target} className="flex gap-x-1 items-center justify-between sm:justify-normal
-       text-sky-500 font-DanaBold text-sm">
+      <Link
+        href={target}
+        className="flex gap-x-1 items-center justify-between sm:justify-normal
+       text-sky-500 font-DanaBold text-sm"
+      >
         <span>مشاهده</span>
-        <ArrowLeftCircleIcon className="size-6 md:size-5"/>
-       </Link>
+        <ArrowLeftCircleIcon className="size-6 md:size-5" />
+      </Link>
     </div>
   );
 };

@@ -78,7 +78,6 @@ function SortBtns({
       });
     }
   }, [data]);
-  console.log(data);
   useMemo(() => {
     setPage(1);
     setCourses([]);

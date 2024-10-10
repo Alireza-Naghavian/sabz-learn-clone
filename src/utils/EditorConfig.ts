@@ -131,9 +131,9 @@ import {
     heading: {
         options: [
           { model: 'paragraph', title: 'Paragraph', class: 'text-base leading-relaxed text-gray-700' },
-          { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'text-2xl font-bold leading-tight text-gray-900' },
-          { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'text-xl font-semibold leading-snug text-gray-800' },
-          { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'text-lg font-medium leading-normal text-gray-700' }
+          { model: 'heading1', view: 'h1', title: 'Heading 1', class: 'text-3xl font-font-DanaBold  leading-tight text-gray-900' },
+          { model: 'heading2', view: 'h2', title: 'Heading 2', class: 'text-2xl font-DanaMediumleading-snug text-gray-800' },
+          { model: 'heading3', view: 'h3', title: 'Heading 3', class: 'text-xl font-Dana leading-normal text-gray-700' }
         ]
       },
       image: {

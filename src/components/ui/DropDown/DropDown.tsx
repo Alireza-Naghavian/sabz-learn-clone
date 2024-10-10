@@ -13,7 +13,6 @@ const DropDown: React.FC<DropDownType> = ({
   toggle,
   close,
 }) => {
-  console.log(id);
   return (
     <div className="">
       {/* toggler */}

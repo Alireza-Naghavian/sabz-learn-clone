@@ -43,7 +43,10 @@ export type CourseBodyType = {
 };
 
 export type CourseDataTable = Omit<CourseBodyType, "categoryID"> & {
-  categoryID: { title: string; _id?: string };
+  categoryID: { title: string; _id?: string,link?:string };
+  createdAt?:Date,
+  updatedAt?:Date
+
 };
 export interface SingleCourseData extends CourseDataTable {
   comments: [];

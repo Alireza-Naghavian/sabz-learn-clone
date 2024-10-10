@@ -39,7 +39,6 @@ function LgOfferTRow({
       close();
     }
   };
-  console.log(index);
   return (
     <Table.Row
       variant="singleHead"
