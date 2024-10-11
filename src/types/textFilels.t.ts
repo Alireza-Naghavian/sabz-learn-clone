@@ -41,7 +41,7 @@ export type MainTextFieldType = {
   id: string;
   placeHolder?: string;
   name: string;
-  value?: string | number;
+  value?: string | number|null|FileList;
   className?: string;
   required?: boolean;
   size: Size;

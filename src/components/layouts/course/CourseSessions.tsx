@@ -1,14 +1,34 @@
 "use client";
 
 import useDisclosure from "@/hooks/useDisclosure";
-import { ChevronDownIcon, PlayCircleIcon } from "@heroicons/react/24/outline";
+import {
+  SessionBodyType,
+  TopicDataType,
+} from "@/types/services/sessions&Topics.t";
+import {
+  ChevronDownIcon,
+  LockClosedIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/24/outline";
 import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import "./course.css";
 import TitleHeader from "./TitleHeader";
-function CourseSessions() {
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
+function CourseSessions({
+  courseTopicData,
+  isUserRegister,
+  isCourseFree,
+}: {
+  courseTopicData: TopicDataType[];
+  isUserRegister: boolean;
+  isCourseFree: boolean;
+}) {
   return (
-    <div id="sessions" className="bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5 mt-8">
+    <div
+      id="sessions"
+      className="bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5 mt-8"
+    >
       <TitleHeader
         title="سرفصل ها"
         Icon={AcademicCapIcon}
@@ -16,8 +36,22 @@ function CourseSessions() {
         className="bg-sky-500"
       />
       <div className="space-y-4 md:space-y-5">
-        <CourseTopic topicTime={20} topicTitle="معرفی دوره" topiclessons={2} />
-        <CourseTopic topicTime={20} topicTitle="معرفی دوره" topiclessons={2} />
+        {courseTopicData.length ===0 ? 
+        <EmptyResult className="h-[250px] py-4" title={"هنوز جلسه ای برای این دوره منتشر نشده است"}/>
+        :
+        courseTopicData.map((topic, index) => {
+          return (
+            <CourseTopic
+              isCourseFree={isCourseFree}
+              isUserRegister={isUserRegister}
+              key={index}
+              topicTime={20}
+              sessions={topic.sessions}
+              topicTitle={topic.title}
+              topiclessons={topic.sessions.length}
+            />
+          );
+        })}
       </div>
     </div>
   );
@@ -26,11 +60,17 @@ type TopicType = {
   topicTitle: string;
   topiclessons: number;
   topicTime: number;
+  sessions: SessionBodyType[];
+  isUserRegister: boolean;
+  isCourseFree: boolean;
 };
 export const CourseTopic = ({
   topicTitle,
   topiclessons,
   topicTime,
+  sessions,
+  isUserRegister,
+  isCourseFree,
 }: TopicType) => {
   const [isSessionOpen, { toggle }] = useDisclosure();
   return (
@@ -39,7 +79,8 @@ export const CourseTopic = ({
         className={`${
           isSessionOpen ? "topic__head topic__head--active" : "topic__head"
         }`}
-        onClick={() => toggle()}>
+        onClick={() => toggle()}
+      >
         <span
           className="topic__title inline-block font-DanaBold 
         lg:line-clamp-3 transition-colors"
@@ -50,29 +91,48 @@ export const CourseTopic = ({
           <div
             className="topic__time flex  items-center
              gap-x-1.5 font-DanaMedium text-sm
-             text-slate-500 dark:text-white child:transition-colors" dir="rtl"
+             text-slate-500 dark:text-white child:transition-colors"
+            dir="rtl"
           >
-            <span className="text-base font-DanaMedium hidden lg:inline">{topicTime}</span>
+            <span
+              className="text-base font-DanaMedium hidden lg:inline"
+              dir="rtl"
+            >
+              {topicTime} دقیقه
+            </span>
             {/* seperator */}
             <span
               className="topic__time-dot hidden lg:block size-1 bg-slate-500/50
              dark:bg-white/50 rounded-full"
             ></span>
             {/* seperator */}
-            <span className="text-base font-DanaMedium hidden lg:flex">
-              lessons &nbsp;
-              {topiclessons}
+            <span className="text-base font-DanaMedium hidden lg:flex" dir="">
+              {topiclessons}&nbsp;جلسه
             </span>
 
             <ChevronDownIcon
-              className={`${isSessionOpen ? "rotate-180  ":"rotate-0"}  
+              className={`${isSessionOpen ? "rotate-180  " : "rotate-0"}  
                size-6  !transition-all ease-in-out duration-300 font-DanaMedium`}
             />
           </div>
         </div>
       </div>
-      <div className={`topic__body transition-all ease-linear duration-300 group ${isSessionOpen ? "h-max" : 'h-0'}`}>
-        <SessionItem index={1} sessionTitle="مقدمه و معرفی" />
+      <div
+        className={`topic__body transition-all ease-linear duration-300  ${
+          isSessionOpen ? "h-max" : "h-0"
+        }`}
+      >
+        {sessions.map((session, index) => {
+          return (
+            <SessionItem
+              key={index}
+              isCourseFree={isCourseFree}
+              index={index + 1}
+              {...session}
+              isUserRegister={isUserRegister}
+            />
+          );
+        })}
       </div>
     </div>
   );
@@ -80,10 +140,16 @@ export const CourseTopic = ({
 
 export const SessionItem = ({
   index,
-  sessionTitle,
-}: {
+  isFree,
+  time,
+  title,
+  isUserRegister,
+  _id,
+  isCourseFree,
+}: SessionBodyType & {
   index: number;
-  sessionTitle: string;
+  isUserRegister: boolean;
+  isCourseFree: boolean;
 }) => {
   return (
     <div
@@ -92,7 +158,7 @@ export const SessionItem = ({
     >
       <div
         className="flex items-start flex-grow gap-x-2.5 
-            md:gap-x-3.5 child:transition-colors"
+            md:gap-x-3.5 child:transition-colors "
       >
         <div
           className="box-center w-8 h-6 md:h-7 text-sm 
@@ -102,14 +168,24 @@ export const SessionItem = ({
         >
           {index}
         </div>
-        <Link
-          href={""}
-          className="inline-block lg:max-w-3/4
-           text-sm md:text-base 
-            group-hover:text-baseColor "
-        >
-          {sessionTitle}
-        </Link>
+        {isFree == 1 ? (
+          <Link
+            href={`/courses/course/session/${_id}`}
+            className="inline-block lg:max-w-3/4
+         text-sm md:text-base 
+          group-hover:text-baseColor "
+          >
+            {title}
+          </Link>
+        ) : (
+          <span
+            className="inline-block lg:max-w-3/4
+      text-sm md:text-base 
+       group-hover:text-baseColor "
+          >
+            {title}
+          </span>
+        )}
       </div>
       <div
         className="flex items-center 
@@ -117,8 +193,16 @@ export const SessionItem = ({
        group-hover:text-baseColor
        child:transition-colors"
       >
-        <span className="text-sm md:text-base">08:26</span>
-        <PlayCircleIcon className="size-7" />
+        <span className="text-sm md:text-base">{time}</span>
+        {isFree == 1 ? ( //free session
+          <PlayCircleIcon className="size-7" />
+        ) : isFree !== 1 && !isCourseFree ? (
+          <LockClosedIcon className="size-6" />
+        ) : isFree !== 1 && isUserRegister ? (
+          <PlayCircleIcon className="size-7" />
+        ) : (
+          <LockClosedIcon className="size-6" />
+        )}
       </div>
     </div>
   );

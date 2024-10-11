@@ -7,7 +7,7 @@ type CourseParams = {
 }
 async function page({params}:CourseParams) {
   const menus = await dataFetcher("menus", "omit", "force-cache");
-  const courseData = await dataFetcher(`courses/${params.shortName}`,"omit",undefined,1800)
+  const courseData = await dataFetcher(`courses/${params.shortName}`,"omit",undefined,3600)
   const relateCourses = await dataFetcher(`courses/related/${params.shortName}`,"omit",undefined,1800)
   return (
     <main className='max-w-[1920px] mx-auto overflow-x-hidden'>

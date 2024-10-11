@@ -43,7 +43,7 @@ function LgCourseTRow(
     even:bg-gray-100'>
       <td className='lg:block hidden'>{index}</td>
       <td>{name}</td>
-      <td className='lg:block hidden'>{creator}</td>
+      <td className='lg:block hidden'>{creator.username}</td>
       <td>{price.toLocaleString("fa-Ir")} تومان</td>
       <td>{registers} نفر</td>
       <td className='bg-baseColor p-1 rounded-xl'>{status === "inProgress" ? "درحال برگزاری":"پیش فروش"}</td>

@@ -37,7 +37,7 @@ export type CourseBodyType = {
     _id?: string;
     title: string;
     course: string;
-    session: SessionBodyType[];
+    sessions: SessionBodyType[];
   }[];
   registers?: number;
 };
@@ -46,7 +46,8 @@ export type CourseDataTable = Omit<CourseBodyType, "categoryID"> & {
   categoryID: { title: string; _id?: string,link?:string };
   createdAt?:Date,
   updatedAt?:Date
-
+  sessions:SessionBodyType[]
+  isUserRegisteredToThisCourse?:boolean
 };
 export interface SingleCourseData extends CourseDataTable {
   comments: [];
@@ -62,6 +63,7 @@ export type FilterReqType ={
   totalCourses:number,
   allCourses:CourseBodyType[] 
 }
+export type TableCourseData=Omit<FilterReqType,"allCourses">&{allCourses:CourseDataTable[]}
 
 export type CourseCatType = FilterReqType&{
   category:CatBodytype[]

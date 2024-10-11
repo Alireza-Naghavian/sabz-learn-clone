@@ -152,7 +152,7 @@ function SortBtns({
       <div className=" grid  sm:grid-cols-2 xl:grid-cols-3 gap-5">
         {allCourses.allCourses.length === 0 ||
         data?.allCourses?.length === 0 ? (
-          <EmptyResult className="col-span-full" title={"دوره ای"} />
+          <EmptyResult className="col-span-full  px-7 py-8 md:py-20" title={"    متاسفانه دوره ای مطابق جستجوی شما پیدا نشد:("} />
         ) : searchParams.size === 0 && page === 1 ? (
           <ResultLayout allCourses={allCourses} />
         ) : isFetching ? (

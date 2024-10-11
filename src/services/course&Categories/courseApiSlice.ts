@@ -86,7 +86,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
     }),
     getCourses: builder.query<CourseDataTable[], void>({
       query: () => ({
-        url: "/courses",
+        url: "/courses/getInit",
         method: "GET",
       }),
       providesTags: ["courses"],

@@ -3,14 +3,20 @@ import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import DarkShade from "@/components/ui/greenShade/DarkShade";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
-import DOMPurify from "dompurify";
-import { useState } from "react";
+const DOMPurify = require('dompurify');
+import { useEffect, useState } from "react";
 import "./course.css";
 import TitleHeader from "./TitleHeader";
 
 function CourseDesc({ courseDesc }: { courseDesc: string }) {
   const [expand, setExpand] = useState(false);
-  const longDesc = DOMPurify.sanitize(courseDesc)
+  const [longDesc, setLongDesc] = useState<string>("");
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const sanitizedDesc = DOMPurify.sanitize(courseDesc);
+      setLongDesc(sanitizedDesc);
+    }
+  }, [courseDesc]);
   return (
     <>
       <div className="bg-white dark:bg-darker rounded-2xl 
