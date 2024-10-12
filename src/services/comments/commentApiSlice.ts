@@ -1,6 +1,6 @@
 import { ResultMsg } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
-import { CommentBodyType, CommentData } from "@/types/services/comment.t";
+import { CommentBodyType, CommentData, CommentStatusType } from "@/types/services/comment.t";
 
 export const commentApiSlice= apiSlice.injectEndpoints({
     endpoints:(builder)=>({
@@ -16,12 +16,24 @@ export const commentApiSlice= apiSlice.injectEndpoints({
                 return baseQueryReturnValue.data
             },
         }),
-        getAllComments:builder.query<CommentData,void>({
+        getAllComments:builder.query<CommentData[],void>({
             query:()=>({
-                url:"/comments",
+                url:"/comment",
                 method:"GET"
             }),
             providesTags:["comments"],
+            transformErrorResponse(baseQueryReturnValue) {
+                return baseQueryReturnValue.data
+            },
+        }),
+        changeCommentStatus :builder.mutation<ResultMsg,CommentStatusType>({
+            query:({_id,status})=>({
+                url:`/comment/accept/${_id}`,
+                method:"PATCH",
+                credentials:'include',
+                body:{status}
+            }),
+            invalidatesTags:["comment","comments"],
             transformErrorResponse(baseQueryReturnValue) {
                 return baseQueryReturnValue.data
             },
@@ -30,4 +42,4 @@ export const commentApiSlice= apiSlice.injectEndpoints({
 })
 
 
-export const {useCreateCommentMutation,useGetAllCommentsQuery} = commentApiSlice
+export const {useCreateCommentMutation,useGetAllCommentsQuery,useChangeCommentStatusMutation} = commentApiSlice

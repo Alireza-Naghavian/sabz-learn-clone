@@ -19,7 +19,7 @@ const EditModal = ({
       >
         <CompoundModal.Header className=" mt-2" onClose={setIsOpen}>
           <div className="pr-4  ">
-            <span className="text-lg font-Shabnam_M">{modalTitle}</span>
+            <span className="text-lg font-DanaMedium">{modalTitle}</span>
           </div>
         </CompoundModal.Header>
         <CompoundModal.Body>{children}</CompoundModal.Body>

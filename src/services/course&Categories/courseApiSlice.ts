@@ -1,12 +1,12 @@
 import {
   CatBodytype,
-  CourseBodyType,
   CourseDataTable,
   CourseQuery,
   CreateCatMgs,
+  CreateCorseType,
   RemoveQuery,
   ResultMsg,
-  SingleCourseData,
+  SingleCourseData
 } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
 export const courseApiSlice = apiSlice.injectEndpoints({
@@ -44,7 +44,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
-    createCourse: builder.mutation<ResultMsg, CourseBodyType>({
+    createCourse: builder.mutation<ResultMsg, CreateCorseType>({
       query: ({
         categoryID,
         cover,

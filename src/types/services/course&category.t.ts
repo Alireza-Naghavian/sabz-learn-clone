@@ -13,7 +13,7 @@ export type CreateCatMgs = {
 export type RemoveQuery = { _id: string };
 export type CourseQuery = { shortName: string };
 export type ResultMsg = Pick<CreateCatMgs, "message">;
-
+export type CreateCorseType =Omit<CourseBodyType,"creator">&{creator:string}
 export type CourseBodyType = {
   name: string;
   _id?: string;

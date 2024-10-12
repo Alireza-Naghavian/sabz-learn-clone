@@ -9,7 +9,7 @@ import Select from "@/components/utils-components/Select/Select";
 import { useAlert } from "@/context/AlertProvider";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { useCreateCourseMutation, useGetAllCatQuery } from "@/services/course&Categories/courseApiSlice";
-import { CourseBodyType } from "@/types/services/course&category.t";
+import { CourseBodyType, CreateCorseType } from "@/types/services/course&category.t";
 import { rareOption, suppurtOptions } from "@/utils/constants";
 import { formatPriceNumber } from "@/utils/utils";
 import { BookOpenIcon } from "@heroicons/react/16/solid";
@@ -23,7 +23,7 @@ const TextEditor = dynamic(
   () => import("@/components/utils-components/textEditor/TextEditor"),{ssr: false,}
 );
 function CourseForm() {
-  const {register,reset,handleSubmit,watch,getValues,formState: { errors }} = useForm<CourseBodyType>();
+  const {register,reset,handleSubmit,watch,getValues,formState: { errors }} = useForm<CreateCorseType>();
   const { data: categories } = useGetAllCatQuery();
   const {data:userData} = useGetMeQuery();
   const { showAlert } = useAlert();
@@ -49,7 +49,7 @@ function CourseForm() {
 
 
     // Submit handler for course creation
-  const createHandler = async (data: CourseBodyType) => {
+  const createHandler = async (data: CreateCorseType) => {
     try {
       const {inProgress,preOrder,...filteredData} = data
       const courseBody = {...filteredData,categoryID:category.value
