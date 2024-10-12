@@ -31,7 +31,6 @@ function Course({
   courseData: CourseDataTable;
   relateCourses: CourseDataTable[];
 }) {
-
   const totalSessions = courseData?.topics?.reduce((total, topic) => {
     return total + topic?.sessions?.length;
   }, 0);
@@ -115,7 +114,7 @@ function Course({
             <RelateCourse relateCourses={relateCourses} />
             <StoreProvider>
 
-            <CommentBox courseShortName ={courseData.shortName} />
+            <CommentBox courseId={courseData._id!} courseShortName ={courseData.shortName} />
             </StoreProvider>
           </div>
           <aside className="col-span-12 lg:col-span-4 space-y-8">

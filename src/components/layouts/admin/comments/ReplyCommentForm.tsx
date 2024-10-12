@@ -5,16 +5,17 @@ import TextAriaField from "@/components/ui/textField&inputs/TextAriaField";
 import { useAlert } from "@/context/AlertProvider";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { useAnswerCommentMutation } from "@/services/comments/commentApiSlice";
-import { AnswerCommentBodyType } from "@/types/services/comment.t";
+import { AnswerCommentBodyType, CommentData } from "@/types/services/comment.t";
 import React from "react";
 import { useForm } from "react-hook-form";
 export type ReplyModalForm = {
   userCommentBody: string;
   setIsEditOpen: () => void;
   identifier: string;
+  replyTo:CommentData
 };
 
-function ReplyCommentForm({userCommentBody,identifier, setIsEditOpen}: ReplyModalForm) {
+function ReplyCommentForm({userCommentBody,identifier, setIsEditOpen,replyTo}: ReplyModalForm) {
   const {
     register,
     handleSubmit,
@@ -58,6 +59,21 @@ function ReplyCommentForm({userCommentBody,identifier, setIsEditOpen}: ReplyModa
         className="bgdark"
         value={userCommentBody}
       />
+      {replyTo &&
+         <TextAriaField
+         register={register}
+         errors={errors}
+         type="text"
+         label="پاسخ ارسالی کاربر:"
+         variant="freeMode"
+         id="userComment"
+         name="replyComment"
+         required={false}
+         readOnly={true}
+         className="bgdark"
+         value={replyTo.body}
+       />
+      }
       <TextAriaField
         name="body"
         id="body"
@@ -79,6 +95,7 @@ function ReplyCommentForm({userCommentBody,identifier, setIsEditOpen}: ReplyModa
         disabled={!isValid || !Object.keys(dirtyFields).length}
         className={`
       mt-4
+      py-3
       ${
         !isValid || !Object.keys(dirtyFields).length
           ? "opacity-50"
@@ -86,7 +103,7 @@ function ReplyCommentForm({userCommentBody,identifier, setIsEditOpen}: ReplyModa
       } 
       `}
         variant="fill"
-        size="xl"
+        size="xxl"
         type="submit"
       >
         {isAsnwerLoading ? (

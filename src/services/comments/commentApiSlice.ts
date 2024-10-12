@@ -1,10 +1,11 @@
-import { ResultMsg } from "@/types/services/course&category.t";
+import { RemoveQuery, ResultMsg } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
 import {
   AnswerCommentBodyType,
   CommentBodyType,
   CommentData,
   CommentStatusType,
+  CourseCommentType,
 } from "@/types/services/comment.t";
 
 export const commentApiSlice = apiSlice.injectEndpoints({
@@ -16,7 +17,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { body, courseShortName },
       }),
-      invalidatesTags: ["comment", "comments"],
+      invalidatesTags: ["comment", "comments", "courseComments"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
@@ -31,6 +32,20 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    getCourseComment: builder.query<CourseCommentType, RemoveQuery&{page:number,limit:number}>({
+      query: ({ _id,page=1,limit=3 }) => ({
+        url: `/comment/courseComment/${_id}`,
+        headers:{
+          'X-Page': page.toString(),  
+          'X-Limit': limit.toString()  
+        },
+        method: "GET",
+      }),
+      providesTags: ["courseComments"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
     changeCommentStatus: builder.mutation<ResultMsg, CommentStatusType>({
       query: ({ _id, status }) => ({
         url: `/comment/accept/${_id}`,
@@ -38,7 +53,7 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { status },
       }),
-      invalidatesTags: ["comment", "comments"],
+      invalidatesTags: ["comment", "comments", "courseComments"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
@@ -50,7 +65,18 @@ export const commentApiSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { creator, body },
       }),
-      invalidatesTags: ["comment", "comments"],
+      invalidatesTags: ["comment", "comments", "courseComments"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
+    removecomment: builder.mutation<ResultMsg, RemoveQuery>({
+      query: ({ _id }) => ({
+        url: `/comment/${_id}`,
+        method: "DELETE",
+        credentials: "include",
+      }),
+      invalidatesTags: ["comment", "comments", "courseComments"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
@@ -62,5 +88,7 @@ export const {
   useCreateCommentMutation,
   useGetAllCommentsQuery,
   useChangeCommentStatusMutation,
-  useAnswerCommentMutation
+  useAnswerCommentMutation,
+  useRemovecommentMutation,
+  useGetCourseCommentQuery
 } = commentApiSlice;
