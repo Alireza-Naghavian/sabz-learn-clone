@@ -20,6 +20,7 @@ import CourseDesc from "./CourseDesc";
 import CourseHeader from "./CourseHeader";
 import CourseSessions from "./CourseSessions";
 import RelateCourse from "./RelateCourse";
+import StoreProvider from "@/context/StoreProvider";
 
 function Course({
   menu,
@@ -112,7 +113,10 @@ function Course({
               isUserRegister={courseData.isUserRegisteredToThisCourse!}
             />
             <RelateCourse relateCourses={relateCourses} />
-            <CommentBox />
+            <StoreProvider>
+
+            <CommentBox courseShortName ={courseData.shortName} />
+            </StoreProvider>
           </div>
           <aside className="col-span-12 lg:col-span-4 space-y-8">
             <div className="bg-white dark:bg-darker rounded-2xl p-4.5  sm:p-5">
