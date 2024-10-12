@@ -42,3 +42,4 @@ export type EditModalType = Pick<
   className?: string;
 };
 
+

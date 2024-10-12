@@ -24,3 +24,6 @@ export type CommentStatusType ={
     status:boolean | string
     _id:string
 }
+export type AnswerCommentBodyType=Pick<CommentData,"_id"|"body">&{
+creator:string
+}
