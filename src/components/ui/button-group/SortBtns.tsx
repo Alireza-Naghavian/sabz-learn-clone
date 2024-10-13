@@ -48,6 +48,7 @@ function SortBtns({
   const sortParam = searchParams.get("sort")?.toString();
   const isFreeParam = searchParams.get("isFree")?.toString();
   const preOrderParam = searchParams.get("preOrder")?.toString();
+  const search = searchParams.get("search")?.toString();
   const CatParams = searchParams.getAll("cat");
 
   const [page, setPage] = useState(1);
@@ -62,6 +63,7 @@ function SortBtns({
     preOrder: preOrderParam as string,
     cat: CatParams,
     page: page,
+    search:search as string,
     limit: 3,
     directPath,
     categoryName,

@@ -74,6 +74,7 @@ sort:string,
 isFree:string,
 preOrder:string
 page:number
+search:string,
 limit:number
 directPath?:string
 categoryName?:string
