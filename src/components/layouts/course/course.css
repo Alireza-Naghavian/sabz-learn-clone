@@ -24,3 +24,14 @@
 .topic__body__item{
     @apply flex items-start justify-between gap-x-5 gap-y-3 flex-wrap lg:flex-nowrap px-4 py-5 
 }
+
+
+.courese_Desc h1{
+ @apply text-3xl font-DanaBold
+}
+.courese_Desc h2{
+  @apply text-2xl font-DanaMedium
+}
+.courese_Desc h3{
+  @apply text-xl font-Dana
+}

@@ -35,7 +35,6 @@ function HomePage({
   mostPopularFreeCourses: CourseBodyType[];
   latestArticles: ArticleTableData[];
 }) {
-  console.log(mostPopularCourses);
   return (
     <ClientLayout menu={menu}>
       {/* hero header */}

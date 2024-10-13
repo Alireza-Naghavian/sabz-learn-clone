@@ -15,7 +15,7 @@ export const sessionSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { title, course },
       }),
-      invalidatesTags: ["topics", "session", "sessions"],
+      invalidatesTags: ["topics", "session", "sessions","course","courses"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
