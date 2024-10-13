@@ -9,22 +9,17 @@ import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import CourseBanner from "./CourseBanner";
 import { TomanIcon } from "@/utils/Icons";
 import CountDowntimer from "@/components/ui/CountDowntimer/CountDowntimer";
-function CourseHeader() {
+import { CourseDataTable } from "@/types/services/course&category.t";
+function CourseHeader({courseData}:{courseData:CourseDataTable}) {
   return (
     <section className="courseHeader__wrapper">
       <div className="flex flex-col justify-between h-full order-2 lg:order-1">
         <div className="">
           <h1 className="font-DanaMedium text-[1.375rem]/8 sm:text-[1.625rem]/10 mb-4.5">
-            آموزش Next.js بصورت پروژه محور
+           {courseData.name}
           </h1>
           <p className="sm:text-lg line-clamp-4 sm:line-clamp-3">
-            نکست یه فریمورک مبتنی بر ری‌اکت هست که امروزه تو بازار کار یکی از
-            مهم‌ترین تکنولوژی‌ها برای توسعه دهنده های ری‌اکت به حساب میاد. نکست
-            رو میشه مکمل ری‌اکت دونست. یعنی هر چی که ری‌اکت داره نکست هم داره،
-            بعلاوه چند قابلیت مهم و کاربردی دیگه. عمدتا از نکست با هدف بهبود
-            سئوی اپلیکیشن های ری‌اکتی استفاده میشه و بعنوان توسعه‌ دهنده ری‌اکت،
-            باید نکست رو بخوبی بلد باشین. تو این دوره فریمورک محبوب نکست رو
-            بصورت پروژه محور و عملی یاد می‌گیرین.
+              {courseData.description}
           </p>
         </div>
 
@@ -34,7 +29,7 @@ function CourseHeader() {
           <BuyBtn isOffer />
         </div>
       </div>
-      <CourseBanner />
+      <CourseBanner courseName={courseData.name} courseDataCover={courseData.cover} />
     </section>
   );
 }

@@ -19,6 +19,7 @@ const apiSlice = createApi({
     "blogs",
     "blog",
     "comments",
+    "courseComments",
     "comment",
     "compaign",
     "topics",

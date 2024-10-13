@@ -264,3 +264,8 @@ export const initailSelectState = {
   label: "",
   value: "",
 };
+
+export const commentStatus = [
+  { label: "تایید کردن", value: true },
+  { label: "رد کردن", value: false },
+];

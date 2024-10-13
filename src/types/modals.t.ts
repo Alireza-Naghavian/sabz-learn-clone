@@ -41,3 +41,5 @@ export type EditModalType = Pick<
   children: React.ReactNode;
   className?: string;
 };
+
+
