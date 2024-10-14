@@ -11,6 +11,18 @@ import Overlay from "@/components/ui/Overlay/Overlay";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { GetmeType, UserType } from "@/types/services/authapi.t";
 import StoreProvider from "@/context/StoreProvider";
+import { Metadata } from "next";
+export const metadata: Metadata = {
+  applicationName: "سبز لرن",
+  title: " پنل کاربری - سبز لرن",
+  description:"پنل کاربری - سبز لرن",
+  openGraph: {
+    type: "website",
+    siteName: "سبز لرن | Sabzlearn",
+    title: " پنل کاربری - سبز لرن",
+    description:"پنل کاربری - سبز لرن",
+  },
+};
 function layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
 

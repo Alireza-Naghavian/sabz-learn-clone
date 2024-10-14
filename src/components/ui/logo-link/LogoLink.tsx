@@ -1,8 +1,6 @@
-import ResponsiveImage from '@/components/utils-components/ResponsiveImage/ResponsiveImage'
 import { LogoIcon } from '@/utils/Icons';
 import Image from 'next/image';
-import Link from 'next/link'
-import React from 'react'
+import Link from 'next/link';
 type LogoLinkType={
   className?:string;
   isIcon?:boolean
@@ -15,7 +13,7 @@ function LogoLink({className,isIcon=false}:LogoLinkType) {
                 <Image
                 fill
                 alt='سبزلرن'
-                src={"/images/favicon.png"}
+                src={"/images/logo.png"}
                 className='!h-12  !w-[73px] !relative !object-cover'
                 loading='lazy'
                 />
