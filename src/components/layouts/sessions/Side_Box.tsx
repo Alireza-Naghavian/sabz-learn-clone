@@ -25,7 +25,7 @@ function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,s
   const toggleDropdown = (id: string) => {
     setOpenDropdown(openDropdown === id ? null : id);
   };
-  const totalSessionTime = courseSessions.topics?.map((topic)=>{
+  const totalSessionTime = courseSessions?.topics?.map((topic)=>{
     return topic.sessions.reduce((acc:any,curr:any)=>{
     const sessionTimes = curr.time.split(":")
     const seconds = Number(sessionTimes[1])
@@ -53,7 +53,7 @@ function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,s
           IconColor="text-amber-400 "
         />
         <div className="chapters gap-y-4 flex flex-col w-full">
-         {courseSessions.topics?.map((topic,index)=>{
+         {courseSessions?.topics?.map((topic,index)=>{
           return(
             <Chapter
             key={index}
@@ -76,7 +76,7 @@ function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,s
         lg:mt-8"
       >
         <Tail_Info
-          subTitle={courseSessions.status === "inProgress" ? "در حال برگزاری":"درحال پیش فروش"}
+          subTitle={courseSessions?.status === "inProgress" ? "در حال برگزاری":"درحال پیش فروش"}
           title="وضعیت "
           variant="mainInfo"
           Icon={InformationCircleIcon}
@@ -88,7 +88,7 @@ function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,s
           Icon={ClockIcon}
         />
         <Tail_Info
-          subTitle={sessionNumb.toLocaleString("fa-IR")}
+          subTitle={sessionNumb?.toLocaleString("fa-IR")}
           title="جلسات دوره"
           variant="mainInfo"
           Icon={VideoCameraIcon}
@@ -104,7 +104,7 @@ function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,s
             imageStyles="!relative !block mb-4 mx-auto !object-cover rounded-full"
           />
           <span className="font-DanaBold text-lg mb-2">
-               {courseSessions.creator.username}| مدرس دوره
+               {courseSessions?.creator?.username}| مدرس دوره
           </span>
           <p className="mt-6"></p>
           <PrimaryBtn
@@ -153,8 +153,6 @@ const Chapter = ({
       </div>
       <div className="chapter__lessons">
         {sessions?.map((session,index)=>{
-          const splitter = session.time.split(":")
-          console.log(splitter);
           return(
             <LessonItem
             key={index}

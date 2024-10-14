@@ -25,6 +25,7 @@ const apiSlice = createApi({
     "topics",
     "sessions",
     "session",
+    "sessionInfo",
     "menu",
     "articles",
     "article"

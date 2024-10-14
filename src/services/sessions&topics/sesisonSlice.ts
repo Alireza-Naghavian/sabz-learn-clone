@@ -2,6 +2,7 @@ import { RemoveQuery, ResultMsg } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
 import {
   SessionBodyType,
+  SessionInfoType,
   SessionTableData,
   TopicBody,
 } from "@/types/services/sessions&Topics.t";
@@ -15,7 +16,7 @@ export const sessionSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { title, course },
       }),
-      invalidatesTags: ["topics", "session", "sessions","course","courses"],
+      invalidatesTags: ["topics", "session", "sessions", "course", "courses"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
@@ -65,6 +66,17 @@ export const sessionSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    getSessionInfo: builder.query<SessionInfoType, { shortName: string; sessionID: string }>({
+      query: ({ sessionID, shortName }) => ({
+        url: `/courses/session/${shortName}/${sessionID}`,
+        method: "GET",
+        credentials: "include",
+      }),
+      providesTags: ["sessionInfo"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
   }),
 });
 
@@ -73,4 +85,5 @@ export const {
   useCreateSessionMutation,
   useGetAllSessionsQuery,
   useRemoveSessionMutation,
+  useGetSessionInfoQuery
 } = sessionSlice;

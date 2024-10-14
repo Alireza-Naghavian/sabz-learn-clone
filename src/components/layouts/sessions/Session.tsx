@@ -1,11 +1,8 @@
+"use client"
 import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
-import { CourseDataTable } from "@/types/services/course&category.t";
+import { useGetSessionInfoQuery } from "@/services/sessions&topics/sesisonSlice";
 import { MenuBodyType } from "@/types/services/menu.t";
-import {
-  CourseSessionData,
-  SessionBodyType
-} from "@/types/services/sessions&Topics.t";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import ClientLayout from "../ClientLayout/ClientLayout";
 import TitleHeader from "../course/TitleHeader";
@@ -14,22 +11,25 @@ import Q_box_list from "./Q_box_list";
 import "./session.css";
 import Side_Box from "./Side_Box";
 import VideoSection from "./VideoSection";
-export type SessionInfoType = {
-  sessions: SessionBodyType[];
-  session: CourseSessionData;
-  course: CourseDataTable;
-};
+import TextLoader from "@/components/ui/loader/TextLoader";
+import dynamic from "next/dynamic";
+import Session_Skelton from "./Session_Skelton";
+const SSRVideoSection = dynamic(()=>import("./VideoSection"),{ssr:false})
 type SessionPageType = {
   menu: MenuBodyType[];
-  sessionInfo: SessionInfoType;
+  shortName:string
+  sessionID:string
 };
-function Session({ menu, sessionInfo }: SessionPageType) {
-  const categoryData = sessionInfo?.session?.course?.categoryID;
+function Session({ menu, sessionID,shortName }: SessionPageType) {
+  const {data,isLoading} = useGetSessionInfoQuery({sessionID,shortName});
+
+  const categoryData = data?.session?.course?.categoryID;
   const categoryHref = categoryData?.link;
   const categoryTitle = categoryData?.title;
-  const findSessionIndex = sessionInfo?.sessions?.findIndex((session) => {
-    return session._id == sessionInfo.session._id;
+  const findSessionIndex = data?.sessions?.findIndex((session) => {
+    return session._id == data?.session._id;
   });
+  // if(isLoading)return <TextLoader loadingCondition={isLoading}/>
   return (
     <ClientLayout menu={menu}>
       <div className="container  mt-8 sm:mt-10">
@@ -43,75 +43,80 @@ function Session({ menu, sessionInfo }: SessionPageType) {
               title: categoryTitle,
             },
             {
-              target: `/courses/course/${sessionInfo?.session?.course?.shortName}`,
-              title: sessionInfo?.session?.course.name,
+              target: `/courses/course/${data?.session?.course?.shortName}`,
+              title: data?.session?.course?.name,
             },
           ]}
         />
         {/* video section */}
+       <div className="">
+      {isLoading ? <Session_Skelton count={1}/>:
+       <SSRVideoSection sessionData ={data?.session! } coursePoster={data?.course?.cover!}/>
+      }
 
-
-        <VideoSection sessionData ={sessionInfo?.session } coursePoster={sessionInfo?.course?.cover}/>
-
-        {/* session info & dropDown sessions */}
-        <div className="grid grid-cols-12 gap-y-6 gap-x-5 lg:gap-x-7 mt-6 lg:mt-8 ">
-          <div className="col-span-full order-last md:order-none md:col-span-7 xl:col-span-8">
-            {/* info */}
-            <div className="hidden md:block bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5">
-              <TitleHeader
-                className="bg-sky-500 "
-                title="آموزش Next.js بصورت پروژه محور"
-              />
-              <div className="session__title_wrapper">
-                <div className="session__title_number">
-                  {findSessionIndex + 1}
-                </div>
-                <h4 className="font-DanaMedium sm:text-lg">
-                  {sessionInfo?.session?.title}
-                </h4>
-              </div>
-              {/* course CTA bnts */}
-              <div className="flex gap-x-4 gap-3.5 flex-wrap">
-                <a
-                  href="#lesson-qaa"
-                  className="w-full sm:w-36  bg-dark text-white box-center rounded-full"
-                >
-                  سوال دارم!
-                </a>
-                <PrimaryBtn
-                  variant="fill"
-                  size="lg"
-                  type="button"
-                  className="w-full sm:w-36"
-                >
-                  عمیق تر شو !
-                </PrimaryBtn>
-              </div>
-            </div>
-            {/* comments */}
-            <div
-              id="lesson-qaa"
-              className="bg-white dark:bg-darker
-             rounded-2xl p-4.5 sm:p-5 mt-6 lg:mt-8"
-            >
-              <TitleHeader
-                className="bg-red-500 "
-                title="پرسش و پاسخ"
-                Icon={ChatBubbleOvalLeftEllipsisIcon}
-                IconColor="text-red-500"
-              />
-              <CommentRule />
-              <Q_box_form />
-              <Q_box_list />
-            </div>
-          </div>
-          <Side_Box
-            courseSessions={sessionInfo?.course}
-            sessionNumb = {sessionInfo?.sessions?.length}
-          />
+{/* session info & dropDown sessions */}
+          {isLoading ? <TextLoader loadingCondition={isLoading}/>:
+<div className="grid grid-cols-12 gap-y-6 gap-x-5 lg:gap-x-7 mt-6 lg:mt-8 ">
+  <div className="col-span-full order-last md:order-none md:col-span-7 xl:col-span-8">
+    {/* info */}
+    <div className="hidden md:block bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5">
+      <TitleHeader
+        className="bg-sky-500 "
+        title="آموزش Next.js بصورت پروژه محور"
+      />
+      <div className="session__title_wrapper">
+        <div className="session__title_number">
+          {findSessionIndex! + 1}
         </div>
+        <h4 className="font-DanaMedium sm:text-lg">
+          {data?.session?.title!}
+        </h4>
+      </div>
+      {/* course CTA bnts */}
+      <div className="flex gap-x-4 gap-3.5 flex-wrap">
+        <a
+          href="#lesson-qaa"
+          className="w-full sm:w-36  bg-dark text-white box-center rounded-full"
+        >
+          سوال دارم!
+        </a>
+        <PrimaryBtn
+          variant="fill"
+          size="lg"
+          type="button"
+          className="w-full sm:w-36"
+        >
+          عمیق تر شو !
+        </PrimaryBtn>
+      </div>
+    </div>
+    {/* comments */}
+    <div
+      id="lesson-qaa"
+      className="bg-white dark:bg-darker
+     rounded-2xl p-4.5 sm:p-5 mt-6 lg:mt-8"
+    >
+      <TitleHeader
+        className="bg-red-500 "
+        title="پرسش و پاسخ"
+        Icon={ChatBubbleOvalLeftEllipsisIcon}
+        IconColor="text-red-500"
+      />
+      <CommentRule />
+      <Q_box_form />
+      <Q_box_list />
+    </div>
+  </div>
+  <Side_Box
+    courseSessions={data?.course!}
+    sessionNumb = {data?.sessions?.length!}
+    />
+</div>
+  }
+       </div>
       </div>
     </ClientLayout>
+
   );
 }
 

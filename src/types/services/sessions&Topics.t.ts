@@ -1,4 +1,4 @@
-import { CatBodytype } from "./course&category.t";
+import { CatBodytype, CourseDataTable } from "./course&category.t";
 
 export type TopicBody = {
   title: string;
@@ -20,3 +20,8 @@ export type SessionTableData = Omit<SessionBodyType, "course"> & {
 export type CourseSessionData = Omit<SessionTableData,"video">&{
   video:string
 }
+export type SessionInfoType = {
+  sessions: SessionBodyType[];
+  session: CourseSessionData;
+  course: CourseDataTable;
+};
