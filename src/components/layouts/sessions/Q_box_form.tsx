@@ -2,17 +2,16 @@
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { ExclamationTriangleIcon, UserIcon } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
-import React, { useState } from "react";
-import { useForm } from "react-hook-form";
+import { useState } from "react";
 const TextEditor = dynamic(
   () => import("@/components/utils-components/textEditor/TextEditor"), {ssr: false}
 );
 function Q_box_form() {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm();
+  // const {
+  //   register,
+  //   handleSubmit,
+  //   formState: { errors },
+  // } = useForm();
   const { data } = useGetMeQuery();
   const [qBody, setQBody] = useState("");
   return (

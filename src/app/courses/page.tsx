@@ -2,7 +2,7 @@ import Courses from "@/components/layouts/courses/Courses";
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
 import { Metadata } from "next";
-import React from "react";
+import React, { Suspense } from "react";
 export const metadata: Metadata = {
   applicationName: "سبز لرن",
   title: "دوره ها - سبز لرن",
@@ -21,11 +21,14 @@ async function page() {
   const categories = await dataFetcher("category", "omit", "force-cache");
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden">
+      <Suspense>
+
       <Courses
         allCourses={dataParser(allCourses)}
         menu={dataParser(menus)}
         categories={dataParser(categories)}
-      />
+        />
+        </Suspense>
     </main>
   );
 }

@@ -1,29 +1,17 @@
 "use client";
 import UserPanel_SideBar from "@/components/layouts/user-panel/UserPanel_SideBar";
-import React from "react";
-import styles from "./userpanel.module.css";
-import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
 import UserDataDropDown from "@/components/shared/navbar/UserDataDropDown";
-import { ChildrenProps } from "@/types/global.t";
-import { Bars3BottomRightIcon } from "@heroicons/react/20/solid";
-import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
-import { useGetMeQuery } from "@/services/auth/authApiSlice";
-import { GetmeType, UserType } from "@/types/services/authapi.t";
+import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
 import StoreProvider from "@/context/StoreProvider";
-import { Metadata } from "next";
-export const metadata: Metadata = {
-  applicationName: "سبز لرن",
-  title: " پنل کاربری - سبز لرن",
-  description:"پنل کاربری - سبز لرن",
-  openGraph: {
-    type: "website",
-    siteName: "سبز لرن | Sabzlearn",
-    title: " پنل کاربری - سبز لرن",
-    description:"پنل کاربری - سبز لرن",
-  },
-};
-function layout({ children }: ChildrenProps) {
+import useDisclosure from "@/hooks/useDisclosure";
+import { useGetMeQuery } from "@/services/auth/authApiSlice";
+import { ChildrenProps } from "@/types/global.t";
+import { UserType } from "@/types/services/authapi.t";
+import { Bars3BottomRightIcon } from "@heroicons/react/20/solid";
+import styles from "./userpanel.module.css";
+
+function Layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
 
   return (
@@ -81,4 +69,4 @@ const UserDataDropDownSec = () => {
     </div>
   );
 };
-export default layout;
+export default Layout;

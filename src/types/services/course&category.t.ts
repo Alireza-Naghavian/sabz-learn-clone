@@ -49,12 +49,13 @@ export type CourseDataTable = Omit<CourseBodyType, "categoryID"> & {
   sessions:SessionBodyType[]
   isUserRegisteredToThisCourse?:boolean
 };
-export interface SingleCourseData extends CourseDataTable {
+export type SingleCourseData =  Omit<CourseDataTable,"creator"> & {
   comments: [];
   sessions: [];
   courseStudentsCount: number;
   discount: number;
   isComplete: boolean;
+  creator:string
 }
 
 export type FilterReqType ={

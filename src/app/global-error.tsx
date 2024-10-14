@@ -25,7 +25,7 @@ function GlobalError({
             صفحه اصلی
           </Link>
           <span className="">{error.message}</span>
-          <PrimaryBtn type="button" size="xl" variant="outline">
+          <PrimaryBtn onClick={()=>reset()} type="button" size="xl" variant="outline">
             تلاش مجدد
           </PrimaryBtn>
         </div>

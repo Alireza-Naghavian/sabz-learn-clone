@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import Button from "../button/Button";
 import Overlay from "../Overlay/Overlay";
 import style from "./searchbox.module.css";
-function SearchBox({className}:{className?:string}) {
+function SearchBox() {
 const [isBoxOpen,{open,close}] = useDisclosure();
   
 return (

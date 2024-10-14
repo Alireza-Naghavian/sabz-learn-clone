@@ -467,7 +467,7 @@ export const EmptyResultIcon = ({ className }: { className?: string }) => {
 };
 
 
-export const NotFoundIcon = ({ className }: { className?: string })=>{
+export const NotFoundIcon = ()=>{
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"

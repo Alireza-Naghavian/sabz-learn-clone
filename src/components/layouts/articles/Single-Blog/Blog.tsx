@@ -8,10 +8,11 @@ import ResponsiveImage from '@/components/utils-components/ResponsiveImage/Respo
 import TitlesBox from './TitlesBox'
 import BlogContent from './BlogContent'
 import RelateBlogs from './RelateBlogs'
+import { MenuBodyType } from '@/types/services/menu.t'
 
-function Blog() {
+function Blog({menu}:{menu:MenuBodyType[]}) {
   return (
-    <ClientLayout>
+    <ClientLayout menu={menu}>
 
     <div className='mt-8 sm:mt-10 container'>
         {/* breadcrumb */}

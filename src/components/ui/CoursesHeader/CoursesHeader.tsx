@@ -6,7 +6,7 @@ type HeaderType = {
   totalAmount: number|string;
   mainTitle: string;
 };
-function CoursesHeader({ qs, totalAmount, mainTitle }: HeaderType) {
+function CoursesHeader({  totalAmount, mainTitle }: HeaderType) {
   const searchParams = useSearchParams();
   const urlSearchParams = new URLSearchParams(searchParams);
   const search = urlSearchParams.get("search")

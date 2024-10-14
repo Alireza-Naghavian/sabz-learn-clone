@@ -32,8 +32,9 @@ function PrimaryBtn({
   ...props
 }: PrimaryBtnType) {
   return (
-    <button className={primaryStyle({ size, className, variant })} {...props}>
+    <button type={type} className={primaryStyle({ size, className, variant })} {...props}>
       {children}
+      {Icon && <Icon/>}
     </button>
   );
 }

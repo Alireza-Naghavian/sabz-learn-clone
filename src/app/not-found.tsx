@@ -1,4 +1,3 @@
-import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import ColorShade from "@/components/ui/greenShade/GreenShade";
 import { NotFoundIcon } from "@/utils/Icons";
 import Link from "next/link";
@@ -8,7 +7,7 @@ function NotFound() {
     <main className="flex  justify-center overflow-hidden flex-col w-full relative px-4 py-6  min-h-screen text-center">
       <div className="">
         <div className="  max-w-[696px] mr-auto ml-auto  ">
-          <NotFoundIcon className="!relative" />
+          <NotFoundIcon  />
         </div>
       </div>
       <p className="font-DanaBold text-lg md:text-3xl my-5 md:my-10">

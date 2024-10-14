@@ -6,7 +6,6 @@ import CoursePaginBtn from "@/components/utils-components/pagination/CoursePagin
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
 import { CommentListType, CommentType } from "@/types/services/comment.t";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
 
 function CommentList({
   open,

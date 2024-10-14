@@ -1,16 +1,17 @@
 "use client";
-import { ChevronDownIcon, FolderOpenIcon } from "@heroicons/react/24/outline";
-import React, { useState } from "react";
-import SimpleCheckBox from "../textField&inputs/SimpleCheckBox";
 import useDisclosure from "@/hooks/useDisclosure";
-import { CatBodytype } from "@/types/services/course&category.t";
+import { CatBodytype, FilterCourseType } from "@/types/services/course&category.t";
+import { ChevronDownIcon, FolderOpenIcon } from "@heroicons/react/24/outline";
 import { useRouter, useSearchParams } from "next/navigation";
+import { useState } from "react";
+import { UseFormRegister } from "react-hook-form";
+import SimpleCheckBox from "../textField&inputs/SimpleCheckBox";
 type CatOptionType = {
   link:string,
   title:string,
   _id:string
 }
-function CategorySelector({ register,categories }: { register: any,categories:CatBodytype[] }) {
+function CategorySelector({ register,categories }: { register: UseFormRegister<FilterCourseType>,categories:CatBodytype[] }) {
   const [isCatOpen, { toggle }] = useDisclosure();
   const [catQeury,setCatQeury] = useState<CatOptionType>({link:"",title:"",_id:""})
   const searchParams = useSearchParams();

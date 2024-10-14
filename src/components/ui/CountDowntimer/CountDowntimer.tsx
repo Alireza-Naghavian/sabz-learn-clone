@@ -1,6 +1,6 @@
 "use client";
 import React, { useEffect, useState } from "react";
-let initTime = {
+const initTime = {
   day: 0,
   hour: 0,
   minute: 0,
@@ -18,18 +18,18 @@ interface Props {
 }
 function CountDowntimer({ percent, date }: Props) {
   const [time, setTime] = useState<CountDownType>(initTime);
-  let CountDowDate = date.getTime();
+  const CountDowDate = date.getTime();
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date().getTime();
       const timeLeft = CountDowDate - now;
       // calc date vars
-      let day = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
-      let hour = Math.floor(
+      const day = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+      const hour = Math.floor(
         (timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)
       );
-      let minute = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
-      let second = Math.floor((timeLeft % (1000 * 60)) / 1000);
+      const minute = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+      const second = Math.floor((timeLeft % (1000 * 60)) / 1000);
       setTime({ day, hour, minute, second });
       if (timeLeft < 0) {
         clearInterval(timer);

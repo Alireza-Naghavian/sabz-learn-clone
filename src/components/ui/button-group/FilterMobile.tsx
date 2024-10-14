@@ -1,8 +1,8 @@
+import useScrollLocker from '@/hooks/useScrollLocker'
 import { Filter_section_type } from '@/types/buttons.t'
 import { TrashIcon, XCircleIcon } from '@heroicons/react/24/outline'
+import { useRouter } from 'next/navigation'
 import SideBarFilter from '../aside/SideBarFilter'
-import useScrollLocker from '@/hooks/useScrollLocker'
-import { useRouter, useSearchParams } from 'next/navigation'
 
 function FilterMobile({isOpen,setIsOpen,qs=true,categories}:Filter_section_type) {
     useScrollLocker(isOpen)

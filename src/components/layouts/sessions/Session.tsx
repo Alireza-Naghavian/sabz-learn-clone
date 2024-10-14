@@ -1,19 +1,20 @@
 "use client"
 import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import TextLoader from "@/components/ui/loader/TextLoader";
 import { useGetSessionInfoQuery } from "@/services/sessions&topics/sesisonSlice";
 import { MenuBodyType } from "@/types/services/menu.t";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
+import dynamic from "next/dynamic";
 import ClientLayout from "../ClientLayout/ClientLayout";
 import TitleHeader from "../course/TitleHeader";
 import Q_box_form from "./Q_box_form";
 import Q_box_list from "./Q_box_list";
 import "./session.css";
-import Side_Box from "./Side_Box";
-import VideoSection from "./VideoSection";
-import TextLoader from "@/components/ui/loader/TextLoader";
-import dynamic from "next/dynamic";
 import Session_Skelton from "./Session_Skelton";
+import Side_Box from "./Side_Box";
+import { CourseSessionData } from "@/types/services/sessions&Topics.t";
+import { CourseDataTable } from "@/types/services/course&category.t";
 const SSRVideoSection = dynamic(()=>import("./VideoSection"),{ssr:false})
 type SessionPageType = {
   menu: MenuBodyType[];
@@ -51,7 +52,7 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
         {/* video section */}
        <div className="">
       {isLoading ? <Session_Skelton count={1}/>:
-       <SSRVideoSection sessionData ={data?.session! } coursePoster={data?.course?.cover!}/>
+       <SSRVideoSection sessionData ={data?.session as CourseSessionData  } coursePoster={data?.course?.cover as string}/>
       }
 
 {/* session info & dropDown sessions */}
@@ -66,10 +67,10 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
       />
       <div className="session__title_wrapper">
         <div className="session__title_number">
-          {findSessionIndex! + 1}
+          {findSessionIndex as number + 1}
         </div>
         <h4 className="font-DanaMedium sm:text-lg">
-          {data?.session?.title!}
+          {data?.session?.title as string}
         </h4>
       </div>
       {/* course CTA bnts */}
@@ -108,8 +109,8 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
     </div>
   </div>
   <Side_Box
-    courseSessions={data?.course!}
-    sessionNumb = {data?.sessions?.length!}
+    courseSessions={data?.course as CourseDataTable}
+    sessionNumb = {data?.sessions?.length as number}
     />
 </div>
   }

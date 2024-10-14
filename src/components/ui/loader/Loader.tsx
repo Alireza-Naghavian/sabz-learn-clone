@@ -3,7 +3,7 @@ type LoaderType = {
   loadingCondition: string | number | boolean;
   width?: string;
   height?: string;
-  className?: any;
+  className?: string;
 };
 function Loader({
   loadingCondition,

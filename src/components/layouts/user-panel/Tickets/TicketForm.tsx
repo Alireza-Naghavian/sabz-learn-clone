@@ -10,7 +10,7 @@ import PrimaryBtn from '@/components/ui/button/PrimaryBtn'
 
 function TicketForm() {
     const [dept,setDept] = useState("")
-    const {register ,handleSubmit,formState:{errors}} = useForm();
+    const {register ,formState:{errors}} = useForm();
   return (
    <ContentList title='ارسال تیکت' >
     <form className='w-full h-full flex flex-col justify-center gap-y-8' >

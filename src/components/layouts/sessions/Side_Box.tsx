@@ -1,4 +1,10 @@
 "use client";
+import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import Tail_Info from "@/components/ui/tail-info/Tail_Info";
+import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
+import { CourseDataTable } from "@/types/services/course&category.t";
+import { TopicDataType } from "@/types/services/sessions&Topics.t";
+import { formatTime } from "@/utils/videoData";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import {
   ChevronDownIcon,
@@ -9,15 +15,9 @@ import {
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import TitleHeader from "../course/TitleHeader";
-import Tail_Info from "@/components/ui/tail-info/Tail_Info";
-import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
-import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
-import { SessionBodyType, TopicDataType } from "@/types/services/sessions&Topics.t";
-import { CourseDataTable } from "@/types/services/course&category.t";
-import { usePathname } from "next/navigation";
-import { formatTime } from "@/utils/videoData";
 
 
 function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,sessionNumb:number}) {
@@ -34,7 +34,7 @@ function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,s
       return acc +totalSeconds
     },0)
   })
-    const formatSessionTime = formatTime(totalSessionTime &&totalSessionTime[0])
+    const formatSessionTime = formatTime(totalSessionTime &&totalSessionTime[0]   )
     return (
     <aside
       className="col-span-full order-first
@@ -132,8 +132,7 @@ type chapterType =Partial<TopicDataType>&{
 const Chapter = ({
   toggle,
   id,
-  isBoxOpen,
-  course,sessions,title,courseShortName
+  isBoxOpen,sessions,title,courseShortName
 }:chapterType ) => {
 
   return (

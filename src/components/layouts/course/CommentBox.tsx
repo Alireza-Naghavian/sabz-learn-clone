@@ -11,6 +11,7 @@ import CommentForm from "./comments/CommentForm";
 import CommentList from "./comments/CommentList";
 import TitleHeader from "./TitleHeader";
 import { CommentData } from "@/types/services/comment.t";
+import { UserType } from "@/types/services/authapi.t";
 function CommentBox({courseShortName,courseId}: {
   courseShortName: string;
   courseId: string;
@@ -40,7 +41,7 @@ function CommentBox({courseShortName,courseId}: {
         return [...prevComments, ...newComments!];
       });
     }
-  }, [commentData]);
+  }, [commentData,validCommentData]);
 
 
   return (
@@ -75,15 +76,15 @@ function CommentBox({courseShortName,courseId}: {
       <CommentForm
         commentId={commentId}
         isReply={reply}
-        userData={data?.user!}
+        userData={data?.user as UserType}
         courseShortName={courseShortName}
         isBoxOpen={isBoxOpen}
         close={close}
         setReply={setReply}
       />
       <CommentList
-      totalPages ={commentData?.totalPages!}
-      currentPage={commentData?.currentPage!}
+      totalPages ={commentData?.totalPages as number}
+      currentPage={commentData?.currentPage as number}
 
         page={page}
         setPage={setPage}

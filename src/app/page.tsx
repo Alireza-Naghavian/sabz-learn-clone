@@ -1,5 +1,5 @@
 import HomePage from "@/components/layouts/home/HomePage";
-import { CourseBodyType } from "@/types/services/course&category.t";
+import { CourseBodyType, CourseDataTable } from "@/types/services/course&category.t";
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
 export default async function Home() {
@@ -11,12 +11,12 @@ export default async function Home() {
     1800
   );
   const latestArticles = await dataFetcher("articles","omit",undefined,1800)
-  const categories = await dataFetcher("category", "omit", "no-store");
-  const mostPopularCourses =  allCourses.sort((a: any, b: any) => {
-    return b.registers - a.registers;
+  const categories = await dataFetcher("category", "omit", undefined);
+  const mostPopularCourses =  allCourses.sort((a: CourseBodyType, b: CourseBodyType) => {
+    return b.registers! - a.registers!;
   }).slice(0,8)
-  const latestCourses = allCourses.sort((a: any, b: any) => {
-    return new Date(b.createdAt).getDate() - new Date(a.createdAt).getDate();
+  const latestCourses = allCourses.sort((a: CourseDataTable, b: CourseDataTable) => {
+    return new Date(b.createdAt!).getDate() - new Date(a.createdAt!).getDate();
   }).slice(0,8)
   const mostPopularFreeCourses =  allCourses.filter((course:CourseBodyType)=>{
     return course.isFree

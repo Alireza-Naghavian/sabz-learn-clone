@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler } from "react";
-import { Message, ValidationRule } from "react-hook-form";
+import { FieldErrors, FieldValues, Message, UseFormRegister, ValidationRule } from "react-hook-form";
 import { SetState } from "./global.t";
 import { IconType } from "./icon.t";
 export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &
@@ -46,7 +46,7 @@ export type MainTextFieldType = {
   required?: boolean;
   size: Size;
   variant: "outLine" | "borderFill" | "rounded";
-  register: any;
+  register:  any;
   Icon?:IconType
   errors: any;
   require?:boolean
@@ -61,7 +61,7 @@ export type StatusBoxType<Value,Name> = {
   value: Value;
   title: string;
   watch: any;
-  register:any
+  register: any;
   name:Name;
   Icon:IconType;
   className?:string

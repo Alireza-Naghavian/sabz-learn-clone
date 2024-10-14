@@ -27,6 +27,9 @@ function Courses({
           totalAmount={`${allCourses.totalCourses} عنوان آموزشی`}
         />
         <StoreProvider>
+
+
+        
           <section
             className="grid  grid-rows-1 lg:grid-cols-3 xl:grid-cols-4 
         gap-3.5 sm:gap-5 mt-9 sm:mt-25"
@@ -44,6 +47,7 @@ function Courses({
               </div>
             </div>
           </section>
+   
         </StoreProvider>
       </div>
     </ClientLayout>

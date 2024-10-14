@@ -8,7 +8,7 @@ function VideoSection({coursePoster,sessionData}:{coursePoster:string,sessionDat
 
   useEffect(()=>{
     if(typeof window !==undefined && videoRef.current){
-
+      
       const player  = new Plyr(videoRef.current)
     }
 

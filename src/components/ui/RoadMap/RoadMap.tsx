@@ -11,7 +11,7 @@ const roadMapStyle = [
 /* eslint-enable @typescript-eslint/no-unused-vars */
 function RoadMap({ categories }: { categories: CatBodytype[] }) {
   const RoadMapItems = categories
-    .map((category, index) => {
+    .map((category) => {
       return Roadmaps.map((roadMap) => {
         if (roadMap.target == category.link) {
           return { ...roadMap, courses: category.Courses?.length };

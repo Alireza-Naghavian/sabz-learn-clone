@@ -1,6 +1,5 @@
-import { CourseBodyType, FilterReqType, QueryStrings } from "@/types/services/course&category.t";
+import { FilterReqType, QueryStrings } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
-import { usePathname } from "next/navigation";
 
 export const CoursesListApiSlice = apiSlice.injectEndpoints({
     endpoints:(builder)=>({

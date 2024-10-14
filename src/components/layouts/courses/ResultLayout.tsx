@@ -1,8 +1,7 @@
 "use client";
 import CourseCard from "@/components/shared/ProductCard/ProductCard";
-import { CourseBodyType, FilterReqType } from "@/types/services/course&category.t";
+import { FilterReqType } from "@/types/services/course&category.t";
 import { usePathname } from "next/navigation";
-import React from "react";
 
 function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
     const  path = usePathname();

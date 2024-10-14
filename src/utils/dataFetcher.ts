@@ -1,4 +1,4 @@
-let BaseUrl = "http://localhost:4000/v1";
+const BaseUrl = "http://localhost:4000/v1";
 
 type CacheType = "force-cache"|"no-cache" | "no-store" | "only-if-cached" | "reload"
 type RevalidateTime = number | false | undefined;
