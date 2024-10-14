@@ -7,10 +7,10 @@ export default async function Home() {
   const allCourses = await dataFetcher(
     "courses/getInit",
     "omit",
-    "force-cache",
+    undefined,
     1800
   );
-  const latestArticles = await dataFetcher("articles","omit","force-cache",1800)
+  const latestArticles = await dataFetcher("articles","omit",undefined,1800)
   const categories = await dataFetcher("category", "omit", "no-store");
   const mostPopularCourses =  allCourses.sort((a: any, b: any) => {
     return b.registers - a.registers;

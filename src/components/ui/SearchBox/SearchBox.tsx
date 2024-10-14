@@ -1,15 +1,12 @@
 "use client"
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import style from "./searchbox.module.css";
-import Button from "../button/Button";
-import useDisclosure from "@/hooks/useDisclosure";
-import Overlay from "../Overlay/Overlay";
-import { useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, FormEvent, useEffect, useRef, useState } from "react";
-import { useSearchCoursesQuery } from "@/services/search/searchApiSlice";
 import StoreProvider from "@/context/StoreProvider";
+import useDisclosure from "@/hooks/useDisclosure";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { useRouter, useSearchParams } from "next/navigation";
 import { useForm } from "react-hook-form";
-import useDebounce from "@/hooks/useDebounce";
+import Button from "../button/Button";
+import Overlay from "../Overlay/Overlay";
+import style from "./searchbox.module.css";
 function SearchBox({className}:{className?:string}) {
 const [isBoxOpen,{open,close}] = useDisclosure();
   

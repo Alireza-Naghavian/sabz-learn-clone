@@ -16,10 +16,10 @@ function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
               alt={course.name}
               title={course.name}
               src={course.cover}
-              target={`/courses/${course.shortName}`}
+              target={`/courses/course/${course.shortName}`}
             />
             <CourseCard.Body
-              target={`/courses/${course.shortName}`}
+              target={`/courses/course/${course.shortName}`}
               title={course.name}
               desc={course.description}
             />

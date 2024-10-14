@@ -17,7 +17,7 @@ function CourseCard({ children }: ChildrenProps) {
     </div>
   );
 }
-function CardHeader({ src, alt, title, target, badge,isBlur}: CardHeaderType) {
+function CardHeader({ src, alt, title, target, badge}: CardHeaderType) {
   
   return (
     <div className="relative h-42 group  ">

@@ -1,32 +1,58 @@
-import React from "react";
-import ClientLayout from "../ClientLayout/ClientLayout";
 import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
-import VideoSection from "./VideoSection";
-import TitleHeader from "../course/TitleHeader";
-import "./session.css";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import { CourseDataTable } from "@/types/services/course&category.t";
+import { MenuBodyType } from "@/types/services/menu.t";
+import {
+  CourseSessionData,
+  SessionBodyType
+} from "@/types/services/sessions&Topics.t";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
+import ClientLayout from "../ClientLayout/ClientLayout";
+import TitleHeader from "../course/TitleHeader";
 import Q_box_form from "./Q_box_form";
 import Q_box_list from "./Q_box_list";
+import "./session.css";
 import Side_Box from "./Side_Box";
-function Session() {
+import VideoSection from "./VideoSection";
+export type SessionInfoType = {
+  sessions: SessionBodyType[];
+  session: CourseSessionData;
+  course: CourseDataTable;
+};
+type SessionPageType = {
+  menu: MenuBodyType[];
+  sessionInfo: SessionInfoType;
+};
+function Session({ menu, sessionInfo }: SessionPageType) {
+  const categoryData = sessionInfo?.session?.course?.categoryID;
+  const categoryHref = categoryData?.link;
+  const categoryTitle = categoryData?.title;
+  const findSessionIndex = sessionInfo?.sessions?.findIndex((session) => {
+    return session._id == sessionInfo.session._id;
+  });
   return (
-    <ClientLayout>
+    <ClientLayout menu={menu}>
       <div className="container  mt-8 sm:mt-10">
         <Breardcrumb
           nestedStep={3}
           firstTarget="/"
           nestedLinks={[
             { target: "/courses", title: "دوره ها" },
-            { target: "/courses?cat=front-end", title: "فرانت اند" },
             {
-              target: "/courses/course/courseName",
-              title: "آموزش پروژه محور next js",
+              target: `/courses/category${categoryHref}`,
+              title: categoryTitle,
+            },
+            {
+              target: `/courses/course/${sessionInfo?.session?.course?.shortName}`,
+              title: sessionInfo?.session?.course.name,
             },
           ]}
         />
         {/* video section */}
-        <VideoSection />
+
+
+        <VideoSection sessionData ={sessionInfo?.session } coursePoster={sessionInfo?.course?.cover}/>
+
         {/* session info & dropDown sessions */}
         <div className="grid grid-cols-12 gap-y-6 gap-x-5 lg:gap-x-7 mt-6 lg:mt-8 ">
           <div className="col-span-full order-last md:order-none md:col-span-7 xl:col-span-8">
@@ -37,9 +63,11 @@ function Session() {
                 title="آموزش Next.js بصورت پروژه محور"
               />
               <div className="session__title_wrapper">
-                <div className="session__title_number">3</div>
+                <div className="session__title_number">
+                  {findSessionIndex + 1}
+                </div>
                 <h4 className="font-DanaMedium sm:text-lg">
-                  ایجاد Node.js App در هاست
+                  {sessionInfo?.session?.title}
                 </h4>
               </div>
               {/* course CTA bnts */}
@@ -73,11 +101,14 @@ function Session() {
                 IconColor="text-red-500"
               />
               <CommentRule />
-              <Q_box_form/>
-              <Q_box_list/>
+              <Q_box_form />
+              <Q_box_list />
             </div>
           </div>
-        <Side_Box/>
+          <Side_Box
+            courseSessions={sessionInfo?.course}
+            sessionNumb = {sessionInfo?.sessions?.length}
+          />
         </div>
       </div>
     </ClientLayout>
