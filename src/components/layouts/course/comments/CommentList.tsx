@@ -36,7 +36,6 @@ function CommentList({
         />
       </div>
     );
-  console.log(data);
   return (
     <section className="comments_wrap space-y-4.5 sm:space-y-5">
       {data?.map((comment) => {

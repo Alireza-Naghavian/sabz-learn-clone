@@ -184,7 +184,6 @@ import {
         }
       ]
     },
-    placeholder: 'توضیحات مربوط به دوره...',
     table: {
         contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
     }

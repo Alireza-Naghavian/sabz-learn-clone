@@ -5,6 +5,7 @@ import SmCompaignTRow from './SmCompaignTRow'
 import LgCompaignTRow from './LgCompaignTRow'
 import { useAllCompaignQuery } from '@/services/compaigns/compaignSlice'
 import TextLoader from '@/components/ui/loader/TextLoader'
+import EmptyResult from '@/components/ui/EmptyResult/EmptyResult'
 
 function CompaignList() {
   const {data,isLoading,isError,currentData} = useAllCompaignQuery();
@@ -15,6 +16,15 @@ function CompaignList() {
         loadingCondition={isLoading}
       />
     );
+    if (data === undefined || data.length === 0)
+      return (
+        <div className="mt-5">
+          <EmptyResult
+            className="py-4"
+            title={"هیچ کمپینی تاکنون اجرا نشده است"}
+          />
+        </div>
+      );
   return (
     <div className="h-[480px] overflow-y-auto px-2">
     <Table variant="singleHead">

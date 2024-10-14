@@ -94,7 +94,7 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
     <div
       id="lesson-qaa"
       className="bg-white dark:bg-darker
-     rounded-2xl p-4.5 sm:p-5 mt-6 lg:mt-8"
+     rounded-2xl p-8  mt-6 lg:mt-8"
     >
       <TitleHeader
         className="bg-red-500 "

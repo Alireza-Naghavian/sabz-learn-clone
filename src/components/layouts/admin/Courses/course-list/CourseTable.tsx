@@ -6,6 +6,7 @@ import dynamic from "next/dynamic";
 import Table from "@/components/ui/Table/Table";
 import SmCourseTRow from "./SmCourseTRow";
 import LgCourseTRow from "./LgCourseTRow";
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 const NoSSR = dynamic(() => import("@/components/ui/Table/Table"), {
   ssr: false,
 });
@@ -20,6 +21,15 @@ function CourseTable() {
         loadingCondition={isLoading}
       />
     );
+    if (data === undefined || data.length === 0)
+      return (
+        <div className="mt-5">
+          <EmptyResult
+            className="py-4"
+            title={"دوره ای جهت نمایش وجود ندارد"}
+          />
+        </div>
+      );
   return (
     <HeaderAdminLayout title="لیست دوره ها">
       <div className="h-[480px] overflow-y-auto px-2">
