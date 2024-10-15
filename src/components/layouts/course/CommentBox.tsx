@@ -41,7 +41,7 @@ function CommentBox({courseShortName,courseId}: {
         return [...prevComments, ...newComments!];
       });
     }
-  }, [commentData,validCommentData]);
+  }, [commentData]);
 
 
   return (

@@ -103,9 +103,9 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
         Icon={ChatBubbleOvalLeftEllipsisIcon}
         IconColor="text-red-500"
       />
-      <CommentRule />
-      <Q_box_form />
-      <Q_box_list />
+      <CommentRule  />
+      <Q_box_form sessionID={sessionID}shortName={shortName} />
+      <Q_box_list sessionID={sessionID}shortName={shortName}  />
     </div>
   </div>
   <Side_Box

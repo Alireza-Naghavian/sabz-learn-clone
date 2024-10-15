@@ -1,21 +1,48 @@
 "use client";
+import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import Loader from "@/components/ui/loader/Loader";
+import { useAlert } from "@/context/AlertProvider";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
+import { useCreateQuestionMutation } from "@/services/sessions&topics/userQuestionsSlice";
 import { ExclamationTriangleIcon, UserIcon } from "@heroicons/react/24/outline";
 import dynamic from "next/dynamic";
 import { useState } from "react";
+import { useForm } from "react-hook-form";
 const TextEditor = dynamic(
-  () => import("@/components/utils-components/textEditor/TextEditor"), {ssr: false}
+  () => import("@/components/utils-components/textEditor/TextEditor"),
+  { ssr: false }
 );
-function Q_box_form() {
-  // const {
-  //   register,
-  //   handleSubmit,
-  //   formState: { errors },
-  // } = useForm();
+function Q_box_form({
+  sessionID,
+  shortName,
+}: {
+  sessionID: string;
+  shortName: string;
+}) {
+  const {
+    handleSubmit,
+    formState: { errors },
+  } = useForm();
   const { data } = useGetMeQuery();
   const [qBody, setQBody] = useState("");
+
+  // send req to server
+
+const [sendQuestion,{isLoading}] = useCreateQuestionMutation();
+const {showAlert} = useAlert();
+  const askHanlder = async () => {
+    try {
+      if(qBody.trim().length ===0) return showAlert("error","متن پرسش الزامی است")
+        const result = await sendQuestion({body:qBody,creator:data?.user._id as string,sessionId:sessionID,shortName}).unwrap();
+        showAlert("success",result.message)
+    } catch (error) {
+        console.log(error);
+      }finally{
+        setQBody("")
+      }
+  };
   return (
-    <form>
+    <form onSubmit={handleSubmit(askHanlder)}>
       <div className="flex  gap-x-3.5 mb-4.5 sm:mb-5 mt-4">
         <div
           className="box-center p-1.5 border border-gray-100
@@ -35,16 +62,24 @@ function Q_box_form() {
         </div>
       </div>
       <div className="flex flex-col items-center gap-x-2 text-red-500 mb-4 ">
-     <div className="flex items-center gap-x-2 self-start mb-4 mr-3 ">
-     <ExclamationTriangleIcon className="size-6 shrink-0 hidden sm:inline-block" />
-        <p className="text-sm md:font-DanaMedium">
-          لطفا قبل از ثبت پرسش بالاتر بخش قوانین ایجاد سوال را مطالعه کنید.
-        </p>
-     </div>
+        <div className="flex items-center gap-x-2 self-start mb-4 mr-3 ">
+          <ExclamationTriangleIcon className="size-6 shrink-0 hidden sm:inline-block" />
+          <p className="text-sm md:font-DanaMedium">
+            لطفا قبل از ثبت پرسش بالاتر بخش قوانین ایجاد سوال را مطالعه کنید.
+          </p>
+        </div>
         {/* text editor form */}
-      <div className=" child:!px-0">
-      <TextEditor  onChange={setQBody} value={qBody} />
-      </div>
+        <div className=" flex w-full mt-2 child:w-full">
+          <TextEditor onChange={setQBody} value={qBody} />
+        </div>
+        <PrimaryBtn
+          type="submit"
+          variant="outline"
+          size="xl"
+          className="mt-4 mr-auto w-full sm:w-[150px]"
+        >
+      {isLoading ? <Loader loadingCondition={isLoading}/>:"ارسال"}
+        </PrimaryBtn>
       </div>
     </form>
   );

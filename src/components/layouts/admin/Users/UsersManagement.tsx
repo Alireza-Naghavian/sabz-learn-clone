@@ -7,8 +7,6 @@ import SmUserTRow from './SmUserTRow'
 import { useGetUsersQuery } from '@/services/users/userApiSlice'
 import TextLoader from '@/components/ui/loader/TextLoader'
 import EmptyResult from '@/components/ui/EmptyResult/EmptyResult'
-
-
 function UsersManagement() {
   const {data,isLoading} =useGetUsersQuery();
   if (isLoading)

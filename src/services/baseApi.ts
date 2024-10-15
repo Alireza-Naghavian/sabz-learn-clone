@@ -5,9 +5,8 @@ const apiSlice = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "http://localhost:4000/v1",
     timeout: 60000,
-    
   }),
-  
+
   tagTypes: [
     "user",
     "offer",
@@ -28,7 +27,9 @@ const apiSlice = createApi({
     "sessionInfo",
     "menu",
     "articles",
-    "article"
+    "article",
+    "userQuestion",
+    "userQuestions",
   ],
   endpoints: () => ({}),
 });

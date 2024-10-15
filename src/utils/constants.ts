@@ -23,6 +23,7 @@ import {
   HomeIcon,
   PercentBadgeIcon,
   PlusIcon,
+  QuestionMarkCircleIcon,
   TicketIcon,
   UserIcon,
   UsersIcon,
@@ -164,6 +165,12 @@ export const AdminDashboardNavItems: UserPanelOpType[] = [
   },
   {
     variant: { hoverMode: "hoverMode", casual: "casual" },
+    title: "پرسش و پاسخ",
+    Icon: QuestionMarkCircleIcon,
+    target: "/admin/userQuestions",
+  },
+  {
+    variant: { hoverMode: "hoverMode", casual: "casual" },
     title: "کامنت ها",
     Icon: ChatBubbleBottomCenterIcon,
     target: "/admin/comments",
@@ -187,6 +194,7 @@ export const AdminDashboardNavItems: UserPanelOpType[] = [
     Icon: CalendarDaysIcon,
     target: "/admin/compaign",
   },
+
 ];
 export const AdminDashBoardDropDown: AdminDropDownType[] = [
   {

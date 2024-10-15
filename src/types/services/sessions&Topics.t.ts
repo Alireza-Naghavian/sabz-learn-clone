@@ -25,3 +25,16 @@ export type SessionInfoType = {
   session: CourseSessionData;
   course: CourseDataTable;
 };
+
+
+export type UserQBodyType = {
+  creator:string,
+  shortName:string,
+  sessionId:string,
+  body:string
+}
+export type UserQDataType=Pick<UserQBodyType,"body"|"creator"> &{
+  course:string
+  _id?:string
+  adminAnswers:[]
+}

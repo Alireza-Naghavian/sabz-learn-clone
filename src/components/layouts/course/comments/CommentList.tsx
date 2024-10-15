@@ -100,7 +100,7 @@ function CommentList({
   );
 }
 
-const Comment = ({
+export const Comment = ({
   open,
   children,
   className,
