@@ -105,7 +105,7 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
       />
       <CommentRule  />
       <Q_box_form sessionID={sessionID}shortName={shortName} />
-      <Q_box_list sessionID={sessionID}shortName={shortName}  />
+      <Q_box_list  />
     </div>
   </div>
   <Side_Box

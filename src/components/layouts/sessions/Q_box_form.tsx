@@ -28,18 +28,24 @@ function Q_box_form({
 
   // send req to server
 
-const [sendQuestion,{isLoading}] = useCreateQuestionMutation();
-const {showAlert} = useAlert();
+  const [sendQuestion, { isLoading }] = useCreateQuestionMutation();
+  const { showAlert } = useAlert();
   const askHanlder = async () => {
     try {
-      if(qBody.trim().length ===0) return showAlert("error","متن پرسش الزامی است")
-        const result = await sendQuestion({body:qBody,creator:data?.user._id as string,sessionId:sessionID,shortName}).unwrap();
-        showAlert("success",result.message)
+      if (qBody.trim().length === 0)
+        return showAlert("error", "متن پرسش الزامی است");
+      const result = await sendQuestion({
+        body: qBody,
+        creator: data?.user._id as string,
+        sessionId: sessionID,
+        shortName,
+      }).unwrap();
+      showAlert("success", result.message);
     } catch (error) {
-        console.log(error);
-      }finally{
-        setQBody("")
-      }
+      showAlert("error", "خطا هنگام ارسال پرسش لطفا بعدا مجددا تلاش کنید");
+    } finally {
+      setQBody("");
+    }
   };
   return (
     <form onSubmit={handleSubmit(askHanlder)}>
@@ -78,7 +84,7 @@ const {showAlert} = useAlert();
           size="xl"
           className="mt-4 mr-auto w-full sm:w-[150px]"
         >
-      {isLoading ? <Loader loadingCondition={isLoading}/>:"ارسال"}
+          {isLoading ? <Loader loadingCondition={isLoading} /> : "ارسال"}
         </PrimaryBtn>
       </div>
     </form>
