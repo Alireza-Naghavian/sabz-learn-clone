@@ -1,4 +1,4 @@
-import { ResultMsg } from "@/types/services/course&category.t";
+import { RemoveQuery, ResultMsg } from "@/types/services/course&category.t";
 import {
   AnswerQBodyType,
   MergeQBody,
@@ -55,11 +55,24 @@ export const userQuestionApi = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    removeUserQuestion :builder.mutation<ResultMsg,RemoveQuery&{userId:string}>({
+      query:({_id,userId})=>({
+        url:`courses/session/questions/${userId}/${_id}`,
+        method:"DELETE",
+        credentials:"include"
+      }),
+      invalidatesTags:["userQuestions","userQuestion"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
+    
   }),
 });
 export const {
   useCreateQuestionMutation,
   useGetUserQuestionQuery,
   useAllQuestionsQuery,
-  useAsnwerQuestionMutation
+  useAsnwerQuestionMutation,
+  useRemoveUserQuestionMutation
 } = userQuestionApi;

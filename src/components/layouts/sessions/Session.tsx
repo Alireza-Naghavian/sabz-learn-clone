@@ -28,9 +28,8 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
   const categoryHref = categoryData?.link;
   const categoryTitle = categoryData?.title;
   const findSessionIndex = data?.sessions?.findIndex((session) => {
-    return session._id == data?.session._id;
+    return session._id == data?.session?._id;
   });
-  // if(isLoading)return <TextLoader loadingCondition={isLoading}/>
   return (
     <ClientLayout menu={menu}>
       <div className="container  mt-8 sm:mt-10">

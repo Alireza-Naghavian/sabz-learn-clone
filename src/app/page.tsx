@@ -8,8 +8,9 @@ export default async function Home() {
     "courses/getInit",
     "omit",
     undefined,
-    1800
+   1800
   );
+  
   const latestArticles = await dataFetcher("articles","omit",undefined,1800)
   const categories = await dataFetcher("category", "omit", undefined);
   const mostPopularCourses =  allCourses.sort((a: CourseBodyType, b: CourseBodyType) => {
@@ -30,7 +31,7 @@ export default async function Home() {
         mostPopularCourses={dataParser(mostPopularCourses)}
         latestCourses={dataParser(latestCourses)}
         mostPopularFreeCourses={dataParser(mostPopularFreeCourses)}
-        latestArticles = {dataParser(latestArticles)}
+        latestArticles = {dataParser([])}
       />
     </main>
   );

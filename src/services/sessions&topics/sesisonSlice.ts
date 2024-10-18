@@ -61,17 +61,21 @@ export const sessionSlice = apiSlice.injectEndpoints({
         method: "DELETE",
         credentials: "include",
       }),
-      invalidatesTags: ["session", "sessions"],
+      invalidatesTags: ["session", "sessions", "userQuestion", "userQuestions"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),
-    getSessionInfo: builder.query<SessionInfoType, { shortName: string; sessionID: string }>({
-      query: ({ sessionID, shortName }) => ({
-        url: `/courses/session/${shortName}/${sessionID}`,
-        method: "GET",
-        credentials: "include",
-      }),
+    getSessionInfo: builder.query<SessionInfoType,{ shortName: string; sessionID: string }>({
+      query: ({ sessionID, shortName }) => {
+        console.log('Short Name:', shortName);
+        console.log('Session ID:', sessionID);
+        return {
+          url: `/courses/session/${shortName}/${sessionID}`,
+          method: "GET",
+          credentials: "include",
+        };
+      },
       providesTags: ["sessionInfo"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
@@ -85,5 +89,5 @@ export const {
   useCreateSessionMutation,
   useGetAllSessionsQuery,
   useRemoveSessionMutation,
-  useGetSessionInfoQuery
+  useGetSessionInfoQuery,
 } = sessionSlice;

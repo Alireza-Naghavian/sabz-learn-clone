@@ -5,6 +5,7 @@ import TextLoader from "@/components/ui/loader/TextLoader";
 import Table from "@/components/ui/Table/Table";
 import { useAllQuestionsQuery } from "@/services/sessions&topics/userQuestionsSlice";
 import LgQTRow from "./LgQTRow";
+import SmQTRow from "./SmQTRow";
 
 function UserQuestions() {
   const { data, isLoading, currentData, isError } = useAllQuestionsQuery();
@@ -46,6 +47,7 @@ function UserQuestions() {
             {data.map((group, index) => {
               
               if (currentData !== undefined && !isError) {
+            
                 return (
                   <LgQTRow
                     questions={group.questions}
@@ -60,12 +62,18 @@ function UserQuestions() {
               }
             })}
 
-            {/* // {data?.map((user) => {
-            //   return (
-            //     // <SmUserTRow key={user._id} {...user} />
-            //     <></>
-            //   );
-            // })} */}
+             {data?.map((group) => {
+                if (currentData !== undefined && !isError) {
+
+                  return (
+                    <SmQTRow key={crypto.randomUUID()}     questions={group.questions}
+                    course={group.course}
+                    creator={group.creator}
+                    session={group.session} />
+                    
+                  );
+                }
+             })}
           </Table.Body>
         </Table>
       </div>

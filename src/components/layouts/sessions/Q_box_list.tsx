@@ -48,7 +48,7 @@ function Q_box_list() {
 export const QuestionSample = ({question}:{question:QuestionSampleType})=>{
 
   return(
-    <div  className={`p-4.5 md:p-5  rounded-xl dark:bg-dark bg-gray-200`}>
+    <div  className={`p-4.5 md:p-5 w-full flex  rounded-xl flex-col  dark:bg-dark bg-gray-200`}>
     <div
       className="flex items-center justify-between pb-4 mb-4 border-b
     border-b-neutral-200/60 dark:border-white/10"

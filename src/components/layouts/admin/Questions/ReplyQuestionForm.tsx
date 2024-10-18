@@ -52,7 +52,7 @@ function ReplyQuestionForm({
         return (
           <div
             key={message._id}
-            className={`flex flex-col  gap-y-4 w-[70%]  px-6 my-4
+            className={`flex flex-col  gap-y-4 md:w-[70%] w-full  px-6 my-4
             ${
               message.creator.role === "ADMIN"
                 ? "child:!bg-sky-800 child:text-white"

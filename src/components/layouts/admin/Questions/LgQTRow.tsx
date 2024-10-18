@@ -4,7 +4,13 @@ import { PencilSquareIcon, TrashIcon } from '@heroicons/react/24/solid'
 import { useState } from 'react'
 import EditModal from '../modals/EditModal'
 import ReplyQuestionForm from './ReplyQuestionForm'
-
+import DeleteModal from '../modals/DeleteModal'
+import { useAlert } from '@/context/AlertProvider'
+import { useRemoveUserQuestionMutation } from '@/services/sessions&topics/userQuestionsSlice'
+export type RemoveQueryType ={
+  _id:string,
+  userId:string
+}
 function LgQTRow({index,course,creator,session,questions}:MergeQBody&{index:number,questions:QuestionSampleType[]}) {
   const [allMessages,setAllMessage]=useState(()=>{
     const mergedMessages = questions.flatMap((messages)=>{
@@ -21,6 +27,18 @@ function LgQTRow({index,course,creator,session,questions}:MergeQBody&{index:numb
     return mergedMessages.sort((a,b)=>new Date(a.date).getTime() - new Date(b.date).getTime())
   })
   const [isReplyOpen,setIsReplyOpen] = useState(false)
+  const [isDeleteOpen,setIsDeleteOpen] = useState(false)
+  const {showAlert} = useAlert();
+  const [removeQuestion,{isLoading:isRemoveLoading}] = useRemoveUserQuestionMutation();
+
+  const removeHandler = async()=>{
+    try {
+      const result = await removeQuestion({_id:session._id ,userId:creator._id} as RemoveQueryType).unwrap();
+      showAlert("success",result.message)
+    } catch (error) {
+    showAlert("error","خطایی در حذف پرسش رخ داده است")   
+    }
+  }
     return (
     <Table.Row
       variant="singleHead"
@@ -55,22 +73,22 @@ function LgQTRow({index,course,creator,session,questions}:MergeQBody&{index:numb
       </td>
       <td className="">
       <TrashIcon
-        // onClick={() => setIsDeleteOpen(true)}
+        onClick={() => setIsDeleteOpen(true)}
         className=" text-red-500 size-6 cursor-pointer"
       />
       </td>
     
-      {/* {_id !== undefined && (
+      {session._id !== undefined && (
         <DeleteModal
-          identifier={_id}
+          identifier={session._id}
           isDeleteOpen={isDeleteOpen}
           setIsDeleteOpen={() => setIsDeleteOpen(false)}
           isLoading={isRemoveLoading}
           removeHandler={removeHandler}
-          subjectTitle="کامنت"
+          subjectTitle="پرسش"
         />
       )}
-        */}
+       
       <EditModal
         className="!h-auto"
         modalTitle="ارسال پاسخ"
@@ -78,7 +96,6 @@ function LgQTRow({index,course,creator,session,questions}:MergeQBody&{index:numb
         setIsOpen={() => setIsReplyOpen(false)}
 
       >
-
        <ReplyQuestionForm    setIsReplyOpen={setIsReplyOpen} allMessages={allMessages} sessionId={session._id as string}/>
       </EditModal> 
     </Table.Row>
