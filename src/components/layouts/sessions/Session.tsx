@@ -1,86 +1,122 @@
-import React from "react";
-import ClientLayout from "../ClientLayout/ClientLayout";
+"use client"
 import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
-import VideoSection from "./VideoSection";
-import TitleHeader from "../course/TitleHeader";
-import "./session.css";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import TextLoader from "@/components/ui/loader/TextLoader";
+import { useGetSessionInfoQuery } from "@/services/sessions&topics/sesisonSlice";
+import { MenuBodyType } from "@/types/services/menu.t";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
+import dynamic from "next/dynamic";
+import ClientLayout from "../ClientLayout/ClientLayout";
+import TitleHeader from "../course/TitleHeader";
 import Q_box_form from "./Q_box_form";
 import Q_box_list from "./Q_box_list";
+import "./session.css";
+import Session_Skelton from "./Session_Skelton";
 import Side_Box from "./Side_Box";
-function Session() {
+import { CourseSessionData } from "@/types/services/sessions&Topics.t";
+import { CourseDataTable } from "@/types/services/course&category.t";
+const SSRVideoSection = dynamic(()=>import("./VideoSection"),{ssr:false})
+type SessionPageType = {
+  menu: MenuBodyType[];
+  shortName:string
+  sessionID:string
+};
+function Session({ menu, sessionID,shortName }: SessionPageType) {
+  const {data,isLoading} = useGetSessionInfoQuery({sessionID,shortName});
+
+  const categoryData = data?.session?.course?.categoryID;
+  const categoryHref = categoryData?.link;
+  const categoryTitle = categoryData?.title;
+  const findSessionIndex = data?.sessions?.findIndex((session) => {
+    return session._id == data?.session?._id;
+  });
   return (
-    <ClientLayout>
+    <ClientLayout menu={menu}>
       <div className="container  mt-8 sm:mt-10">
         <Breardcrumb
           nestedStep={3}
           firstTarget="/"
           nestedLinks={[
             { target: "/courses", title: "دوره ها" },
-            { target: "/courses?cat=front-end", title: "فرانت اند" },
             {
-              target: "/courses/course/courseName",
-              title: "آموزش پروژه محور next js",
+              target: `/courses/category${categoryHref}`,
+              title: categoryTitle,
+            },
+            {
+              target: `/courses/course/${data?.session?.course?.shortName}`,
+              title: data?.session?.course?.name,
             },
           ]}
         />
         {/* video section */}
-        <VideoSection />
-        {/* session info & dropDown sessions */}
-        <div className="grid grid-cols-12 gap-y-6 gap-x-5 lg:gap-x-7 mt-6 lg:mt-8 ">
-          <div className="col-span-full order-last md:order-none md:col-span-7 xl:col-span-8">
-            {/* info */}
-            <div className="hidden md:block bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5">
-              <TitleHeader
-                className="bg-sky-500 "
-                title="آموزش Next.js بصورت پروژه محور"
-              />
-              <div className="session__title_wrapper">
-                <div className="session__title_number">3</div>
-                <h4 className="font-DanaMedium sm:text-lg">
-                  ایجاد Node.js App در هاست
-                </h4>
-              </div>
-              {/* course CTA bnts */}
-              <div className="flex gap-x-4 gap-3.5 flex-wrap">
-                <a
-                  href="#lesson-qaa"
-                  className="w-full sm:w-36  bg-dark text-white box-center rounded-full"
-                >
-                  سوال دارم!
-                </a>
-                <PrimaryBtn
-                  variant="fill"
-                  size="lg"
-                  type="button"
-                  className="w-full sm:w-36"
-                >
-                  عمیق تر شو !
-                </PrimaryBtn>
-              </div>
-            </div>
-            {/* comments */}
-            <div
-              id="lesson-qaa"
-              className="bg-white dark:bg-darker
-             rounded-2xl p-4.5 sm:p-5 mt-6 lg:mt-8"
-            >
-              <TitleHeader
-                className="bg-red-500 "
-                title="پرسش و پاسخ"
-                Icon={ChatBubbleOvalLeftEllipsisIcon}
-                IconColor="text-red-500"
-              />
-              <CommentRule />
-              <Q_box_form/>
-              <Q_box_list/>
-            </div>
-          </div>
-        <Side_Box/>
+       <div className="">
+      {isLoading ? <Session_Skelton count={1}/>:
+       <SSRVideoSection sessionData ={data?.session as CourseSessionData  } coursePoster={data?.course?.cover as string}/>
+      }
+
+{/* session info & dropDown sessions */}
+          {isLoading ? <TextLoader loadingCondition={isLoading}/>:
+<div className="grid grid-cols-12 gap-y-6 gap-x-5 lg:gap-x-7 mt-6 lg:mt-8 ">
+  <div className="col-span-full order-last md:order-none md:col-span-7 xl:col-span-8">
+    {/* info */}
+    <div className="hidden md:block bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5">
+      <TitleHeader
+        className="bg-sky-500 "
+        title="آموزش Next.js بصورت پروژه محور"
+      />
+      <div className="session__title_wrapper">
+        <div className="session__title_number">
+          {findSessionIndex as number + 1}
         </div>
+        <h4 className="font-DanaMedium sm:text-lg">
+          {data?.session?.title as string}
+        </h4>
+      </div>
+      {/* course CTA bnts */}
+      <div className="flex gap-x-4 gap-3.5 flex-wrap">
+        <a
+          href="#lesson-qaa"
+          className="w-full sm:w-36  bg-dark text-white box-center rounded-full"
+        >
+          سوال دارم!
+        </a>
+        <PrimaryBtn
+          variant="fill"
+          size="lg"
+          type="button"
+          className="w-full sm:w-36"
+        >
+          عمیق تر شو !
+        </PrimaryBtn>
+      </div>
+    </div>
+    {/* comments */}
+    <div
+      id="lesson-qaa"
+      className="bg-white dark:bg-darker
+     rounded-2xl p-8  mt-6 lg:mt-8"
+    >
+      <TitleHeader
+        className="bg-red-500 "
+        title="پرسش و پاسخ"
+        Icon={ChatBubbleOvalLeftEllipsisIcon}
+        IconColor="text-red-500"
+      />
+      <CommentRule  />
+      <Q_box_form sessionID={sessionID}shortName={shortName} />
+      <Q_box_list  />
+    </div>
+  </div>
+  <Side_Box
+    courseSessions={data?.course as CourseDataTable}
+    sessionNumb = {data?.sessions?.length as number}
+    />
+</div>
+  }
+       </div>
       </div>
     </ClientLayout>
+
   );
 }
 

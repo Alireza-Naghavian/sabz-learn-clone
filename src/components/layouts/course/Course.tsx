@@ -2,8 +2,10 @@ import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import Tail_Info from "@/components/ui/tail-info/Tail_Info";
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
+import StoreProvider from "@/context/StoreProvider";
 import { CourseDataTable } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
+import { formatTime } from "@/utils/videoData";
 import { StarIcon } from "@heroicons/react/16/solid";
 import { UserGroupIcon } from "@heroicons/react/20/solid";
 import {
@@ -20,7 +22,6 @@ import CourseDesc from "./CourseDesc";
 import CourseHeader from "./CourseHeader";
 import CourseSessions from "./CourseSessions";
 import RelateCourse from "./RelateCourse";
-import StoreProvider from "@/context/StoreProvider";
 
 function Course({
   menu,
@@ -34,6 +35,16 @@ function Course({
   const totalSessions = courseData?.topics?.reduce((total, topic) => {
     return total + topic?.sessions?.length;
   }, 0);
+  const totalSessionTime = courseData.topics?.map((topic)=>{
+    return topic.sessions.reduce((acc:number,curr:any)=>{
+    const sessionTimes = curr.time.split(":")
+    const seconds = Number(sessionTimes[1])
+    const minutes = Number(sessionTimes[0]) *60
+    const totalSeconds = seconds + minutes
+      return acc +totalSeconds
+    },0)
+  })
+    const formatSessionTime = formatTime(totalSessionTime! &&totalSessionTime[0])
   const completedSessions = 50;
   const completionPercentage =
     totalSessions! > 0 ? (totalSessions! / completedSessions) * 100 : 0;
@@ -72,7 +83,7 @@ function Course({
                 Icon={InformationCircleIcon}
               />
               <Tail_Info
-                subTitle={`${courseData.duration} ساعت`}
+                subTitle={`${formatSessionTime} دقیقه`}
                 title="مدت زمان دوره"
                 variant="mainInfo"
                 Icon={ClockIcon}
@@ -108,6 +119,7 @@ function Course({
             <CourseDesc courseDesc={courseData.longDesc} />
             <CourseSessions
               isCourseFree={courseData.isFree}
+              shortName= {courseData.shortName}
               courseTopicData={courseData.topics as []}
               isUserRegister={courseData.isUserRegisteredToThisCourse!}
             />
@@ -123,8 +135,8 @@ function Course({
                 <Tail_Info
                   variant="sideInfo"
                   Icon={UserGroupIcon}
-                  subTitle="دانشجو"
-                  title={courseData.registers?.toString()!}
+                  subTitle="دانشجو" 
+                  title={courseData.registers?.toString() as string}
                 />
                 <Tail_Info
                   variant="sideInfo"

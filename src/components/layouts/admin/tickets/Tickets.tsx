@@ -6,6 +6,16 @@ import LgTicketTRow from './LgTicketTRow'
 import SmTicketTRow from './SmTicketTRow'
 
 function Tickets() {
+  // if (data === undefined || data.length === 0)
+  //   return (
+  //     <div className="mt-5">
+  //       <EmptyResult
+  //         className="py-4"
+  //         title={" جلسه ای جهت نمایش وجود ندارد"}
+  //       />
+  //     </div>
+  //   );
+
   return (
     <HeaderAdminLayout title='تیکت ها'>
 

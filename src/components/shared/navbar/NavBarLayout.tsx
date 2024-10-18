@@ -8,6 +8,7 @@ import styles from "./navbar.module.css";
 import SideBarMenu from "./SideBarMenu";
 import UserDataSection from "./UserDataSection";
 import { MenuBodyType } from "@/types/services/menu.t";
+import { Suspense } from "react";
 function NavBarLayout({menu}:{menu:MenuBodyType[]}) {
 
   return (
@@ -31,7 +32,10 @@ function NavBarLayout({menu}:{menu:MenuBodyType[]}) {
         </nav>
         {/* left side navbar */}
         <div className="flex  gap-x-6 h-13">
+          <Suspense>
+
           <SearchBox />
+          </Suspense>
           <ThemeToggler className="!hidden lg:!flex" />
           <Bookmark />
           <StoreProvider>

@@ -30,7 +30,7 @@ function SmCommentTRow({
     useRemovecommentMutation();
 
     // handlers
-  const statusHanlder = async (e: any) => {
+  const statusHanlder = async (e:  React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     try {
       const result = await changeStatus({ _id, status }).unwrap();

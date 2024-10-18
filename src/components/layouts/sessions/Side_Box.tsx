@@ -1,25 +1,41 @@
 "use client";
+import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
+import Tail_Info from "@/components/ui/tail-info/Tail_Info";
+import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
+import { CourseDataTable } from "@/types/services/course&category.t";
+import { TopicDataType } from "@/types/services/sessions&Topics.t";
+import { formatTime } from "@/utils/videoData";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import {
   ChevronDownIcon,
   ClockIcon,
   DocumentTextIcon,
   InformationCircleIcon,
+  LockClosedIcon,
   VideoCameraIcon,
 } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useState } from "react";
 import TitleHeader from "../course/TitleHeader";
-import Tail_Info from "@/components/ui/tail-info/Tail_Info";
-import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
-import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 
-function Side_Box() {
+
+function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,sessionNumb:number}) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toggleDropdown = (id: string) => {
     setOpenDropdown(openDropdown === id ? null : id);
   };
-  return (
+  const totalSessionTime = courseSessions?.topics?.map((topic)=>{
+    return topic.sessions.reduce((acc:any,curr:any)=>{
+    const sessionTimes = curr.time.split(":")
+    const seconds = Number(sessionTimes[1])
+    const minutes = Number(sessionTimes[0]) *60
+    const totalSeconds = seconds + minutes
+      return acc +totalSeconds
+    },0)
+  })
+    const formatSessionTime = formatTime(totalSessionTime &&totalSessionTime[0]   )
+    return (
     <aside
       className="col-span-full order-first
      md:order-none md:col-span-5 xl:col-span-4"
@@ -37,16 +53,18 @@ function Side_Box() {
           IconColor="text-amber-400 "
         />
         <div className="chapters gap-y-4 flex flex-col w-full">
-          <Chapter
-            id="intro"
+         {courseSessions?.topics?.map((topic,index)=>{
+          return(
+            <Chapter
+            key={index}
+            id={topic.title}
             toggle={toggleDropdown}
-            isBoxOpen={openDropdown === "intro"}
+            isBoxOpen={openDropdown === topic.title}
+            {...topic}
+            courseShortName={courseSessions.shortName}
           />
-          <Chapter
-            id="req"
-            toggle={toggleDropdown}
-            isBoxOpen={openDropdown === "req"}
-          />
+          )
+         })}
         </div>
       </div>
       {/* info */}
@@ -58,19 +76,19 @@ function Side_Box() {
         lg:mt-8"
       >
         <Tail_Info
-          subTitle="تکمیل شده"
+          subTitle={courseSessions?.status === "inProgress" ? "در حال برگزاری":"درحال پیش فروش"}
           title="وضعیت "
           variant="mainInfo"
           Icon={InformationCircleIcon}
         />
         <Tail_Info
-          subTitle="۵۸:۳۴"
+          subTitle={`${formatSessionTime} دقیقه`}
           title="زمان دوره"
           variant="mainInfo"
           Icon={ClockIcon}
         />
         <Tail_Info
-          subTitle="۳۸۹"
+          subTitle={sessionNumb?.toLocaleString("fa-IR")}
           title="جلسات دوره"
           variant="mainInfo"
           Icon={VideoCameraIcon}
@@ -86,7 +104,7 @@ function Side_Box() {
             imageStyles="!relative !block mb-4 mx-auto !object-cover rounded-full"
           />
           <span className="font-DanaBold text-lg mb-2">
-            محمد امین سعیدی راد| مدرس دوره
+               {courseSessions?.creator?.username}| مدرس دوره
           </span>
           <p className="mt-6"></p>
           <PrimaryBtn
@@ -102,15 +120,21 @@ function Side_Box() {
     </aside>
   );
 }
-const Chapter = ({
-  toggle,
-  id,
-  isBoxOpen,
-}: {
+
+
+
+type chapterType =Partial<TopicDataType>&{
   id: string;
   toggle: (id: string) => void;
   isBoxOpen: boolean;
-}) => {
+  courseShortName:string
+}
+const Chapter = ({
+  toggle,
+  id,
+  isBoxOpen,sessions,title,courseShortName
+}:chapterType ) => {
+
   return (
     <div className="chapter">
       <div
@@ -119,7 +143,7 @@ const Chapter = ({
           isBoxOpen ? "chapter__head chapter__head--active" : "chapter__head"
         }`}
       >
-        <span className="font-DanaMedium truncate">معرفی دوره</span>
+        <span className="font-DanaMedium truncate">{title}</span>
         <ChevronDownIcon
           className={`shrink-0 size-6 transition-transform ${
             isBoxOpen ? "rotate-180" : "rotate-0"
@@ -127,18 +151,20 @@ const Chapter = ({
         />
       </div>
       <div className="chapter__lessons">
-        <LessonItem
-          isComplete
-          lessonTarget=""
-          time="20:33"
-          title="معرفی دوره"
-        />
-        <LessonItem
-          isComplete
-          lessonTarget=""
-          time="20:33"
-          title="پیشنیاز دوره"
-        />
+        {sessions?.map((session,index)=>{
+          return(
+            <LessonItem
+            key={index}
+            isComplete
+            lessonTarget={`/courses/course/session/${courseShortName}/${session._id}`}
+            time={session.time}
+            title={session.title}
+          _id={session._id!}
+          isFree={session.isFree}
+          />
+          )
+        })}
+      
       </div>
     </div>
   );
@@ -149,20 +175,33 @@ type LessonType = {
   title: string;
   time: string;
   isComplete: boolean;
+  _id:string
+  isFree:boolean|number
 };
 
-const LessonItem = ({ lessonTarget, title, time, isComplete }: LessonType) => {
+const LessonItem = ({ lessonTarget, title, time, isComplete,_id ,isFree}: LessonType) => {
+  const path = usePathname();
+  const pathId = path.split("/").at(5)
+
   return (
     <div className="lesson py-4 border-b last:border-none border-gray-500/75">
+ {isFree ==1? 
       <Link
-        href={lessonTarget}
-        className="block line-clamp-2 dark:!text-white dark:!bg-transparent"
-      >
-        {title}
-      </Link>
+      href={_id===pathId ?"" :lessonTarget}
+      className={`block line-clamp-2  hover:text-baseColor dark:text-white dark:bg-transparent ${_id == pathId && "!text-baseColor"}`}
+    >
+      {title}
+    </Link>
+ :
+ <span
+ className={`block line-clamp-2  !transition-colors !duration-100 hover:!text-baseColor dark:text-white  ${_id == pathId && "!text-baseColor"}`}
+>
+ {title}
+</span>
+ }
       <div className="flex items-center justify-between mt-3 sm:mt-2">
         <div className="status">
-          {isComplete ? (
+          {!isComplete ? (
             <CheckIcon
               className=" w-5 h-5 py-px box-center rounded-full
              text-white bg-baseColor"
@@ -174,15 +213,28 @@ const LessonItem = ({ lessonTarget, title, time, isComplete }: LessonType) => {
             ></span>
           )}
         </div>
-        <div
-          className="min-w-18  box-center px-4 py-2
-         text-baseColor rounded-full bg-transparent
-         hover:bg-baseColor hover:text-white  border
-          border-baseColor
+          {isFree ===1 ? 
+             <div
+             className="min-w-18  box-center px-4 py-2
+            text-baseColor rounded-full bg-transparent
+            hover:bg-baseColor hover:text-white  border
+             border-baseColor
+           transition-all duration-300 button-outline"
+           >
+             {time}
+           </div>
+          :
+          <div
+          className="  box-center p-1
+         text-red-500 rounded-full bg-transparent
+         hover:bg-red-500 hover:text-white  border
+          border-red-500
         transition-all duration-300 button-outline"
         >
-          {time}
+          <LockClosedIcon className="size-5 "/>
+       
         </div>
+          }
       </div>
     </div>
   );

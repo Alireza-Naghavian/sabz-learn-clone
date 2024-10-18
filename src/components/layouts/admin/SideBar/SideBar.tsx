@@ -12,8 +12,9 @@ import DropDown from "@/components/ui/DropDown/DropDown";
 import useDisclosure from "@/hooks/useDisclosure";
 import { useState } from "react";
 import { IconType } from "@/types/icon.t";
+import { UserPanelOpType } from "@/types/consts.t";
 function SideBar() {
-  const [isDropOpen, { close }] = useDisclosure();
+  const [_, { close }] = useDisclosure();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toggleDropdown = (id: string) => {
     setOpenDropdown(openDropdown === id ? null : id);
@@ -70,7 +71,7 @@ function SideBar() {
             </DropDown>
           );
         })}
-        {AdminDashboardNavItems.map((item: any, index: number) => {
+        {AdminDashboardNavItems.map((item: UserPanelOpType, index: number) => {
           return (
             <SideBarItem
               key={index}

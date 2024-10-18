@@ -1,8 +1,7 @@
 "use client";
 import CourseCard from "@/components/shared/ProductCard/ProductCard";
-import { CourseBodyType, FilterReqType } from "@/types/services/course&category.t";
+import { FilterReqType } from "@/types/services/course&category.t";
 import { usePathname } from "next/navigation";
-import React from "react";
 
 function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
     const  path = usePathname();
@@ -16,10 +15,10 @@ function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
               alt={course.name}
               title={course.name}
               src={course.cover}
-              target={`/courses/${course.shortName}`}
+              target={`/courses/course/${course.shortName}`}
             />
             <CourseCard.Body
-              target={`/courses/${course.shortName}`}
+              target={`/courses/course/${course.shortName}`}
               title={course.name}
               desc={course.description}
             />

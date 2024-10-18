@@ -1,8 +1,8 @@
 import { Btn_sheet_type } from "@/types/buttons.t";
 import { SortOption } from "@/utils/constants";
 import { CheckIcon, XMarkIcon } from "@heroicons/react/24/outline";
+import { useRouter, useSearchParams } from "next/navigation";
 import Overlay from "../Overlay/Overlay";
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
 
 function Btn_sort_sheet({ setSort, sort, isOpen, setIsOpen,categoryName,directPath }: Btn_sheet_type) {
   const searchParams = useSearchParams();

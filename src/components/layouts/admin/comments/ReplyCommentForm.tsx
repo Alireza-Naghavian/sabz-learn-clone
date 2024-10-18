@@ -31,7 +31,7 @@ function ReplyCommentForm({userCommentBody,identifier, setIsEditOpen,replyTo}: R
       const result = await answerComment({
         _id: identifier,
         body: data.body,
-        creator: userData?.user._id!,
+        creator: userData?.user._id as string,
       }).unwrap();
       showAlert("success", result.message);
     } catch (error:any) {

@@ -1,17 +1,21 @@
 "use client"
-import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
-import style from "./searchbox.module.css";
-import Button from "../button/Button";
+import StoreProvider from "@/context/StoreProvider";
 import useDisclosure from "@/hooks/useDisclosure";
+import { MagnifyingGlassIcon } from "@heroicons/react/20/solid";
+import { useRouter, useSearchParams } from "next/navigation";
+import { useForm } from "react-hook-form";
+import Button from "../button/Button";
 import Overlay from "../Overlay/Overlay";
-function SearchBox({className}:{className?:string}) {
+import style from "./searchbox.module.css";
+function SearchBox() {
 const [isBoxOpen,{open,close}] = useDisclosure();
-  return (
-    <>
+  
+return (
+    <StoreProvider>
     <Overlay onClose={()=>close()} openCondition={isBoxOpen} />
       <div className="relative group hidden  lg:block">
         <div className="xl:block hidden">
-        <SearchForm className="hidden lg:block "  placeholder="جی میخوای یاد بگیری؟"/>
+        <SearchForm className="hidden lg:block "  placeholder="چیو میخوای یاد بگیری؟"/>
         </div>
         <div className="block xl:hidden">
           {/* lg trigger */}
@@ -25,22 +29,41 @@ const [isBoxOpen,{open,close}] = useDisclosure();
           </div>
         </div>
       </div>
-    </>
+    </StoreProvider>
+
   );
 }
 
 export const SearchForm = ({placeholder,className}:{placeholder:string,className:string}) => {
+  const searchParams = useSearchParams();
+  const urlSearchParams  = new URLSearchParams(searchParams);
+  const router = useRouter();
+  const {register,handleSubmit} = useForm<{value:string}>();
+  const searchHandler = async(formData:{value:string})=>{
+try {
+urlSearchParams.set("search",formData.value.toString());
+if(formData.value.length == 0){
+router.push("/courses",{scroll:true})
+}else{
+  router.push(`/courses?${urlSearchParams.toString()}`,{scroll:true})
+}
+} catch (error:any) {
+return null
+}
+  }
+
   return (
-    <form className={className}>
+    <form onSubmit={handleSubmit(searchHandler)} className={className}>
       <label className={"relative h-13 block rounded-full"}>
         <input
           type="text"
           placeholder={placeholder}
+          {...register("value")}
           className={`${style.search_box_input} dark:bg-white/5 w-full 
            bg-gray-200 rounded-full focus:outline-none text-slate-500  dark:text-white`}
         />
       </label>
-      <button role="button" className={style.search_box__btn}>
+      <button type="submit" role="button" className={style.search_box__btn}>
         <MagnifyingGlassIcon className="w-6 h-6" />
       </button>
     </form>

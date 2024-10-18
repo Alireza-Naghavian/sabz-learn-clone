@@ -1,15 +1,12 @@
-import React from "react";
-import "./course.css";
-import {
-  AcademicCapIcon,
-  BookOpenIcon,
-  UserIcon,
-} from "@heroicons/react/24/outline";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
-import CourseBanner from "./CourseBanner";
-import { TomanIcon } from "@/utils/Icons";
 import CountDowntimer from "@/components/ui/CountDowntimer/CountDowntimer";
 import { CourseDataTable } from "@/types/services/course&category.t";
+import { TomanIcon } from "@/utils/Icons";
+import {
+  AcademicCapIcon
+} from "@heroicons/react/24/outline";
+import "./course.css";
+import CourseBanner from "./CourseBanner";
 function CourseHeader({courseData}:{courseData:CourseDataTable}) {
   return (
     <section className="courseHeader__wrapper">
@@ -35,31 +32,31 @@ function CourseHeader({courseData}:{courseData:CourseDataTable}) {
 }
 
 // buy this course ?
-const AcessBox = () => {
-  return (
-    <div
-      className="flex justify-center items-center lg:justify-between
-     flex-wrap-reverse gap-y-4 gap-x-8 lg:gap-x-6"
-    >
-      <div className="flex items-end gap-x-1">
-        <UserIcon className="size-8" />
-        <p className="font-DanaMedium text-lg">شمادانشجوی دوره هستید</p>
-      </div>
-      <PrimaryBtn
-        size="xxl"
-        variant="fill"
-        type="button"
-        className=" text-lg font-DanaMedium 
-        flex items-center px-6  lg:w-56"
-      >
-        <BookOpenIcon className="size-6" />
-        <a href="#sessions" className="mt-1">
-          مشاهده دوره
-        </a>
-      </PrimaryBtn>
-    </div>
-  );
-};
+// const AcessBox = () => {
+//   return (
+//     <div
+//       className="flex justify-center items-center lg:justify-between
+//      flex-wrap-reverse gap-y-4 gap-x-8 lg:gap-x-6"
+//     >
+//       <div className="flex items-end gap-x-1">
+//         <UserIcon className="size-8" />
+//         <p className="font-DanaMedium text-lg">شمادانشجوی دوره هستید</p>
+//       </div>
+//       <PrimaryBtn
+//         size="xxl"
+//         variant="fill"
+//         type="button"
+//         className=" text-lg font-DanaMedium 
+//         flex items-center px-6  lg:w-56"
+//       >
+//         <BookOpenIcon className="size-6" />
+//         <a href="#sessions" className="mt-1">
+//           مشاهده دوره
+//         </a>
+//       </PrimaryBtn>
+//     </div>
+//   );
+// };
 
 // have buy first
 const BuyBtn = ({ isOffer }: { isOffer: boolean }) => {

@@ -51,10 +51,10 @@ const Slider = ({ nextClass, prevClass, sliderContent }: SliderType) => {
                   alt={slider.name}
                   title={slider.name}
                   src={slider.cover}
-                  target={`/courses/${slider.shortName}`}
+                  target={`/courses/course/${slider.shortName}`}
                   />
                 <CourseCard.Body
-                  target={`/courses/${slider.shortName}`}
+                  target={`/courses/course/${slider.shortName}`}
                   title={slider.name}
                   desc={slider.description}
                   />

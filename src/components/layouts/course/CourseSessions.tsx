@@ -19,10 +19,12 @@ function CourseSessions({
   courseTopicData,
   isUserRegister,
   isCourseFree,
+  shortName
 }: {
   courseTopicData: TopicDataType[];
   isUserRegister: boolean;
   isCourseFree: boolean;
+  shortName:string
 }) {
   return (
     <div
@@ -49,6 +51,7 @@ function CourseSessions({
               sessions={topic.sessions}
               topicTitle={topic.title}
               topiclessons={topic.sessions.length}
+              shortName={shortName}
             />
           );
         })}
@@ -63,6 +66,7 @@ type TopicType = {
   sessions: SessionBodyType[];
   isUserRegister: boolean;
   isCourseFree: boolean;
+  shortName:string
 };
 export const CourseTopic = ({
   topicTitle,
@@ -71,6 +75,7 @@ export const CourseTopic = ({
   sessions,
   isUserRegister,
   isCourseFree,
+  shortName
 }: TopicType) => {
   const [isSessionOpen, { toggle }] = useDisclosure();
   return (
@@ -125,6 +130,7 @@ export const CourseTopic = ({
         {sessions.map((session, index) => {
           return (
             <SessionItem
+            shortName={shortName}
               key={index}
               isCourseFree={isCourseFree}
               index={index + 1}
@@ -146,10 +152,12 @@ export const SessionItem = ({
   isUserRegister,
   _id,
   isCourseFree,
+  shortName
 }: SessionBodyType & {
   index: number;
   isUserRegister: boolean;
   isCourseFree: boolean;
+  shortName:string
 }) => {
   return (
     <div
@@ -170,7 +178,7 @@ export const SessionItem = ({
         </div>
         {isFree == 1 ? (
           <Link
-            href={`/courses/course/session/${_id}`}
+            href={`/courses/course/session/${shortName}/${_id}`}
             className="inline-block lg:max-w-3/4
          text-sm md:text-base 
           group-hover:text-baseColor "

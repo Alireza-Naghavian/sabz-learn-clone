@@ -14,7 +14,7 @@ const SideBarFilter: React.FC<
     qs?: boolean;
     categories?: CatBodytype[];
   }
-> = ({ className, children, qs = true, categories }) => {
+> = ({ className, children, categories }) => {
   const {
     register,
     formState: { errors },

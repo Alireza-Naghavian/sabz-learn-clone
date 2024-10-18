@@ -1,9 +1,5 @@
 "use client";
-import React from "react";
 import ContentList from "../../ContentList";
-import { useForm } from "react-hook-form";
-import TextAriaField from "@/components/ui/textField&inputs/TextAriaField";
-import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 
 function ChatBox() {
   return (
@@ -58,46 +54,46 @@ function ChatBox() {
   );
 }
 
-const ChatForm = () => {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-    reset,
-  } = useForm();
-  const sendHandler = ()=>{
-    try {
+// const ChatForm = () => {
+//   const {
+//     register,
+//     handleSubmit,
+//     formState: { errors },
+//     reset,
+//   } = useForm();
+//   const sendHandler = ()=>{
+//     try {
         
-    } catch (error) {
+//     } catch (error) {
         
-    }
-  }
+//     }
+//   }
 
-  return (
-    <form  className="flex flex-col gap-y-2"  onSubmit={handleSubmit(sendHandler)}>
-      <TextAriaField
-        register={register}
-        name="body"
-        id="body"
-        label="متن تیکت"
-        required={true}
-        placeHolder="متن تیکت خود را وارد کنید"
-        variant="freeMode"
-        validattionschema={{required:"پر کردن این فیلد الزامی است"}}
-        type="text"
-        errors={errors}
-      />
-      <div className="mt-2">
-        <PrimaryBtn
-          type="submit"
-          className="mr-auto !rounded-lg "
-          variant="fill"
-          size="lg"
-        >
-          ارسال
-        </PrimaryBtn>
-      </div>
-    </form>
-  );
-};
+//   return (
+//     <form  className="flex flex-col gap-y-2"  onSubmit={handleSubmit(sendHandler)}>
+//       <TextAriaField
+//         register={register}
+//         name="body"
+//         id="body"
+//         label="متن تیکت"
+//         required={true}
+//         placeHolder="متن تیکت خود را وارد کنید"
+//         variant="freeMode"
+//         validattionschema={{required:"پر کردن این فیلد الزامی است"}}
+//         type="text"
+//         errors={errors}
+//       />
+//       <div className="mt-2">
+//         <PrimaryBtn
+//           type="submit"
+//           className="mr-auto !rounded-lg "
+//           variant="fill"
+//           size="lg"
+//         >
+//           ارسال
+//         </PrimaryBtn>
+//       </div>
+//     </form>
+//   );
+// };
 export default ChatBox;
