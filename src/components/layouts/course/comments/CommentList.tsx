@@ -6,7 +6,6 @@ import CoursePaginBtn from "@/components/utils-components/pagination/CoursePagin
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
 import { CommentListType, CommentType } from "@/types/services/comment.t";
 import { ArrowUturnLeftIcon } from "@heroicons/react/24/outline";
-import { useState } from "react";
 
 function CommentList({
   open,
@@ -36,7 +35,6 @@ function CommentList({
         />
       </div>
     );
-  console.log(data);
   return (
     <section className="comments_wrap space-y-4.5 sm:space-y-5">
       {data?.map((comment) => {
@@ -102,7 +100,7 @@ function CommentList({
   );
 }
 
-const Comment = ({
+export const Comment = ({
   open,
   children,
   className,

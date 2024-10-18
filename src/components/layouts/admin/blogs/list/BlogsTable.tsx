@@ -6,6 +6,7 @@ import LgBlogTRow from "./LgBlogTRow";
 import SmBlogTRow from "./SmBlogTRow";
 import { useGetAllBlogsQuery } from "@/services/articles/articlesApiSlice";
 import TextLoader from "@/components/ui/loader/TextLoader";
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 
 function BlogsTable() {
   const { data, isLoading, currentData, isError } = useGetAllBlogsQuery();
@@ -16,6 +17,15 @@ function BlogsTable() {
         loadingCondition={isLoading}
       />
     );
+    if (data === undefined || data.length === 0)
+      return (
+        <div className="mt-5">
+          <EmptyResult
+            className="py-4"
+            title={"هنوز مقاله ای  ثبت نشده است"}
+          />
+        </div>
+      );
   return (
     <HeaderAdminLayout title="لیست مقالات">
       <div className="h-[480px] overflow-y-auto px-2">

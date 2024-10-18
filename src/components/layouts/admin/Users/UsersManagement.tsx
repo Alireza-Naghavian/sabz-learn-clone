@@ -6,8 +6,7 @@ import LgUserTRow from './LgUserTRow'
 import SmUserTRow from './SmUserTRow'
 import { useGetUsersQuery } from '@/services/users/userApiSlice'
 import TextLoader from '@/components/ui/loader/TextLoader'
-
-
+import EmptyResult from '@/components/ui/EmptyResult/EmptyResult'
 function UsersManagement() {
   const {data,isLoading} =useGetUsersQuery();
   if (isLoading)
@@ -17,6 +16,15 @@ function UsersManagement() {
         loadingCondition={isLoading}
       />
     );
+    if (data === undefined || data.length === 0)
+      return (
+        <div className="mt-5">
+          <EmptyResult
+            className="py-4"
+            title={"کاربری در سبز لرن ثبت نام نکرده است"}
+          />
+        </div>
+      );
   return (
   <HeaderAdminLayout title='لیست کاربران'>
 <div className="h-[480px] overflow-y-auto px-2">

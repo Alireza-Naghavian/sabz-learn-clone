@@ -3,7 +3,7 @@ import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import DarkShade from "@/components/ui/greenShade/DarkShade";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { DocumentTextIcon } from "@heroicons/react/24/solid";
-const DOMPurify = require('dompurify');
+import DOMPurify from 'dompurify';
 import { useEffect, useState } from "react";
 import "./course.css";
 import TitleHeader from "./TitleHeader";

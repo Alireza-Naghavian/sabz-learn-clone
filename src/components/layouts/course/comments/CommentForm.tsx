@@ -48,7 +48,7 @@ function CommentForm({
         result = await answerComment({
           _id: commentId,
           body: data.body,
-          creator: userData?._id!,
+          creator: userData?._id as string,
         }).unwrap();
       } else {
         result = await createComment({

@@ -9,6 +9,7 @@ import {
   SingleCourseData
 } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
+import { EditFormValueType } from "@/components/layouts/admin/Courses/CourseForm/EditCourseForm";
 export const courseApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     addCat: builder.mutation<CreateCatMgs, CatBodytype>({
@@ -105,7 +106,7 @@ export const courseApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
-    updateCourse: builder.mutation<ResultMsg, SingleCourseData>({
+    updateCourse: builder.mutation<ResultMsg, EditFormValueType>({
       query: ({
         _id,
         name,

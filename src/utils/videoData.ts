@@ -1,7 +1,6 @@
 
 export const handleVideoUpload = (fileData: any) => {
-    const file =fileData[0]; // ویدئو انتخاب شده
-
+    const file =fileData[0];
     return new Promise<number>((resolve, reject) => {
         const videoElement = document.createElement("video");
         const fileURL = URL.createObjectURL(file);
@@ -10,7 +9,7 @@ export const handleVideoUpload = (fileData: any) => {
             const duration = videoElement.duration; 
             resolve(duration); 
           };
-          videoElement.onerror = (error) => {
+          videoElement.onerror = () => {
             reject("خطا در بارگذاری ویدئو");
           };
     });

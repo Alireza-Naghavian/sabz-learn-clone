@@ -14,6 +14,7 @@ function BlogCard({
   createdAt,
   cover,
 }: ArticleTableData) {
+  console.log(creator);
   return (
     <div
       className=" flex flex-col bg-white
@@ -45,7 +46,7 @@ function BlogCard({
         >
           <div className="flex items-center gap-x-0.5">
             <UserIcon className="size-5" />
-            <span>{creator.username}</span>
+            <span>{creator.username||""}</span>
           </div>
           <div className="flex items-center gap-x-0.5">
             <CalendarIcon className="size-5" />

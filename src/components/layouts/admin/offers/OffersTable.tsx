@@ -5,6 +5,7 @@ import { useGetAllCodesQuery } from "@/services/offer-codes/offerSlice";
 import LgOfferTRow from "./LgOfferTRow";
 import SmOfferTRow from "./SmOfferTRow";
 import dynamic from "next/dynamic";
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 const DynamicTable = dynamic(() => import("@/components/ui/Table/Table"), {
   ssr: false,
 });
@@ -18,7 +19,15 @@ function OffersTable() {
         loadingCondition={isLoading}
       />
     );
-
+    if (data === undefined || data.length === 0)
+      return (
+        <div className="mt-5">
+          <EmptyResult
+            className="py-4"
+            title={"کد تخفیفی جهت نمایش وجود ندارد"}
+          />
+        </div>
+      );
   return (
     <div className="h-[480px] overflow-y-auto px-2">
       <DynamicTable variant="singleHead">

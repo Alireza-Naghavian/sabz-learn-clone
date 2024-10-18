@@ -1,6 +1,5 @@
 import { SetState } from "../global.t";
 import { UserType } from "./authapi.t";
-import { CourseBodyType } from "./course&category.t";
 
 export type CommentBodyType = {
   body: string;

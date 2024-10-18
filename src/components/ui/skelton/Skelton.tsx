@@ -13,7 +13,7 @@ const Skeleton: React.FC<SkeletonProps> = (props) => {
   // ? Render(s)
   return (
     <>
-      {arr.map((item) =>
+      {arr.map(() =>
         React.Children.map(children, (child) =>
           React.isValidElement(child)
             ? React.cloneElement(child as React.ReactElement<SkeletonProps>)

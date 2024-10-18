@@ -11,17 +11,13 @@ import TextAriaField from "@/components/ui/textField&inputs/TextAriaField";
 import Select from "@/components/utils-components/Select/Select";
 import { useAlert } from "@/context/AlertProvider";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
-import {
-  useGetAllCatQuery,
-  useGetCourseQuery,
-  useUpdateCourseMutation,
-} from "@/services/course&Categories/courseApiSlice";
+import {useGetAllCatQuery,useGetCourseQuery,useUpdateCourseMutation,} from "@/services/course&Categories/courseApiSlice";
 import { SingleCourseData } from "@/types/services/course&category.t";
 import { BookOpenIcon, ShoppingBagIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-
+export type EditFormValueType = Omit<SingleCourseData,"categoryID">&{categoryID:string}
 function EditCourseForm({
   shortName,
   _id,
@@ -38,12 +34,12 @@ function EditCourseForm({
     watch,
     reset,
     formState: { errors },
-  } = useForm<SingleCourseData>({
+  } = useForm<EditFormValueType>({
     defaultValues: {
       name: data?.name as string,
       description: data?.description as string,
       shortName: data?.shortName as string,
-      categoryID: data?.categoryID?._id as any,
+      categoryID: data?.categoryID?._id as string,
       price: data?.price as number,
       status: data?.status as string,
       cover: data?.cover as string,
@@ -68,7 +64,7 @@ function EditCourseForm({
         name: data.name,
         description: data.description,
         shortName: data.shortName,
-        categoryID: data.categoryID?._id as any,
+        categoryID: data.categoryID?._id as string,
         status: data.status,
         cover: data.cover,
         price: data.price,
@@ -95,13 +91,13 @@ function EditCourseForm({
     })
     .reverse();
   //   update handler
-  const updateHanlder = async (data: SingleCourseData) => {
+  const updateHanlder = async (data: EditFormValueType) => {
     try {
-      const updateBody: SingleCourseData = {
+      const updateBody: EditFormValueType = {
         ...data,
         _id: _id,
-        categoryID: category.value as any,
-        creator: userData?.user._id as string,
+        categoryID: category.value as string,
+        creator: userData?.user._id!,
         price: Number(price),
         status,
       };

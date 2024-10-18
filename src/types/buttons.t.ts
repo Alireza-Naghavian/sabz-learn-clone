@@ -17,7 +17,7 @@ export type PrimaryBtnType = {
   variant: Variant;
   size: Size;
   Icon?: IconType;
-  type: string;
+  type?: string;
 } & React.ComponentProps<"button">;
 export type ButtonProps = {
   size: Size;

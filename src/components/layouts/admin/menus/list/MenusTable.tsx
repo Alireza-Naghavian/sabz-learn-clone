@@ -6,6 +6,7 @@ import LgMenuTRow from "./LgMenuTRow";
 import SmMenuTRow from "./SmMenuTRow";
 import { useGetAllMenusQuery } from "@/services/menu&subMenus/menuApiSlice";
 import TextLoader from "@/components/ui/loader/TextLoader";
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 
 function MenusTable() {
   const { data, isLoading, isError, currentData } = useGetAllMenusQuery();
@@ -23,6 +24,15 @@ function MenusTable() {
         loadingCondition={isLoading}
       />
     );
+    if (data === undefined || data.length === 0)
+      return (
+        <div className="mt-5">
+          <EmptyResult
+            className="py-4"
+            title={"منو ای جهت نمایش وجود ندارد"}
+          />
+        </div>
+      );
   return (
     <HeaderAdminLayout title="لیست منو ها">
       <div className="h-[480px] overflow-y-auto px-2">

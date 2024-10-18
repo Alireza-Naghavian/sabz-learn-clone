@@ -5,6 +5,7 @@ import SmCatTRow from "./SmCatTRow";
 import LgCatTRow from "./LgCatTRow";
 import { useGetAllCatQuery } from "@/services/course&Categories/courseApiSlice";
 import TextLoader from "@/components/ui/loader/TextLoader";
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 
 function CategoryTable() {
   const { data, isLoading, currentData, isError } = useGetAllCatQuery();
@@ -15,6 +16,15 @@ function CategoryTable() {
         loadingCondition={isLoading}
       />
     );
+    if (data === undefined || data.length === 0)
+      return (
+        <div className="mt-5">
+          <EmptyResult
+            className="py-4"
+            title={"ابتدا دسته بندی ایجاد کنید"}
+          />
+        </div>
+      );
   return (
     <div className="h-[480px] overflow-y-auto px-2">
       <Table variant="singleHead">

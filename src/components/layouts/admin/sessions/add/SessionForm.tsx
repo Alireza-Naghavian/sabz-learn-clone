@@ -68,8 +68,8 @@ function SessionForm() {
     try {
       const sessionStatus = status === "free";
 
-      const duration = await handleVideoUpload(data.video);
-      const formattedDuration = formatTime(duration);
+      // const duration = await handleVideoUpload(data.video);
+      // const formattedDuration = formatTime(duration);
       const sessionBody = {
         ...data,
         time:videoDuration,

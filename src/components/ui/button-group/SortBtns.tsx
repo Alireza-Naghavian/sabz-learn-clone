@@ -16,7 +16,7 @@ import {
   FunnelIcon,
 } from "@heroicons/react/24/outline";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useEffect, useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import EmptyResult from "../EmptyResult/EmptyResult";
 import { SearchForm } from "../SearchBox/SearchBox";
 import Btn_sort_sheet from "./Btn_sort_sheet";
@@ -28,7 +28,7 @@ type SortBtnType = {
 categoryName?:string
 } & SortType;
 type SM_SortBtnType = Omit<SortBtnType, "setSort" | "sort" | "label"> & {
-  Icon: any;
+  Icon: React.JSX.Element;
   setIsOpen: SetState<boolean>;
   isOpen: boolean;
 };
@@ -48,6 +48,7 @@ function SortBtns({
   const sortParam = searchParams.get("sort")?.toString();
   const isFreeParam = searchParams.get("isFree")?.toString();
   const preOrderParam = searchParams.get("preOrder")?.toString();
+  const search = searchParams.get("search")?.toString();
   const CatParams = searchParams.getAll("cat");
 
   const [page, setPage] = useState(1);
@@ -62,6 +63,7 @@ function SortBtns({
     preOrder: preOrderParam as string,
     cat: CatParams,
     page: page,
+    search:search as string,
     limit: 3,
     directPath,
     categoryName,
@@ -165,7 +167,7 @@ function SortBtns({
         <div className=" mt-8 col-span-full flex justify-center">
           {data?.totalPages == data?.currentPage && !isFetching ? (
             "تمامی دوره ها نمایش داده شد."
-          ) : data?.allCourses.length! >0 && (
+          ) : data?.allCourses.length as number >0 && (
             <CoursePaginBtn
               page={page}
               setPage={setPage}

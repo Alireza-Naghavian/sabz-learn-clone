@@ -12,13 +12,13 @@ const Modal: React.FC<ModalType> = (props) => {
     document.body.style.overflow = isShow ? "hidden" : "unset";
   }, [isShow]);
   // close modal on press scape
-  useEffect(() => {
-    const closeModalOnScape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") onClose();
-      if (isShow) document.addEventListener("keydown", closeModalOnScape);
-      return () => document.removeEventListener("keydown", closeModalOnScape);
-    };
-  }, [isShow, onClose]);
+  // useEffect(() => {
+  //   const closeModalOnScape = (event: KeyboardEvent) => {
+  //     if (event.key === "Escape") onClose();
+  //     if (isShow) document.addEventListener("keydown", closeModalOnScape);
+  //     return () => document.removeEventListener("keydown", closeModalOnScape);
+  //   };
+  // }, [isShow, onClose]);
 
   //styles
   const modalStyle = cva("bg-gray-100 dark:bg-darker shadow-lg dark:text-white text-gray-800 rounded-xl ", {

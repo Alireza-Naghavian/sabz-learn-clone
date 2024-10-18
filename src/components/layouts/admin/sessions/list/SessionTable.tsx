@@ -6,6 +6,7 @@ import LgSessionTRow from "./LgSessionTRow";
 import SmSessionTRow from "./SmSessionTRow";
 import { useGetAllSessionsQuery } from "@/services/sessions&topics/sesisonSlice";
 import TextLoader from "@/components/ui/loader/TextLoader";
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 
 function SessionTable() {
   const { data, isLoading, currentData, isError } = useGetAllSessionsQuery();
@@ -16,6 +17,15 @@ function SessionTable() {
         loadingCondition={isLoading}
       />
     );
+    if (data === undefined || data.length === 0)
+      return (
+        <div className="mt-5">
+          <EmptyResult
+            className="py-4"
+            title={" جلسه ای جهت نمایش وجود ندارد"}
+          />
+        </div>
+      );
   return (
     <HeaderAdminLayout title="لیست جلسات">
       <div className="h-[480px] overflow-y-auto px-2">
