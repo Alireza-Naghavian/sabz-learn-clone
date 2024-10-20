@@ -68,8 +68,6 @@ export const sessionSlice = apiSlice.injectEndpoints({
     }),
     getSessionInfo: builder.query<SessionInfoType,{ shortName: string; sessionID: string }>({
       query: ({ sessionID, shortName }) => {
-        console.log('Short Name:', shortName);
-        console.log('Session ID:', sessionID);
         return {
           url: `/courses/session/${shortName}/${sessionID}`,
           method: "GET",
