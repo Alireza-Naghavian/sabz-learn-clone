@@ -51,7 +51,7 @@ function HomePage({
               <h1 className=" font-[800] xs:text-[1.625rem]/[40px]  sm:text-[2.625rem]/[70px] 3xl:text-5xl/normal">
                 آکادمی آموزش
                 <br />
-                برنامه نویسی سبز لرن
+                برنامه نویسی سبزلرن
               </h1>
               <p className="sm:text-2xl font-danaMedium mt-5 sm:mt-9 lg:max-w-[440px] xl:max-w-[470px]">
                 با آکادمی خصوصی سبزلرن،علم برنامه نویسی رو با خیال راحت یاد بگیر

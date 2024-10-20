@@ -1,11 +1,17 @@
 import Course from "@/components/layouts/course/Course";
+import StoreProvider from "@/context/StoreProvider";
+import { CourseBodyType } from "@/types/services/course&category.t";
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
 import { Metadata } from "next";
-import React from "react";
 type CourseParams = {
   params: { shortName: string };
 };
+export const generateStaticParams = async()=>{
+  const allCourses = await dataFetcher("courses", "omit", undefined, 1800);
+  const params  = allCourses.allCourses.map((course:CourseBodyType)=>({shortName:course.shortName}))
+  return params
+}
 export const generateMetadata = async ({
   params,
 }: CourseParams): Promise<Metadata> => {
@@ -13,7 +19,7 @@ export const generateMetadata = async ({
     `courses/${params.shortName}`,
     "omit",
     undefined,
-    3600
+    5
   );
   const courseName = courseData.name;
   const title = `سبزلرن -${courseName}`;
@@ -37,11 +43,19 @@ async function page({ params }: CourseParams) {
   );
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden">
+
+<StoreProvider>
+
+
       <Course
         menu={dataParser(menus)}
         courseData={dataParser(courseData)}
-        relateCourses={relateCourses}
-      />
+        relateCourses={dataParser(relateCourses)}
+        shortName={dataParser(params.shortName)}
+        />
+
+        </StoreProvider>
+
     </main>
   );
 }
