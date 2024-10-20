@@ -14,7 +14,6 @@ function BlogCard({
   createdAt,
   cover,
 }: ArticleTableData) {
-  console.log(creator);
   return (
     <div
       className=" flex flex-col bg-white

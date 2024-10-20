@@ -99,9 +99,9 @@ export const courseApiSlice = apiSlice.injectEndpoints({
       query: ({ shortName }) => ({
         url: `/courses/${shortName}`,
         method: "GET",
-        credentials: "include",
+        credentials:"include"
       }),
-      providesTags: ["course"],
+      providesTags: (result, error, { shortName }) => result ?[{ type: "course", id: shortName }] :["course"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
@@ -168,4 +168,5 @@ export const {
   useRemoveCoursesMutation,
   useGetCourseQuery,
   useUpdateCourseMutation,
+
 } = courseApiSlice;
