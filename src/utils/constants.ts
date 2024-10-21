@@ -36,25 +36,25 @@ export const customeBlurDataURL =
 
 export const userPanelOptions: UserPanelOpType[] = [
   {
-    target: "",
+    target: "/my-account",
     title: "پیشخوان",
     variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: HomeIcon,
   },
   {
-    target: "",
+    target: "/my-account/courses",
     title: "دوره های من",
     variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: FolderOpenIcon,
   },
   {
-    target: "",
+    target: "/my-account/tickets",
     title: "تیکت ها",
     variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: ChatBubbleLeftRightIcon,
   },
   {
-    target: "",
+    target: "/my-account/edit-account",
     title: "جزئیات حساب",
     variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: UserIcon,

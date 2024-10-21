@@ -1,14 +1,28 @@
+"use client"
+import TextLoader from "@/components/ui/loader/TextLoader";
 import Tail_stat_info from "@/components/ui/tail-info/Tail_stat_info";
+import { useUserDataQuery } from "@/services/users/userApiSlice";
+import { CourseBodyType } from "@/types/services/course&category.t";
 import {
   CreditCardIcon,
   CurrencyDollarIcon,
   RocketLaunchIcon,
   TicketIcon,
 } from "@heroicons/react/24/outline";
-import LastSeen from "./LastSeen";
 import ContentList, { ContentItem } from "./ContentList";
+import LastSeen from "./LastSeen";
 
 function UserPanel() {
+  const {data,isLoading} = useUserDataQuery();
+  const userCourses = data?.userCourse.filter((courses)=>{
+    return courses.course
+  })
+  const userCourseArr = userCourses?.flatMap((course)=>course.course)
+  const userPaidCoursesArr = userCourseArr?.filter((paidCourse)=>paidCourse.isFree === false)
+  .reduce((acc,curr)=>{
+    return acc = curr.price
+  },0)
+    if(isLoading)return <TextLoader loadingCondition={isLoading}/>
   return (
     <>
       <div
@@ -18,13 +32,13 @@ function UserPanel() {
       >
         <Tail_stat_info
           supTitle="مجموع پرداخت ها"
-          title="1,558,500 تومان"
+          title={`${userPaidCoursesArr?.toLocaleString("fa-IR")} تومان`}
           Icon={CreditCardIcon}
           className="dark:bg-yellow-400 bg-amber-400"
         />
         <Tail_stat_info
           supTitle="دوره ها من"
-          title="۱۲ دوره"
+          title={`${data?.userCourse.length}دوره`}
           Icon={RocketLaunchIcon}
           className="dark:bg-secondary bg-sky-500"
         />
@@ -47,7 +61,7 @@ function UserPanel() {
     lg:grid-cols-1 xl:grid-cols-2 gap-7 dark:bg-darker
      bg-gray-300/65  pt-10"
       >
-        <LastSeen />
+        <LastSeen userCourse={userCourseArr as CourseBodyType[]}/>
         <div className="space-y-7">
           <ContentList title="تیکت های اخیر" link="/my-account/tickets">
             <ContentItem status="بسته شده" target="" title="باز نشده ویدئو" />
@@ -55,7 +69,13 @@ function UserPanel() {
             <ContentItem status="بسته شده" target="" title="باز نشده ویدئو" />
           </ContentList>
           <ContentList title="پرسش های اخیر">
-            <ContentItem status="بسته شده" target="" title="باز نشده ویدئو" />
+            {data?.userQuestions.slice(0,4).map((question,index)=>{
+               console.log(question);
+              return(
+                <ContentItem date={new Date(question.date)}  key={index} status="" target={`/courses/course/session/${question.course.shortName}/${question.session}`} title={question.body} />
+
+              )
+            })}
           </ContentList>
         </div>
       </div>

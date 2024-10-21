@@ -15,6 +15,8 @@ function Layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
 
   return (
+    <StoreProvider>
+
     <div className="flex  gap-x-10 2xl:gap-x-14 lg:px-8 xl:px-14 2xl:px-25 lg:py-7">
       <UserPanel_SideBar />
       <section className="w-full max-w-[1432px] mx-auto bg-gray-300/55 dark:bg-darker md:p-10 lg:rounded-4xl">
@@ -54,6 +56,8 @@ function Layout({ children }: ChildrenProps) {
       </section>
       <Overlay onClose={() => close()} openCondition={isMenuOpen} />
     </div>
+    </StoreProvider>
+
   );
 }
 

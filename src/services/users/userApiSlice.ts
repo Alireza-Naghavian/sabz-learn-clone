@@ -16,6 +16,17 @@ export const userApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    userData:builder.query<UserType,void>({
+      query:()=>({
+        url:"/users/user",
+        method:"GET",
+        credentials:"include"
+      }),
+      providesTags:["userData"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data
+      },
+    }),
     changeRole: builder.mutation<ResultMsg, OptionType & { _id: string }>({
       query: ({ _id, value }) => ({
         url: "/users/role",
@@ -58,4 +69,5 @@ export const {
   useChangeRoleMutation,
   useBanUserMutation,
   useRemoveUserMutation,
+  useUserDataQuery
 } = userApiSlice;

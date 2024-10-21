@@ -40,8 +40,9 @@ type ContentType = {
   target: string;
   title: string;
   status: string;
+  date?:Date
 };
-export const ContentItem = ({ target, title, status }: ContentType) => {
+export const ContentItem = ({ target, title, status,date }: ContentType) => {
   return (
     <div
       className="flex items-center justify-between
@@ -52,12 +53,13 @@ export const ContentItem = ({ target, title, status }: ContentType) => {
         href={target}
         className="text-zinc-700 
         dark:text-white w-full sm:max-w-sm sm:truncate"
+      dangerouslySetInnerHTML={{__html:title}}
       >
-        {title}
+ 
       </Link>
       <div className="flex items-center gap-3">
         <span className="text-xs text-slate-500 dark:text-slate-400">
-          1402/10/16
+        {new Date(date as Date).toLocaleDateString("fa-IR")}
         </span>
         <span
           className="text-xs py-1 px-1.5 text-slate-500

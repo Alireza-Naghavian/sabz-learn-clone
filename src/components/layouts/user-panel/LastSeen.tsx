@@ -1,8 +1,13 @@
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
+import { CourseBodyType } from "@/types/services/course&category.t";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
+import React from "react";
 
-function LastSeen() {
+function LastSeen({userCourse}:{userCourse: CourseBodyType[] }) {
+    const userCourses = userCourse.map((courses:CourseBodyType)=>{
+      return courses
+    })
   return (
     <div>
       <div
@@ -23,16 +28,20 @@ function LastSeen() {
       </div>
       <div className="grid  xs:grid-cols-1 sm:grid-cols-2
       md:grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-4">
-        <MiniCourseCard/>
-        <MiniCourseCard/>
-        <MiniCourseCard/>
-        <MiniCourseCard/>
+        {userCourses?.slice(0,6).map((course:Pick<CourseBodyType,"cover"|"name"|"_id"|"shortName">,index)=>{
+          return(
+            <React.Fragment key={index as number}>
+            <MiniCourseCard name={course.name} shortName={course.shortName} cover={course.cover} _id={course._id} />
+            </React.Fragment>
+          )
+        })}
+
       </div>
     </div>
   );
 }
 
-export const MiniCourseCard = () => {
+export const MiniCourseCard = ({cover,name,shortName}:Pick<CourseBodyType,"cover"|"name"|"_id"|"shortName">) => {
   return (
     <div
       className=" flex flex-col overflow-hidden 
@@ -41,9 +50,9 @@ export const MiniCourseCard = () => {
        rounded-2xl"
     >
       <div className="relative h-42">
-        <Link className="w-full h-full block" href={""}>
+        <Link className="w-full h-full block" href={`/courses/course/${shortName}`}>
           <ResponsiveImage
-            src={"/images/next.webp"}
+            src={cover}
             alt="دوره منتخصص next js"
             className="block  w-full h-full object-cover rounded-2xl"
             imageStyles="!relative !w-full !h-full !object-cover !rounded-2xl"
@@ -56,8 +65,8 @@ export const MiniCourseCard = () => {
           className="font-DanaMedium h-12 line-clamp-2
              text-zinc-700 dark:text-white mb-2.5"
         >
-      <Link href={""}>
-      آموزش Next.js بصورت پروژه محور
+      <Link href={`/courses/course/${shortName}`}>
+    {name}
       </Link>
         </h4>
       </div>
