@@ -70,7 +70,6 @@ function UserPanel() {
           </ContentList>
           <ContentList title="پرسش های اخیر">
             {data?.userQuestions.slice(0,4).map((question,index)=>{
-               console.log(question);
               return(
                 <ContentItem date={new Date(question.date)}  key={index} status="" target={`/courses/course/session/${question.course.shortName}/${question.session}`} title={question.body} />
 
