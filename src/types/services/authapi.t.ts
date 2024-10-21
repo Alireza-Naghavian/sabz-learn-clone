@@ -6,6 +6,7 @@ export type UserType = {
   email: string;
   role: "ADMIN" | "USER";
   createdAt: Date;
+  password:string
   updatedAt: Date;
   userCourse:[{course:CourseBodyType[]}]
   userQuestions:{body:string,course:CourseBodyType,isAnswer:boolean,date:Date,session:string,creator:string,_id:string}[]

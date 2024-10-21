@@ -2,6 +2,7 @@ import { OptionType } from "@/types/consts.t";
 import { UserType } from "@/types/services/authapi.t";
 import { RemoveQuery, ResultMsg } from "@/types/services/course&category.t";
 import apiSlice from "../baseApi";
+import { ChangePassType } from "@/components/layouts/user-panel/AccountDetail/ChangePassword";
 
 export const userApiSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
@@ -61,6 +62,30 @@ export const userApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    updateUser:builder.mutation<ResultMsg,{email:string}>({
+      query:({email})=>({
+        url:"/users",
+        method:"PATCH",
+        credentials:"include",
+        body:{email}
+      }),
+      invalidatesTags:["user","users","userData"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data
+      },
+    }),
+    changePassword:builder.mutation<ResultMsg,ChangePassType>({
+      query:({lastPassword,password})=>({
+        url:"/users/password",
+        method:"PATCH",
+        credentials:"include",
+        body:{lastPassword,password}
+      }),
+      invalidatesTags:["user","users","userData"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data
+      },
+    })
   }),
 });
 
@@ -69,5 +94,7 @@ export const {
   useChangeRoleMutation,
   useBanUserMutation,
   useRemoveUserMutation,
-  useUserDataQuery
+  useUserDataQuery,
+  useChangePasswordMutation,
+  useUpdateUserMutation
 } = userApiSlice;
