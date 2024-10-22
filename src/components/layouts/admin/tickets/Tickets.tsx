@@ -4,6 +4,7 @@ import Table from '@/components/ui/Table/Table'
 import React from 'react'
 import LgTicketTRow from './LgTicketTRow'
 import SmTicketTRow from './SmTicketTRow'
+import DeptForm from './DeptForm'
 
 function Tickets() {
   // if (data === undefined || data.length === 0)
@@ -17,6 +18,7 @@ function Tickets() {
   //   );
 
   return (
+    <>
     <HeaderAdminLayout title='تیکت ها'>
 
 <div className="h-[480px] overflow-y-auto px-2">
@@ -45,6 +47,12 @@ function Tickets() {
 
 </div>
     </HeaderAdminLayout>
+    <HeaderAdminLayout title='دپارتمان ها'>
+    <DeptForm/>
+    </HeaderAdminLayout>
+    
+    </>
+
   )
 }
 

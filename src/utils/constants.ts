@@ -142,7 +142,7 @@ export const SortOption: SortType[] = [
 ];
 
 export const deptList: DeptType[] = [
-  { label: "دپارتمان مورد نظر", value: "" },
+ 
   { label: "مالی", value: "financial" },
   { label: "پشتیبانی", value: "support" },
   { label: "مشاوره", value: "counseling" },
