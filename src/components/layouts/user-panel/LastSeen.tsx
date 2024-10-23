@@ -1,3 +1,4 @@
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
 import { CourseBodyType } from "@/types/services/course&category.t";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
@@ -28,7 +29,11 @@ function LastSeen({userCourse}:{userCourse: CourseBodyType[] }) {
       </div>
       <div className="grid  xs:grid-cols-1 sm:grid-cols-2
       md:grid-cols-1 lg:grid-cols-2 gap-x-5 gap-y-4">
-        {userCourses?.slice(0,6).map((course:Pick<CourseBodyType,"cover"|"name"|"_id"|"shortName">,index)=>{
+        {
+        userCourses.length ===0 ? <EmptyResult className="py-2  col-span-full h-[220px]" title={"هیچ دوره ای توسط شما ثبت نام نشده است"}/> 
+        :
+        
+        userCourses?.slice(0,6).map((course:Pick<CourseBodyType,"cover"|"name"|"_id"|"shortName">,index)=>{
           return(
             <React.Fragment key={index as number}>
             <MiniCourseCard name={course.name} shortName={course.shortName} cover={course.cover} _id={course._id} />

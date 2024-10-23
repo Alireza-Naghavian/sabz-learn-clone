@@ -1,22 +1,26 @@
 "use client"
+import EmptyResult from '@/components/ui/EmptyResult/EmptyResult'
 import Tail_stat_info from '@/components/ui/tail-info/Tail_stat_info'
-import { CreditCardIcon, CurrencyDollarIcon, RocketLaunchIcon } from '@heroicons/react/24/outline'
-import React from 'react'
-import { MiniCourseCard } from '../LastSeen'
+import TailSkelton from '@/components/ui/TailSkelton/TailSkelton'
 import { useUserDataQuery } from '@/services/users/userApiSlice'
-import TextLoader from '@/components/ui/loader/TextLoader'
+import { CreditCardIcon, CurrencyDollarIcon, RocketLaunchIcon } from '@heroicons/react/24/outline'
+import { MiniCourseCard } from '../LastSeen'
+
 
 function MyCourses() {
   const {data,isLoading}= useUserDataQuery();
   const userCourses = data?.userCourse.filter((courses)=>{
     return courses.course
   })
+
   const userCourseArr = userCourses?.flatMap((course)=>course.course)
   const userPaidCoursesArr = userCourseArr?.filter((paidCourse)=>paidCourse.isFree === false)
 
-  if(isLoading)return <TextLoader loadingCondition={isLoading}/>
+
   return (
 <>
+{isLoading ? <TailSkelton count={3}/> :
+
 <div className="flex flex-wrap gap-x-3 gap-y-4 md:gap-x-10 mb-10">
 <Tail_stat_info
           supTitle="دوره ها ثبت نام شده"
@@ -38,7 +42,10 @@ function MyCourses() {
         />
         {/* course list */}
         <div className="grid  w-full  mt-6 sm:grid-cols-2 xl:grid-cols-3 3xl:grid-cols-4 gap-5">
-           {userCourseArr?.map((course,index)=>{
+           {
+           userCourseArr?.length ===0? <EmptyResult className='col-span-full py-4' title={"هیچ دوره ای توسط شما ثتب نام نشده است"}/>:
+           
+           userCourseArr?.map((course,index)=>{
             return(
               <MiniCourseCard key={index}
                name={course.name}
@@ -50,6 +57,7 @@ function MyCourses() {
            })}
         </div>
 </div>
+}
 </>
   )
 }

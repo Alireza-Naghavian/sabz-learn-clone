@@ -39,7 +39,6 @@ function PurchaseCourse({
       showAlert("success", result.message);
       refetchCourseData();
     } catch (error: any) {
-      console.log(error);
       showAlert("error", `خطایی رخ داده است => ${error?.data?.message}`);
     } finally {
       close();

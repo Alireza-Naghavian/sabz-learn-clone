@@ -5,13 +5,13 @@ import TextLoader from '@/components/ui/loader/TextLoader'
 import MainTextField from '@/components/ui/textField&inputs/MainTextField'
 import TextAriaField from '@/components/ui/textField&inputs/TextAriaField'
 import Select from '@/components/utils-components/Select/Select'
+import { useAlert } from '@/context/AlertProvider'
 import { useAllDetpsQuery, useCreateTicketMutation } from '@/services/tickets&depts/ticketApiSlice'
 import { OptionType } from '@/types/consts.t'
+import { TicketBodyType } from '@/types/services/tickets.t'
 import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import ContentList from '../ContentList'
-import { DeptBodyType, TicketBodyType } from '@/types/services/tickets.t'
-import { useAlert } from '@/context/AlertProvider'
 
 function TicketForm() {
     const [dept,setDept] = useState("")

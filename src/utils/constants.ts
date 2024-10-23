@@ -277,3 +277,41 @@ export const commentStatus = [
   { label: "تایید کردن", value: true },
   { label: "رد کردن", value: false },
 ];
+
+
+export const ticketStatus = [
+  {
+    cond: {
+      isPending: true,
+      isAnswer: false,
+      isOpen: true,
+    },
+    className: "bg-secondary",
+  },
+  {
+    cond: {
+      isPending: false,
+      isAnswer: true,
+      isOpen: true,
+    },
+
+    className: "bg-baseColor",
+  },
+  {
+    cond: {
+      isPending: false,
+      isAnswer: true,
+      isOpen: false,
+    },
+
+    className: "bg-red-400",
+  },
+];
+
+export const ticketOptions = [
+  {
+    label: "باز کردن",
+    value: true,
+  },
+  { label: "بستن", value: false },
+];
