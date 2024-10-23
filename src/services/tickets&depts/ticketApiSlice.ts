@@ -3,6 +3,7 @@ import {
   AnswerBodyType,
   DeptBodyType,
   TicketBodyType,
+  TicketStatusType,
   TicketTableData,
 } from "@/types/services/tickets.t";
 import apiSlice from "../baseApi";
@@ -101,6 +102,29 @@ export const ticketApiSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    changeStatus: builder.mutation<ResultMsg, TicketStatusType>({
+      query: ({ isAnswer, isOpen, isPending, ticketID }) => ({
+        url: `/tickets/${ticketID}`,
+        method: "PATCH",
+        credentials: "include",
+        body: { isAnswer, isOpen, isPending },
+      }),
+      invalidatesTags: ["ticket", "tickets", "userTickets"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
+    removeTicket: builder.mutation<ResultMsg, RemoveQuery>({
+      query: ({ _id }) => ({
+        url: `/tickets/${_id}`,
+        credentials: "include",
+        method: "DELETE",
+      }),
+      invalidatesTags: ["ticket", "tickets", "userTickets"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    }),
   }),
 });
 
@@ -112,5 +136,7 @@ export const {
   useUserTicketsQuery,
   useGetTicketQuery,
   useSetAnswerMutation,
-  useReplyUserMutation
+  useReplyUserMutation,
+  useChangeStatusMutation,
+  useRemoveTicketMutation
 } = ticketApiSlice;

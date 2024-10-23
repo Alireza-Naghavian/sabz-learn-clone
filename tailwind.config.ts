@@ -36,6 +36,7 @@ const config: Config = {
         darker: "#242a38", //darker
         baseColor: "#22c55e",
         secondary: "#0ea5e9",
+        error:"#ef4444"
       },
       fontFamily: {
         Dana: "Dana",

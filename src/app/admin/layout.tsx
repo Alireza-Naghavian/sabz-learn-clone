@@ -12,7 +12,7 @@ function Layout({ children }: ChildrenProps) {
   return (
     <StoreProvider>
       <main
-        className="md:bg-white md:dark:bg-gray-800 flex max-w-[1920px]
+        className="md:bg-white min-h-screen md:dark:bg-gray-800 flex max-w-[1920px]
      md:px-8
      lg:py-7"
       >

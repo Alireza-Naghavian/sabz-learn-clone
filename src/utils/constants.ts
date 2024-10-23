@@ -304,7 +304,7 @@ export const ticketStatus = [
       isOpen: false,
     },
 
-    className: "bg-red-400",
+    className: "bg-error",
   },
 ];
 
@@ -315,3 +315,4 @@ export const ticketOptions = [
   },
   { label: "بستن", value: false },
 ];
+
