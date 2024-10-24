@@ -7,6 +7,7 @@ import styles from "@/app/my-account/userpanel.module.css";
 import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import StoreProvider from "@/context/StoreProvider";
+import { UserNameSubComp } from "../my-account/layout";
 function Layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
   return (
@@ -26,13 +27,8 @@ function Layout({ children }: ChildrenProps) {
           <header
             className={`bg-gray-300 dark:bg-darker !p-4 sm:rounded-xl !mb-0 ${styles.header__layout}`}
           >
-            <h3
-              className="hidden lg:block font-DanaBold 
-              text-2xl text-zinc-700 dark:text-white"
-            >
-              <span className="text-baseColor">علیرضا نقویان</span> عزیز؛ خوش
-              اومدی 🙌
-            </h3>
+            <UserNameSubComp className="hidden lg:block font-DanaBold 
+              text-2xl text-zinc-700 dark:text-white"/>
             {/* sidebarMenu */}
             <div className="sidebar__open-btn lg:hidden font-DanaMedium text-zinc-700 dark:text-white">
               <div
@@ -50,7 +46,7 @@ function Layout({ children }: ChildrenProps) {
                 ${isMenuOpen ? "sm:translate-x-0 " : "translate-x-[40rem]"}
           `}
               >
-                <SideBar />
+                <SideBar closeSideBar={close} />
               </div>
             </div>
             <div className="flex gap-x-3.5 md:gap-x-7">

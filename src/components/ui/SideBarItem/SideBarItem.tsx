@@ -13,11 +13,12 @@ const sideBarStyle = cva(`flex items-center rounded-lg`, {
     variant: "hoverMode",
   },
 });
-function SideBarItem({ Icon, target, title, className,variant }: SideBarItemType) {
+function SideBarItem({ Icon, target, title, className,variant,onClick }: SideBarItemType) {
   return (
     <Link
       className={sideBarStyle({variant,className})}
       href={target}
+      onClick={onClick}
     >
         <span className="h-6 w-6">
         <Icon />

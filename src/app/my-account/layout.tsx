@@ -1,6 +1,7 @@
 "use client";
 import UserPanel_SideBar from "@/components/layouts/user-panel/UserPanel_SideBar";
 import UserDataDropDown from "@/components/shared/navbar/UserDataDropDown";
+import TextLoader from "@/components/ui/loader/TextLoader";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
 import StoreProvider from "@/context/StoreProvider";
@@ -10,10 +11,10 @@ import { ChildrenProps } from "@/types/global.t";
 import { UserType } from "@/types/services/authapi.t";
 import { Bars3BottomRightIcon } from "@heroicons/react/20/solid";
 import styles from "./userpanel.module.css";
+import { useState } from "react";
 
 function Layout({ children }: ChildrenProps) {
-  const [isMenuOpen, { open, close }] = useDisclosure();
-
+  const [isMenuOpen,setIsMenuOpen] = useState(false)
   return (
     <StoreProvider>
 
@@ -21,15 +22,11 @@ function Layout({ children }: ChildrenProps) {
       <UserPanel_SideBar />
       <section className="w-full max-w-[1432px] mx-auto bg-gray-300/55 dark:bg-darker md:p-10 lg:rounded-4xl">
         <header className={`${styles.header__layout}`}>
-          <h3
-            className="hidden md:block font-DanaBold 
-        text-2xl text-zinc-700 dark:text-white"
-          >
-            علیرضا نقویان عزیز؛ خوش اومدی 🙌
-          </h3>
+          <UserNameSubComp className="hidden md:block font-DanaBold 
+        text-2xl text-zinc-700 dark:text-white"/>
           {/* sidebarMenu */}
           <div className="sidebar__open-btn md:hidden font-DanaMedium text-zinc-700 dark:text-white">
-            <div className="flex items-center gap-x-2 " onClick={() => open()}>
+            <div className="flex items-center gap-x-2 " onClick={() => setIsMenuOpen(true)}>
               <Bars3BottomRightIcon className="size-6" />
               <span>منوی دسترسی</span>
             </div>
@@ -40,7 +37,7 @@ function Layout({ children }: ChildrenProps) {
          duration-300 transform 
          ${isMenuOpen ? "translate-x-0" : "translate-x-[40rem]"} `}
             >
-              <UserPanel_SideBar sm />
+              <UserPanel_SideBar close={setIsMenuOpen} sm />
             </div>
           </div>
           <StoreProvider>
@@ -48,19 +45,29 @@ function Layout({ children }: ChildrenProps) {
           </StoreProvider>
         </header>
         <div className="px-5 md:px-0">
-          <h3 className="md:hidden font-DanaBold text-zinc-700 dark:text-white mb-7">
-            علیرضا نقویان عزیز؛ خوش اومدی 🙌
-          </h3>
+          <StoreProvider>
+
+     <UserNameSubComp className="md:hidden font-DanaBold text-zinc-700 dark:text-white mb-7"/>
+          </StoreProvider>
           {children}
         </div>
       </section>
-      <Overlay onClose={() => close()} openCondition={isMenuOpen} />
+      <Overlay onClose={() => setIsMenuOpen(false)} openCondition={isMenuOpen} />
     </div>
     </StoreProvider>
 
   );
 }
-
+export const UserNameSubComp = ({className}:{className:string})=>{
+  const { data,isLoading } = useGetMeQuery();
+  return(
+    <h3 className={className}>
+      {isLoading ?<TextLoader loadingCondition={isLoading}/> :
+      ` ${data?.user.username}  عزیز؛ خوش اومدی 🙌`
+      }
+  </h3>
+  )
+}
 const UserDataDropDownSec = () => {
   const { data, isLoading } = useGetMeQuery();
   return (
