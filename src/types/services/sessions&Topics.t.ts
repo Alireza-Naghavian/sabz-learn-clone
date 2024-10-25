@@ -10,7 +10,7 @@ export type SessionBodyType = TopicBody & {
   isFree: boolean | number;
   video: File[];
   time: string;
-  _id?: string;
+  _id: string;
 };
 export type TopicDataType = TopicBody & {
   sessions: SessionBodyType[];

@@ -45,8 +45,6 @@ async function page({ params }: CourseParams) {
     <main className="max-w-[1920px] mx-auto overflow-x-hidden">
 
 <StoreProvider>
-
-
       <Course
         menu={dataParser(menus)}
         courseData={dataParser(courseData)}
