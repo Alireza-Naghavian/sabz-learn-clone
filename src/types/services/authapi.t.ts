@@ -1,11 +1,15 @@
+import { CourseBodyType } from "./course&category.t";
+
 export type UserType = {
   _id?: string;
   username: string;
   email: string;
   role: "ADMIN" | "USER";
   createdAt: Date;
+  password:string
   updatedAt: Date;
-  userCourse:[]
+  userCourse:[{course:CourseBodyType[]}]
+  userQuestions:{body:string,course:CourseBodyType,isAnswer:boolean,date:Date,session:string,creator:string,_id:string}[]
 };
 export type GetmeType = {
   user: UserType;

@@ -1,3 +1,5 @@
+import { ContentType } from "@/types/services/tickets.t";
+import { ticketStatus } from "@/utils/constants";
 import { ArrowLeftIcon } from "@heroicons/react/24/outline";
 import Link from "next/link";
 import React from "react";
@@ -36,12 +38,14 @@ function ContentList({ title, link,children }: ContentListType) {
   );
 }
 
-type ContentType = {
-  target: string;
-  title: string;
-  status: string;
-};
-export const ContentItem = ({ target, title, status }: ContentType) => {
+
+export const ContentItem = ({ target, title,date,isAnswer,isOpen,isPending }: ContentType) => {
+  let ticketCurrCondition = {
+    isPending,isAnswer, isOpen,
+ };
+ const ticketCondition = ticketStatus.find((ticketSt) => {
+   return JSON.stringify(ticketSt.cond) == JSON.stringify(ticketCurrCondition);
+ });
   return (
     <div
       className="flex items-center justify-between
@@ -52,19 +56,23 @@ export const ContentItem = ({ target, title, status }: ContentType) => {
         href={target}
         className="text-zinc-700 
         dark:text-white w-full sm:max-w-sm sm:truncate"
+      dangerouslySetInnerHTML={{__html:title}}
       >
-        {title}
+ 
       </Link>
       <div className="flex items-center gap-3">
         <span className="text-xs text-slate-500 dark:text-slate-400">
-          1402/10/16
+        {new Date(date as Date).toLocaleDateString("fa-IR")}
         </span>
         <span
-          className="text-xs py-1 px-1.5 text-slate-500
-             dark:text-yellow-400 bg-slate-500/10
-              dark:bg-yellow-400/10 rounded"
+          className={`
+            text-xs py-1 px-1.5 text-white
+              rounded ${ticketCondition?.className}
+            `}
         >
-          {status}
+              {isOpen && isAnswer && "پاسخ داده شد"}
+                        {isOpen && isPending && "منتظر پاسخ"}
+                        {!isOpen && "بسته شد"}
         </span>
       </div>
     </div>

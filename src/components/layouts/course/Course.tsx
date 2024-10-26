@@ -50,7 +50,6 @@ function Course({
   const completedSessions = 50;
   const completionPercentage =
     totalSessions! > 0 ? (totalSessions! / completedSessions) * 100 : 0;
-
   return (
     <ClientLayout menu={menu}>
       <div className=" mt-8 sm:mt-10 container">
@@ -125,12 +124,14 @@ function Course({
               isCourseFree={courseData.isFree}
               shortName={courseData.shortName}
               courseTopicData={courseData.topics as []}
-              isUserRegister={courseData.isUserRegisteredToThisCourse!}
+              isUserRegister={courseData.isUserRegisteredToThisCourse as boolean}
             />
+            {relateCourses.length !==0 &&
             <RelateCourse relateCourses={relateCourses} />
+            }
 
             <CommentBox
-              courseId={courseData._id!}
+              courseId={courseData._id as string}
               courseShortName={courseData.shortName}
             />
           </div>

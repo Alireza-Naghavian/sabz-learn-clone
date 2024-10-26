@@ -5,7 +5,7 @@ import apiSlice from "../baseApi";
 
 export const registerCourseSlice = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
-    registerCourse: builder.mutation<ResultMsg,{ _id: string; price: number; shortName: string }>({
+    registerCourse: builder.mutation<ResultMsg,{ _id: string; price: number; }>({
       query: ({ _id, price }) => ({
         url: `/courses/${_id}/register`,
         method: "POST",

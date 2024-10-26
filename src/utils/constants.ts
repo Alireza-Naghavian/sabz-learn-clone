@@ -36,25 +36,25 @@ export const customeBlurDataURL =
 
 export const userPanelOptions: UserPanelOpType[] = [
   {
-    target: "",
+    target: "/my-account",
     title: "پیشخوان",
     variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: HomeIcon,
   },
   {
-    target: "",
+    target: "/my-account/courses",
     title: "دوره های من",
     variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: FolderOpenIcon,
   },
   {
-    target: "",
+    target: "/my-account/tickets",
     title: "تیکت ها",
     variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: ChatBubbleLeftRightIcon,
   },
   {
-    target: "",
+    target: "/my-account/edit-account",
     title: "جزئیات حساب",
     variant: { hoverMode: "hoverMode", casual: "casual" },
     Icon: UserIcon,
@@ -142,7 +142,7 @@ export const SortOption: SortType[] = [
 ];
 
 export const deptList: DeptType[] = [
-  { label: "دپارتمان مورد نظر", value: "" },
+ 
   { label: "مالی", value: "financial" },
   { label: "پشتیبانی", value: "support" },
   { label: "مشاوره", value: "counseling" },
@@ -277,3 +277,42 @@ export const commentStatus = [
   { label: "تایید کردن", value: true },
   { label: "رد کردن", value: false },
 ];
+
+
+export const ticketStatus = [
+  {
+    cond: {
+      isPending: true,
+      isAnswer: false,
+      isOpen: true,
+    },
+    className: "bg-secondary",
+  },
+  {
+    cond: {
+      isPending: false,
+      isAnswer: true,
+      isOpen: true,
+    },
+
+    className: "bg-baseColor",
+  },
+  {
+    cond: {
+      isPending: false,
+      isAnswer: true,
+      isOpen: false,
+    },
+
+    className: "bg-error",
+  },
+];
+
+export const ticketOptions = [
+  {
+    label: "باز کردن",
+    value: true,
+  },
+  { label: "بستن", value: false },
+];
+

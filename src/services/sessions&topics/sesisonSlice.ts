@@ -39,7 +39,7 @@ export const sessionSlice = apiSlice.injectEndpoints({
           body: formData,
         };
       },
-      invalidatesTags: ["session", "sessions"],
+      invalidatesTags: ["session", "sessions","topics",'course'],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
@@ -66,10 +66,10 @@ export const sessionSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
-    getSessionInfo: builder.query<SessionInfoType,{ shortName: string; sessionID: string }>({
-      query: ({ sessionID, shortName }) => {
+    getSessionInfo: builder.query<SessionInfoType,{sessionID: string }>({
+      query: ({ sessionID }) => {
         return {
-          url: `/courses/session/${shortName}/${sessionID}`,
+          url: `/courses/session/${sessionID}`,
           method: "GET",
           credentials: "include",
         };

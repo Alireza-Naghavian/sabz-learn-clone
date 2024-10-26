@@ -22,7 +22,7 @@ const DropDown: React.FC<DropDownType> = ({
       >
         {Icon && <Icon className="size-6" /> }
         <Link
-          href={`/courses/category${id}`}
+          href={id?.includes("/") ? `/courses/category${id}`:""}
           onClick={() => close()}
           className={`block  p-0 
             ${isOpen ? "text-baseColor" : "dark:text-white"}`}

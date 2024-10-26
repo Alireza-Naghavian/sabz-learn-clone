@@ -14,21 +14,12 @@ const verifyAccessToken = (token: string | undefined) => {
     return null;
   }
 };
-export const getUser = async () => {
+export const getUser = async (userId:string) => {
   try {
-    const cookieStore = cookies();
-    const tokenCookie = cookieStore.get("accessToken");
-    if (!tokenCookie || !tokenCookie.value) {
-     return null
-    }
 
-    const userId  = verifyAccessToken(tokenCookie.value);
-    const response = await fetch(`http://localhost:4000/v1/users/${userId}`, {
+    const response = await fetch(`http://localhost:4000/v1/auth/${userId}`, {
         method: "GET",
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${tokenCookie.value}`, 
-        },
+        credentials:"include"
       });
       const data = await response.json();
     return data ;
@@ -36,3 +27,22 @@ export const getUser = async () => {
     console.log("something went wrong =>", error);
   }
 };
+
+export const authUser = async()=>{
+  try {
+    const cookieStore = cookies();
+    const tokenCookie = cookieStore.get("accessToken");
+
+    if (!tokenCookie || !tokenCookie.value) {
+     return null
+    }
+
+    const userId  = verifyAccessToken(tokenCookie.value);
+    const user = await getUser(userId as string)
+    return user
+  } catch (error) {
+    console.log("something went wrong =>", error);
+  }
+}
+
+

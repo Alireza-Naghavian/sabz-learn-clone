@@ -13,8 +13,10 @@ import useDisclosure from "@/hooks/useDisclosure";
 import { useState } from "react";
 import { IconType } from "@/types/icon.t";
 import { UserPanelOpType } from "@/types/consts.t";
-function SideBar() {
+import { usePathname } from "next/navigation";
+function SideBar({closeSideBar}:{closeSideBar?:()=>void}) {
   const [_, { close }] = useDisclosure();
+  const path = usePathname();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toggleDropdown = (id: string) => {
     setOpenDropdown(openDropdown === id ? null : id);
@@ -40,6 +42,8 @@ function SideBar() {
           Icon={HomeIcon}
           title="نمای کلی"
           target="/admin"
+          onClick={()=>closeSideBar&& closeSideBar()}
+          className={`${path === "/admin" && "bg-baseColor"}`}
         />
         {AdminDashBoardDropDown.map((item, index: number) => {
           return (
@@ -58,14 +62,16 @@ function SideBar() {
                   title={item.subLabel}
                   target={item.subTargetLink}
                   variant="hoverMode"
-                  onClick={() => close()}
+                  onClick={()=>closeSideBar&& closeSideBar()}
+                  className={`${path === item.subTargetLink && "bg-baseColor"}`}
                 />
                 <SideBarItem
                   Icon={item.subIcon_2}
                   title={item.subLabel_2}
                   target={item.subTargetLink_2}
                   variant="hoverMode"
-                  onClick={() => close()}
+                  onClick={()=>closeSideBar&& closeSideBar()}
+                  className={`${path === item.subTargetLink_2 && "bg-baseColor"}`}
                 />
               </ul>
             </DropDown>
@@ -79,6 +85,8 @@ function SideBar() {
               Icon={item.Icon}
               title={item.title}
               target={item.target}
+              className={`${path === item.target && "bg-baseColor"}`}
+              onClick={()=>closeSideBar&& closeSideBar()}
             />
           );
         })}

@@ -1,9 +1,19 @@
 import ChatBox from '@/components/layouts/user-panel/Tickets/singleTicket/ChatBox'
+import ReplyFormHandler from '@/components/layouts/user-panel/Tickets/singleTicket/ReplyFormHandler'
+import { authUser } from '@/utils/auth/auth'
+import { redirect } from 'next/navigation'
 import React from 'react'
-
-function page() {
+type ParamsType ={
+  ticketId:string
+}
+async function page({params}:{params:ParamsType}) {
+  const {ticketId} = params
+  const user = await authUser();
+  if(user ==null && user ==undefined) return redirect("/")
   return (
-    <ChatBox/>
+    <ChatBox ticketId={ticketId}>
+      <ReplyFormHandler ticketID={ticketId}/>
+    </ChatBox>
   )
 }
 
