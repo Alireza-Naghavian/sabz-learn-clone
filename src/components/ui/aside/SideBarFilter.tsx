@@ -73,18 +73,6 @@ const SideBarFilter: React.FC<
             label="در حال پیش فروش"
             type="checkbox"
           />
-          {/* user logged in ? */}
-          {!isLoading && data?.user !== null && (
-            <CheckBoxes
-              wrapperStyle="col-span-2 lg:col-span-1"
-              name="userCourse"
-              errors={errors}
-              required={false}
-              id="userCourse"
-              label="دوره های خریداری شده"
-              type="checkbox"
-            />
-          )}
           {directPath !== "category" && (
             <CategorySelector categories={categories!} register={register} />
           )}
