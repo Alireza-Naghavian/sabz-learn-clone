@@ -1,6 +1,7 @@
 "use client";
-
+import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 import useDisclosure from "@/hooks/useDisclosure";
+import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
 import {
   SessionBodyType,
   TopicDataType,
@@ -14,10 +15,8 @@ import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import "./course.css";
 import TitleHeader from "./TitleHeader";
-import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 function CourseSessions({
   courseTopicData,
-  isUserRegister,
   isCourseFree,
   shortName
 }: {
@@ -26,6 +25,9 @@ function CourseSessions({
   isCourseFree: boolean;
   shortName:string
 }) {
+
+  const {data,isLoading} = useGetCourseQuery({shortName})
+
   return (
     <div
       id="sessions"
@@ -45,9 +47,9 @@ function CourseSessions({
           return (
             <CourseTopic
               isCourseFree={isCourseFree}
-              isUserRegister={isUserRegister}
+              isUserRegister={!isLoading&&  data?.isUserRegisteredToThisCourse as boolean}
               key={index}
-              topicTime={20}
+              topicTime={topic.sessions}
               sessions={topic.sessions}
               topicTitle={topic.title}
               topiclessons={topic.sessions.length}
@@ -62,7 +64,7 @@ function CourseSessions({
 type TopicType = {
   topicTitle: string;
   topiclessons: number;
-  topicTime: number;
+  topicTime: SessionBodyType[];
   sessions: SessionBodyType[];
   isUserRegister: boolean;
   isCourseFree: boolean;
@@ -103,7 +105,7 @@ export const CourseTopic = ({
               className="text-base font-DanaMedium hidden lg:inline"
               dir="rtl"
             >
-              {topicTime} دقیقه
+             {topicTime.map((session)=>new Date(session.time).toLocaleDateString("fa-IR"))}
             </span>
             {/* seperator */}
             <span
@@ -176,9 +178,9 @@ export const SessionItem = ({
         >
           {index}
         </div>
-        {isFree == 1 ? (
+        {isFree == 1 || isUserRegister ? (
           <Link
-            href={`/courses/course/session/${shortName}/${_id}`}
+            href={`/courses/course/sessions/${_id}`}
             className="inline-block lg:max-w-3/4
          text-sm md:text-base 
           group-hover:text-baseColor "
@@ -202,7 +204,7 @@ export const SessionItem = ({
        child:transition-colors"
       >
         <span className="text-sm md:text-base">{time}</span>
-        {isFree == 1 ? ( //free session
+        {isFree == 1 || isUserRegister ? ( //free session
           <PlayCircleIcon className="size-7" />
         ) : isFree !== 1 && !isCourseFree ? (
           <LockClosedIcon className="size-6" />

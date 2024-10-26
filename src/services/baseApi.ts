@@ -9,6 +9,7 @@ const apiSlice = createApi({
 
   tagTypes: [
     "user",
+    "userData",
     "offer",
     "offers",
     "users",
@@ -30,6 +31,10 @@ const apiSlice = createApi({
     "article",
     "userQuestion",
     "userQuestions",
+    "tickets",
+    "userTickets",
+    "ticket",
+    "depts"
   ],
   endpoints: () => ({}),
 });

@@ -1,99 +1,96 @@
 "use client";
+import TextLoader from "@/components/ui/loader/TextLoader";
+import { useGetMeQuery } from "@/services/auth/authApiSlice";
+import { useGetTicketQuery } from "@/services/tickets&depts/ticketApiSlice";
+import { MessagesType } from "@/types/services/tickets.t";
+import React from "react";
 import ContentList from "../../ContentList";
+type ChatBoxType = {
+  ticketId: string;
+  children: React.ReactNode;
+};
+function ChatBox({ ticketId, children }: ChatBoxType) {
+  const { data: ticket, isLoading } = useGetTicketQuery({ _id: ticketId });
+  const { data, isLoading: isUserLoading } = useGetMeQuery();
+  if (isLoading ||isUserLoading) return <TextLoader loadingCondition={isLoading||isUserLoading} />;
 
-function ChatBox() {
+  const adminMsgs = ticket?.adminMessages || [];
+  const userMsgs = ticket?.messages || [];
+  const concatMsgs = [...adminMsgs, ...userMsgs].sort(
+    (a, b) => new Date(a.sendAt).getTime() - new Date(b.sendAt).getTime()
+  );
   return (
-    <ContentList title="مشکل مورد نظر">
+    <ContentList title={ticket?.title as string}>
       <div className="space-y-4">
-        {/* user chat  */}
         <div
-          className="w-11/12 sm:w-2/3
-         bg-gray-100 dark:bg-gray-700 text-zinc-700
-         dark:text-white p-4 rounded-2xl rounded-tr-sm"
+          className={` w-11/12 sm:w-2/3 dark:text-white p-4 rounded-2xl text-zinc-700
+            ${
+              String(ticket?.user?._id) === String(data?.user?._id)
+                ? ` bg-gray-100 dark:bg-gray-700 rounded-tr-sm   `
+                : `bg-sky-500/30 dark:bg-secondary/20 rounded-tl-sm mr-auto `
+            }
+          `}
         >
           <h4 className="font-DanaMedium  text-xl mb-1 text-right">
-            alirezangh
+            {ticket?.user?.username}
           </h4>
           <span className="block text-xs font-Dana text-slate-500 dark:text-slate-400 text-right">
-            1403/05/24 19:35
+            {new Date(ticket?.createdAt as Date).toLocaleDateString("fa-IR", 
+            {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
           </span>
-          <p className="font-DanaMedium mt-4.5">
-            سلام من روی هر ویدئویی از جلسات دوره هایی که ثبت نام کردم کلیک میکنم
-            ،جلسه لود نمیشه و روی حالت loading گیر میکنه
-          </p>
+          <p className="font-DanaMedium mt-4.5">{ticket?.body}</p>
         </div>
 
-        {/* amdin chat */}
-        <div
-          className="w-11/12 sm:w-2/3 mr-auto bg-sky-500/30 dark:bg-secondary/20
-         text-zinc-700 dark:text-white p-4 rounded-2xl rounded-tr-sm"
-        >
-          <h4 className="font-DanaMedium text-xl mb-1 text-left">Shahram.Kh</h4>
-          <span
-            className="block text-xs font-Dana text-slate-500 dark:text-slate-400 text-left"
-            dir="rtl"
-          >
-            1403/05/24 20:35
-          </span>
-          <p className="font-Dana mt-4.5"></p>
-          <p>با سلام و احترام</p>
-          <p>وقتتون بخیر</p>
-          <p>یه مشکل زیر ساختی پیش اومده بزودی رفع میشه</p>
-          <p>
-            اگه تاخیری در روند یادگیری تون پیش اومده بابت این مورد عذرخواهی
-            میکنم
-          </p>
-          <p></p>
-        </div>
-        <div className="w-full p-2 py-4 text-center dark:bg-dark bg-gray-300">
-            <p className="dark:text-red-400 ">این تیکت به صورت خودکار بسته شد</p>
-        </div>
-        {/* <ChatForm/> */}
+        {concatMsgs.length > 0 &&
+          concatMsgs.map((message: MessagesType, index: number) => {
+            const isOwnMessage =
+              String(message.sender._id) == String(data?.user?._id || "");
+            return (
+              <div
+                key={index}
+                className={`
+        w-11/12 sm:w-2/3 dark:text-white p-4 rounded-2xl text-zinc-700
+        ${
+          isOwnMessage
+            ? `
+          bg-gray-100 dark:bg-gray-700
+          rounded-tr-sm ml-auto 
+          `
+          : `bg-sky-500/30 dark:bg-secondary/20 rounded-tl-sm mr-auto`
+        }`} >
+                <h4 className="font-DanaMedium text-xl mb-1 text-left">
+                  {message.sender.username}
+                </h4>
+                <span
+                  className="block text-xs font-Dana text-slate-500 dark:text-slate-400 text-left"
+                  dir="rtl"
+                >
+                  {new Date(message.sendAt as Date).toLocaleDateString(
+                    "fa-IR",
+                    {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    }
+                  )}
+                </span>
+                <p className="font-DanaMedium mt-4.5">{message.body}</p>
+              </div>
+            );
+          })}
+        {ticket?.isOpen ? (
+          children
+        ) : (
+          <div className="w-full p-2 py-4 text-center dark:bg-dark bg-gray-300">
+            <p className="dark:text-red-400 ">
+              این تیکت به صورت خودکار بسته شد
+            </p>
+          </div>
+        )}
       </div>
     </ContentList>
   );
 }
-
-// const ChatForm = () => {
-//   const {
-//     register,
-//     handleSubmit,
-//     formState: { errors },
-//     reset,
-//   } = useForm();
-//   const sendHandler = ()=>{
-//     try {
-        
-//     } catch (error) {
-        
-//     }
-//   }
-
-//   return (
-//     <form  className="flex flex-col gap-y-2"  onSubmit={handleSubmit(sendHandler)}>
-//       <TextAriaField
-//         register={register}
-//         name="body"
-//         id="body"
-//         label="متن تیکت"
-//         required={true}
-//         placeHolder="متن تیکت خود را وارد کنید"
-//         variant="freeMode"
-//         validattionschema={{required:"پر کردن این فیلد الزامی است"}}
-//         type="text"
-//         errors={errors}
-//       />
-//       <div className="mt-2">
-//         <PrimaryBtn
-//           type="submit"
-//           className="mr-auto !rounded-lg "
-//           variant="fill"
-//           size="lg"
-//         >
-//           ارسال
-//         </PrimaryBtn>
-//       </div>
-//     </form>
-//   );
-// };
 export default ChatBox;

@@ -1,10 +1,11 @@
 import Login from "@/components/layouts/auth/login/Login";
-import { getUser } from "@/utils/auth/auth";
+import { authUser } from "@/utils/auth/auth";
 import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic"
 async function page() {
-  const user = await getUser();
-  if (user !== null) return redirect("/");
+  const user = await authUser();
+  console.log(user);
+  if (user !== null&& user !== undefined) return redirect("/");
   return (
     <div>
       <Login />

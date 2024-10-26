@@ -67,7 +67,7 @@ function HomePage({
                 </a>
                 <Link
                   className="box-center gap-x-2 group font-DanaMedium cursor-pointer"
-                  href={"#freeCourses"}
+                  href={"/courses?isFree=true"}
                 >
                   <span
                     className="!bg-baseColor px-4 py-4 rounded-full"

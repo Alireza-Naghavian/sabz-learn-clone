@@ -7,10 +7,15 @@ import { getFromStorage, saveToStorage } from "@/utils/utils";
 function ThemeToggler({className}:{className?:string}) {
   const [theme, setTheme] = useState<string | null>(null);
   useEffect(() => {
-    const storedTheme = getFromStorage("theme") || "dark";
+    const storedTheme = getFromStorage("theme") || "";
     setTheme(storedTheme);
 
-    document.documentElement.classList.add(storedTheme);
+    if(storedTheme === "light"){
+      document.documentElement.classList.add(storedTheme);
+      document.documentElement.classList.remove("dark")
+    }else{
+      document.documentElement.classList.add(storedTheme);
+    }
   }, []);
   const themeHandler = () => {
     const newtheme = theme === "dark" ? "light" : "dark";
@@ -21,12 +26,16 @@ function ThemeToggler({className}:{className?:string}) {
   };
   return (
     <Button type="button" size="xl" className={` !px-0 ${className}`} onClick={themeHandler}>
+     {theme ==="dark" &&
       <SunIcon
-        className={`${theme === "light" ? "hidden" : "inline-block"}  !w-7 !h-7 mx-auto `}
+      className={`${theme === "dark" ? "inline-block " : "hidden"}  !w-7 !h-7 mx-auto `}
       />
+    }
+    {theme === "light"&&
       <MoonIcon
-        className={`${theme === "dark" ? "hidden" : "inline-block "}  !w-7 !h-7 mx-auto `}
+      className={`${theme === "light" ? "inline-block" : "  hidden"}  !w-7 !h-7 mx-auto `}
       />
+    }
     </Button>
   );
 }

@@ -18,9 +18,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 import TitleHeader from "../course/TitleHeader";
-
-
-function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,sessionNumb:number}) {
+function Side_Box({courseSessions,sessionNumb,isUserRegistered}:{isUserRegistered:boolean,courseSessions:CourseDataTable,sessionNumb:number}) {
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);
   const toggleDropdown = (id: string) => {
     setOpenDropdown(openDropdown === id ? null : id);
@@ -62,6 +60,7 @@ function Side_Box({courseSessions,sessionNumb}:{courseSessions:CourseDataTable,s
             isBoxOpen={openDropdown === topic.title}
             {...topic}
             courseShortName={courseSessions.shortName}
+            isUserRegistered={isUserRegistered}
           />
           )
          })}
@@ -128,11 +127,12 @@ type chapterType =Partial<TopicDataType>&{
   toggle: (id: string) => void;
   isBoxOpen: boolean;
   courseShortName:string
+  isUserRegistered:boolean
 }
 const Chapter = ({
   toggle,
   id,
-  isBoxOpen,sessions,title,courseShortName
+  isBoxOpen,sessions,title,isUserRegistered
 }:chapterType ) => {
 
   return (
@@ -156,11 +156,12 @@ const Chapter = ({
             <LessonItem
             key={index}
             isComplete
-            lessonTarget={`/courses/course/session/${courseShortName}/${session._id}`}
+            lessonTarget={`/courses/course/sessions/${session._id}`}
             time={session.time}
             title={session.title}
-          _id={session._id!}
-          isFree={session.isFree}
+            _id={session._id!}
+            isFree={session.isFree}
+            isUserRegistered={isUserRegistered}
           />
           )
         })}
@@ -177,15 +178,15 @@ type LessonType = {
   isComplete: boolean;
   _id:string
   isFree:boolean|number
+  isUserRegistered:boolean
 };
 
-const LessonItem = ({ lessonTarget, title, time, isComplete,_id ,isFree}: LessonType) => {
+const LessonItem = ({ lessonTarget, title, time, isComplete,_id ,isFree,isUserRegistered}: LessonType) => {
   const path = usePathname();
-  const pathId = path.split("/").at(5)
-
+  const pathId = path.split("/").at(4)
   return (
     <div className="lesson py-4 border-b last:border-none border-gray-500/75">
- {isFree ==1? 
+ {isFree ==1 || isUserRegistered? 
       <Link
       href={_id===pathId ?"" :lessonTarget}
       className={`block line-clamp-2  hover:text-baseColor dark:text-white dark:bg-transparent ${_id == pathId && "!text-baseColor"}`}
@@ -213,7 +214,7 @@ const LessonItem = ({ lessonTarget, title, time, isComplete,_id ,isFree}: Lesson
             ></span>
           )}
         </div>
-          {isFree ===1 ? 
+          {isFree ===1 || isUserRegistered ? 
              <div
              className="min-w-18  box-center px-4 py-2
             text-baseColor rounded-full bg-transparent

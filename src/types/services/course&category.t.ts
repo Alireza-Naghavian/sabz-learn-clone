@@ -57,6 +57,7 @@ export type SingleCourseData =  Omit<CourseDataTable,"creator"> & {
   isComplete: boolean;
   creator:string
 }
+export type SessionData  = Omit<SingleCourseData,"creator">&{creator:{username:string,_id:string}}
 
 export type FilterReqType ={
   totalPages:number,

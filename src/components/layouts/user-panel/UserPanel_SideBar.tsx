@@ -7,7 +7,10 @@ import { UserPanelOpType } from "@/types/consts.t";
 import LogOutBtn from "@/components/ui/button/LogOutBtn";
 import { PowerIcon } from "@heroicons/react/24/outline";
 import StoreProvider from "@/context/StoreProvider";
-function UserPanel_SideBar({ sm }: { sm?: boolean }) {
+import { usePathname } from "next/navigation";
+import { SetState } from "@/types/global.t";
+function UserPanel_SideBar({ sm,close }: { sm?: boolean,close?:SetState<boolean> }) {
+  const path = usePathname();
   return (
     <aside className={`${sm ? "" : "user__sidebar"}`}>
       <div className="logo_wrapper">
@@ -26,6 +29,8 @@ function UserPanel_SideBar({ sm }: { sm?: boolean }) {
               Icon={() => <item.Icon />}
               title={item.title}
               target={item.target}
+              onClick={()=>close && close(false) }
+            className={`${path as string === item.target as string && "bg-baseColor"}`}
             />
           );
         })}

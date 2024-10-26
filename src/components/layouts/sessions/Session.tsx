@@ -3,7 +3,9 @@ import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import TextLoader from "@/components/ui/loader/TextLoader";
 import { useGetSessionInfoQuery } from "@/services/sessions&topics/sesisonSlice";
+import { CourseDataTable } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
+import { CourseSessionData } from "@/types/services/sessions&Topics.t";
 import { ChatBubbleOvalLeftEllipsisIcon } from "@heroicons/react/24/solid";
 import dynamic from "next/dynamic";
 import ClientLayout from "../ClientLayout/ClientLayout";
@@ -13,17 +15,15 @@ import Q_box_list from "./Q_box_list";
 import "./session.css";
 import Session_Skelton from "./Session_Skelton";
 import Side_Box from "./Side_Box";
-import { CourseSessionData } from "@/types/services/sessions&Topics.t";
-import { CourseDataTable } from "@/types/services/course&category.t";
+import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
 const SSRVideoSection = dynamic(()=>import("./VideoSection"),{ssr:false})
 type SessionPageType = {
   menu: MenuBodyType[];
-  shortName:string
   sessionID:string
 };
-function Session({ menu, sessionID,shortName }: SessionPageType) {
-  const {data,isLoading} = useGetSessionInfoQuery({sessionID,shortName});
-
+function Session({ menu, sessionID }: SessionPageType) {
+  const {data,isLoading} = useGetSessionInfoQuery({sessionID});
+  const {data:courseData}  = useGetCourseQuery({shortName:data?.course?.shortName as string})
   const categoryData = data?.session?.course?.categoryID;
   const categoryHref = categoryData?.link;
   const categoryTitle = categoryData?.title;
@@ -62,7 +62,7 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
     <div className="hidden md:block bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5">
       <TitleHeader
         className="bg-sky-500 "
-        title="آموزش Next.js بصورت پروژه محور"
+        title={data?.session.title as string}
       />
       <div className="session__title_wrapper">
         <div className="session__title_number">
@@ -103,13 +103,14 @@ function Session({ menu, sessionID,shortName }: SessionPageType) {
         IconColor="text-red-500"
       />
       <CommentRule  />
-      <Q_box_form sessionID={sessionID}shortName={shortName} />
+      <Q_box_form sessionID={sessionID} shortName={data?.course.shortName as string}  />
       <Q_box_list  />
     </div>
   </div>
   <Side_Box
     courseSessions={data?.course as CourseDataTable}
     sessionNumb = {data?.sessions?.length as number}
+    isUserRegistered = {courseData?.isUserRegisteredToThisCourse as boolean}
     />
 </div>
   }
