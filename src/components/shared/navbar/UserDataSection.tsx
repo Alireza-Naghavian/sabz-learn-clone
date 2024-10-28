@@ -18,12 +18,21 @@ function UserDataSection() {
     );
   if (isError || !userData) {
     return (
-      <SecondaryBtn
+<>
+<SecondaryBtn
         className="hidden lg:flex items-center px-2 rounded-full"
         target="/auth/login"
         title="ورود|عضویت"
         Icon={() => <UserIcon className="h-6 w-6" />}
       />
+<SecondaryBtn
+        className={`lg:hidden px-2  bg-gray-200
+           dark:bg-dark rounded-full box-center ${userData && "hidden"}`}
+        target="/auth/login"
+        title=""
+        Icon={() => <UserIcon className="h-6 w-6" />}
+      />
+</>
     );
   }
   return <UserDataDropDown userData={userData.user} isLoading={isLoading} />;

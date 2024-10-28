@@ -57,7 +57,7 @@ function SortBtns({
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  const { data, isFetching } = useFilterCoursesQuery({
+  const { data, isLoading } = useFilterCoursesQuery({
     sort: sortParam as string,
     isFree: isFreeParam as string,
     preOrder: preOrderParam as string,
@@ -157,7 +157,7 @@ function SortBtns({
           <EmptyResult className="col-span-full  px-7 py-8 md:py-20" title={"    متاسفانه دوره ای مطابق جستجوی شما پیدا نشد:("} />
         ) : searchParams.size === 0 && page === 1 ? (
           <ResultLayout allCourses={allCourses} />
-        ) : isFetching ? (
+        ) : isLoading ? (
           <Product_Skelton count={12} />
         ) : (
           <ResultLayout
@@ -165,13 +165,13 @@ function SortBtns({
           />
         )}
         <div className=" mt-8 col-span-full flex justify-center">
-          {data?.totalPages == data?.currentPage && !isFetching ? (
+          {data?.totalPages == data?.currentPage && !isLoading ? (
             "تمامی دوره ها نمایش داده شد."
           ) : data?.allCourses.length as number >0 && (
             <CoursePaginBtn
               page={page}
               setPage={setPage}
-              isFetching={isFetching}
+              isFetching={isLoading}
             />
           )}
         </div>
