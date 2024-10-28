@@ -2,10 +2,7 @@ import CoursesHeader from "@/components/ui/CoursesHeader/CoursesHeader";
 import SideBarFilter from "@/components/ui/aside/SideBarFilter";
 import SortBtns from "@/components/ui/button-group/SortBtns";
 import StoreProvider from "@/context/StoreProvider";
-import {
-  CatBodytype,
-  FilterReqType
-} from "@/types/services/course&category.t";
+import { CatBodytype, FilterReqType } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
 import ClientLayout from "../ClientLayout/ClientLayout";
 
@@ -27,9 +24,6 @@ function Courses({
           totalAmount={`${allCourses.totalCourses} عنوان آموزشی`}
         />
         <StoreProvider>
-
-
-        
           <section
             className="grid  grid-rows-1 lg:grid-cols-3 xl:grid-cols-4 
         gap-3.5 sm:gap-5 mt-9 sm:mt-25"
@@ -42,12 +36,13 @@ function Courses({
               className="col-span-1 lg:col-span-2 xl:col-span-3
            order-1 lg:order-2 "
             >
-              <SortBtns categories={categories} allCourses={allCourses as FilterReqType} />
-              <div className="w-full mx-auto flex justify-center mt-14">
-              </div>
+              <SortBtns
+                categories={categories}
+                allCourses={allCourses as FilterReqType}
+              />
+              <div className="w-full mx-auto flex justify-center mt-14"></div>
             </div>
           </section>
-   
         </StoreProvider>
       </div>
     </ClientLayout>

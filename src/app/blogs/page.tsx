@@ -16,11 +16,12 @@ export const metadata: Metadata = {
 };
 async function page() {
   const menus = await dataFetcher("menus", "omit", "force-cache");
+  const latestArticles = await dataFetcher("articles/getInit","omit",undefined,1800)
   return (
     <main className='max-w-[1920px] mx-auto overflow-x-hidden '>
       <Suspense>
 
-        <Blogs   menu={dataParser(menus)}/>
+        <Blogs   menu={dataParser(menus)} latestArticles={dataParser(latestArticles.slice(0,4))}/>
       </Suspense>
     </main>
   )

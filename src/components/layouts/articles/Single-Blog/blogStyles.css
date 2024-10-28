@@ -1,0 +1,6 @@
+.wp-content {
+    @apply w-full 
+}
+.wp-content img{
+    @apply mx-auto rounded-lg 
+}

@@ -11,7 +11,7 @@ export default async function Home() {
    1800
   );
   
-  const latestArticles = await dataFetcher("articles","omit",undefined,1800)
+  const latestArticles = await dataFetcher("articles/getInit","omit",undefined,1800)
   const categories = await dataFetcher("category", "omit", undefined);
   const mostPopularCourses =  allCourses.sort((a: CourseBodyType, b: CourseBodyType) => {
     return b.registers! - a.registers!;
@@ -19,8 +19,8 @@ export default async function Home() {
   const latestCourses = allCourses.sort((a: CourseDataTable, b: CourseDataTable) => {
     return new Date(b.createdAt!).getDate() - new Date(a.createdAt!).getDate();
   }).slice(0,8)
-  const mostPopularFreeCourses =  allCourses.filter((course:CourseBodyType)=>{
-    return course.isFree
+  const mostPopularFreeCourses =  allCourses.sort((a:CourseDataTable,b:CourseDataTable)=>{
+    return Number(b.registers ) - Number(a.registers)
   }).slice(0,8)
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden min-h-screen">
@@ -31,7 +31,7 @@ export default async function Home() {
         mostPopularCourses={dataParser(mostPopularCourses)}
         latestCourses={dataParser(latestCourses)}
         mostPopularFreeCourses={dataParser(mostPopularFreeCourses)}
-        latestArticles = {dataParser([])}
+        latestArticles = {dataParser(latestArticles.slice(0,4))}
       />
     </main>
   );

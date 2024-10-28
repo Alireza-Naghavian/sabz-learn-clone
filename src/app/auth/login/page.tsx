@@ -4,7 +4,6 @@ import { redirect } from "next/navigation";
 export const dynamic = "force-dynamic"
 async function page() {
   const user = await authUser();
-  console.log(user);
   if (user !== null&& user !== undefined) return redirect("/");
   return (
     <div>

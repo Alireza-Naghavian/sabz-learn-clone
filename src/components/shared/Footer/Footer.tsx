@@ -1,6 +1,6 @@
 import { InstaIcon, TelegramIcon } from "@/utils/Icons";
 import Link from "next/link";
-import React from "react";
+import CourseList from "./CourseList";
 
 function Footer() {
   return (
@@ -21,13 +21,10 @@ function Footer() {
               دسترسی سریع
             </h4>
             <div className="flex-col flex items-start gap-y-3 ">
-              <Link href="#" className="text-hover">
-                قوانین و مقررات
-              </Link>
-              <Link href="#" className="text-hover">
+              <Link href="/my-account/tickets/add" className="text-hover">
                 ارسال تیکت
               </Link>
-              <Link href="#" className="text-hover">
+              <Link href="/courses" className="text-hover">
                 همه دوره ها
               </Link>
             </div>
@@ -37,15 +34,7 @@ function Footer() {
               لینک های مفید
             </h4>
             <div className="flex-col flex items-start gap-y-3 ">
-              <Link href="#" className="text-hover">
-                آموزش جاوااسکریپت
-              </Link>
-              <Link href="#" className="text-hover">
-                آموزش HTML
-              </Link>
-              <Link href="#" className="text-hover">
-                آموزش CSS
-              </Link>
+              <CourseList />
             </div>
           </div>
           <div className="flex flex-col gap-y-5 flex-grow">

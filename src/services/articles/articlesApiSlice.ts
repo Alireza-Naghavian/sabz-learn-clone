@@ -3,6 +3,7 @@ import apiSlice from "../baseApi";
 import {
   ArticlesBodyType,
   ArticleTableData,
+  FilterBlogReqType,
 } from "@/types/services/articles.t";
 
 export const articleSlice = apiSlice.injectEndpoints({
@@ -30,7 +31,7 @@ export const articleSlice = apiSlice.injectEndpoints({
           shortName,
         },
       }),
-      invalidatesTags: ["article", "articles"],
+      invalidatesTags: ["article", "articles","articlesData"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
@@ -52,15 +53,31 @@ export const articleSlice = apiSlice.injectEndpoints({
         method: "DELETE",
         credentials: "include",
       }),
-      invalidatesTags: ["article", "articles"],
+      invalidatesTags: ["article", "articles","articlesData"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
     }),
+    getBlogsData :builder.query<FilterBlogReqType,{page:number,limit:number}>({
+      query:({page,limit})=>({
+        url:"/articles",
+        method:"GET",
+        credentials:"include",
+        headers:{
+          'X-Page':page.toString(),
+          'X-Limit':limit.toString(),
+        }
+      }),
+      providesTags:["articlesData"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    })
   }),
 });
 export const {
   useCreateArticlesMutation,
   useGetAllBlogsQuery,
   useRemoveArticleMutation,
+  useGetBlogsDataQuery
 } = articleSlice;
