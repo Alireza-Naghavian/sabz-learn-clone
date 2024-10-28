@@ -1,3 +1,4 @@
+
  const generateAnchor = (body:string)=>{
     const parser = new DOMParser();
     const doc = parser.parseFromString(body,"text/html");
@@ -9,4 +10,8 @@
     })
     return doc.body.innerHTML;
 }
+
+
+
 export default generateAnchor
+

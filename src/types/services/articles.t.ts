@@ -21,3 +21,5 @@ export type FilterBlogReqType ={
     totalBlogs:number,
     blogs:ArticleTableData[] 
   }
+
+  export type RelatedBlogType =Pick<ArticleTableData,"title"|"_id"|"cover"|"createdAt">
