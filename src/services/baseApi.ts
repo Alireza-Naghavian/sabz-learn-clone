@@ -29,6 +29,7 @@ const apiSlice = createApi({
     "menu",
     "articles",
     "article",
+    "articlesData",
     "userQuestion",
     "userQuestions",
     "tickets",

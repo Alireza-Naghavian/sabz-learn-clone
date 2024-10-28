@@ -4,35 +4,25 @@ import ClientLayout from "../ClientLayout/ClientLayout";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import { ChevronDownIcon } from "@heroicons/react/24/outline";
 import { MenuBodyType } from "@/types/services/menu.t";
+import { ArticleTableData } from "@/types/services/articles.t";
+import BlogList from "./BlogList";
+import StoreProvider from "@/context/StoreProvider";
 
-function Blogs({menu}:{menu:MenuBodyType[]}) {
+function Blogs({menu,latestArticles}:{menu:MenuBodyType[],latestArticles:ArticleTableData[]}) {
   return (
     <ClientLayout menu={menu}>
       <section className="container mt-8 sm:mt-10">
         <CoursesHeader
           mainTitle="وبلاگ"
-          totalAmount={`${130} مقاله`}
+          totalAmount={`${latestArticles.length} مقاله`}
           qs={false}
         />
         <div className="grid sm:grid-cols-2 xl:grid-cols-4 gap-y-5 gap-x-7">
           {/* content */}
-          {/* <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-          <BlogCard /> */}
-        </div>
-        <div className="w-full h-full">
-          <PrimaryBtn
-            variant="fill"
-            size="xl"
-            type="button"
-            className="mx-auto mt-8"
-          >
-            <span>مشاهده بیشتر</span>
-            <ChevronDownIcon className="size-6" />
-          </PrimaryBtn>
+          <StoreProvider>
+
+          <BlogList latestArticles={latestArticles}/>
+          </StoreProvider>
         </div>
       </section>
     </ClientLayout>

@@ -3,10 +3,10 @@ import LogoLink from "@/components/ui/logo-link/LogoLink";
 import NavItem from "@/components/ui/navItem/NavItem";
 import { SearchForm } from "@/components/ui/SearchBox/SearchBox";
 import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
+import StoreProvider from "@/context/StoreProvider";
+import { MenuBodyType } from "@/types/services/menu.t";
 import { Suspense, useState } from "react";
 import styles from "./navbar.module.css";
-import { MenuBodyType } from "@/types/services/menu.t";
-import StoreProvider from "@/context/StoreProvider";
 function MobileMenu({
   close,
   menu,
@@ -29,14 +29,13 @@ function MobileMenu({
       {/* drop down menu */}
       <div className="  relative group w-full">
         <StoreProvider>
-      <Suspense>
-
-        <SearchForm
-          className="w-full child:w-full child:child:w-full mt-4"
-          placeholder="چی میخوای یاد بگیری؟"
-          />
+          <Suspense>
+            <SearchForm
+              className="w-full child:w-full child:child:w-full mt-4"
+              placeholder="چی میخوای یاد بگیری؟"
+            />
           </Suspense>
-          </StoreProvider>
+        </StoreProvider>
       </div>
       {menu.map((menu, index) => {
         return (
@@ -64,6 +63,9 @@ function MobileMenu({
           </DropDown>
         );
       })}
+      <div className="relative mt-6">
+        <NavItem onClick={() => close()} target={`/blogs`} title={"مقالات"} />
+      </div>
     </>
   );
 }

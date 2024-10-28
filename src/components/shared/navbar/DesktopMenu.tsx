@@ -14,6 +14,13 @@ function DesktopMenu({ menu }: { menu: MenuBodyType[] }) {
           />
         );
       })}
+      <div className="">
+      <NavBarItem
+            className="relative group"
+            target={`/blogs`}
+            title={"مقالات"}
+          />
+      </div>
     </ul>
   );
 }
