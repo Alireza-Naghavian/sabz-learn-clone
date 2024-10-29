@@ -16,6 +16,7 @@ function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
               title={course.name}
               src={course.cover}
               target={`/courses/course/${course.shortName}`}
+              badge={course.discount !==0 ?`${`${course.discount}%`}`:"" as string |undefined}
             />
             <CourseCard.Body
               target={`/courses/course/${course.shortName}`}
@@ -30,6 +31,7 @@ function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
               price={course.price}
               score={course.courseAverageScore}
               teacher={course.creator.username  }
+              
             />
           </CourseCard>
         );

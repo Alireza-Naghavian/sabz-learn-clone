@@ -4,8 +4,9 @@ import TextLoader from "@/components/ui/loader/TextLoader";
 import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
 import { BookOpenIcon, UserIcon } from "@heroicons/react/24/solid";
 import PurchaseCourse from "./PurchaseCourse";
+import { CompaignTableData } from "@/types/services/compaign.t";
 
-function BuyOperation({ shortName }: { shortName: string }) {
+function BuyOperation({ shortName,compaignData }: { shortName: string,  compaignData:CompaignTableData[] }) {
   const { data: courseData, isLoading } = useGetCourseQuery({ shortName });
   if (isLoading) return <TextLoader loadingCondition={isLoading} />;
   return (
@@ -14,6 +15,7 @@ function BuyOperation({ shortName }: { shortName: string }) {
         <AcessBox />
       ) : (
         <PurchaseCourse
+        compaignData={compaignData}
           shortName={shortName}
           _id={courseData?._id as string}
           isFree={courseData?.isFree as boolean}

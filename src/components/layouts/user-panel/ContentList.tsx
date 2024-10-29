@@ -40,7 +40,7 @@ function ContentList({ title, link,children }: ContentListType) {
 
 
 export const ContentItem = ({ target, title,date,isAnswer,isOpen,isPending }: ContentType) => {
-  let ticketCurrCondition = {
+  const ticketCurrCondition = {
     isPending,isAnswer, isOpen,
  };
  const ticketCondition = ticketStatus.find((ticketSt) => {

@@ -1,16 +1,14 @@
-import BlogCard from "@/components/shared/BlogsCard/BlogCard";
 import CoursesHeader from "@/components/ui/CoursesHeader/CoursesHeader";
-import ClientLayout from "../ClientLayout/ClientLayout";
-import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
-import { ChevronDownIcon } from "@heroicons/react/24/outline";
-import { MenuBodyType } from "@/types/services/menu.t";
-import { ArticleTableData } from "@/types/services/articles.t";
-import BlogList from "./BlogList";
 import StoreProvider from "@/context/StoreProvider";
+import { ArticleTableData } from "@/types/services/articles.t";
+import { CompaignTableData } from "@/types/services/compaign.t";
+import { MenuBodyType } from "@/types/services/menu.t";
+import ClientLayout from "../ClientLayout/ClientLayout";
+import BlogList from "./BlogList";
 
-function Blogs({menu,latestArticles}:{menu:MenuBodyType[],latestArticles:ArticleTableData[]}) {
+function Blogs({menu,latestArticles,compaignData}:{compaignData:CompaignTableData[],menu:MenuBodyType[],latestArticles:ArticleTableData[]}) {
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       <section className="container mt-8 sm:mt-10">
         <CoursesHeader
           mainTitle="وبلاگ"

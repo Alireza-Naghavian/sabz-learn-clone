@@ -1,7 +1,6 @@
 "use client";
-import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { ChildrenProps } from "@/types/global.t";
-import { CatBodytype,FilterCourseType,} from "@/types/services/course&category.t";
+import { CatBodytype, FilterCourseType, } from "@/types/services/course&category.t";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import React, { useState } from "react";
 import { useForm } from "react-hook-form";
@@ -23,7 +22,6 @@ const SideBarFilter: React.FC<
   const searchParams = useSearchParams();
   const router = useRouter();
   const urlSearchParams = new URLSearchParams(searchParams.toString());
-  const { data, isLoading } = useGetMeQuery();
   const directPath = path.split("/").at(2);
   const categoryName = path.split("/").at(3);
   const [isFree, setIsFree] = useState(urlSearchParams.get("isFree") === "true"? true : false);

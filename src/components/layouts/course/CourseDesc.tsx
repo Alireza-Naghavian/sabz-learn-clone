@@ -28,9 +28,9 @@ function CourseDesc({ courseDesc }: { courseDesc: string }) {
           IconColor="text-amber-400"
         />
         {/* desc */}
-        <div className="relative overflow-hidden">
+        <div className="relative overflow-hidden  ">
           <div
-            className={`${
+            className={`overflow-hidden px-4  ${
               expand ? "h-auto max-h-[800px] courese_Desc overflow-y-auto" : "h-[400px]"
             }`}
             dangerouslySetInnerHTML={{__html:longDesc}}

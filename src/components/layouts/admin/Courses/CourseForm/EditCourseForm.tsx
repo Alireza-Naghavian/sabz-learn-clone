@@ -87,7 +87,7 @@ function EditCourseForm({
   };
   const catOptions = categories
     ?.map((category) => {
-      return { label: category.title as String, value: category._id as string };
+      return { label: category.title as string, value: category._id as string };
     })
     .reverse();
   //   update handler
@@ -97,7 +97,7 @@ function EditCourseForm({
         ...data,
         _id: _id,
         categoryID: category.value as string,
-        creator: userData?.user._id!,
+        creator: userData?.user._id as string,
         price: Number(price),
         status,
       };

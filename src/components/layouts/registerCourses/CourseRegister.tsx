@@ -9,22 +9,24 @@ import { useForm } from "react-hook-form";
 import ClientLayout from "../ClientLayout/ClientLayout";
 import DataCart from "./DataCart";
 import PaymentData from "./PaymentData";
+import { CompaignTableData } from "@/types/services/compaign.t";
 
 function CourseRegister({
   menu,
   shortName,
+  compaignData
 }: {
   menu: MenuBodyType[];
   shortName: string;
+  compaignData:CompaignTableData[]
 }) {
   const { data, isLoading } = useGetCourseQuery({ shortName });
   const {
     register,
-    handleSubmit,
     formState: { errors },
   } = useForm();
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       <section className=" gap-y-5 gap-6 lg:gap-x-7  container mt-20">
         <section className=" grid grid-cols-12 grid-rows-4 gap-y-4 lg:gap-y-5  lg:gap-x-7   ">
           <div className="rounded-2xl lg:row-span-full overflow-hidden col-span-full lg:col-span-8 h-full">

@@ -7,7 +7,8 @@ import styles from "@/app/my-account/userpanel.module.css";
 import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import StoreProvider from "@/context/StoreProvider";
-import { UserNameSubComp } from "../my-account/layout";
+import UserNameSubComp from "@/components/shared/UserNameSubComp/UserNameSubComp";
+
 function Layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();
   return (

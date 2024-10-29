@@ -1,4 +1,4 @@
-import { GetmeType, UserType } from "./authapi.t";
+import { UserType } from "./authapi.t";
 
 export type DeptBodyType = {
   title: string;
