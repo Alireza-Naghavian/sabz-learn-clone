@@ -9,7 +9,7 @@ import React from "react";
 import { useForm } from "react-hook-form";
 
 const ReplyForm = ({ticketId,setIsReplyOpen}:{ticketId:string,setIsReplyOpen:SetState<boolean>}) => {
-  const {data:userdata,isLoading}= useGetMeQuery();
+  const {data:userdata}= useGetMeQuery();
   const [sendAnswer,{isLoading:isSending}] = useSetAnswerMutation();
   const {showAlert} = useAlert();
   const {

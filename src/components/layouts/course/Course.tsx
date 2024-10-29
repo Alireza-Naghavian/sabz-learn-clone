@@ -19,17 +19,20 @@ import CourseHeader from "./CourseHeader";
 import CourseSessions from "./CourseSessions";
 import CourseSideBar from "./CourseSideBar";
 import RelateCourse from "./RelateCourse";
+import { CompaignTableData } from "@/types/services/compaign.t";
 
 function Course({
   menu,
   courseData,
   relateCourses,
   shortName,
+  compaignData
 }: {
   menu: MenuBodyType[];
   courseData: CourseDataTable;
   relateCourses: CourseDataTable[];
   shortName: string;
+  compaignData:CompaignTableData[]
 }) {
   const totalSessions = courseData?.topics?.reduce((total, topic) => {
     return total + topic?.sessions?.length;
@@ -51,7 +54,7 @@ function Course({
   const completionPercentage =
     totalSessions! > 0 ? (totalSessions! / completedSessions) * 100 : 0;
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       <div className=" mt-8 sm:mt-10 container">
         {/* breadcrumb */}
         <Breardcrumb
@@ -59,16 +62,16 @@ function Course({
           firstTarget="/"
           nestedLinks={[
             {
-              target: `/courses/category${courseData.categoryID.link}`,
-              title: courseData.categoryID.title,
+              target: `/courses/category${courseData?.categoryID?.link}`,
+              title: courseData?.categoryID?.title,
             },
             {
-              title: courseData.name,
-              target: `/courses/course/${courseData.shortName}`,
+              title: courseData?.name,
+              target: `/courses/course/${courseData?.shortName}`,
             },
           ]}
         />
-        <CourseHeader shortName={shortName} courseData={courseData} />
+        <CourseHeader compaignData={compaignData} shortName={shortName} courseData={courseData} />
         <section className="grid grid-cols-12 gap-6 sm:gap-7 mt-7 lg:mt-20">
           <div className="col-span-12 lg:col-span-8">
             {/* course small  info */}

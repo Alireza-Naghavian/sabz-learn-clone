@@ -1,5 +1,6 @@
 import Course from "@/components/layouts/course/Course";
 import StoreProvider from "@/context/StoreProvider";
+import { CompaignTableData } from "@/types/services/compaign.t";
 import { CourseBodyType } from "@/types/services/course&category.t";
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
@@ -8,7 +9,7 @@ type CourseParams = {
   params: { shortName: string };
 };
 export const generateStaticParams = async()=>{
-  const allCourses = await dataFetcher("courses", "omit", undefined, 1800);
+  const allCourses = await dataFetcher("courses", "omit", undefined, 10);
   const params  = allCourses.allCourses.map((course:CourseBodyType)=>({shortName:course.shortName}))
   return params
 }
@@ -41,13 +42,15 @@ async function page({ params }: CourseParams) {
     undefined,
     1800
   );
+  const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden">
 
 <StoreProvider>
       <Course
+      compaignData={dataParser(compaignData)}
         menu={dataParser(menus)}
-        courseData={dataParser(courseData)}
+        courseData={dataParser(courseData!==undefined &&courseData)}
         relateCourses={dataParser(relateCourses)}
         shortName={dataParser(params.shortName)}
         />

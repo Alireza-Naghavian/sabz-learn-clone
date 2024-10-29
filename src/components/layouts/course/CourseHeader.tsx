@@ -3,7 +3,8 @@ import { CourseDataTable } from "@/types/services/course&category.t";
 import BuyOperation from "./BuyOperation";
 import "./course.css";
 import CourseBanner from "./CourseBanner";
-function CourseHeader({ shortName,courseData }: { shortName: string ,courseData:CourseDataTable}) {
+import { CompaignTableData } from "@/types/services/compaign.t";
+function CourseHeader({ shortName,courseData,compaignData }: { shortName: string ,courseData:CourseDataTable,  compaignData:CompaignTableData[]}) {
 
   return (
     <section className="courseHeader__wrapper">
@@ -20,7 +21,7 @@ function CourseHeader({ shortName,courseData }: { shortName: string ,courseData:
         {/* buy course ? */}
 
 
-      <BuyOperation shortName={shortName}/>
+      <BuyOperation compaignData={compaignData} shortName={shortName}/>
 
 
       </div>

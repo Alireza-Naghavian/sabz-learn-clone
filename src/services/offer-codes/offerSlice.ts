@@ -37,6 +37,18 @@ export const OfferSlice = apiSlice.injectEndpoints({
         return baseQueryReturnValue.data;
       },
     }),
+    applyCode :builder.mutation<ResultMsg&{data:OfferCodeBody},{code:string,course:string}>({
+      query:({code,course})=>({
+        url:`/offs/applycode`,
+        method:"PATCH",
+        credentials:"include",
+        body:{code,course}
+      }),
+      invalidatesTags:["offers","offer"],
+      transformErrorResponse(baseQueryReturnValue) {
+        return baseQueryReturnValue.data;
+      },
+    })
   }),
 });
 
@@ -44,4 +56,5 @@ export const {
   useCreateCodeMutation,
   useGetAllCodesQuery,
   useRemoveCodeMutation,
+  useApplyCodeMutation
 } = OfferSlice;

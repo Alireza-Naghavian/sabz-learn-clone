@@ -15,6 +15,7 @@ import { IconType } from "@/types/icon.t";
 import { UserPanelOpType } from "@/types/consts.t";
 import { usePathname } from "next/navigation";
 function SideBar({closeSideBar}:{closeSideBar?:()=>void}) {
+ // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [_, { close }] = useDisclosure();
   const path = usePathname();
   const [openDropdown, setOpenDropdown] = useState<string | null>(null);

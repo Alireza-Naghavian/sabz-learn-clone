@@ -11,18 +11,21 @@ import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import { useRouter } from "next/navigation";
 import EditModal from "../admin/modals/EditModal";
 import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
+import { CompaignTableData } from "@/types/services/compaign.t";
 type PurchseType = {
   isFree: boolean;
   price: number;
   discount: number;
   _id: string;
   shortName: string;
+  compaignData:CompaignTableData[] 
 };
 function PurchaseCourse({
   isFree,
   price,
   discount,
   _id,
+  compaignData,
   shortName,
 }: PurchseType) {
   const [isModalOpen, { open, close }] = useDisclosure();
@@ -49,7 +52,7 @@ function PurchaseCourse({
       {/* countDown ? */}
       {discount !== 0 && (
         <CountDowntimer
-          date={new Date("dec 25, 2024 16:37:52")}
+          date={new Date(compaignData[0]?.endDate)}
           percent={discount}
         />
       )}

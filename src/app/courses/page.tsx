@@ -1,4 +1,5 @@
 import Courses from "@/components/layouts/courses/Courses";
+import { CompaignTableData } from "@/types/services/compaign.t";
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
 import { Metadata } from "next";
@@ -17,13 +18,15 @@ export const metadata: Metadata = {
 };
 async function page() {
   const menus = await dataFetcher("menus", "omit", "force-cache");
-  const allCourses = await dataFetcher("courses", "omit", undefined, 1800);
+  const allCourses = await dataFetcher("courses", "omit", undefined,10);
   const categories = await dataFetcher("category", "omit", "force-cache");
+  const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden">
       <Suspense>
 
       <Courses
+      compaignData={dataParser(compaignData)}
         allCourses={dataParser(allCourses)}
         menu={dataParser(menus)}
         categories={dataParser(categories)}

@@ -51,7 +51,9 @@ function CourseForm() {
     // Submit handler for course creation
   const createHandler = async (data: CreateCorseType) => {
     try {
+     /* eslint-disable @typescript-eslint/no-unused-vars */
       const {inProgress,preOrder,...filteredData} = data
+      /* eslint-enable @typescript-eslint/no-unused-vars */
       const courseBody = {...filteredData,categoryID:category.value
         ,creator:userData?.user._id as string
         ,longDesc

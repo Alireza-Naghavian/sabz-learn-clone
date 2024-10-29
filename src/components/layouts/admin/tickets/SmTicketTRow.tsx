@@ -30,7 +30,7 @@ function SmTicketTRow({
   const [removeTicket, { isLoading: isremoveLoading }] =
     useRemoveTicketMutation();
   const { showAlert } = useAlert();
-  let ticketCurrCondition = {
+  const ticketCurrCondition = {
     isPending: isPending as boolean,
 
     isAnswer: isAnswer as boolean,

@@ -5,18 +5,21 @@ import StoreProvider from "@/context/StoreProvider";
 import { CatBodytype, FilterReqType } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
 import ClientLayout from "../ClientLayout/ClientLayout";
+import { CompaignTableData } from "@/types/services/compaign.t";
 
 function Courses({
   menu,
   allCourses,
   categories,
+  compaignData
 }: {
   menu: MenuBodyType[];
   allCourses: FilterReqType;
   categories: CatBodytype[];
+  compaignData:CompaignTableData[]
 }) {
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       <div className="container  mt-8 sm:mt-10 relative">
         <CoursesHeader
           mainTitle="دوره ها"

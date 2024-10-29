@@ -154,7 +154,6 @@ export const SessionItem = ({
   isUserRegister,
   _id,
   isCourseFree,
-  shortName
 }: SessionBodyType & {
   index: number;
   isUserRegister: boolean;

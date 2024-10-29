@@ -18,7 +18,7 @@ function PaymentData({
   courseId: string;
   shortName: string;
 }) {
-  const discountAmount = +(price / discount);
+  const discountAmount = +(price * discount)/100 ;
   const { handleSubmit } = useForm();
   const [registerCourse, { isLoading }] = useRegisterCourseMutation({});
   const { showAlert } = useAlert();
