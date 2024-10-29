@@ -1,17 +1,16 @@
 "use client";
 import UserPanel_SideBar from "@/components/layouts/user-panel/UserPanel_SideBar";
 import UserDataDropDown from "@/components/shared/navbar/UserDataDropDown";
-import TextLoader from "@/components/ui/loader/TextLoader";
+import UserNameSubComp from "@/components/shared/UserNameSubComp/UserNameSubComp";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
 import StoreProvider from "@/context/StoreProvider";
-import useDisclosure from "@/hooks/useDisclosure";
 import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { ChildrenProps } from "@/types/global.t";
 import { UserType } from "@/types/services/authapi.t";
 import { Bars3BottomRightIcon } from "@heroicons/react/20/solid";
-import styles from "./userpanel.module.css";
 import { useState } from "react";
+import styles from "./userpanel.module.css";
 
 function Layout({ children }: ChildrenProps) {
   const [isMenuOpen,setIsMenuOpen] = useState(false)
@@ -58,16 +57,7 @@ function Layout({ children }: ChildrenProps) {
 
   );
 }
-export const UserNameSubComp = ({className}:{className:string})=>{
-  const { data,isLoading } = useGetMeQuery();
-  return(
-    <h3 className={className}>
-      {isLoading ?<TextLoader loadingCondition={isLoading}/> :
-      ` ${data?.user.username}  عزیز؛ خوش اومدی 🙌`
-      }
-  </h3>
-  )
-}
+
 const UserDataDropDownSec = () => {
   const { data, isLoading } = useGetMeQuery();
   return (

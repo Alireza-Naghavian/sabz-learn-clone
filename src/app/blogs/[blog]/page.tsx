@@ -1,5 +1,6 @@
 import Blog from "@/components/layouts/articles/Single-Blog/Blog";
 import { ArticleTableData } from "@/types/services/articles.t";
+import { CompaignTableData } from "@/types/services/compaign.t";
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
 import { Metadata } from "next";
@@ -9,7 +10,7 @@ type paramsType = {
 }
 export const generateStaticParams = async()=>{
   const allBlogs = await dataFetcher("articles/getInit", "omit", undefined, 1800);
-  const params  = allBlogs.map((blog:ArticleTableData)=>({_id:blog._id}))
+  const params  = allBlogs.map((blog:ArticleTableData)=>({blog:blog._id}))
   return params
 }
 export const generateMetadata = async ({
@@ -31,10 +32,12 @@ async function page({params} :paramsType) {
   const blogData :ArticleTableData = await dataFetcher(`articles/${blog}`,"omit","no-store")
   const relateBlogs = await dataFetcher(`articles/related/${blogData.categoryID._id}`,"omit","no-store");
   const menus = await dataFetcher("menus", "omit", "force-cache");
+  const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden ">
       
       <Blog
+      compaignData={dataParser(compaignData)}
       blogData = {dataParser(blogData)}
       relateBlogs={dataParser(relateBlogs)}
       menu={dataParser(menus)}/>

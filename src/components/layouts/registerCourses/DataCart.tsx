@@ -1,9 +1,8 @@
 "use client"
 import ResponsiveImage from '@/components/utils-components/ResponsiveImage/ResponsiveImage'
-import { CourseBodyType, SingleCourseData } from '@/types/services/course&category.t'
+import { SingleCourseData } from '@/types/services/course&category.t'
 import { TomanIcon } from '@/utils/Icons'
 import Link from 'next/link'
-import React from 'react'
 
 function DataCart({data,shortName}:{data:SingleCourseData,shortName:string}) {
 
@@ -36,9 +35,9 @@ function DataCart({data,shortName}:{data:SingleCourseData,shortName:string}) {
                             </span>
                             <span className='text-baseColor font-DanaBold flex   mx-auto items-center gap-x-1 text-lg'>
                             {data?.discount !== 0
-                ? (data?.price as number - Number(data?.price as number * data?.discount!) / 100).toLocaleString("fa-IR")
-                : !data?.isFree
-                ? data?.price.toLocaleString("fa-IR")
+                ? (data?.price as number - Number(data?.price as number * data?.discount as number) / 100)?.toLocaleString("fa-IR")
+                : !data?.isFree as boolean
+                ? data?.price?.toLocaleString("fa-IR") as string
                 : "رایگان"}
                             <TomanIcon className='w-4 h-4'/>
                             </span>

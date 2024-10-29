@@ -12,6 +12,7 @@ export type RemoveQueryType ={
   userId:string
 }
 function LgQTRow({index,course,creator,session,questions}:MergeQBody&{index:number,questions:QuestionSampleType[]}) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [allMessages,setAllMessage]=useState(()=>{
     const mergedMessages = questions.flatMap((messages)=>{
       const userMsg = {

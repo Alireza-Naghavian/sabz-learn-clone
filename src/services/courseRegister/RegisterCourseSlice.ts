@@ -12,7 +12,7 @@ export const registerCourseSlice = apiSlice.injectEndpoints({
         credentials: "include",
         body: { price },
       }),
-      invalidatesTags: ["course","course"],
+      invalidatesTags: ["course","course","offer","offers"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },

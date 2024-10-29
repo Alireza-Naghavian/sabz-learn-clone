@@ -18,6 +18,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { Suspense } from "react";
 import ClientLayout from "../ClientLayout/ClientLayout";
+import { CompaignTableData } from "@/types/services/compaign.t";
 function HomePage({
   menu,
   latestCoursesUpdated,
@@ -26,6 +27,7 @@ function HomePage({
   latestCourses,
   latestArticles,
   mostPopularFreeCourses,
+  compaignData
 }: {
   menu: MenuBodyType[];
   mostPopularCourses: CourseBodyType[];
@@ -33,10 +35,11 @@ function HomePage({
   categories: CatBodytype[];
   latestCourses: CourseBodyType[];
   mostPopularFreeCourses: CourseBodyType[];
+  compaignData:CompaignTableData[]
   latestArticles: ArticleTableData[];
 }) {
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       {/* hero header */}
       <section className="lg:mt-12 relative">
         <div className="container ">
@@ -128,6 +131,7 @@ function HomePage({
                       title={course.name}
                       src={course.cover}
                       target={`/courses/course/${course.shortName}`}
+                      badge={course.discount  !==0 && compaignData[0].active ?`${`${course.discount}%`}`:"" as string |undefined}
                     />
                     <CourseCard.Body
                       target={`/courses/course/${course.shortName}`}
@@ -249,6 +253,7 @@ function HomePage({
                       alt={course.name}
                       title={course.name}
                       src={course.cover}
+                      badge={course.discount !==0 ?`${`${course.discount}%`}`:"" as string |undefined}
                       target={`/courses/course/${course.shortName}`}
                     />
                     <CourseCard.Body

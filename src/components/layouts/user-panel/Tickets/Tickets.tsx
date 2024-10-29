@@ -101,7 +101,7 @@ const TicketItem = ({
   title,
   dept,
 }: ContentType) => {
-  let ticketCurrCondition = {isPending,isAnswer,isOpen};
+  const ticketCurrCondition = {isPending,isAnswer,isOpen};
   const ticketCondition = ticketStatus.find((ticketSt) => {
     return JSON.stringify(ticketSt.cond) == JSON.stringify(ticketCurrCondition);
   });

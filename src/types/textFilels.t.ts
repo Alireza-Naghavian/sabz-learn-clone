@@ -1,5 +1,5 @@
 import React, { ChangeEventHandler } from "react";
-import { FieldErrors, FieldValues, Message, UseFormRegister, ValidationRule } from "react-hook-form";
+import { Message, ValidationRule } from "react-hook-form";
 import { SetState } from "./global.t";
 import { IconType } from "./icon.t";
 export type TextAriaType = Exclude<TextFieldType, "variant" | "labelVariant"> &

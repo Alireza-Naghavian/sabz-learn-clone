@@ -54,6 +54,7 @@ const CardFooter = ({
   price,
   score,
   teacher,
+  percent
 }: CardFooterType) => {
   return (
     <div className="px-4.5 pb-3">
@@ -82,7 +83,7 @@ const CardFooter = ({
           <span>{member}</span>
         </span>
         <div className="flex flex-col gap-y-2 my-1">
-          {isOff && (
+          {isOff || percent !==0 && (
             <span
               className="text-sm text-slate-500 justify-self-end
             dark:text-white/70 -mb-1.5 line-through"
@@ -92,7 +93,13 @@ const CardFooter = ({
           )}
           {!isFree ? (
             <span className="text-baseColor flex  gap-x-1  font-DanaBold text-lg">
-              <span className="">{price.toLocaleString("fa-IR")}</span>
+              <span className="">  {percent !== 0
+                ? (price - Number(price * percent) / 100).toLocaleString(
+                    "fa-IR"
+                  )
+                : !isFree
+                ? price.toLocaleString("fa-IR")
+                : "رایگان"}</span>
          
              <svg
                 xmlns="http://www.w3.org/2000/svg"

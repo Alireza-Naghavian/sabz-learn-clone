@@ -1,4 +1,5 @@
 import HomePage from "@/components/layouts/home/HomePage";
+import { CompaignTableData } from "@/types/services/compaign.t";
 import { CourseBodyType, CourseDataTable } from "@/types/services/course&category.t";
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
@@ -8,7 +9,7 @@ export default async function Home() {
     "courses/getInit",
     "omit",
     undefined,
-   1800
+   10
   );
   
   const latestArticles = await dataFetcher("articles/getInit","omit",undefined,1800)
@@ -21,7 +22,8 @@ export default async function Home() {
   }).slice(0,8)
   const mostPopularFreeCourses =  allCourses.sort((a:CourseDataTable,b:CourseDataTable)=>{
     return Number(b.registers ) - Number(a.registers)
-  }).slice(0,8)
+  }).slice(0,8);
+  const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden min-h-screen">
       <HomePage
@@ -32,6 +34,7 @@ export default async function Home() {
         latestCourses={dataParser(latestCourses)}
         mostPopularFreeCourses={dataParser(mostPopularFreeCourses)}
         latestArticles = {dataParser(latestArticles.slice(0,4))}
+        compaignData={dataParser(compaignData)}
       />
     </main>
   );

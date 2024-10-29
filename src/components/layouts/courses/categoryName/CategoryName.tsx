@@ -6,18 +6,21 @@ import StoreProvider from "@/context/StoreProvider";
 import SideBarFilter from "@/components/ui/aside/SideBarFilter";
 import SortBtns from "@/components/ui/button-group/SortBtns";
 import { CatBodytype, FilterReqType } from "@/types/services/course&category.t";
+import { CompaignTableData } from "@/types/services/compaign.t";
 
 function CategoryName({
   menu,
   allCourses,
   category,
+  compaignData
 }: {
   menu: MenuBodyType[];
   allCourses: FilterReqType;
   category:CatBodytype[]
+  compaignData:CompaignTableData[]
 }) {
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       <div className="container  mt-8 sm:mt-10 relative">
         <CoursesHeader
           mainTitle={`دوره های ${category[0].title}`}

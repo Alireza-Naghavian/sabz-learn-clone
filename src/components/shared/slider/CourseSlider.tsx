@@ -29,12 +29,14 @@ const CourseSlider = <T,>({
         nextClass={nextClass}
         prevClass={prevClass}
       />
-  
+
+
       <Slider
         sliderContent={sliderContent as CourseBodyType[]}
         nextClass={nextClass}
         prevClass={prevClass}
-      />
+        />
+
       <div
         className="sm:!hidden !flex !relative child:left-0 
   child:right-0 child:w-full child:!justify-center

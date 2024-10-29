@@ -6,6 +6,7 @@ import React from 'react'
 type ParamsType ={
   ticketId:string
 }
+export const dynamic = "force-dynamic"
 async function page({params}:{params:ParamsType}) {
   const {ticketId} = params
   const user = await authUser();

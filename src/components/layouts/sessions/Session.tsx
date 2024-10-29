@@ -16,12 +16,14 @@ import "./session.css";
 import Session_Skelton from "./Session_Skelton";
 import Side_Box from "./Side_Box";
 import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
+import { CompaignTableData } from "@/types/services/compaign.t";
 const SSRVideoSection = dynamic(()=>import("./VideoSection"),{ssr:false})
 type SessionPageType = {
   menu: MenuBodyType[];
   sessionID:string
+  compaignData:CompaignTableData[]
 };
-function Session({ menu, sessionID }: SessionPageType) {
+function Session({ menu, sessionID,compaignData }: SessionPageType) {
   const {data,isLoading} = useGetSessionInfoQuery({sessionID});
   const {data:courseData}  = useGetCourseQuery({shortName:data?.course?.shortName as string})
   const categoryData = data?.session?.course?.categoryID;
@@ -31,7 +33,7 @@ function Session({ menu, sessionID }: SessionPageType) {
     return session._id == data?.session?._id;
   });
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       <div className="container  mt-8 sm:mt-10">
         <Breardcrumb
           nestedStep={3}

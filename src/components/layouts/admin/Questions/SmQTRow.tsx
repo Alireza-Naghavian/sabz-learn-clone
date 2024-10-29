@@ -10,6 +10,7 @@ import EditModal from '../modals/EditModal'
 import ReplyQuestionForm from './ReplyQuestionForm'
 
 function SmQTRow({course,creator,session,questions}:MergeQBody&{questions:QuestionSampleType[]}) {
+ /* eslint-disable @typescript-eslint/no-unused-vars */
   const [allMessages,setAllMessage]=useState(()=>{
     const mergedMessages = questions.flatMap((messages)=>{
       const userMsg = {
@@ -24,6 +25,7 @@ function SmQTRow({course,creator,session,questions}:MergeQBody&{questions:Questi
     })
     return mergedMessages.sort((a,b)=>new Date(a.date).getTime() - new Date(b.date).getTime())
   })
+  /* eslint-enable @typescript-eslint/no-unused-vars */
   const [isReplyOpen,setIsReplyOpen] = useState(false)
   const [isDeleteOpen,setIsDeleteOpen] = useState(false)
   const {showAlert} = useAlert();

@@ -21,7 +21,6 @@ function Q_box_form({
 }) {
   const {
     handleSubmit,
-    formState: { errors },
   } = useForm();
   const { data } = useGetMeQuery();
   const [qBody, setQBody] = useState("");

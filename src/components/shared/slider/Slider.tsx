@@ -52,6 +52,7 @@ const Slider = ({ nextClass, prevClass, sliderContent }: SliderType) => {
                   title={slider.name}
                   src={slider.cover}
                   target={`/courses/course/${slider.shortName}`}
+                  badge={slider.discount !==0 ?`${`${slider.discount}%`}`:"" as string |undefined}
                   />
                 <CourseCard.Body
                   target={`/courses/course/${slider.shortName}`}

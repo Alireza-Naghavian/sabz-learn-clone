@@ -9,22 +9,51 @@ import { useForm } from "react-hook-form";
 import ClientLayout from "../ClientLayout/ClientLayout";
 import DataCart from "./DataCart";
 import PaymentData from "./PaymentData";
+import { CompaignTableData } from "@/types/services/compaign.t";
+import { useAlert } from "@/context/AlertProvider";
+import { useApplyCodeMutation } from "@/services/offer-codes/offerSlice";
+import Loader from "@/components/ui/loader/Loader";
+import { useEffect, useState } from "react";
 
 function CourseRegister({
   menu,
   shortName,
+  compaignData
 }: {
   menu: MenuBodyType[];
   shortName: string;
+  compaignData:CompaignTableData[]
 }) {
   const { data, isLoading } = useGetCourseQuery({ shortName });
+  const [applyCode,{isLoading:isApplying}]= useApplyCodeMutation();
+  const {showAlert}= useAlert();
+  const [code,setCode] = useState<number>(0);
+  const [currCourseData,setCurrCourseData]= useState(data)
+  useEffect(()=>{
+    setCurrCourseData((prev)=>{
+      return {...prev,discount:code} as SingleCourseData
+    })
+  },[code])
   const {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm();
+  } = useForm<{code:string}>();
+  const applyCodeHandler = async(codeData:{code:string})=>{
+try {
+  const result = await applyCode({code:codeData.code,course:data?._id as string}).unwrap();
+  showAlert("success",result.message)
+  setCode(result.data.percent)
+} catch (error:any) {
+  if(error.message){
+    showAlert("error",error.message)
+  }else{
+    showAlert("error","خطا هنگام اعمال کد تخفیف لطفا بعدا تلاش کنید")
+  }
+}
+  }
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       <section className=" gap-y-5 gap-6 lg:gap-x-7  container mt-20">
         <section className=" grid grid-cols-12 grid-rows-4 gap-y-4 lg:gap-y-5  lg:gap-x-7   ">
           <div className="rounded-2xl lg:row-span-full overflow-hidden col-span-full lg:col-span-8 h-full">
@@ -49,11 +78,11 @@ function CourseRegister({
                   shortName={shortName}
                 />
               )}
-              <form className="flex relative  ">
-                <div className=" relative w-full sm:w-[50%] ">
+              <form onSubmit={handleSubmit(applyCodeHandler)} className="flex relative">
+                <div className=" relative w-full sm:w-[50%]">
                   <MainTextField
-                    name="discount"
-                    id="discount"
+                    name="code"
+                    id="code"
                     register={register}
                     variant="rounded"
                     type="text"
@@ -67,7 +96,7 @@ function CourseRegister({
                      duration-300 hover:bg-secondary/55 text-sm  
                       px-2 rounded-l-xl  absolute -left-2.5 top-0 bottom-0  "
                   >
-                    اعمال کد
+                    {isApplying ? <Loader loadingCondition={isApplying}/>:"اعمال کد"}
                   </button>
                 </div>
               </form>
@@ -82,7 +111,7 @@ function CourseRegister({
             </div>
             <PaymentData
             courseId={data?._id as string}
-              discount={10}
+              discount={currCourseData?.discount as number}
               price={data?.price as number}
               shortName = {data?.shortName as string}
             />

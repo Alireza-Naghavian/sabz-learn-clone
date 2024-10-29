@@ -1,6 +1,7 @@
 import { CourseBodyType } from "./course&category.t";
 
 export type UserType = {
+  totalUserPaid?:number
   _id?: string;
   username: string;
   email: string;

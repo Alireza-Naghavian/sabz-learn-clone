@@ -10,18 +10,21 @@ import BlogContent from "./BlogContent";
 import RelateBlogs from "./RelateBlogs";
 import { MenuBodyType } from "@/types/services/menu.t";
 import { ArticleTableData, RelatedBlogType } from "@/types/services/articles.t";
+import { CompaignTableData } from "@/types/services/compaign.t";
 
 function Blog({
   menu,
   blogData,
   relateBlogs,
+  compaignData
 }: {
   menu: MenuBodyType[];
   blogData: ArticleTableData;
   relateBlogs: RelatedBlogType[];
+  compaignData:CompaignTableData[]
 }) {
   return (
-    <ClientLayout menu={menu}>
+    <ClientLayout compaignData={compaignData} menu={menu}>
       <div className="mt-8 sm:mt-10 container">
         {/* breadcrumb */}
         <Breardcrumb

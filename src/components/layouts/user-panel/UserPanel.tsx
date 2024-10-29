@@ -23,11 +23,7 @@ function UserPanel() {
     return courses.course;
   });
   const userCourseArr = userCourses?.flatMap((course) => course.course);
-  const userPaidCoursesArr = userCourseArr
-    ?.filter((paidCourse) => paidCourse.isFree === false)
-    .reduce((acc, curr) => {
-      return (acc = curr.price);
-    }, 0);
+
 
   return (
     <>
@@ -41,7 +37,7 @@ function UserPanel() {
         >
           <Tail_stat_info
             supTitle="مجموع پرداخت ها"
-            title={`${userPaidCoursesArr?.toLocaleString("fa-IR")} تومان`}
+            title={`${data?.totalUserPaid?.toLocaleString("fa-IR")} تومان`}
             Icon={CreditCardIcon}
             className="dark:bg-yellow-400 bg-amber-400"
           />
@@ -116,7 +112,7 @@ function UserPanel() {
                     date={new Date(question.date)}
                     key={index}
                     status=""
-                    target={`/courses/course/session/${question.course.shortName}/${question.session}`}
+                    target={`/courses/course/sessions/${question.session}`}
                     title={question.body}
                   />
                 );
