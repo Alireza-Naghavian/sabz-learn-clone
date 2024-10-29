@@ -131,7 +131,7 @@ function HomePage({
                       title={course.name}
                       src={course.cover}
                       target={`/courses/course/${course.shortName}`}
-                      badge={course.discount !==0 ?`${`${course.discount}%`}`:"" as string |undefined}
+                      badge={course.discount  !==0 && compaignData[0].active ?`${`${course.discount}%`}`:"" as string |undefined}
                     />
                     <CourseCard.Body
                       target={`/courses/course/${course.shortName}`}

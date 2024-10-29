@@ -84,7 +84,7 @@ function CourseRegister({
             </div>
             <PaymentData
             courseId={data?._id as string}
-              discount={10}
+              discount={data?.discount as number}
               price={data?.price as number}
               shortName = {data?.shortName as string}
             />

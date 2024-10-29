@@ -24,7 +24,6 @@ export default async function Home() {
     return Number(b.registers ) - Number(a.registers)
   }).slice(0,8);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
-
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden min-h-screen">
       <HomePage

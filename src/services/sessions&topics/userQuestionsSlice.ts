@@ -16,7 +16,7 @@ export const userQuestionApi = apiSlice.injectEndpoints({
         credentials: "include",
         body: { body, creator },
       }),
-      invalidatesTags: ["userQuestion", "userQuestions"],
+      invalidatesTags: ["userQuestion", "userQuestions","userData"],
       transformErrorResponse(baseQueryReturnValue) {
         return baseQueryReturnValue.data;
       },
