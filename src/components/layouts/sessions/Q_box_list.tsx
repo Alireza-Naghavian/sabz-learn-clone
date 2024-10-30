@@ -1,17 +1,18 @@
 import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 import TextLoader from "@/components/ui/loader/TextLoader";
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
+import { useAllQuestionsQuery, useGetUserQuestionQuery } from "@/services/sessions&topics/userQuestionsSlice";
 import { useUserDataQuery } from "@/services/users/userApiSlice";
 import { QuestionSampleType } from "@/types/services/sessions&Topics.t";
 import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";
 
 function Q_box_list() {
-  const {data,isLoading} = useUserDataQuery();
+  const {data,isLoading} = useGetUserQuestionQuery()
   const [sanitizedData, setSanitizedData] = useState<any[]>([]);
   useEffect(() => {
     if (!isLoading && data) {
-      const sanitizedQuestions = data?.userQuestions.map((question) => {
+      const sanitizedQuestions = data?.map((question) => {
         return { ...question, body: DOMPurify.sanitize(question?.body) };
       });
       setSanitizedData(sanitizedQuestions);
@@ -24,7 +25,7 @@ function Q_box_list() {
         loadingCondition={isLoading}
       />
     );
-  if (data === undefined || data.userQuestions.length === 0)
+  if (data === undefined || data.length === 0)
     return (
       <div className="mt-5">
         <EmptyResult

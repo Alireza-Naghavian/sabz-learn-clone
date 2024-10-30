@@ -14,9 +14,11 @@ import LastSeen from "./LastSeen";
 import { useUserTicketsQuery } from "@/services/tickets&depts/ticketApiSlice";
 import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 import TailSkelton from "@/components/ui/TailSkelton/TailSkelton";
+import { useGetUserQuestionQuery } from "@/services/sessions&topics/userQuestionsSlice";
 
 function UserPanel() {
   const { data, isLoading } = useUserDataQuery();
+  const {data:userQData} = useGetUserQuestionQuery()
   const { data: userTickets, isLoading: isTicketsLoading } =
     useUserTicketsQuery();
   const userCourses = data?.userCourse.filter((courses) => {
@@ -98,7 +100,7 @@ function UserPanel() {
             </ContentList>
             <ContentList title="پرسش های اخیر">
               {
-              data?.userQuestions.length === 0 ? (
+              data?.userQuestions?.length === 0 ? (
                 <EmptyResult
                   className="py-2 h-[220px]"
                   title={"هیچ پرسشی توسط شما ایجاد نشده است"}
@@ -106,7 +108,7 @@ function UserPanel() {
               ) 
               
               :
-              data?.userQuestions.slice(0, 4).map((question, index) => {
+              userQData?.slice(0, 4).map((question, index) => {
                 return (
                   <ContentItem
                     date={new Date(question.date)}

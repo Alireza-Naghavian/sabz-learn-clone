@@ -10,7 +10,10 @@ export default async function Home() {
     "omit",
     undefined,
    10
-  );
+  )
+  const latestCoursesUpdated = allCourses.sort((a: CourseDataTable, b: CourseDataTable)=>{
+    return new Date(b.updatedAt as Date).getDate() - new Date(a.updatedAt as Date).getDate()
+  })
   
   const latestArticles = await dataFetcher("articles/getInit","omit",undefined,1800)
   const categories = await dataFetcher("category", "omit", undefined);
@@ -21,14 +24,14 @@ export default async function Home() {
     return new Date(b.createdAt!).getDate() - new Date(a.createdAt!).getDate();
   }).slice(0,8)
   const mostPopularFreeCourses =  allCourses.sort((a:CourseDataTable,b:CourseDataTable)=>{
-    return Number(b.registers ) - Number(a.registers)
+    return Number(a.registers ) - Number(b.registers)
   }).slice(0,8);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden min-h-screen">
       <HomePage
         menu={dataParser(menus)}
-        latestCoursesUpdated={dataParser(allCourses)}
+        latestCoursesUpdated={dataParser(latestCoursesUpdated)}
         categories={dataParser(categories)}
         mostPopularCourses={dataParser(mostPopularCourses)}
         latestCourses={dataParser(latestCourses)}
