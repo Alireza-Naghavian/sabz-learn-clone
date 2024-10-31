@@ -2,7 +2,9 @@
 import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import TextLoader from "@/components/ui/loader/TextLoader";
+import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
 import { useGetSessionInfoQuery } from "@/services/sessions&topics/sesisonSlice";
+import { CompaignTableData } from "@/types/services/compaign.t";
 import { CourseDataTable } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
 import { CourseSessionData } from "@/types/services/sessions&Topics.t";
@@ -15,16 +17,14 @@ import Q_box_list from "./Q_box_list";
 import "./session.css";
 import Session_Skelton from "./Session_Skelton";
 import Side_Box from "./Side_Box";
-import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
-import { CompaignTableData } from "@/types/services/compaign.t";
 
-import { useState } from "react";
 import Loader from "@/components/ui/loader/Loader";
-import useDisclosure from "@/hooks/useDisclosure";
-import EditModal from "../admin/modals/EditModal";
-import Link from "next/link";
 import { useAlert } from "@/context/AlertProvider";
+import useDisclosure from "@/hooks/useDisclosure";
 import { ItemsType, useGetRelateBlogsMutation } from "@/services/deepLearn/RelatedData";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import EditModal from "../admin/modals/EditModal";
 const SSRVideoSection = dynamic(()=>import("./VideoSection"),{ssr:false})
 type SessionPageType = {
   menu: MenuBodyType[];
@@ -37,6 +37,20 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
   const [isRelatedOpen,{open,close}]= useDisclosure();
   const {showAlert} = useAlert();
   const {data,isLoading} = useGetSessionInfoQuery({sessionID});
+
+  useEffect(()=>{
+    if(data?.session !==undefined  && !isLoading){
+      const storedSessions = JSON.parse(localStorage.getItem("sessionData") || "[]");
+     
+      const alreadyStored = storedSessions?.some((session:CourseSessionData)=>session._id ===data.session._id)
+      if(!alreadyStored){
+        const newSessionData = [...storedSessions, data.session].slice(-3)
+        localStorage.setItem("sessionData", JSON.stringify(newSessionData));
+      }
+    }
+
+
+  },[data?.session,isLoading])
   const {data:courseData}  = useGetCourseQuery({shortName:data?.course?.shortName as string})
   const categoryData = data?.session?.course?.categoryID;
   const categoryHref = categoryData?.link;
