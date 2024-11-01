@@ -24,7 +24,7 @@ export default async function Home() {
     return new Date(b.createdAt!).getDate() - new Date(a.createdAt!).getDate();
   }).slice(0,8)
   const mostPopularFreeCourses =  allCourses.sort((a:CourseDataTable,b:CourseDataTable)=>{
-    return Number(a.registers ) - Number(b.registers)
+    return Number(b.registers ) - Number(a.registers)
   }).slice(0,8);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (

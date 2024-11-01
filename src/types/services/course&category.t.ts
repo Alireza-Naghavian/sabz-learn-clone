@@ -1,3 +1,4 @@
+import { UserType } from "./authapi.t";
 import { SessionBodyType } from "./sessions&Topics.t";
 
 export type CatBodytype = {
@@ -86,4 +87,12 @@ export type FilterCourseType ={
   isFree:string,
   preOrder:string,
   // usreCourse:?
+}
+
+export type CourseUserType = {
+  _id:string,
+  course:CourseDataTable,
+  user:UserType,
+  price:number,
+  createdAt:Date
 }
