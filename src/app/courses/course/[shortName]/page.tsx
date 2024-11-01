@@ -34,7 +34,7 @@ async function page({ params }: CourseParams) {
     `courses/${params.shortName}`,
     "omit",
     undefined,
-    3600
+    10
   );
   const relateCourses = await dataFetcher(
     `courses/related/${params.shortName}`,

@@ -1,8 +1,7 @@
 import EmptyResult from "@/components/ui/EmptyResult/EmptyResult";
 import TextLoader from "@/components/ui/loader/TextLoader";
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
-import { useAllQuestionsQuery, useGetUserQuestionQuery } from "@/services/sessions&topics/userQuestionsSlice";
-import { useUserDataQuery } from "@/services/users/userApiSlice";
+import { useGetUserQuestionQuery } from "@/services/sessions&topics/userQuestionsSlice";
 import { QuestionSampleType } from "@/types/services/sessions&Topics.t";
 import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";

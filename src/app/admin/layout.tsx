@@ -8,6 +8,7 @@ import useDisclosure from "@/hooks/useDisclosure";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import StoreProvider from "@/context/StoreProvider";
 import UserNameSubComp from "@/components/shared/UserNameSubComp/UserNameSubComp";
+import { useGetMeQuery } from "@/services/auth/authApiSlice";
 
 function Layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();

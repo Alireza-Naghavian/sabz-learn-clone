@@ -1,13 +1,12 @@
 "use client"
 import HeaderAdminLayout from '@/components/shared/Headers/HeaderAdminLayout'
-import EmptyResult from '@/components/ui/EmptyResult/EmptyResult'
 import TabSelection from '@/components/utils-components/Select/TabSelection'
+import StoreProvider from '@/context/StoreProvider'
 import { OptionSelectionType } from '@/types/global.t'
 import { CourseBodyType, CourseUserType } from '@/types/services/course&category.t'
-import React, { useState } from 'react'
-import SalesChart from './SalesChart'
+import { useState } from 'react'
 import GrowthChart from './GrowthChart'
-import StoreProvider from '@/context/StoreProvider'
+import SalesChart from './SalesChart'
 const adminCharts: OptionSelectionType = [
   { label: "نرخ فروش ", value: "sales" },
   { label: "نرخ رشد وب سایت", value: "growth" },
