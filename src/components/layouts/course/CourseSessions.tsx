@@ -15,6 +15,7 @@ import { AcademicCapIcon } from "@heroicons/react/24/solid";
 import Link from "next/link";
 import "./course.css";
 import TitleHeader from "./TitleHeader";
+import { timeReducer } from "@/utils/videoData";
 function CourseSessions({
   courseTopicData,
   isCourseFree,
@@ -79,6 +80,11 @@ export const CourseTopic = ({
   isCourseFree,
   shortName
 }: TopicType) => {
+  const allTopicTime = topicTime.map((times)=>{
+    return {time:times.time}
+  })
+ const TimeReducerFN = timeReducer(allTopicTime)
+ console.log(TimeReducerFN);
   const [isSessionOpen, { toggle }] = useDisclosure();
   return (
     <div className={`topic`}>
@@ -105,7 +111,7 @@ export const CourseTopic = ({
               className="text-base font-DanaMedium hidden lg:inline"
               dir="rtl"
             >
-             {topicTime.map((session)=>new Date(session.time).toLocaleDateString("fa-IR"))}
+             {TimeReducerFN}
             </span>
             {/* seperator */}
             <span
