@@ -10,7 +10,10 @@ export default async function Home() {
     "omit",
     undefined,
    10
-  );
+  )
+  const latestCoursesUpdated = allCourses.sort((a: CourseDataTable, b: CourseDataTable)=>{
+    return new Date(b.updatedAt as Date).getDate() - new Date(a.updatedAt as Date).getDate()
+  })
   
   const latestArticles = await dataFetcher("articles/getInit","omit",undefined,1800)
   const categories = await dataFetcher("category", "omit", undefined);
@@ -28,7 +31,7 @@ export default async function Home() {
     <main className="max-w-[1920px] mx-auto overflow-x-hidden min-h-screen">
       <HomePage
         menu={dataParser(menus)}
-        latestCoursesUpdated={dataParser(allCourses)}
+        latestCoursesUpdated={dataParser(latestCoursesUpdated)}
         categories={dataParser(categories)}
         mostPopularCourses={dataParser(mostPopularCourses)}
         latestCourses={dataParser(latestCourses)}

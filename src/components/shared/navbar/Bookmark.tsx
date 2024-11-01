@@ -3,11 +3,21 @@ import Button from "@/components/ui/button/Button";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import SideBarItem from "@/components/ui/SideBarItem/SideBarItem";
 import useDisclosure from "@/hooks/useDisclosure";
+import { CourseSessionData } from "@/types/services/sessions&Topics.t";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
-import React from "react";
+import React, { useEffect, useState } from "react";
 
 function Bookmark() {
   const [isMarkOpen, { close, toggle }] = useDisclosure();
+  const [sessions, setSessions] = useState<CourseSessionData[]>([]);
+  useEffect(() => {
+    const storedSessions = JSON.parse(
+      localStorage.getItem("sessionData") || "[]"
+    );
+    if (storedSessions.length > 1) {
+      setSessions(storedSessions);
+    }
+  }, [setSessions]);
   return (
     <>
       <Overlay onClose={() => close()} openCondition={isMarkOpen} />
@@ -32,20 +42,28 @@ function Bookmark() {
                 : "hidden"
             }
           >
-            <SideBarItem
-              variant={"hoverMode"}
+            {sessions.length === 0 ? (
+              <SideBarItem
+                variant={"hoverMode"}
                 className="text-sm"
-              Icon={() => <BookmarkIcon className={` w-5 h-5`} />}
-              title={"جلسه ۱۷۷ دوره نکست جی اس"}
-              target={""}
-            />
-            <SideBarItem
-            className="text-sm"
-              variant={"hoverMode"}
-              Icon={() => <BookmarkIcon className={` w-5 h-5`}/>}
-              title={"جلسه ۱۷۷ دوره نکست جی اس"}
-              target={""}
-            />
+                Icon={() => <BookmarkIcon className={` w-5 h-5`} />}
+                title={"لیست بوک مارک خالی است"}
+                target={``}
+              />
+            ) : (
+              sessions.reverse().map((session) => {
+                return (
+                  <SideBarItem
+                    key={session._id}
+                    variant={"hoverMode"}
+                    className="text-sm"
+                    Icon={() => <BookmarkIcon className={` w-5 h-5`} />}
+                    title={session.title}
+                    target={`/courses/course/sessions/${session._id}`}
+                  />
+                );
+              })
+            )}
           </div>
         </div>
       </div>
