@@ -1,4 +1,4 @@
-export const saveToStorage = (key:string, value:string) => {
+export const saveToStorage = (key:string, value:any) => {
   return localStorage.setItem(key, JSON.stringify(value));
 };
 
@@ -15,3 +15,7 @@ if(value){
 }
 return value
 }
+
+export const formatNumber = (number: number | string) =>
+  number.toLocaleString("fa-IR");
+export default formatNumber

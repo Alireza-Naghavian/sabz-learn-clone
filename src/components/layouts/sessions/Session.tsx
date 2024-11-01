@@ -2,7 +2,9 @@
 import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import TextLoader from "@/components/ui/loader/TextLoader";
+import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
 import { useGetSessionInfoQuery } from "@/services/sessions&topics/sesisonSlice";
+import { CompaignTableData } from "@/types/services/compaign.t";
 import { CourseDataTable } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
 import { CourseSessionData } from "@/types/services/sessions&Topics.t";
@@ -15,8 +17,14 @@ import Q_box_list from "./Q_box_list";
 import "./session.css";
 import Session_Skelton from "./Session_Skelton";
 import Side_Box from "./Side_Box";
-import { useGetCourseQuery } from "@/services/course&Categories/courseApiSlice";
-import { CompaignTableData } from "@/types/services/compaign.t";
+
+import Loader from "@/components/ui/loader/Loader";
+import { useAlert } from "@/context/AlertProvider";
+import useDisclosure from "@/hooks/useDisclosure";
+import { ItemsType, useGetRelateBlogsMutation } from "@/services/deepLearn/RelatedData";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import EditModal from "../admin/modals/EditModal";
 const SSRVideoSection = dynamic(()=>import("./VideoSection"),{ssr:false})
 type SessionPageType = {
   menu: MenuBodyType[];
@@ -24,7 +32,25 @@ type SessionPageType = {
   compaignData:CompaignTableData[]
 };
 function Session({ menu, sessionID,compaignData }: SessionPageType) {
+  const [relateCourses,setRelatedCourses]= useState<ItemsType[]>([]);
+  const [relateBlogs,setRelatedBlogs] = useState<ItemsType[]>([])
+  const [isRelatedOpen,{open,close}]= useDisclosure();
+  const {showAlert} = useAlert();
   const {data,isLoading} = useGetSessionInfoQuery({sessionID});
+
+  useEffect(()=>{
+    if(data?.session !==undefined  && !isLoading){
+      const storedSessions = JSON.parse(localStorage.getItem("sessionData") || "[]");
+     
+      const alreadyStored = storedSessions?.some((session:CourseSessionData)=>session._id ===data.session._id)
+      if(!alreadyStored){
+        const newSessionData = [...storedSessions, data.session].slice(-3)
+        localStorage.setItem("sessionData", JSON.stringify(newSessionData));
+      }
+    }
+
+
+  },[data?.session,isLoading])
   const {data:courseData}  = useGetCourseQuery({shortName:data?.course?.shortName as string})
   const categoryData = data?.session?.course?.categoryID;
   const categoryHref = categoryData?.link;
@@ -32,6 +58,32 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
   const findSessionIndex = data?.sessions?.findIndex((session) => {
     return session._id == data?.session?._id;
   });
+  const [searchBlog,{isLoading:isSearching}] =useGetRelateBlogsMutation();
+  // deep learn 
+  const SearchBlogHandler = async()=>{
+    try {
+      const faResult = await searchBlog({query:` مقاله یا آموزش درباره "${data?.course.shortName}" 
+          (site:virgool.io OR site:zoomit.ir OR site:sabzlearn.ir OR site:digikala.com OR site:blog.faradars.org) 
+          OR راهنمای جامع OR نکات کاربردی OR بررسی کامل`}).unwrap();
+      const enResult = await searchBlog({query:`introduction OR tutorial OR guide on "${data?.course.shortName}" 
+          (site:medium.com OR site:stackoverflow.com OR site:github.com OR site:docs.microsoft.com) 
+          OR related research article`}).unwrap();
+      const relateCourses = faResult?.items?.filter((course)=>{
+        return course?.link?.includes("/course")
+      }).splice(1,4)
+      const relateBlogs = enResult?.items?.filter((blogs)=>{
+        return blogs?.title?.toLowerCase()?.includes(data?.course.shortName as string)
+      }).splice(0,4)
+      if(relateCourses.length >0){
+        setRelatedCourses(relateCourses as [])
+      }
+      if(relateBlogs.length> 0){
+        setRelatedBlogs(relateBlogs as [])
+      }
+    } catch (error) {
+      showAlert("error","خطای غیر منتظره لطفا بعدا تلاش کنید")
+    }
+  }
   return (
     <ClientLayout compaignData={compaignData} menu={menu}>
       <div className="container  mt-8 sm:mt-10">
@@ -57,11 +109,11 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
       }
 
 {/* session info & dropDown sessions */}
-          {isLoading ? <TextLoader loadingCondition={isLoading}/>:
+   {isLoading ? <TextLoader loadingCondition={isLoading}/>:
 <div className="grid grid-cols-12 gap-y-6 gap-x-5 lg:gap-x-7 mt-6 lg:mt-8 ">
   <div className="col-span-full order-last md:order-none md:col-span-7 xl:col-span-8">
     {/* info */}
-    <div className="hidden md:block bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5">
+    <div className=" order-1 bg-white dark:bg-darker rounded-2xl p-4.5 sm:p-5">
       <TitleHeader
         className="bg-sky-500 "
         title={data?.session.title as string}
@@ -78,7 +130,7 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
       <div className="flex gap-x-4 gap-3.5 flex-wrap">
         <a
           href="#lesson-qaa"
-          className="w-full sm:w-36  bg-dark text-white box-center rounded-full"
+          className="w-full sm:w-36 py-2  bg-dark text-white box-center rounded-full"
         >
           سوال دارم!
         </a>
@@ -86,9 +138,15 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
           variant="fill"
           size="lg"
           type="button"
-          className="w-full sm:w-36"
+          className="w-full sm:w-44 text-sm"
+          onClick={async()=>{
+            await SearchBlogHandler().then(()=>{
+
+              open();
+            })
+          }}
         >
-          عمیق تر شو !
+       {isSearching ? <Loader loadingCondition={isSearching}/> :" مقالات و دوره های مرتبط"}
         </PrimaryBtn>
       </div>
     </div>
@@ -118,8 +176,53 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
   }
        </div>
       </div>
+      <EditModal
+      isOpen={isRelatedOpen}
+      modalTitle="لیست دوره های و مقالات مشابه"
+      setIsOpen={()=>close()}
+      className=" py-2 overflow-x-hidden !h-[450px] 
+           md:!h-[540px]"
+      >
+        <div className="w-full h-full flex flex-col items-start m-4">
+          <div className="flex flex-col gap-y-1">
+            <p className="text-secondary font-DanaMedium text-lg">
+              مقالات مرتبط :
+            </p>
+            <ul className="space-y-3 flex flex-col flex-wrap">
+              {relateBlogs.length ===0 ? 
+              `مقاله مرتبط با ${data?.course?.name} یافت نشد.` : 
+              relateBlogs.map((blog,index)=>{
+                return(
+                  <li key={Number(index * Math.random())} className="flex flex-col gap-y-1">
+                    <span className=" w-fit p-[5px] text-sm rounded-xl text-baseColor ">{blog.displayLink}</span>
+                    <Link className="line-clamp-1 transition-colors duration-300 hover:text-secondary" target="_blank" href={blog.link}>{blog.title}</Link>
+                  </li>
+                )
+              })  
+            }
+            </ul>
+          </div>
+          <div className="dark:bg-gray-500 w-[95%]  h-[4px] p-[1px] my-4 bg-gray-900"></div>
+          <div className="flex flex-col gap-y-1  ">
+            <p className="bg-baseColor w-fit px-4 py-1 rounded-lg font-DanaMedium text-base">
+            دوره های مرتبط:
+            </p>
+            <ul className="space-y-3">
+              {relateCourses.length == 0 ? <span className="!mt-2">دوره مرتبط با {data?.course.name } یافت نشد</span> : 
+              
+              relateCourses.map((course,index)=>{
+                return(
+                  <li key={Number(index * Math.random())} className="flex flex-col gap-y-1 last:pb-4 px-1">
+                    <span className=" w-fit p-[5px] text-sm rounded-xl text-baseColor ">{course.displayLink}</span>
+                    <Link className="line-clamp-1 transition-colors duration-300 hover:text-secondary" target="_blank" href={course.link}>{course.title}</Link>
+                  </li>
+                )
+              })}
+            </ul>
+          </div>
+        </div>
+      </EditModal>
     </ClientLayout>
-
   );
 }
 
