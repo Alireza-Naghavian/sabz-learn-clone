@@ -22,7 +22,7 @@ export const formatTime = (seconds: number) => {
   };
 
   export const timeReducer = (times:{time:string}[])=>{
-    const allTimeAmount = times.reduce((acc:any,curr,index)=>{
+    const allTimeAmount = times.reduce((acc:any,curr)=>{
       const arrayNumb =curr.time.split(":");
       const minToSec = Number(arrayNumb[0])*60
       const secNumb  = Number(arrayNumb[1])

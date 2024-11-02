@@ -130,7 +130,7 @@ function CommentForm({
           <PrimaryBtn
             variant="fill"
             size="xl"
-            type="button"
+            type="submit"
             className="sm:grow-0 w-24 h-[52px] sm:w-36"
           >
             {isLoading || isAsnwerLoading ? (

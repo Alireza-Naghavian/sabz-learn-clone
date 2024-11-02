@@ -29,12 +29,12 @@ export const generateMetadata = async ({
   };
 };
 async function page({ params }: CourseParams) {
-  const menus = await dataFetcher("menus", "omit", "force-cache");
+  const menus = await dataFetcher("menus", "omit", undefined,7200);
   const courseData = await dataFetcher(
     `courses/${params.shortName}`,
     "omit",
     undefined,
-    3600
+    10
   );
   const relateCourses = await dataFetcher(
     `courses/related/${params.shortName}`,

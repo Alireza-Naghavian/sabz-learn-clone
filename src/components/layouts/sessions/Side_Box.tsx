@@ -4,7 +4,7 @@ import Tail_Info from "@/components/ui/tail-info/Tail_Info";
 import ResponsiveImage from "@/components/utils-components/ResponsiveImage/ResponsiveImage";
 import { CourseDataTable } from "@/types/services/course&category.t";
 import { TopicDataType } from "@/types/services/sessions&Topics.t";
-import { formatTime } from "@/utils/videoData";
+import { timeReducer } from "@/utils/videoData";
 import { CheckIcon } from "@heroicons/react/20/solid";
 import {
   ChevronDownIcon,
@@ -23,16 +23,15 @@ function Side_Box({courseSessions,sessionNumb,isUserRegistered}:{isUserRegistere
   const toggleDropdown = (id: string) => {
     setOpenDropdown(openDropdown === id ? null : id);
   };
-  const totalSessionTime = courseSessions?.topics?.map((topic)=>{
-    return topic.sessions.reduce((acc:any,curr:any)=>{
-    const sessionTimes = curr.time.split(":")
-    const seconds = Number(sessionTimes[1])
-    const minutes = Number(sessionTimes[0]) *60
-    const totalSeconds = seconds + minutes
-      return acc +totalSeconds
-    },0)
+
+
+    const totalTime = courseSessions?.topics?.map((topic)=>{
+      const totalSessionTime= topic.sessions.map((session)=>{
+        return {time:session.time}
+      })
+      return totalSessionTime
   })
-    const formatSessionTime = formatTime(totalSessionTime &&totalSessionTime[0]   )
+  const TimeReducerFN = timeReducer(totalTime?.flat() as [])
     return (
     <aside
       className="col-span-full order-first
@@ -81,7 +80,7 @@ function Side_Box({courseSessions,sessionNumb,isUserRegistered}:{isUserRegistere
           Icon={InformationCircleIcon}
         />
         <Tail_Info
-          subTitle={`${formatSessionTime} دقیقه`}
+          subTitle={`${TimeReducerFN} دقیقه`}
           title="زمان دوره"
           variant="mainInfo"
           Icon={ClockIcon}

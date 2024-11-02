@@ -28,6 +28,7 @@ function CourseRegister({
   const [applyCode,{isLoading:isApplying}]= useApplyCodeMutation();
   const {showAlert}= useAlert();
   const [code,setCode] = useState<number>(0);
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [currCourseData,setCurrCourseData]= useState(data)
   useEffect(()=>{
     setCurrCourseData((prev)=>{
@@ -111,7 +112,7 @@ try {
             </div>
             <PaymentData
             courseId={data?._id as string}
-              discount={currCourseData?.discount as number}
+              discount={data?.discount == 0 ? currCourseData?.discount as number : data?.discount as number}
               price={data?.price as number}
               shortName = {data?.shortName as string}
             />
