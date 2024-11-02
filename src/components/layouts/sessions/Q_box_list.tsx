@@ -6,17 +6,26 @@ import { QuestionSampleType } from "@/types/services/sessions&Topics.t";
 import DOMPurify from "dompurify";
 import { useEffect, useState } from "react";
 
-function Q_box_list() {
-  const {data,isLoading} = useGetUserQuestionQuery()
+function Q_box_list({sessionID}:{sessionID:string}) {
+  const {data:QustionData,isLoading} = useGetUserQuestionQuery();
+  const userQeustions = QustionData?.filter((question)=>{
+    return question?.session?._id === sessionID
+  })
+  const adminAnswers = userQeustions?.map((question)=>{
+    return question.adminAnswers.filter((answers)=>{
+      return answers.session === question.session._id
+    })
+  })
+  const currSessionQ = userQeustions?.concat(adminAnswers as []).flat()
   const [sanitizedData, setSanitizedData] = useState<any[]>([]);
   useEffect(() => {
-    if (!isLoading && data) {
-      const sanitizedQuestions = data?.map((question) => {
+    if (!isLoading && QustionData) {
+      const sanitizedQuestions = currSessionQ?.map((question) => {
         return { ...question, body: DOMPurify.sanitize(question?.body) };
       });
-      setSanitizedData(sanitizedQuestions);
+      setSanitizedData(sanitizedQuestions as []);
     }
-  }, [data, isLoading]);
+  }, [QustionData, isLoading]);
   if (isLoading)
     return (
       <TextLoader
@@ -24,7 +33,7 @@ function Q_box_list() {
         loadingCondition={isLoading}
       />
     );
-  if (data === undefined || data.length === 0)
+  if (QustionData === undefined || QustionData.length === 0)
     return (
       <div className="mt-5">
         <EmptyResult
@@ -69,22 +78,22 @@ export const QuestionSample = ({question}:{question:QuestionSampleType})=>{
         <div className="flex flex-col ml-auto gap-1">
           <div className="flex items-center  h-full  gap-x-1 ">
             <span className="inline-block max-w-40 border-l-2 pl-2 truncate">
-              {question.creator.username}
+              {question?.creator?.username}
             </span>
 
             <strong
               className={`font-DanaMedium p-1 rounded-xl mr-1 text-sm ${
-                question.creator.role === "ADMIN"
+                question?.creator?.role === "ADMIN"
                   ? "bg-baseColor"
                   : "bg-secondary"
               }`}
             >
               {/* user role */}
-              {question.creator.role === "ADMIN" ? "مدرس" : "کاربر"}
+              {question?.creator?.role === "ADMIN" ? "مدرس" : "کاربر"}
             </strong>
           </div>
           <span className="font-Dana text-sm opacity-70">
-            {new Date(question.date).toLocaleDateString("fa-IR")}
+            {new Date(question?.date).toLocaleDateString("fa-IR")}
           </span>
         </div>
       </div>
@@ -92,7 +101,7 @@ export const QuestionSample = ({question}:{question:QuestionSampleType})=>{
     {/* comment body */}
     <p
       className="font-dana text-sm sm:text-base break-words"
-      dangerouslySetInnerHTML={{ __html: question.body }}
+      dangerouslySetInnerHTML={{ __html: question?.body }}
     >
       {/* {commentData.body} */}
     </p>

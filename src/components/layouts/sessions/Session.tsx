@@ -164,7 +164,7 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
       />
       <CommentRule  />
       <Q_box_form sessionID={sessionID} shortName={data?.course.shortName as string}  />
-      <Q_box_list  />
+      <Q_box_list sessionID={sessionID}  />
     </div>
   </div>
   <Side_Box

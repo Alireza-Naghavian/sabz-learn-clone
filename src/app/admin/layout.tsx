@@ -1,14 +1,13 @@
 "use client";
+import styles from "@/app/my-account/userpanel.module.css";
 import SideBar from "@/components/layouts/admin/SideBar/SideBar";
+import UserNameSubComp from "@/components/shared/UserNameSubComp/UserNameSubComp";
+import Overlay from "@/components/ui/Overlay/Overlay";
 import ThemeToggler from "@/components/ui/ThemeToggler/ThemeToggler";
+import StoreProvider from "@/context/StoreProvider";
+import useDisclosure from "@/hooks/useDisclosure";
 import { ChildrenProps } from "@/types/global.t";
 import { Bars3BottomRightIcon } from "@heroicons/react/24/outline";
-import styles from "@/app/my-account/userpanel.module.css";
-import useDisclosure from "@/hooks/useDisclosure";
-import Overlay from "@/components/ui/Overlay/Overlay";
-import StoreProvider from "@/context/StoreProvider";
-import UserNameSubComp from "@/components/shared/UserNameSubComp/UserNameSubComp";
-import { useGetMeQuery } from "@/services/auth/authApiSlice";
 
 function Layout({ children }: ChildrenProps) {
   const [isMenuOpen, { open, close }] = useDisclosure();

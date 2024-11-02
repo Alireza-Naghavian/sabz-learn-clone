@@ -23,7 +23,7 @@ async function page() {
     <main className='max-w-[1920px] mx-auto overflow-x-hidden '>
       <Suspense>
 
-        <Blogs compaignData={dataParser(compaignData)}   menu={dataParser(menus)} latestArticles={dataParser(latestArticles.slice(0,4))}/>
+        <Blogs compaignData={dataParser(compaignData)}   menu={dataParser(menus)} latestArticles={dataParser(latestArticles)}/>
       </Suspense>
     </main>
   )

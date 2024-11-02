@@ -19,7 +19,7 @@ export const metadata: Metadata = {
 async function page() {
   const menus = await dataFetcher("menus", "omit", undefined,7200);
   const allCourses = await dataFetcher("courses", "omit", undefined,10);
-  const categories = await dataFetcher("category", "omit", "force-cache");
+  const categories = await dataFetcher("category", "omit", undefined,1800);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden">
