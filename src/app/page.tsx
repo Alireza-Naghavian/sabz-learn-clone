@@ -4,7 +4,7 @@ import { CourseBodyType, CourseDataTable } from "@/types/services/course&categor
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
 export default async function Home() {
-  const menus = await dataFetcher("menus", "omit", "force-cache");
+  const menus = await dataFetcher("menus", "omit", undefined,7200);
   const allCourses = await dataFetcher(
     "courses/getInit",
     "omit",
@@ -16,7 +16,7 @@ export default async function Home() {
   })
   
   const latestArticles = await dataFetcher("articles/getInit","omit",undefined,1800)
-  const categories = await dataFetcher("category", "omit", undefined);
+  const categories = await dataFetcher("category", "omit", undefined,1800);
   const mostPopularCourses =  allCourses.sort((a: CourseBodyType, b: CourseBodyType) => {
     return b.registers! - a.registers!;
   }).slice(0,8)

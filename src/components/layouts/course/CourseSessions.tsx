@@ -84,7 +84,6 @@ export const CourseTopic = ({
     return {time:times.time}
   })
  const TimeReducerFN = timeReducer(allTopicTime)
- console.log(TimeReducerFN);
   const [isSessionOpen, { toggle }] = useDisclosure();
   return (
     <div className={`topic`}>

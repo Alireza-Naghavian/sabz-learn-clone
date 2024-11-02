@@ -18,7 +18,7 @@ import { useGetUserQuestionQuery } from "@/services/sessions&topics/userQuestion
 
 function UserPanel() {
   const { data, isLoading } = useUserDataQuery();
-  const {data:userQData} = useGetUserQuestionQuery()
+  const {data:userQData} = useGetUserQuestionQuery();
   const { data: userTickets, isLoading: isTicketsLoading } =
     useUserTicketsQuery();
   const userCourses = data?.userCourse.filter((courses) => {
@@ -100,7 +100,7 @@ function UserPanel() {
             </ContentList>
             <ContentList title="پرسش های اخیر">
               {
-              data?.userQuestions?.length === 0 ? (
+              userQData?.length === 0 ? (
                 <EmptyResult
                   className="py-2 h-[220px]"
                   title={"هیچ پرسشی توسط شما ایجاد نشده است"}
@@ -109,16 +109,20 @@ function UserPanel() {
               
               :
               userQData?.slice(0, 4).map((question, index) => {
-                return (
-                  <ContentItem
-                    date={new Date(question.date)}
-                    key={index}
-                    status=""
-                    target={`/courses/course/sessions/${question.session}`}
-                    title={question.body}
-                  />
-                );
-              })}
+                
+                if(data?._id === question.creator._id){
+                  return (
+                    <ContentItem
+                      date={new Date(question.date)}
+                      key={index}
+                      status=""
+                      target={`/courses/course/sessions/${question?.session?._id}`}
+                      title={question.body}
+                    />
+                  );
+                }
+              })
+              }
             </ContentList>
           </div>
         </div>
