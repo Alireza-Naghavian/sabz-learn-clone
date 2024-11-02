@@ -16,14 +16,14 @@ export const metadata: Metadata = {
   },
 };
 async function page() {
-  const menus = await dataFetcher("menus", "omit", "force-cache");
+  const menus = await dataFetcher("menus", "omit", undefined,7200);
   const latestArticles = await dataFetcher("articles/getInit","omit",undefined,1800)
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className='max-w-[1920px] mx-auto overflow-x-hidden '>
       <Suspense>
 
-        <Blogs compaignData={dataParser(compaignData)}   menu={dataParser(menus)} latestArticles={dataParser(latestArticles.slice(0,4))}/>
+        <Blogs compaignData={dataParser(compaignData)}   menu={dataParser(menus)} latestArticles={dataParser(latestArticles)}/>
       </Suspense>
     </main>
   )

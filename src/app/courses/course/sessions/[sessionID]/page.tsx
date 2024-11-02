@@ -10,9 +10,9 @@ type SessionType = {
   };
 async function page({params}:SessionType) {
  
-    const menus = await dataFetcher("menus", "omit", "force-cache");  
+    const menus = await dataFetcher("menus", "omit", undefined,7200);
     const {sessionID} = params    
-    const sessionInFo = await dataFetcher(`courses/session/${sessionID}`,"omit","no-cache");
+    const sessionInFo = await dataFetcher(`courses/session/${sessionID}`,"omit",undefined,10);
     if(!Object.keys(sessionInFo).includes("sessions")) return notFound();
     const compaignData: CompaignTableData[] = await dataFetcher(
       "offs/getLatest",

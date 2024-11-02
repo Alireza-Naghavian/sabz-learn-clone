@@ -30,8 +30,8 @@ export const generateMetadata = async ({
 async function page({params} :paramsType) {
   const {blog} = params
   const blogData :ArticleTableData = await dataFetcher(`articles/${blog}`,"omit","no-store")
-  const relateBlogs = await dataFetcher(`articles/related/${blogData.categoryID._id}`,"omit","no-store");
-  const menus = await dataFetcher("menus", "omit", "force-cache");
+  const relateBlogs = await dataFetcher(`articles/related/${blogData.categoryID._id}`,"omit",undefined,1800);
+  const menus = await dataFetcher("menus", "omit", undefined,7200);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className="max-w-[1920px] mx-auto overflow-x-hidden ">

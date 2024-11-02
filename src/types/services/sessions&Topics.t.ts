@@ -49,7 +49,7 @@ export type QuestionSampleType = {
   date: Date;
   isAnswer: boolean;
   session: SessionBodyType;
-  adminAnswers: [];
+  adminAnswers: Omit<QuestionSampleType,"session">&{session:string}[];
   _id: string;
 };
 export type MergeQBody = {

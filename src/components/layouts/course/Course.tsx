@@ -1,9 +1,10 @@
 "use client";
 import Breardcrumb from "@/components/ui/Breardcrumb/Breardcrumb";
 import Tail_Info from "@/components/ui/tail-info/Tail_Info";
+import { CompaignTableData } from "@/types/services/compaign.t";
 import { CourseDataTable } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
-import { formatTime } from "@/utils/videoData";
+import { timeReducer } from "@/utils/videoData";
 import {
   BriefcaseIcon,
   CalendarDaysIcon,
@@ -19,7 +20,6 @@ import CourseHeader from "./CourseHeader";
 import CourseSessions from "./CourseSessions";
 import CourseSideBar from "./CourseSideBar";
 import RelateCourse from "./RelateCourse";
-import { CompaignTableData } from "@/types/services/compaign.t";
 
 function Course({
   menu,
@@ -37,18 +37,15 @@ function Course({
   const totalSessions = courseData?.topics?.reduce((total, topic) => {
     return total + topic?.sessions?.length;
   }, 0);
-  const totalSessionTime = courseData.topics?.map((topic) => {
-    return topic.sessions.reduce((acc: number, curr: any) => {
-      const sessionTimes = curr.time.split(":");
-      const seconds = Number(sessionTimes[1]);
-      const minutes = Number(sessionTimes[0]) * 60;
-      const totalSeconds = seconds + minutes;
-      return acc + totalSeconds;
-    }, 0);
-  });
-  const formatSessionTime = formatTime(
-    totalSessionTime! && totalSessionTime[0]
-  );
+  const totalTime = courseData.topics?.map((topic)=>{
+      const totalSessionTime= topic.sessions.map((session)=>{
+        return {time:session.time}
+      })
+      return totalSessionTime
+  })
+  const TimeReducerFN = timeReducer(totalTime?.flat() as [])
+
+
 
   const completedSessions = 50;
   const completionPercentage =
@@ -88,7 +85,7 @@ function Course({
               />
               <Tail_Info
                 subTitle={`${
-                  totalSessionTime?.length == 0 ? "0" : formatSessionTime
+                  totalTime?.length == 0 ? "0" : TimeReducerFN
                 } دقیقه`}
                 title="مدت زمان دوره"
                 variant="mainInfo"
