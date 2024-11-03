@@ -17,11 +17,11 @@ const ResponsiveImage: React.FC<Props> = (props) => {
 
   // ? Render(s)
   return (
-    <div className={`relative ${dimensions ?? ''} ${className ?? ''}`} title={alt}>
+    <div className={`relative ${dimensions ? dimensions : undefined} ${className ? className :undefined}`} title={alt}>
       <Image
         src={src}
         alt={alt}
-        className={`${imageStyles} ${isLoading  ? "" : "blur-sm"}`}
+        className={`${imageStyles} ${isLoading  ? undefined : "blur-sm"}`}
         placeholder="blur"
         blurDataURL={blurDataURL ? 'data:image/png;base64,' + blurDataURL : customeBlurDataURL}
         quality={100}
