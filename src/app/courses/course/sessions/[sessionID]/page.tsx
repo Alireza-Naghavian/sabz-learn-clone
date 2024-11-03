@@ -10,7 +10,7 @@ type SessionType = {
   };
 async function page({params}:SessionType) {
  
-    const menus = await dataFetcher("menus", "omit", undefined,7200);
+    const menus = await dataFetcher("menus", "omit", undefined,1800);
     const {sessionID} = params    
     const sessionInFo = await dataFetcher(`courses/session/${sessionID}`,"omit",undefined,10);
     if(!Object.keys(sessionInFo).includes("sessions")) return notFound();

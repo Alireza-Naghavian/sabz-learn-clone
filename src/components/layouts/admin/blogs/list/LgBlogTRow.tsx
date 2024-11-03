@@ -35,7 +35,7 @@ try {
     even:bg-gray-100'>
       <td>{index}</td>
       <td>{title}</td>
-      <td>{creator.username}</td>
+      <td>{creator?.username}</td>
       <td>{new Date(createdAt).toLocaleDateString("fa-IR")}</td>
       <td><TrashIcon onClick={()=>open()} className='size-6 text-red-500 cursor-pointer'/></td>
       {_id !== undefined && (

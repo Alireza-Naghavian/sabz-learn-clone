@@ -9,7 +9,7 @@ type CourseParams = {
 };
 async function page({ params }: CourseParams) {
   const { shortName } = params;
-  const menus = await dataFetcher("menus", "omit", undefined,7200);
+  const menus = await dataFetcher("menus", "omit", undefined,1800);
   const compaignData: CompaignTableData[] = await dataFetcher(
     "offs/getLatest",
     "omit",

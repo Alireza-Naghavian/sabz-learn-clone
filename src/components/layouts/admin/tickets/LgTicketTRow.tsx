@@ -97,7 +97,7 @@ function LgTicketTRow({
       >
         {index}
       </td>
-      <td>{user.username}</td>
+      <td>{user?.username}</td>
       <td className="line-clamp-2 text-sm">{title}</td>
       <td className="dark:text-secondary text-gray-900">
         {departmentID.title}
