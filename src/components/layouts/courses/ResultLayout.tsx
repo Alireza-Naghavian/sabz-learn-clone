@@ -30,7 +30,7 @@ function ResultLayout({ allCourses }: { allCourses: FilterReqType }) {
               percent={course.discount as number}
               price={course.price}
               score={course.courseAverageScore}
-              teacher={course.creator.username  }
+              teacher={course?.creator?.username  }
               
             />
           </CourseCard>

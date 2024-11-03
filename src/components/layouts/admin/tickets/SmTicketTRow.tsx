@@ -97,7 +97,7 @@ function SmTicketTRow({
         <span
           className={`font-DanaBold rounded-lg p-1  ${ticketCondition?.className as string} `}
         >
-          {user.username}
+          {user?.username}
         </span>
         <span
           className="text-right  flex justify-between items-center

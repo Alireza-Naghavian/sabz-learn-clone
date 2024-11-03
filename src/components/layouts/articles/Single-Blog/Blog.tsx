@@ -52,7 +52,7 @@ function Blog({
                  text-sm sm:text-base"
             >
               {/* author */}
-              <InfoItem title={blogData.creator.username} Icon={UserIcon} />
+              <InfoItem title={blogData.creator?.username} Icon={UserIcon} />
               <InfoItem
                 title={new Date(blogData.createdAt).toLocaleDateString("fa-IR")}
                 Icon={CalendarIcon}

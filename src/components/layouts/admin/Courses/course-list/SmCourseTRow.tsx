@@ -76,7 +76,7 @@ function SmCourseTRow(
           <span className="">
             <span>مدرس:</span>
             <span className="xs:max-w-[150px] sm:max-w-[330px] text-wrap line-clamp-1">
-         {creator.username}
+         {creator?.username}
             </span>
           </span>
           <span className="">

@@ -87,7 +87,7 @@ function LgCommentTRow({
            transition-all duration-500  rounded-full ${replyTo ? "" : "hidden"}`}>R</span>
         {index}
       </td>
-      <td>{creator.username}</td>
+      <td>{creator?.username}</td>
       <td className="lg:block hidden">{course.name}</td>
       <td className="lg:block hidden">
         {new Date(createdAt!).toLocaleDateString("fa-IR")}

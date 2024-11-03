@@ -16,7 +16,7 @@ return {
 }
 }
 async function page({params}:CatParams) {
-  const menus = await dataFetcher("menus", "omit", undefined,7200);
+  const menus = await dataFetcher("menus", "omit", undefined,1800);
   const categoryName:CourseCatType = await dataFetcher(`courses/category/${params.courseCat}`, "omit", undefined,10);
   const category = categoryName.category
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)

@@ -4,7 +4,7 @@ import { CourseBodyType, CourseDataTable } from "@/types/services/course&categor
 import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
 export default async function Home() {
-  const menus = await dataFetcher("menus", "omit", undefined,7200);
+  const menus = await dataFetcher("menus", "omit", undefined,1800);
   const allCourses = await dataFetcher(
     "courses/getInit",
     "omit",

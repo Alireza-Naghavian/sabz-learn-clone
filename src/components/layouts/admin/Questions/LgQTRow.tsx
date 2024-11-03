@@ -55,7 +55,7 @@ function LgQTRow({index,course,creator,session,questions}:MergeQBody&{index:numb
         {index}
       </td>
       <td>
-        {creator.username}
+        {creator?.username}
         </td>
       <td className="lg:block hidden text-sm w-full break-words text-wrap">
       {creator.email}
