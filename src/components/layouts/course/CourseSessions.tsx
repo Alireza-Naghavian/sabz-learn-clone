@@ -123,7 +123,7 @@ export const CourseTopic = ({
             </span>
 
             <ChevronDownIcon
-              className={`${isSessionOpen ? "rotate-180  " : "rotate-0"}  
+              className={`${isSessionOpen ? "rotate-180" : "rotate-0"}  
                size-6  !transition-all ease-in-out duration-300 font-DanaMedium`}
             />
           </div>

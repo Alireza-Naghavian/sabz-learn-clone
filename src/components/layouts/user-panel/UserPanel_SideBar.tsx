@@ -12,7 +12,7 @@ import { SetState } from "@/types/global.t";
 function UserPanel_SideBar({ sm,close }: { sm?: boolean,close?:SetState<boolean> }) {
   const path = usePathname();
   return (
-    <aside className={`${sm ? "" : "user__sidebar"}`}>
+    <aside className={`${sm ? undefined : "user__sidebar"}`}>
       <div className="logo_wrapper">
         <LogoLink
           isIcon={true}

@@ -24,7 +24,7 @@ function TitlesBox({content}:{content:string}) {
   return (
     <div className={`rounded-lg !rounded-tr-none border border-neutral-300
      dark:border-slate-500 mt-8 overflow-hidden 
-      mb-6 md:mb-8 ${isBoxOpen ?  "h-1/6 md:h-[4.25rem]": ""}`}>
+      mb-6 md:mb-8 ${isBoxOpen ?  "h-1/6 md:h-[4.25rem]": undefined}`}>
         <div className={`flex items-center justify-between px-4 py-5 `}>
 
             <div className={`flex items-center gap-x-2`}>
