@@ -6,7 +6,7 @@ const BASE_URL =
 const apiSlice = createApi({
   reducerPath: "api",
   baseQuery: fetchBaseQuery({
-    baseUrl: "http://localhost:4000/v1",
+    baseUrl: BASE_URL as string,
     timeout: 60000,
   }),
 
