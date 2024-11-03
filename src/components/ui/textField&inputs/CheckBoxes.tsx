@@ -1,6 +1,6 @@
 import { TextFieldType } from "@/types/textFilels.t";
 import React from "react";
-import "./textFieldStyle.css";
+import "./textFieldstyle.css";
 type CheckBoxesType =Omit<TextFieldType,"register">
 function CheckBoxes({
   className = "",
