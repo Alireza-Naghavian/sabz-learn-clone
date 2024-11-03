@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "./textFieldStyle.css";
+import "./textFieldstyle.css";
 import { TextFieldType } from "@/types/textFilels.t";
 function SimpleCheckBox({
   className = "",
