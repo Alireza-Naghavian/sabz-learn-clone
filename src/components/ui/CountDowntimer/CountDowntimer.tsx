@@ -36,7 +36,7 @@ function CountDowntimer({ percent, date }: Props) {
         setTime(initTime);
       }
     }, 1000);
-  }, []);
+  }, [CountDowDate]);
   return (
     <div
       className="flex flex-col sm:flex-row w-full

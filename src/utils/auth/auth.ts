@@ -1,5 +1,10 @@
 import { JwtPayload, verify } from "jsonwebtoken";
 import { cookies } from "next/headers";
+const BASE_URL =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:4000/v1"
+    : process.env.NODE_ENV === "production" && 
+    process.env.NEXT_PUBLIC_API_URL;
 interface JWTType extends JwtPayload {
   id: string;
 }
@@ -17,7 +22,7 @@ const verifyAccessToken = (token: string | undefined) => {
 export const getUser = async (userId:string) => {
   try {
 
-    const response = await fetch(`http://localhost:4000/v1/auth/${userId}`, {
+    const response = await fetch(`${BASE_URL}/auth/${userId}`, {
         method: "GET",
         credentials:"include"
       });
