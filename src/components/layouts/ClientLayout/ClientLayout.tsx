@@ -24,7 +24,7 @@ function ClientLayout({children,menu,compaignData}:{children:React.ReactNode,men
 
     <div className="fixed bg-transparent w-[200px] h-[200px] z-50  bottom-6 right-12  ">
       <ResponsiveImage
-      src={`http://localhost:4000/courses/covers/${compaignData[0].fixCover}`}
+      src={`${compaignData[0].fixCover.url}`}
       alt={compaignData[0].title}
       className='relative w-full h-full'
       />
