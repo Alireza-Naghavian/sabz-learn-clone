@@ -84,7 +84,7 @@ function LgCommentTRow({
         } `}
       >
         <span className={`absolute -top-4 -right-6  bg-baseColor size-[22px] pt-1
-           transition-all duration-500  rounded-full ${replyTo ? "" : "hidden"}`}>R</span>
+           transition-all duration-500  rounded-full ${replyTo ? undefined : "hidden"}`}>R</span>
         {index}
       </td>
       <td>{creator?.username}</td>

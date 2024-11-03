@@ -31,11 +31,11 @@ function CategorySelector({ register,categories }: { register: UseFormRegister<F
   return (
     <div
       className={`bg-white dark:bg-darker rounded-xl col-span-2 lg:col-span-1  p-5 
-     overflow-hidden ${!isCatOpen ? "" : "h-17"}`}
+     overflow-hidden ${!isCatOpen ? undefined : "h-17"}`}
     >
       <div
         className={`flex items-center justify-between ${
-          !isCatOpen ? ` mb-5 pb-5 border-b border-b-neutral-200/60 dark:border-b-white/10`: ""}`}
+          !isCatOpen ? ` mb-5 pb-5 border-b border-b-neutral-200/60 dark:border-b-white/10`: undefined}`}
       >
         <div className="flex items-center gap-x-2 font-DanaBold">
           <FolderOpenIcon className="size-7" />
