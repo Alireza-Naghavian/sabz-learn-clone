@@ -42,7 +42,6 @@ function SmCatTRow({ link, title, _id }: CatBodytype) {
       <td className="flex items-center justify-between w-full  ">
         <span className="font-DanaBold   ">
           {title}
-          {/* {user?.userName} */}
         </span>
         <span
           className="text-right flex justify-between items-center

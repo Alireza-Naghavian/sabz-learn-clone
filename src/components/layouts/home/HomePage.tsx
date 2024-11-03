@@ -145,7 +145,7 @@ function HomePage({
                       percent={course.discount as number}
                       price={course.price}
                       score={course.courseAverageScore}
-                      teacher={course.creator.username}
+                      teacher={course?.creator?.username}
                     />
                   </CourseCard>
                 );
@@ -268,7 +268,7 @@ function HomePage({
                       percent={course.discount as number}
                       price={course.price}
                       score={course.courseAverageScore}
-                      teacher={course.creator.username}
+                      teacher={course?.creator?.username}
                     />
                   </CourseCard>
                 );

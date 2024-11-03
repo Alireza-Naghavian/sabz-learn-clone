@@ -43,7 +43,7 @@ function LgCourseTRow(
     even:bg-gray-100'>
       <td className='lg:block hidden'>{index}</td>
       <td>{name}</td>
-      <td className='lg:block hidden text-sm  '>{creator.username}</td>
+      <td className='lg:block hidden text-sm  '>{creator?.username}</td>
       <td className='flex flex-col'>
         <span>{price.toLocaleString("fa-Ir")}</span>
         <span>تومان</span>
