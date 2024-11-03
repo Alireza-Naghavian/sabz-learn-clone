@@ -17,7 +17,7 @@ export const metadata: Metadata = {
   },
 };
 async function page() {
-  const menus = await dataFetcher("menus", "omit", undefined,7200);
+  const menus = await dataFetcher("menus", "omit", undefined,1800);
   const allCourses = await dataFetcher("courses", "omit", undefined,10);
   const categories = await dataFetcher("category", "omit", undefined,1800);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)

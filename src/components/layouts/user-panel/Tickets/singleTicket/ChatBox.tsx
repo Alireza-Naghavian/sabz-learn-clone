@@ -62,7 +62,7 @@ function ChatBox({ ticketId, children }: ChatBoxType) {
           : `bg-sky-500/30 dark:bg-secondary/20 rounded-tl-sm mr-auto`
         }`} >
                 <h4 className="font-DanaMedium text-xl mb-1 text-left">
-                  {message.sender.username}
+                  {message?.sender?.username}
                 </h4>
                 <span
                   className="block text-xs font-Dana text-slate-500 dark:text-slate-400 text-left"

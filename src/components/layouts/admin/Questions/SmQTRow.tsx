@@ -56,7 +56,7 @@ function SmQTRow({course,creator,session,questions}:MergeQBody&{questions:Questi
        text-gray-200  ${allMessages[allMessages.length -1]?.isAnswer === true ? 
           "bg-baseColor text-white" : "bg-secondary text-white"}`}
       >
-        {creator.username}
+        {creator?.username}
       </span>
       <span className="text-right flex  items-center my-auto gap-x-4  mr-auto !mb-4">
         <button

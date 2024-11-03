@@ -137,7 +137,7 @@ export const Comment = ({
           <div className="flex flex-col ml-auto gap-1">
             <div className="flex items-center  h-full  gap-x-1 ">
               <span className="inline-block max-w-40 border-l-2 pl-2 truncate">
-                {commentData.creator.username}
+                {commentData?.creator?.username}
               </span>
 
               <strong
