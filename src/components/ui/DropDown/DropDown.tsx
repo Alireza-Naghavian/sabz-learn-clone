@@ -14,7 +14,7 @@ const DropDown: React.FC<DropDownType> = ({
   close,
 }) => {
   return (
-    <div className="">
+    <div >
       {/* toggler */}
       <div
         className={`flex ${!Icon ?"justify-between":"px-2.5 h-12 gap-x-2"} items-center
