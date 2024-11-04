@@ -1,7 +1,6 @@
 import UserPanel from '@/components/layouts/user-panel/UserPanel';
 import { authUser } from '@/utils/auth/auth';
 import { Metadata } from 'next';
-import { redirect } from 'next/navigation';
 export const dynamic = "force-dynamic"
 export const metadata: Metadata = {
   applicationName: "سبز لرن",
