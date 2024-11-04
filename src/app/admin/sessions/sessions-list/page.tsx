@@ -1,11 +1,7 @@
-import SessionTable from '@/components/layouts/admin/sessions/list/SessionTable'
-import { authUser } from '@/utils/auth/auth';
-import { redirect } from 'next/navigation';
-import React from 'react'
-export const dynamic = "force-dynamic";
- async function page() {
-  const user = await authUser();
-  if (user === null || user.role !== "ADMIN") return redirect("/");
+import SessionTable from '@/components/layouts/admin/sessions/list/SessionTable';
+
+  function page() {
+
   return (
    <SessionTable/>
   )
