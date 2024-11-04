@@ -10,8 +10,8 @@ type paramsType = {
 }
 export const generateStaticParams = async()=>{
   const allBlogs = await dataFetcher("articles/getInit", "omit", undefined, 1800);
-  const params  = allBlogs.map((blog:ArticleTableData)=>({blog:blog._id}))
-  return params
+  const param  = allBlogs.map((blogData:ArticleTableData)=>({blog:blogData._id}))
+  return param
 }
 export const generateMetadata = async ({
   params,
