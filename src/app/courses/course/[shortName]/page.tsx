@@ -9,7 +9,7 @@ type CourseParams = {
   params: { shortName: string };
 };
 export const generateStaticParams = async()=>{
-  const allCourses = await dataFetcher("courses", "omit", undefined, 10);
+  const allCourses = await dataFetcher("courses/getinit", "omit", undefined, 10);
   const params  = allCourses.allCourses.map((course:CourseBodyType)=>({shortName:course.shortName}))
   return params
 }
