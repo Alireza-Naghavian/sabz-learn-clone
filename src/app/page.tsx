@@ -15,7 +15,7 @@ export default async function Home() {
     return new Date(b.updatedAt as Date).getDate() - new Date(a.updatedAt as Date).getDate()
   })
   
-  const latestArticles = await dataFetcher("articles/getInit","omit",undefined,1800)
+  const latestArticles = await dataFetcher("articles/getInit","omit",undefined,900)
   const categories = await dataFetcher("category", "omit", undefined,1800);
   const mostPopularCourses =  allCourses.sort((a: CourseBodyType, b: CourseBodyType) => {
     return b.registers! - a.registers!;

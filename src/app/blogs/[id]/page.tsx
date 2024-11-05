@@ -5,32 +5,27 @@ import dataFetcher from "@/utils/dataFetcher";
 import dataParser from "@/utils/dataParser";
 import { Metadata } from "next";
 import React from "react";
-type paramsType = {
-  params:{blog:string}
+type ParamsType = {
+  params:{id:string}
 }
-export const generateStaticParams = async()=>{
-  const allBlogs = await dataFetcher("articles/getInit", "omit", undefined, 1800);
-  const param  = allBlogs.map((blogData:ArticleTableData)=>({blog:blogData._id}))
-  return param
-}
+export const generateStaticParams = async () => {
+  const blogs = await dataFetcher("articles/getInit", "omit", undefined, 900);
+  const params  = blogs.map((blog:ArticleTableData)=>({id:blog?._id}))
+  return params
+};
 export const generateMetadata = async ({
   params,
-}: paramsType): Promise<Metadata> => {
-  const blogData = await dataFetcher(`articles/${params.blog}`,
-    "omit",
-    undefined,
-    5
-  );
-  const blogName = blogData.title;
-  const title = `سبزلرن -${blogName}`;
+}: ParamsType): Promise<Metadata> => {
+  const blogData = await dataFetcher(`articles/${params?.id}`, "omit", undefined, 5);
+  const blogTitle = blogData?.title || "مقاله";
   return {
-    title,
+    title: `سبزلرن - ${blogTitle}`,
   };
 };
-async function page({params} :paramsType) {
-  const {blog} = params
-  const blogData :ArticleTableData = await dataFetcher(`articles/${blog}`,"omit","no-store")
-  const relateBlogs = await dataFetcher(`articles/related/${blogData.categoryID._id}`,"omit",undefined,1800);
+async function page({params} :ParamsType) {
+  const {id} = params
+  const blogData :ArticleTableData = await dataFetcher(`articles/${id}`,"omit","no-store")
+  const relateBlogs = await dataFetcher(`articles/related/${blogData?.categoryID?._id}`,"omit",undefined,1800);
   const menus = await dataFetcher("menus", "omit", undefined,1800);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
