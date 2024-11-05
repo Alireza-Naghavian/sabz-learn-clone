@@ -7,6 +7,13 @@ export const metadata: Metadata = {
     icon: [
       { url: "/images/favicon.png",  sizes: " 32x32 ", type: "image/png" },
     ],
+    apple:[
+      {
+        url: "/icons/apple-touch-icon.png",
+        sizes: "76x76",
+        rel: "apple-touch-icon",
+      },
+    ]
   },
   title: "سبز لرن | Sabzlearn",
   description:
