@@ -16,8 +16,10 @@ import { useCreateArticlesMutation } from "@/services/articles/articlesApiSlice"
 import Loader from "@/components/ui/loader/Loader";
 import { useAlert } from "@/context/AlertProvider";
 import generateAnchor from "@/utils/anchorGenerator";
+import SimpleCheckBox from "@/components/ui/textField&inputs/SimpleCheckBox";
 const TextEditor = dynamic(
-  () => import("@/components/utils-components/textEditor/TextEditor"), {ssr: false}
+  () => import("@/components/utils-components/textEditor/TextEditor"),
+  { ssr: false }
 );
 function BlogsForm() {
   const {
@@ -29,11 +31,11 @@ function BlogsForm() {
   // res from server
   const { data: categories } = useGetAllCatQuery();
   const { data: userData } = useGetMeQuery();
-const {showAlert} = useAlert();
+  const { showAlert } = useAlert();
   const [category, setCategory] = useState(rareOption);
   const [longDesc, setLongDes] = useState("");
-// req to server
-const [createArticle,{isLoading}] = useCreateArticlesMutation();
+  // req to server
+  const [createArticle, { isLoading }] = useCreateArticlesMutation();
   // cat options
   const catOptions = categories
     ?.map((category) => {
@@ -45,21 +47,23 @@ const [createArticle,{isLoading}] = useCreateArticlesMutation();
     try {
       const aritlceBody = {
         ...data,
+        isActiveNotif:data.isActiveNotif,
         creator: userData?.user._id as string,
         categoryID: category.value,
         body: generateAnchor(longDesc),
       };
-      const result  = await createArticle(aritlceBody).unwrap();
-      showAlert("success",result.message);
-
-
-    } catch (error:any) {
-      error?.message.forEach((err:any)=>{
-        return showAlert("error",err.message)
-      })
+      const result = await createArticle(aritlceBody).unwrap();
+      showAlert("success", result.message);
+    } catch (error: any) {
+      if(error.message){
+        return showAlert("error", error.message);
+      }
+      else{
+        return showAlert("error","خطا هنگام ایجاد مقاله جدید")
+      }
     } finally {
       reset();
-      setCategory(rareOption)
+      setCategory(rareOption);
       setLongDes("");
     }
   };
@@ -117,13 +121,25 @@ const [createArticle,{isLoading}] = useCreateArticlesMutation();
             placeHolder="یک توضیح کوتاه راجب مقاله ..."
             required
             validattionschema={{
-              required:{value:true,
-                message:"پر کردن این فیلد الزامی است."}
+              required: {
+                value: true,
+                message: "پر کردن این فیلد الزامی است.",
+              },
             }}
             errors={errors}
             type="text"
           />
         </div>
+        <SimpleCheckBox
+          errors={errors}
+          id="checkBox"
+          label="اعلان ارسال شود"
+          className="child:!textxl"
+          name="isActiveNotif"
+          register={register}
+          type="checkbox"
+          required={false}
+        />
         <div className="flex w-full mt-2 child:w-full">
           <TextEditor onChange={setLongDes} value={longDesc} />
         </div>
@@ -133,7 +149,7 @@ const [createArticle,{isLoading}] = useCreateArticlesMutation();
           type="submit"
           className="mr-auto w-full md:w-[140px] rounded-xl px-6 py-2"
         >
-          {isLoading ? <Loader loadingCondition={isLoading}/>: "افزودن"}
+          {isLoading ? <Loader loadingCondition={isLoading} /> : "افزودن"}
         </PrimaryBtn>
       </form>
     </HeaderAdminLayout>

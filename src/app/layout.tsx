@@ -1,19 +1,19 @@
+import Notification from "@/components/utils-components/notifications/Notification";
 import type { Metadata } from "next";
 import "./globals.css";
+import StoreProvider from "@/context/StoreProvider";
 
 export const metadata: Metadata = {
   applicationName: "سبز لرن",
-  icons:{
-    icon: [
-      { url: "/images/favicon.png",  sizes: " 32x32 ", type: "image/png" },
-    ],
-    apple:[
+  icons: {
+    icon: [{ url: "/images/favicon.png", sizes: " 32x32 ", type: "image/png" }],
+    apple: [
       {
         url: "/icons/apple-touch-icon.png",
         sizes: "76x76",
         rel: "apple-touch-icon",
       },
-    ]
+    ],
   },
   title: "سبز لرن | Sabzlearn",
   description:
@@ -38,6 +38,9 @@ export default function RootLayout({
        bg-gray-100 dark:bg-gray-900"
       >
         {children}
+        <StoreProvider>
+          <Notification />
+        </StoreProvider>
       </body>
     </html>
   );

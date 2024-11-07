@@ -17,6 +17,7 @@ export const articleSlice = apiSlice.injectEndpoints({
         creator,
         categoryID,
         shortName,
+        isActiveNotif
       }) => ({
         url: "/articles",
         method: "POST",
@@ -29,6 +30,7 @@ export const articleSlice = apiSlice.injectEndpoints({
           creator,
           categoryID,
           shortName,
+          isActiveNotif
         },
       }),
       invalidatesTags: ["article", "articles","articlesData"],
