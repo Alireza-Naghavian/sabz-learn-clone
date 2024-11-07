@@ -65,7 +65,7 @@ function Notification() {
           subscribe && "hidden"
         }  bell_Btn bottom-10 left-10 !size-16 !rounded-full`}
       >
-        <BellIcon />
+        <BellIcon className="bell_Btn cursor-pointer !w-full !h-full" />
         <span className="absolute tooltiptext text-nowrap dark:text-white text-darker right-0 !px-4 py-2  dark:bg-darker bg-gray-300 ">
           فعال سازی اعلان ها
         </span>
