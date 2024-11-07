@@ -9,6 +9,7 @@ export type ArticlesBodyType = {
     cover:string,
     creator:string
     shortName:string
+    isActiveNotif:boolean
 }
 export type ArticleTableData=Omit<ArticlesBodyType,"categoryID"|"creator">&{
     categoryID:{title:string,_id:string};

@@ -1,0 +1,44 @@
+.tooltip {
+  @apply dark:bg-darker bg-white flex items-center  overflow-y-hidden h-13 overflow-x-auto 
+    rounded-xl border border-[#f5f5f5] dark:border-none;
+}
+.tooltiptext {
+  @apply invisible opacity-0 translate-x-[5rem]  ;
+    text-align: center;
+  border-radius: 6px;
+  padding-left: 1.5rem;
+  padding-right: 38px;
+  transition: all .3s;
+  
+}
+.tooltiptext::after,
+.tooltiptext::before {
+  @apply dark:bg-darker bg-gray-300;
+  transform-origin: bottom;
+  bottom: 0px;
+  position: absolute;
+  left: 0;
+  height: 2rem;
+  width: 8px;
+  padding: 8px;
+  --tw-bg-opacity: 1;
+
+  --tw-content: "";
+  transform: rotate(-44deg);
+  content: var(--tw-content);
+}
+.tooltiptext::after {
+  transform: rotate(44deg);
+  transform-origin: top;
+  top: 2px;
+  margin-top: 4px;
+}
+.tooltiptext::before {
+  margin-bottom: 4px;
+}
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+}
+.bell_Btn:hover >.tooltiptext{
+    @apply visible translate-x-[11.5rem] opacity-100;
+}
