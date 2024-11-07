@@ -7,6 +7,7 @@ import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { ChildrenProps } from "@/types/global.t";
 import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
+import { useEffect } from "react";
 
 function layout({ children }: ChildrenProps) {
   return (
@@ -22,12 +23,13 @@ const LayoutAuthContent = ({ children }: ChildrenProps)=>{
   const { data, isLoading } = useGetMeQuery();
   const path = usePathname();
   const router = useRouter();
-
+  useEffect(()=>{
+    if (path.startsWith("/auth") && data?.user !==undefined&&data?.user !==null ) {
+      router.replace("/",{scroll:true})
+  
+    }
+  },[data,isLoading,path,router])
   if (isLoading) return <TextLoader loadingCondition={isLoading} />;
-  if (path.startsWith("/auth") && data?.user !==undefined||data?.user !==null ) {
-    router.replace("/",{scroll:true})
-    return
-  }
 return(
   <main className="box-center flex-col  relative px-4 py-6 min-h-screen overflow-x-hidden">
   <LogoLink className="flex items-center gap-x-3.5 mb-10" isIcon={true} />
