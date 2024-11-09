@@ -9,10 +9,16 @@ import StatusBox from "@/components/ui/textField&inputs/StatusBox";
 import Select from "@/components/utils-components/Select/Select";
 import { useAlert } from "@/context/AlertProvider";
 import { useGetCoursesQuery } from "@/services/course&Categories/courseApiSlice";
-import { useCreateSessionMutation } from "@/services/sessions&topics/sesisonSlice";
+import {
+  useCreateSessionMutation
+} from "@/services/sessions&topics/sesisonSlice";
 import { SessionBodyType } from "@/types/services/sessions&Topics.t";
+import { uploadToCloudinary } from "@/utils/utils";
 import { formatTime, handleVideoUpload } from "@/utils/videoData";
-import {CurrencyDollarIcon,PlayCircleIcon} from "@heroicons/react/24/outline";
+import {
+  CurrencyDollarIcon,
+  PlayCircleIcon,
+} from "@heroicons/react/24/outline";
 import { useState } from "react";
 import { useForm } from "react-hook-form";
 function SessionForm() {
@@ -33,6 +39,7 @@ function SessionForm() {
   // select data
   const { data: courses } = useGetCoursesQuery();
   const [createSession, { isLoading }] = useCreateSessionMutation();
+
   const courseOptions = courses
     ?.map((course) => {
       return { label: course.name, value: course._id };
@@ -50,43 +57,47 @@ function SessionForm() {
     .concat({ label: "انتخاب تاپیک", value: "" })
     .reverse();
 
-    const handleFileChange = async (event: React.ChangeEvent<HTMLInputElement>) => {
-      const files = event.target.files;
-  
-      if (files && files.length > 0) {
-        try {
-          const duration = await handleVideoUpload(files);
-          const formattedDuration = formatTime(duration);
-          setVideoDuration(formattedDuration);
-        } catch (error) {
-          console.error("خطا در آپلود ویدئو:", error);
-        }
+  const handleFileChange = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files = event.target.files;
+
+    if (files && files.length > 0) {
+      try {
+        const duration = await handleVideoUpload(files);
+        const formattedDuration = formatTime(duration);
+        setVideoDuration(formattedDuration);
+      } catch (error) {
+        console.error("خطا در آپلود ویدئو:", error);
       }
-    };
+    }
+  };
   // create new session
   const createHandler = async (data: SessionBodyType) => {
+    const sessionStatus = status === "free";
     try {
-      const sessionStatus = status === "free";
-
-      // const duration = await handleVideoUpload(data.video);
-      // const formattedDuration = formatTime(duration);
+      const uploadResult = await uploadToCloudinary(data?.video)
       const sessionBody = {
         ...data,
-        time:videoDuration,
+        time: videoDuration,
         course: course.value,
         _id: course.value,
         topic: topic.value,
         video: data.video,
+        videoId: uploadResult.public_id,
+        videoUrl: uploadResult.url,
         isFree: sessionStatus,
       };
-
       const result = await createSession(sessionBody).unwrap();
+
       showAlert("success", result.message);
     } catch (error: any) {
-      error?.message.forEach((err: any) => {
-        return showAlert("error", err.message);
-      });
-    } finally {
+      if (error.message) {
+        return showAlert("error", error.message);
+      } else {
+        return showAlert("error", "خطا هنگام ایجاد جلسه");
+      }
+    }finally{
       reset();
     }
   };
@@ -94,7 +105,7 @@ function SessionForm() {
   const renderTextField = (
     name: keyof SessionBodyType,
     placeholder: string,
-    type = "text",
+    type = "text"
   ) => (
     <MainTextField
       register={register}
@@ -204,7 +215,11 @@ function SessionForm() {
           type="submit"
           className="mr-auto w-full md:w-[100px] rounded-xl px-6 py-2"
         >
-          {isLoading ? <Loader loadingCondition={isLoading} /> : "افزودن"}
+          {isLoading  ? (
+            <Loader loadingCondition={isLoading } />
+          ) : (
+            "افزودن"
+          )}
         </PrimaryBtn>
       </form>
     </HeaderAdminLayout>
