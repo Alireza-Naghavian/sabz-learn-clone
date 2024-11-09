@@ -19,3 +19,19 @@ return value
 export const formatNumber = (number: number | string) =>
   number.toLocaleString("fa-IR");
 export default formatNumber
+
+export const uploadToCloudinary =  async (file:File[])=>{
+  const formData = new FormData();
+  formData.append("file",file[0])
+  formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_PRESET as string)
+  try {
+    const response = await fetch(`https://api.cloudinary.com/v1_1/${process.env.NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME}/upload`,{
+      method:"POST",
+      body:formData
+    })
+    const data = await response.json();
+    return data
+  } catch (error) {
+    console.log(error);
+  }
+}
