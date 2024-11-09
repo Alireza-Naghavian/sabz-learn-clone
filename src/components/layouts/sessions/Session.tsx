@@ -180,22 +180,22 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
       isOpen={isRelatedOpen}
       modalTitle="لیست دوره های و مقالات مشابه"
       setIsOpen={()=>close()}
-      className=" py-2 overflow-x-hidden !h-[450px] 
+      className=" py-2 overflow-x-hidden  !h-[470px] 
            md:!h-[540px]"
       >
         <div className="w-full h-full flex flex-col items-start m-4">
-          <div className="flex flex-col gap-y-1">
+          <div className="flex flex-col gap-y-1 ">
             <p className="text-secondary font-DanaMedium text-lg">
               مقالات مرتبط :
             </p>
-            <ul className="space-y-3 flex flex-col flex-wrap">
+            <ul className="space-y-3 flex flex-col w-[95%] flex-wrap ">
               {relateBlogs.length ===0 ? 
               `مقاله مرتبط با ${data?.course?.name} یافت نشد.` : 
               relateBlogs.map((blog,index)=>{
                 return(
                   <li key={Number(index * Math.random())} className="flex flex-col gap-y-1">
                     <span className=" w-fit p-[5px] text-sm rounded-xl text-baseColor ">{blog.displayLink}</span>
-                    <Link className="line-clamp-1 transition-colors duration-300 hover:text-secondary" target="_blank" href={blog.link}>{blog.title}</Link>
+                    <Link className="line-clamp-2 transition-colors duration-300 hover:text-secondary" target="_blank" href={blog.link}>{blog.title}</Link>
                   </li>
                 )
               })  
@@ -207,14 +207,14 @@ function Session({ menu, sessionID,compaignData }: SessionPageType) {
             <p className="bg-baseColor w-fit px-4 py-1 rounded-lg font-DanaMedium text-base">
             دوره های مرتبط:
             </p>
-            <ul className="space-y-3">
+            <ul className="space-y-3 w-[95%] ">
               {relateCourses.length == 0 ? <span className="!mt-2">دوره مرتبط با {data?.course.name } یافت نشد</span> : 
               
               relateCourses.map((course,index)=>{
                 return(
                   <li key={Number(index * Math.random())} className="flex flex-col gap-y-1 last:pb-4 px-1">
-                    <span className=" w-fit p-[5px] text-sm rounded-xl text-baseColor ">{course.displayLink}</span>
-                    <Link className="line-clamp-1 transition-colors duration-300 hover:text-secondary" target="_blank" href={course.link}>{course.title}</Link>
+                    <span className=" w-fit p-[5px] text-sm rounded-xl text-baseColor mt-2 ">{course.displayLink}</span>
+                    <Link className="line-clamp-2 transition-colors duration-300 hover:text-secondary" target="_blank" href={course.link}>{course.title}</Link>
                   </li>
                 )
               })}

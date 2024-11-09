@@ -2,6 +2,7 @@ import Notification from "@/components/utils-components/notifications/Notificati
 import type { Metadata } from "next";
 import "./globals.css";
 import StoreProvider from "@/context/StoreProvider";
+import ProgressBarLink from "@/components/ui/ProgressBar/ProgressBar";
 
 export const metadata: Metadata = {
   applicationName: "سبز لرن",
@@ -38,6 +39,7 @@ export default function RootLayout({
        bg-gray-100 dark:bg-gray-900"
       >
         {children}
+        <ProgressBarLink/>
         <StoreProvider>
           <Notification />
         </StoreProvider>
