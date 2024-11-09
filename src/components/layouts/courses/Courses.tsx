@@ -2,7 +2,7 @@ import CoursesHeader from "@/components/ui/CoursesHeader/CoursesHeader";
 import SideBarFilter from "@/components/ui/aside/SideBarFilter";
 import SortBtns from "@/components/ui/button-group/SortBtns";
 import StoreProvider from "@/context/StoreProvider";
-import { CatBodytype, FilterReqType } from "@/types/services/course&category.t";
+import { CatBodytype, CourseBodyType, FilterReqType } from "@/types/services/course&category.t";
 import { MenuBodyType } from "@/types/services/menu.t";
 import ClientLayout from "../ClientLayout/ClientLayout";
 import { CompaignTableData } from "@/types/services/compaign.t";
@@ -11,9 +11,11 @@ function Courses({
   menu,
   allCourses,
   categories,
-  compaignData
+  compaignData,
+  initCourses
 }: {
   menu: MenuBodyType[];
+  initCourses:CourseBodyType[]
   allCourses: FilterReqType;
   categories: CatBodytype[];
   compaignData:CompaignTableData[]
@@ -24,7 +26,7 @@ function Courses({
         <CoursesHeader
           mainTitle="دوره ها"
           qs={false}
-          totalAmount={`${allCourses.totalCourses} عنوان آموزشی`}
+          totalAmount={`${initCourses.length} عنوان آموزشی`}
         />
         <StoreProvider>
           <section

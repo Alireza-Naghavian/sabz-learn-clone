@@ -12,7 +12,7 @@ function BlogList({ latestArticles }: { latestArticles: ArticleTableData[] }) {
   const [page, setPage] = useState(1);
   const [blogs, setBlogs] = useState<ArticleTableData[]>([]);
   const searchParams = useSearchParams();
-  const { data, isLoading } = useGetBlogsDataQuery({ limit: 3, page });
+  const { data, isFetching:isLoading } = useGetBlogsDataQuery({ limit: 4, page });
 
   useEffect(() => {
     if (data?.blogs) {

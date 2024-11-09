@@ -19,6 +19,7 @@ export const metadata: Metadata = {
 async function page() {
   const menus = await dataFetcher("menus", "omit", undefined,1800);
   const allCourses = await dataFetcher("courses", "omit", undefined,10);
+  const initCourses = await dataFetcher("courses/getInit", "omit", undefined,10);
   const categories = await dataFetcher("category", "omit", undefined,1800);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
@@ -27,6 +28,7 @@ async function page() {
 
       <Courses
       compaignData={dataParser(compaignData)}
+      initCourses={dataParser(initCourses)}
         allCourses={dataParser(allCourses)}
         menu={dataParser(menus)}
         categories={dataParser(categories)}

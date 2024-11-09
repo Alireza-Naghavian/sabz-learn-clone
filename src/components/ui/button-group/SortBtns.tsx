@@ -57,7 +57,7 @@ function SortBtns({
   const [isFilterOpen, setIsFilterOpen] = useState(false);
   const [isSortOpen, setIsSortOpen] = useState(false);
 
-  const { data, isLoading } = useFilterCoursesQuery({
+  const { data, isFetching:isLoading } = useFilterCoursesQuery({
     sort: sortParam as string,
     isFree: isFreeParam as string,
     preOrder: preOrderParam as string,
@@ -158,7 +158,7 @@ function SortBtns({
         ) : searchParams.size === 0 && page === 1 ? (
           <ResultLayout allCourses={allCourses} />
         ) : isLoading ? (
-          <Product_Skelton count={12} />
+          <Product_Skelton count={6} />
         ) : (
           <ResultLayout
             allCourses={{ ...data, allCourses: courses } as FilterReqType}

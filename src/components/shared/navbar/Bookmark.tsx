@@ -33,7 +33,7 @@ function Bookmark() {
         </Button>
 
         {/* <!-- When Click Box Showing --> */}
-        <div className="absolute left-0 top-full pt-4 transition-all duration-300 z-50 ">
+        <div className="absolute sm:left-0 -left-4  top-full pt-4 transition-all duration-300 z-50 ">
           <div
             className={
               isMarkOpen
