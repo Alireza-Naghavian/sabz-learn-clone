@@ -11,7 +11,16 @@ export type SessionBodyType = TopicBody & {
   video: File[];
   time: string;
   _id: string;
+  videoUrl:string
+  videoId:string
 };
+export type UpdloadSessionRes = {
+  asset_id:string,
+  display_name:string,
+  duration:number,
+  public_id:string,
+  url:string
+}
 export type TopicDataType = TopicBody & {
   sessions: SessionBodyType[];
 };
