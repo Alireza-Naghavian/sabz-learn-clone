@@ -95,29 +95,20 @@ NEXT_PUBLIC_CLOUDINARY_CLOUD_PRESET= your cloudinary account preset for upload c
 
 ## Screenshots
 
-![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/1c32c262-cb59-45ac-a4f0-9b679cf82158)
 
-![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/3919fac9-a364-49c5-9d83-365295cafbb1)
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/c7db5923-bb21-4ff9-a4c4-3a90704884e2)
 
-<h2>category page</h2>
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/c671346a-7e67-4316-8094-9bc4a06d52fb)
+
   
-![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/b0dce929-17ac-4a52-a75c-de7ded95347d)
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/99ae852d-db67-4a57-834b-d4ea621f8643)
 
 
 
-
-<h2>product page</h2>
-
-![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/9bccf4cd-122c-4c8b-8c42-20d9e0ebf035)
-
-
-
-<h2>user panel</h2>
-
-![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/563ed4b4-7927-4ed0-8050-f48698ab69a7)
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/b8f5e523-56d4-41ff-a11e-4c57d46f1cf5)
 
 
 <h2>admin panel</h2>
 
-![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/d9fb77cc-ce72-42bb-bb79-2a094873e902)
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/8393048a-0121-4fb2-923f-52608718b8b0)
 
