@@ -3,21 +3,14 @@ import Button from "@/components/ui/button/Button";
 import Overlay from "@/components/ui/Overlay/Overlay";
 import SideBarItem from "@/components/ui/SideBarItem/SideBarItem";
 import useDisclosure from "@/hooks/useDisclosure";
+import useLocalBookmarks from "@/hooks/useLocalBookmark";
 import { CourseSessionData } from "@/types/services/sessions&Topics.t";
 import { BookmarkIcon } from "@heroicons/react/24/outline";
-import React, { useEffect, useState } from "react";
 
 function Bookmark() {
   const [isMarkOpen, { close, toggle }] = useDisclosure();
-  const [sessions, setSessions] = useState<CourseSessionData[]>([]);
-  useEffect(() => {
-    const storedSessions = JSON.parse(
-      localStorage.getItem("sessionData") || "[]"
-    );
-    if (storedSessions.length > 1) {
-      setSessions(storedSessions);
-    }
-  }, [setSessions]);
+  const bookmarks = useLocalBookmarks();
+
   return (
     <>
       <Overlay onClose={() => close()} openCondition={isMarkOpen} />
@@ -42,7 +35,7 @@ function Bookmark() {
                 : "hidden"
             }
           >
-            {sessions.length === 0 ? (
+            {bookmarks.length === 0 ? (
               <SideBarItem
                 variant={"hoverMode"}
                 className="text-sm"
@@ -51,7 +44,7 @@ function Bookmark() {
                 target={``}
               />
             ) : (
-              sessions.reverse().map((session) => {
+              bookmarks.map((session:CourseSessionData) => {
                 return (
                   <SideBarItem
                     key={session._id}

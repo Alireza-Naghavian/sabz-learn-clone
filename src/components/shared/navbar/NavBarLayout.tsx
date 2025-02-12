@@ -37,7 +37,10 @@ function NavBarLayout({menu}:{menu:MenuBodyType[]}) {
           <SearchBox />
           </Suspense>
           <ThemeToggler className="!hidden lg:!flex" />
+          <StoreProvider>
+
           <Bookmark />
+          </StoreProvider>
           <StoreProvider>
             <UserDataSection />
           </StoreProvider>

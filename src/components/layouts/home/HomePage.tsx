@@ -167,7 +167,7 @@ function HomePage({
         </div>
       </section>
       {/* most popular swiper  */}
-      <section className="mt-25 xs:mt-40">
+      <section className="mt-25 xs:mt-40 ">
         <CourseSlider
           iconColor="bg-baseColor"
           title="پرطرفدار ترین دوره ها"

@@ -20,7 +20,7 @@ async function page({params}:SessionType) {
       undefined
     );
     return (
-        <main className="max-w-[1920px] mx-auto overflow-x-hidden">
+        <main className="max-w-[1920px] 2xl:max-w-full mx-auto overflow-x-hidden">
         <StoreProvider>
         <Session
         compaignData={dataParser(compaignData)}

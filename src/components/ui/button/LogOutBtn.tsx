@@ -1,11 +1,13 @@
 "use client";
 import { useAlert } from "@/context/AlertProvider";
 import { useGetMeQuery, useLogoutMutation } from "@/services/auth/authApiSlice";
+import { clearBookmarks } from "@/services/slices/bookmarkSlice";
 import { SideBarItemType } from "@/types/navitems.t";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 import { cva } from "class-variance-authority";
 import { useRouter } from "next/navigation";
 import React from "react";
+import { useDispatch } from "react-redux";
 import Loader from "../loader/Loader";
 type LogoutBtnType = Omit<SideBarItemType, "target" | "title"> &
   React.ComponentProps<"button">;
@@ -26,9 +28,13 @@ function LogOutBtn({ Icon, variant, className, ...props }: LogoutBtnType) {
   const { replace } = useRouter();
   const {refetch} = useGetMeQuery();
   const { showAlert } = useAlert();
+  const dispatch = useDispatch();
   const logoutHandler = async () => {
     try {
       const result = await logout().unwrap();
+      // clrear sessions bookmark
+       dispatch(clearBookmarks())
+        window.dispatchEvent(new Event("bookmarksChanged"))
       showAlert("success", result.message);
       await refetch();
       replace("/");
