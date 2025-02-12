@@ -11,7 +11,7 @@ import styles from "./ProductCard.module.css";
 function CourseCard({ children }: ChildrenProps) {
   return (
     <div
-      className={`flex flex-col lg:h-[400px] bg-white dark:bg-darker 
+      className={`flex flex-col lg:h-[400px] 2xl:h-auto bg-white dark:bg-darker 
      border-neutral-100 border dark:border-none  rounded-2xl`}>
       {children}
     </div>

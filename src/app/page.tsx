@@ -28,7 +28,7 @@ export default async function Home() {
   }).slice(0,8);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
-    <main className="max-w-[1920px] mx-auto overflow-x-hidden min-h-screen">
+    <main className="max-w-[1920px] 2xl:max-w-full mx-auto overflow-x-hidden min-h-screen">
       <HomePage
         menu={dataParser(menus)}
         latestCoursesUpdated={dataParser(latestCoursesUpdated)}

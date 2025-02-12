@@ -20,7 +20,7 @@ async function page({params}:CatParams) {
   const categoryName:CourseCatType = await dataFetcher(`courses/category/${params.courseCat}`, "omit", undefined,10);
   const category = categoryName.category
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
- return <main className="max-w-[1920px] mx-auto overflow-x-hidden">
+ return <main className="max-w-[1920px] 2xl:max-w-full mx-auto overflow-x-hidden">
     <CategoryName
     compaignData={dataParser(compaignData)}
      menu={dataParser(menus)}

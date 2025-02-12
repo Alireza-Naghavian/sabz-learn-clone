@@ -23,7 +23,7 @@ async function page() {
   const categories = await dataFetcher("category", "omit", undefined,1800);
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
-    <main className="max-w-[1920px] mx-auto overflow-x-hidden">
+    <main className="max-w-[1920px] 2xl:max-w-full  mx-auto overflow-x-hidden">
       <Suspense>
 
       <Courses
