@@ -1,6 +1,6 @@
 .navBar__header_wrapper {
   @apply flex items-center justify-between mx-auto
-    max-w-def-size h-[84px] md:h-25 px-4 lg:px-12;
+    xs:max-w-def-size xl:max-w-full h-[84px] md:h-25 px-4 lg:px-12 2xl:px-32;
 }
 
 .navBar__Item_Wrapper {

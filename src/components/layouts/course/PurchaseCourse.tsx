@@ -83,7 +83,7 @@ function PurchaseCourse({
 
           <span className="text-slate-500 dark:text-white/70 text-xl line-through">
             {discount !== 0
-              ? price.toLocaleString("fa-IR")
+              ? price?.toLocaleString("fa-IR")
               : isFree && `${price.toLocaleString("fa-IR")}`}
           </span>
 

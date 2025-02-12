@@ -2,6 +2,7 @@
 import PrimaryBtn from "@/components/ui/button/PrimaryBtn";
 import Loader from "@/components/ui/loader/Loader";
 import { useAlert } from "@/context/AlertProvider";
+import { useGetMeQuery } from "@/services/auth/authApiSlice";
 import { useRegisterCourseMutation } from "@/services/courseRegister/RegisterCourseSlice";
 import { TomanIcon } from "@/utils/Icons";
 import { useRouter } from "next/navigation";
@@ -21,9 +22,15 @@ function PaymentData({
   const discountAmount = +(price * discount)/100 ;
   const { handleSubmit } = useForm();
   const [registerCourse, { isLoading }] = useRegisterCourseMutation({});
+  const {data:userData,isLoading:isUserDataLoading} = useGetMeQuery();
+  console.log(userData)
   const { showAlert } = useAlert();
   const router = useRouter();
+
   const PurchaseHanlder = async () => {
+    if(!isUserDataLoading && userData === undefined) {
+   return  showAlert("error", "لطفا ابتدا ثبت نام کنید/وارد شوید");
+    };
     let finalPrice;
     if (discount !== 0) {
       finalPrice = price - discountAmount;

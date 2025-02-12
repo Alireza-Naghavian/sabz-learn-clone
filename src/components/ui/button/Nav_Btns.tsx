@@ -10,8 +10,7 @@ const Nav_Btns = ({nextClass,prevClass}:Nav_BtnsType) => {
 
   return (
     <div
-      className={`absolute  sm:left-[.625rem]
-    sm:mt-0 left-[1rem] mt-[1.75rem] flex justify-center gap-4 top-0`}
+      className={` sm:mt-0  mt-[1.75rem] flex justify-center gap-4 top-0`}
     >
       <Button
         size="lg"

@@ -67,7 +67,7 @@
     }
   }
   .container {
-    @apply xl:max-w-[1280px] sm:px-[.625rem] xl:px-0
+    @apply xl:max-w-[1280px] 2xl:max-w-full sm:px-[.625rem] xl:px-0 2xl:px-32
   }
   .box-center {
     @apply flex justify-center items-center;
