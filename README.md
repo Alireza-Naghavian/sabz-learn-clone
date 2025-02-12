@@ -1,36 +1,114 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Sabz-learn-clone NEXT.JS
 
-## Getting Started
+## See demo on vercel  [click here](https://sabz-learn-clone.vercel.app/)
 
-First, run the development server:
+
+## توضیحات
+این یک کلون کامل از وب سایت سبز لرن با امکانات اضافی است.
+از جلمه امکانات اضافه شده میتوان به موارد زیر اشاره کرد
+
+- PWA with push notification
+- Improve UX with adding bookmark section
+- Use custom search engine of google to suggest relate external blogs & courses
+
+## چالش های شخصی من در این پروژه
+
+- استفاده از همزمان از نکست جی اس و ریداکس کوئری و رندر سمت سرور
+-  اپلود ویدئو جلسات در cloudinary
+- استفاده از یک موتور جستجو سفارشی سازی شده برای جستجو مقالات مرتبط با عنوان جلسه مربوطه 
+- تغییرات فایل بک اند پروژه برای دریافت نتیجه بهتر
+
+
+## Description
+this is an professional clone  from sabz-learn website
+with some extra features
+includes several pages,eg:courses page,single course page,
+category,sorting,filter courses,blogs,JWT authentication,login page,userpanel,
+admin panel and more...
+
+
+## Using
+- Nextjs v.14 app router
+- React
+- Typescript
+- TailwindCss
+- MongoDB
+- Redux toolkit (RTK query)
+- JWT
+
+## Features
+Full-stack education website
+- Allows registered users to register in desire courses, write  courses comments,share their problems with admins , and update their account information.
+- Allows registered users to login with email/password.
+- Allows users to use practical blogs about programming
+
+
+Admin privileges
+
+- Allows creation and update new course, categories and manage all state of product .
+
+- Allows creation and update new blog and manage them .
+
+- Allows to track sales and growth list of website
+
+- It is allowed to create and manage the discount code in terms of the number of times it is used and the percentage of the discount
+- Run new campaign 
+- Enables easy product discovery and sorting based on user preferences.
+
+- Monitoring users ,their comments and tickets (answer comment tickets and chat with users)
+
+
+## Installation
+
+1.Clone or download the repository by running the following command in your terminal:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/Alireza-Naghavian/sabz-learn-clone.git
+```
+2.Install the project dependencies using either npm or yarn:
+
+```bash
+npm install
+```
+or
+```bash
+yarn
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+3.create .env file in the root directory of the project and Define the required environment variables  . The following variables are necessary:
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+    
+```bash
+JWT_SECRET=your jwt secret code
+NEXT_PUBLIC_CKEDITOR=your Ckeditor api
+NEXT_PUBLIC_GOOGLE_API_KEY=a google api key for custom search engine
+NEXT_PUBLIC_SEARCH_ENGINE_ID=a google id  for custom search engine
+NODE_ENV= production || development
+NEXT_PUBLIC_API_URL=your backend local address
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+NEXT_PUBLIC_VAPID_PUBLIC_KEY=your public vapid key for push notification
+NEXT_PUBLIC_CLOUDINARY_CLOUD_NAME=your cloudinary account name for upload video session
+NEXT_PUBLIC_CLOUDINARY_CLOUD_PRESET= your cloudinary account preset for upload config
 
-## Learn More
+```
 
-To learn more about Next.js, take a look at the following resources:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Screenshots
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/c7db5923-bb21-4ff9-a4c4-3a90704884e2)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/c671346a-7e67-4316-8094-9bc4a06d52fb)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+  
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/99ae852d-db67-4a57-834b-d4ea621f8643)
+
+
+
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/b8f5e523-56d4-41ff-a11e-4c57d46f1cf5)
+
+
+<h2>admin panel</h2>
+
+![Screenshot 2024-09-07 104339](https://github.com/user-attachments/assets/8393048a-0121-4fb2-923f-52608718b8b0)
+
