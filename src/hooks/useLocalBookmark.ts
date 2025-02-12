@@ -6,6 +6,7 @@ if(typeof window !=="undefined"){
   const stored = localStorage.getItem("bookmarks");
   return stored ? JSON.parse(stored) : [];
 }
+return []
   });
 
   useEffect(() => {
