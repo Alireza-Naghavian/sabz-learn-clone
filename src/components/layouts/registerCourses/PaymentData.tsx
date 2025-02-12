@@ -23,7 +23,6 @@ function PaymentData({
   const { handleSubmit } = useForm();
   const [registerCourse, { isLoading }] = useRegisterCourseMutation({});
   const {data:userData,isLoading:isUserDataLoading} = useGetMeQuery();
-  console.log(userData)
   const { showAlert } = useAlert();
   const router = useRouter();
 
