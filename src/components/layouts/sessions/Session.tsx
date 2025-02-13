@@ -22,10 +22,7 @@ import Loader from "@/components/ui/loader/Loader";
 import { useAlert } from "@/context/AlertProvider";
 import useDisclosure from "@/hooks/useDisclosure";
 import { useAppDispatch } from "@/hooks/useRedux";
-import {
-  ItemsType,
-  useGetRelateBlogsMutation,
-} from "@/services/deepLearn/RelatedData";
+import {ItemsType,useGetRelateBlogsMutation,} from "@/services/deepLearn/RelatedData";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import EditModal from "../admin/modals/EditModal";
@@ -44,13 +41,13 @@ function Session({ menu, sessionID, compaignData }: SessionPageType) {
   const { showAlert } = useAlert();
   const { data, isLoading } = useGetSessionInfoQuery({ sessionID });
 
-// add bookmark in localstorage
-useEffect(() => {
-  if (!isLoading && data?.session !== undefined ) {
-    dispatch(addBookmark(data.session));
-  }
-}, [data?.session, isLoading, dispatch]);
-// add bookmark in localstorage
+  // add bookmark in localstorage
+  useEffect(() => {
+    if (!isLoading && data?.session !== undefined) {
+      dispatch(addBookmark(data.session));
+    }
+  }, [data?.session, isLoading, dispatch]);
+  // add bookmark in localstorage
 
   const { data: courseData } = useGetCourseQuery({
     shortName: data?.course?.shortName as string,
@@ -62,39 +59,55 @@ useEffect(() => {
     return session._id == data?.session?._id;
   });
   const [searchBlog, { isLoading: isSearching }] = useGetRelateBlogsMutation();
-  // deep learn
   const SearchBlogHandler = async () => {
     try {
+      const primaryQuery = `مقاله OR آموزش OR بررسی کامل درباره "${data?.course.shortName}" 
+      (site:virgool.io OR site:zoomit.ir OR site:sabzlearn.ir 
+      OR site:digikala.com OR site:blog.faradars.org OR site:tabnak.ir
+       OR site:hamshahrionline.ir OR site:aparat.com)`;
+      const foreignQuery = `introduction OR tutorial OR guide OR comprehensive review on
+        "${data?.course.shortName}" (site:medium.com OR site:dev.to OR site:stackoverflow.com 
+        OR site:github.com OR site:docs.microsoft.com OR site:techcrunch.com OR site:wired.com
+         OR site:theverge.com OR site:cnet.com)`;
+      const fallbackQuery = `مقاله یا آموزش درباره "${data?.course.name}" (site:virgool.io 
+         OR site:zoomit.ir OR site:sabzlearn.ir OR site:digikala.com OR site:blog.faradars.org) 
+         OR راهنمای جامع OR نکات کاربردی OR بررسی کامل`;
       const faResult = await searchBlog({
-        query: ` مقاله یا آموزش درباره "${data?.course.shortName}" 
-          (site:virgool.io OR site:zoomit.ir OR site:sabzlearn.ir OR site:digikala.com OR site:blog.faradars.org) 
-          OR راهنمای جامع OR نکات کاربردی OR بررسی کامل`,
+        query: primaryQuery,
       }).unwrap();
       const enResult = await searchBlog({
-        query: `introduction OR tutorial OR guide on "${data?.course.shortName}" 
-          (site:medium.com OR site:stackoverflow.com OR site:github.com OR site:docs.microsoft.com) 
-          OR related research article`,
+        query: foreignQuery,
       }).unwrap();
       const relateCourses = faResult?.items
         ?.filter((course) => {
           return course?.link?.includes("/course");
         })
         .splice(1, 4);
-      const relateBlogs = enResult?.items
+      const relateBlogs = [...faResult.items, ...enResult.items]
         ?.filter((blogs) => {
           return blogs?.title
             ?.toLowerCase()
             ?.includes(data?.course.shortName as string);
         })
-        .splice(0, 4);
+        .splice(0, 6);
+      const fallbacksearch = await searchBlog({
+        query: fallbackQuery,
+      }).unwrap();
+      const fallbackResult = fallbacksearch.items?.filter((blogs) => {
+        return blogs?.title
+          ?.toLowerCase()
+          ?.includes(data?.course.shortName as string);
+      });
       if (relateCourses.length > 0) {
         setRelatedCourses(relateCourses as []);
       }
-      if (relateBlogs.length > 0) {
+      if (!relateBlogs || relateBlogs.length > 0) {
         setRelatedBlogs(relateBlogs as []);
+      } else {
+        setRelatedBlogs(fallbackResult);
       }
     } catch (error) {
-      showAlert("error", "خطای غیر منتظره لطفا بعدا تلاش کنید");
+      showAlert("error", "نتیجه ای برای جستجو یافت نشد");
     }
   };
   return (
@@ -177,7 +190,7 @@ useEffect(() => {
                 <div
                   id="lesson-qaa"
                   className="bg-white dark:bg-darker
-     rounded-2xl p-8  mt-6 lg:mt-8"
+                  rounded-2xl p-8  mt-6 lg:mt-8"
                 >
                   <TitleHeader
                     className="bg-red-500 "
