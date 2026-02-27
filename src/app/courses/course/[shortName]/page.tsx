@@ -8,18 +8,18 @@ import { Metadata } from "next";
 type CourseParams = {
   params: { shortName: string };
 };
-export const generateStaticParams = async () => {
-  const allCourses = await dataFetcher(
-    "courses/getInit",
-    "omit",
-    undefined,
-    10
-  );
-  const params = allCourses.map((course: CourseBodyType) => ({
-    shortName: course.shortName,
-  }));
-  return params;
-};
+// export const generateStaticParams = async () => {
+//   const allCourses = await dataFetcher(
+//     "courses/getInit",
+//     "omit",
+//     undefined,
+//     10
+//   );
+//   const params = allCourses.map((course: CourseBodyType) => ({
+//     shortName: course.shortName,
+//   }));
+//   return params;
+// };
 export const generateMetadata = async ({
   params,
 }: CourseParams): Promise<Metadata> => {
