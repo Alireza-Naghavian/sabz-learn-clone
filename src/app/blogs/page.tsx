@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 async function page() {
   const menus = await dataFetcher("menus", "omit", undefined,1800);
-  const latestArticles = await dataFetcher("articles/getInit","omit",undefined,300)
+  // const latestArticles = await dataFetcher("articles/getInit","omit",undefined,300)
   const compaignData:CompaignTableData[] = await dataFetcher("offs/getLatest","omit",undefined)
   return (
     <main className='max-w-[1920px] 2xl:max-w-full mx-auto overflow-x-hidden '>
