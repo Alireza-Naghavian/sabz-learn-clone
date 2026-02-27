@@ -8,11 +8,11 @@ import React from "react";
 type ParamsType = {
   params:{id:string}
 }
-export const generateStaticParams = async () => {
-  const blogs = await dataFetcher("articles/getInit", "omit", undefined, 900);
-  const params  = blogs.map((blog:ArticleTableData)=>({id:blog?._id}))
-  return params
-};
+// export const generateStaticParams = async () => {
+//   const blogs = await dataFetcher("articles/getInit", "omit", undefined, 900);
+//   const params  = blogs.map((blog:ArticleTableData)=>({id:blog?._id}))
+//   return params
+// };
 export const generateMetadata = async ({
   params,
 }: ParamsType): Promise<Metadata> => {
